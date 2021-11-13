@@ -1,8 +1,8 @@
 import BeerPost from '../../database/models/BeerSchema.js';
 
 export default async (req, res, next) => {
-	console.log(req.body);
 	try {
+		console.log(req.body);
 		const post = new BeerPost(req.body);
 		await post.save();
 		res.send(post);
