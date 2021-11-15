@@ -1,5 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
+
+import cors from 'cors';
 import connectDB from './database/connectDB.js';
 import BeerRoutes from './routes/BeerRoutes.js';
 
@@ -10,7 +12,9 @@ const app = express();
 
 connectDB(MONGO_DB);
 
-app.use(express.json());
+app.use(express.json()); // To parse the incoming requests with JSON payloads
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 //using express router
 app.use('/beer', BeerRoutes);

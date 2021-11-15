@@ -17,6 +17,9 @@ const BeerSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	image: {
+		type: String,
+	},
 });
 
 const BeerPost = mongoose.model('BeerPost', BeerSchema);
