@@ -22,7 +22,7 @@ app.use('/beer', BeerRoutes);
 app.use((err, req, res, next) => {
 	const { status = 500 } = err;
 	if (!err.message) err.message = 'Oh No, Something Went Wrong!';
-	console.log(err);
+
 	res.status(status).send(`${err}`);
 });
 

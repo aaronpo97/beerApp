@@ -11,3 +11,4 @@ Fixed the issue regarding post creation. Was not an issue with json parser, but 
 To fix - make sure it does not send a post request immediately (on initial render) - have it re render whenever a new beer is posted.
 
 To do - UPDATE and DESTROY routes for CRUD.
+`

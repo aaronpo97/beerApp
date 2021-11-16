@@ -1,9 +1,7 @@
-import BeerPost from '../../database/models/BeerSchema.js';
+import BeerPost from '../../database/models/BeerPost.js';
 
 export default async (req, res, next) => {
 	try {
-		console.log(req.body);
-
 		const post = new BeerPost(req.body);
 		await post.save();
 		res.send(post);
@@ -11,7 +9,7 @@ export default async (req, res, next) => {
 		if (error.name === 'ValidationError') {
 			next(new Error(`Mongoose validation error. ${error.message}`));
 		} else {
-			next();
+			next(error);
 		}
 	}
 };

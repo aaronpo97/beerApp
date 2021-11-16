@@ -1,10 +1,14 @@
 import { Form } from 'semantic-ui-react';
 
-const FormField = ({ label, setState }) => {
+const FormField = ({ label, value, setValue }) => {
 	return (
 		<Form.Field>
 			<label>{label}</label>
-			<input placeholder={label} onChange={e => setState(e.target.value)} />
+			<input
+				placeholder={label}
+				onChange={e => setValue(e.target.value)}
+				value={value}
+			/>
 		</Form.Field>
 	);
 };
