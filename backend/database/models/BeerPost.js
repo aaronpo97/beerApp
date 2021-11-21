@@ -8,6 +8,8 @@ const BeerSchema = new Schema({
 	brewery: { type: String, required: true },
 	location: { type: String, required: true },
 	image: { type: String },
+	abv: { type: Number },
+	ibu: { type: Number },
 });
 
 const BeerPost = mongoose.model('BeerPost', BeerSchema);
