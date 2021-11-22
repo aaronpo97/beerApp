@@ -2,9 +2,9 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
 
-export default MONGO_DB => {
+export default MONGO_DB_URI => {
 	mongoose
-		.connect(MONGO_DB, {
+		.connect(MONGO_DB_URI, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 		})

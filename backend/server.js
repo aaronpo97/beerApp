@@ -10,7 +10,7 @@ const { PORT, MONGO_DB } = process.env;
 
 const app = express();
 
-connectDB(MONGO_DB);
+connectDB(MONGO_DB_URI);
 
 app.use(express.json()); // To parse the incoming requests with JSON payloads
 app.use(express.urlencoded({ extended: true }));
