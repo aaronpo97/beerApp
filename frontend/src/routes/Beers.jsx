@@ -1,14 +1,11 @@
 import 'semantic-ui-css/semantic.min.css';
 
-import BeerList from '../BeerList';
-import CreateBeerForm from './CreateBeerForm';
+import BeerList from '../components/BeerList';
 
 import PageHeader from '../components/PageHeader';
 
-import { Container, Grid, Header, Segment, Button } from 'semantic-ui-react';
-
+import { Container, Grid } from 'semantic-ui-react';
 import { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
 
 const Beers = () => {
 	const [beers, setBeers] = useState([]);

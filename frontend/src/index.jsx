@@ -5,14 +5,14 @@ import Home from './routes/Home';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import CreateBeerForm from './routes/CreateBeerForm';
-import BeerInfo from './components/BeerInfo';
+import InfoPage from './routes/InfoPage';
 
 ReactDOM.render(
 	<BrowserRouter>
 		<Routes>
 			<Route path='/' element={<Home />} />
 			<Route path='/beers' element={<Beers />} />
-			<Route path='/beers/:id' element={<BeerInfo />} />
+			<Route path='/beers/:id' element={<InfoPage />} />
 			<Route path='/create' element={<CreateBeerForm />} />
 		</Routes>
 	</BrowserRouter>,
