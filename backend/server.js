@@ -6,7 +6,7 @@ import connectDB from './database/connectDB.js';
 import BeerRoutes from './routes/BeerRoutes.js';
 
 dotenv.config();
-const { PORT, MONGO_DB } = process.env;
+const { PORT, MONGO_DB_URI } = process.env;
 
 const app = express();
 
