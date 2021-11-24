@@ -8,9 +8,6 @@ import { Container, Grid } from 'semantic-ui-react';
 import { useState } from 'react';
 
 const Beers = () => {
-	const [beers, setBeers] = useState([]);
-	const [updateToggle, setUpdateToggle] = useState(false);
-
 	return (
 		<div>
 			<Container>
@@ -18,7 +15,7 @@ const Beers = () => {
 
 				<Grid>
 					<Grid.Column width={16}>
-						<BeerList beers={beers} setBeers={setBeers} updateToggle={updateToggle} setUpdateToggle={setUpdateToggle} />
+						<BeerList />
 					</Grid.Column>
 				</Grid>
 			</Container>

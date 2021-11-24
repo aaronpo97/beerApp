@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Grid, Image, Segment, Header } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-const BeerList = ({ beers, setBeers }) => {
+const BeerList = () => {
+	const [beers, setBeers] = useState([]);
 	useEffect(() => {
 		const getData = async () => {
 			const res = await fetch('http://localhost:5000/beer');

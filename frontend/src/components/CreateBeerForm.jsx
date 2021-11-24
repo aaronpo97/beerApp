@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import FormField from '../FormField';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const BeerForm = ({ beers, setBeers }) => {
+const BeerForm = () => {
 	const [beerInfo, setBeerInfo] = useState(null);
+
 	const [name, setName] = useState('');
 	const [type, setType] = useState('');
 	const [description, setDescription] = useState('');
 	const [brewery, setBrewery] = useState('');
 	const [location, setLocation] = useState('');
 	const [image, setImage] = useState('');
+
+	const navigate = useNavigate();
 
 	const handleSubmit = () => {
 		setBeerInfo({ name, type, description, brewery, location, image });
@@ -23,10 +26,6 @@ const BeerForm = ({ beers, setBeers }) => {
 
 				const url = 'http://localhost:5000/beer';
 				const data = beerInfo;
-				if (!(name && type && brewery && location)) {
-					alert('Make sure you have all the required information.');
-					return;
-				}
 
 				const response = await fetch(url, {
 					method: 'POST',
@@ -34,22 +33,19 @@ const BeerForm = ({ beers, setBeers }) => {
 					body: JSON.stringify(data),
 				});
 
-				setBeers([]);
-				setName('');
-				setType('');
-				setDescription('');
-				setBrewery('');
-				setImage('');
-				setLocation('');
+				const resData = await response.json();
+
+				const { _id: newBeerID } = resData;
+
+				navigate(`/beers/${newBeerID}`);
 			} catch (error) {}
 		};
 
 		createBeerPost();
-	}, [beerInfo]);
+	}, [beerInfo, navigate]);
 
 	return (
 		<Form onSubmit={e => handleSubmit(e)}>
-			<Link to='/'>Home</Link>
 			<FormField label='Name' setValue={setName} value={name} />
 			<FormField label='Brewery' setValue={setBrewery} value={brewery} />
 			<FormField label='Location' setValue={setLocation} value={location} />

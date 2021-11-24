@@ -10,6 +10,8 @@ const PageHeader = ({ currentPage }) => {
 			</Header>
 			<Link to='/beers'>Home</Link>
 			<Link to='/create'>Create</Link>
+			<Link to='/login'>Login</Link>
+			<Link to='/register'>Register</Link>
 		</Segment>
 	);
 };

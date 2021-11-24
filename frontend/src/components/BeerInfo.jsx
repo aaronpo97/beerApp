@@ -1,10 +1,12 @@
 import { Segment, Grid, Header, Button, Image } from 'semantic-ui-react';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 
 const BeerInfo = ({ beerID }) => {
 	//
 	// handle beer deletion
 	const [deletedBeer, setDeletedBeer] = useState(null);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const deleteRequest = async () => {
@@ -19,6 +21,7 @@ const BeerInfo = ({ beerID }) => {
 					body: JSON.stringify(data),
 				});
 				if (response.status !== 200) throw new Error('Unable to delete.');
+				navigate('/beers');
 			} catch (error) {
 				console.log(`Something went wrong: ${error}`);
 			}
