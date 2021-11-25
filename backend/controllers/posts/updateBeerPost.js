@@ -1,18 +1,29 @@
 import BeerPost from '../../database/models/BeerPost.js';
-import ServerError from '../../utilities/ServerError.js';
 
-export default async (req, res, next) => {
+const updateBeerPost = async (req, res, next) => {
 	try {
 		const { id } = req.params;
 		const post = await BeerPost.findById(id);
 
-		BeerPost.findByIdAndUpdate();
+		const updatedBeer = req.body;
 
-		console.log(post);
+		const { name, type, description, brewery, location, image, abv, ibu } = updatedBeer;
+
+		post.name = name;
+		post.type = type;
+		post.description = description;
+		post.brewery = brewery;
+		post.location = location;
+		post.image = image;
+		post.abv = abv;
+		post.ibu = ibu;
+
+		await post.save();
+
+		res.redirect(`/beer/${id}`);
 	} catch (error) {
-		next(
-			new ServerError(`Cannot find a post with the ID: ${req.params.id}`),
-			404
-		);
+		next(error);
 	}
 };
+
+export default updateBeerPost;

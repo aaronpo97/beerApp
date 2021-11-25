@@ -1,35 +1,5 @@
 [
 	{
-		"name": "Jacque Strappe Lager",
-		"type": "Lager",
-		"description": "Jacque Strappe lager is a refreshing light and crisp North American style lager. It is a beer ideal for a bold athlete like Jacque after a game of pond ice hockey. Served ice cold. Crisp, clean and oh so refreshing. ",
-		"brewery": "Toboggan Brewing Company",
-		"location": "London, Ontario, Canada",
-		"image": "https://untappd.akamaized.net/photos/2021_10_19/e16b55caa5a33dffe80a09fdbe3186b1_640x640.jpg",
-		"abv": 4.1,
-		"ibu": 10
-	},
-	{
-		"name": "Blackfriars Bridge Vanilla Stout",
-		"type": "Stout",
-		"description": "Semi-sweet stout infused with Madagascar vanilla beans to give a subtle background of vanilla to its roasted flavor. ",
-		"brewery": "Toboggan Brewing Company",
-		"location": "London, Ontario, Canada",
-		"image": "https://images.squarespace-cdn.com/content/v1/575851c79f726646c94fd641/1471384029272-NEIUUZWG3OXZXI5SMZ8G/Craft+beer+london+ontario+-+stout?format=750w",
-		"abv": 6,
-		"ibu": 35
-	},
-	{
-		"name": "Steam Whistle Pilsner",
-		"type": "Pilsner",
-		"description": "Canada’s Premium Pilsner is the award winning beer from Steam Whistle. With over 20 years of brewing, this quality product proudly stands as Canada’s #1 Craft Beer!",
-		"brewery": "Steam Whistle Brewing Company",
-		"location": "Toronto, Ontario, Canada",
-		"image": "https://steamwhistle.ca/sites/default/files/fb/steam-whistle-pilsner.jpg",
-		"abv": 5,
-		"ibu": 22
-	},
-	{
 		"name": "Tropical Stout",
 		"type": "Stout - American",
 		"description": "Stout made with toasted coconut, Pandan and milk sugar. This stout is milk chocolate and coconut up front with hints of vanilla throughout and finishes with a touch of earthy nuttiness.",
@@ -48,5 +18,35 @@
 		"image": "https://images.ctfassets.net/sz2xpiwl6od9/3qOv29TnD2icgqM82kgGsK/1d3d7561f722e2b12c07c5867d22e224/Pike-XXXXX-extra-stout-web.jpg?w=1200&h=2400&fm=jpg&fit=fill",
 		"abv": 8.2,
 		"ibu": 65
+	},
+	{
+		"name": "Steam Whistle Pilsner",
+		"type": "Pilsner",
+		"description": "Canada’s Premium Pilsner is the award winning beer from Steam Whistle. With over 20 years of brewing, this quality product proudly stands as Canada’s #1 Craft Beer!",
+		"brewery": "Steam Whistle Brewing Company",
+		"location": "Toronto, Ontario, Canada",
+		"image": "https://steamwhistle.ca/sites/default/files/fb/steam-whistle-pilsner.jpg",
+		"abv": 5,
+		"ibu": 22
+	},
+	{
+		"name": "Jacque Strappe Lager",
+		"type": "Lager",
+		"description": "Jacque Strappe lager is a refreshing light and crisp North American style lager. It is a beer ideal for a bold athlete like Jacque after a game of pond ice hockey. Served ice cold. Crisp, clean and oh so refreshing. ",
+		"brewery": "Toboggan Brewing Company",
+		"location": "London, Ontario, Canada",
+		"image": "https://untappd.akamaized.net/photos/2021_10_19/e16b55caa5a33dffe80a09fdbe3186b1_640x640.jpg",
+		"abv": 4.1,
+		"ibu": 10
+	},
+	{
+		"name": "Blackfriars Bridge Vanilla Stout",
+		"type": "Stout",
+		"description": "Semi-sweet stout infused with Madagascar vanilla beans to give a subtle background of vanilla to its roasted flavor. ",
+		"brewery": "Toboggan Brewing Company",
+		"location": "London, Ontario, Canada",
+		"image": "https://images.squarespace-cdn.com/content/v1/575851c79f726646c94fd641/1471384029272-NEIUUZWG3OXZXI5SMZ8G/Craft+beer+london+ontario+-+stout?format=750w",
+		"abv": 6,
+		"ibu": 35
 	}
 ]

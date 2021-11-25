@@ -1,15 +1,18 @@
 import BeerPost from '../../database/models/BeerPost.js';
+import ServerError from '../../utilities/ServerError.js';
 
-export default async (req, res, next) => {
+const createBeerPost = async (req, res, next) => {
 	try {
 		const post = new BeerPost(req.body);
 		await post.save();
-		res.send(post);
+		res.status(201).json(post);
 	} catch (error) {
 		if (error.name === 'ValidationError') {
-			next(new Error(`Mongoose validation error. ${error.message}`));
+			next(new ServerError(`Mongoose validation error. ${error.message}`, 401));
 		} else {
 			next(error);
 		}
 	}
 };
+
+export default createBeerPost;

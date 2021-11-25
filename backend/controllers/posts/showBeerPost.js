@@ -1,12 +1,19 @@
 import BeerPost from '../../database/models/BeerPost.js';
 import ServerError from '../../utilities/ServerError.js';
 
-export default async (req, res, next) => {
+const showBeerPost = async (req, res, next) => {
+	const { id } = req.params;
 	try {
-		const { id } = req.params;
 		const post = await BeerPost.findById(id);
-		res.send(post);
+		if (!post) throw new ServerError('Could not find a post with that id.', 404);
+		res.json(post);
 	} catch (error) {
-		next(new ServerError(`Cannot find a post with the ID: ${req.params.id}`, 404));
+		if ((error.type = 'CastError')) {
+			next(new ServerError(`Could not find a post with the id ${id} as it is not valid. `, 400));
+		}
+
+		next(error);
 	}
 };
+
+export default showBeerPost;

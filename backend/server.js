@@ -1,34 +1,53 @@
 import dotenv from 'dotenv';
 import express from 'express';
-
 import cors from 'cors';
+import session from 'express-session';
+
+import passport from 'passport';
+import PassportLocal from 'passport-local';
+
 import connectDB from './database/connectDB.js';
-import BeerRoutes from './routes/BeerRoutes.js';
-import LoginRoute from './routes/Login.js';
-import RegisterRoute from './routes/Register.js';
+import beerRoutes from './routes/beerRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+
+import seed from './seed.js';
+import User from './database/models/User.js';
 
 dotenv.config();
 const { PORT, MONGO_DB_URI } = process.env;
 
 const app = express();
 
-connectDB(MONGO_DB_URI);
+const initializeDB = async () => {
+	// await seed();
+	await connectDB(MONGO_DB_URI);
+	console.log('Connected to MongoDB.');
+};
+
+initializeDB();
 
 app.use(express.json()); // To parse the incoming requests with JSON payloads
 app.use(express.urlencoded({ extended: true }));
+app.use(session({ secret: 'secret', resave: true, saveUninitialized: true }));
 app.use(cors());
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new PassportLocal.Strategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 //using express router
-app.use('/beer', BeerRoutes);
-app.use('/login', LoginRoute);
-app.use('/register', RegisterRoute);
+app.use('', authRoutes);
+app.use('/beer', beerRoutes);
 
 app.use((err, req, res, next) => {
-	const { status = 500 } = err;
-	if (!err.message) err.message = 'Oh No, Something Went Wrong!';
-	res.status(status).send(`${err}`);
+	const { status = 500, stack = '', message = 'Oh no, something went wrong.' } = err;
+	res.status(status).json({ message, status, success: false });
 });
 
 app.listen(PORT, () => {
-	console.log(`Listening to http://localhost:${PORT}`);
+	console.log(`Connected to http://localhost:${PORT}`);
 });
