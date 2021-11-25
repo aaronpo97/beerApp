@@ -4,7 +4,7 @@ import PageHeader from '../components/PageHeader';
 const Home = () => {
 	return (
 		<Container>
-			<PageHeader />
+			<PageHeader currentPage='home' />
 		</Container>
 	);
 };

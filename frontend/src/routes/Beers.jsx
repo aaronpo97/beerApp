@@ -10,8 +10,8 @@ import { useState } from 'react';
 const Beers = () => {
 	return (
 		<div>
-			<Container>
-				<PageHeader />
+			<Container i>
+				<PageHeader currentPage='beers' />
 
 				<Grid>
 					<Grid.Column width={16}>

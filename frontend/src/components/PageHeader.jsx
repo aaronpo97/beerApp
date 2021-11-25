@@ -1,18 +1,29 @@
-import { Header, Segment } from 'semantic-ui-react';
+import { Header, Segment, Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 const PageHeader = ({ currentPage }) => {
+	console.log(currentPage);
 	return (
-		<Segment style={{ marginTop: '100px' }}>
-			<Header as='h1' size='huge'>
+		<>
+			<Header as='h1' size='huge' style={{ marginTop: '100px' }}>
 				The Beer App
-				<Header.Subheader>by Aaron Po</Header.Subheader>
 			</Header>
-			<Link to='/beers'>Home</Link>
-			<Link to='/create'>Create</Link>
-			<Link to='/login'>Login</Link>
-			<Link to='/register'>Register</Link>
-		</Segment>
+
+			<Menu>
+				<Menu.Item name='Home' active={currentPage === 'beers'}>
+					<Link to='/beers'>Home</Link>
+				</Menu.Item>
+				<Menu.Item name='Create' active={currentPage === 'create'}>
+					<Link to='/create'>Create</Link>
+				</Menu.Item>
+				<Menu.Item name='Login' active={currentPage === 'login'}>
+					<Link to='/login'>Login</Link>
+				</Menu.Item>
+				<Menu.Item name='Register' active={currentPage === 'register'}>
+					<Link to='/register'>Register</Link>
+				</Menu.Item>
+			</Menu>
+		</>
 	);
 };
 

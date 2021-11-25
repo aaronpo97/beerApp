@@ -19,7 +19,7 @@ const BeerList = () => {
 
 	return beers.map(beer => {
 		return (
-			<Segment key={beer._id}>
+			<Segment key={beer._id} id={beer._id}>
 				<Grid>
 					<Grid.Column width={12}>
 						<Header as='h1'>
@@ -28,7 +28,7 @@ const BeerList = () => {
 							<Header.Subheader>{beer.location}</Header.Subheader>
 						</Header>
 					</Grid.Column>
-					<Grid.Column width={4}>{beer.image ? <Image src={beer.image} /> : null}</Grid.Column>
+					<Grid.Column width={4}>{beer.image ? <Image size='medium' src={beer.image} /> : null}</Grid.Column>
 				</Grid>
 			</Segment>
 		);

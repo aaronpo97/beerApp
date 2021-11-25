@@ -5,7 +5,7 @@ import CreateBeerForm from '../components/CreateBeerForm';
 const CreateBeer = () => {
 	return (
 		<Container>
-			<PageHeader />
+			<PageHeader currentPage='create' />
 			<CreateBeerForm />
 		</Container>
 	);

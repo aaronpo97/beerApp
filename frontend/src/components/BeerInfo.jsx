@@ -1,62 +1,10 @@
-import { Segment, Grid, Header, Button, Image } from 'semantic-ui-react';
+import { Segment, Grid, Header, Button, Image, Loader } from 'semantic-ui-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
-const BeerInfo = ({ beerID }) => {
-	//
-	// handle beer deletion
-	const [deletedBeer, setDeletedBeer] = useState(null);
-	const navigate = useNavigate();
-
-	useEffect(() => {
-		const deleteRequest = async () => {
-			try {
-				if (!deletedBeer) return;
-
-				const url = `http://localhost:5000/beer/${deletedBeer._id}`;
-				const data = deletedBeer;
-				const response = await fetch(url, {
-					method: 'DELETE',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify(data),
-				});
-				if (response.status !== 200) throw new Error('Unable to delete.');
-				navigate('/beers');
-			} catch (error) {
-				console.log(`Something went wrong: ${error}`);
-			}
-		};
-
-		deleteRequest();
-	}, [deletedBeer]);
-
-	const handleDelete = beer => {
-		setDeletedBeer(beer);
-	};
-
-	//Get the selected beer data (as per currentBeer)
-
-	const [currentBeer, setCurrentBeer] = useState(undefined);
-
-	useEffect(() => {
-		const getBeerData = async () => {
-			try {
-				const url = `http://localhost:5000/beer/${beerID}`;
-				const response = await fetch(url);
-				if (response.status !== 200) setCurrentBeer(null);
-
-				const data = await response.json();
-				setCurrentBeer(data);
-			} catch (error) {
-				console.error(error);
-			}
-		};
-
-		getBeerData();
-	}, [beerID]);
-
+const BeerInfo = ({ currentBeer, handleDelete, handleEdit }) => {
 	return !currentBeer ? (
-		<div>404 cannot find a beer with that name</div>
+		<Loader active inline='centered' />
 	) : (
 		<Segment>
 			<Grid key={currentBeer._id}>
@@ -76,7 +24,7 @@ const BeerInfo = ({ beerID }) => {
 
 					<p>{currentBeer.description}</p>
 					<Button onClick={() => handleDelete(currentBeer)}>Delete '{currentBeer.name}'</Button>
-					{/* <Button onClick={() => handleEdit(currentBeer)}>Edit '{currentBeer.name}'</Button> */}
+					<Button onClick={() => handleEdit(currentBeer)}>Edit '{currentBeer.name}'</Button>
 				</Grid.Column>
 				<Grid.Column width={4}>{currentBeer.image ? <Image src={currentBeer.image} /> : null}</Grid.Column>
 			</Grid>
