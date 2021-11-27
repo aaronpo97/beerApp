@@ -14,22 +14,23 @@ import seed from './seed.js';
 import User from './database/models/User.js';
 
 dotenv.config();
+
 const { PORT, MONGO_DB_URI } = process.env;
 
 const app = express();
 
 const initializeDB = async () => {
-	// await seed();
+	await seed();
 	await connectDB(MONGO_DB_URI);
 	console.log('Connected to MongoDB.');
 };
 
 initializeDB();
 
+app.use(cors());
 app.use(express.json()); // To parse the incoming requests with JSON payloads
 app.use(express.urlencoded({ extended: true }));
 app.use(session({ secret: 'secret', resave: true, saveUninitialized: true }));
-app.use(cors());
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -45,7 +46,7 @@ app.use('/beer', beerRoutes);
 
 app.use((err, req, res, next) => {
 	const { status = 500, stack = '', message = 'Oh no, something went wrong.' } = err;
-	res.status(status).json({ message, status, success: false });
+	res.status(status).json({ message, status, success: false, stack });
 });
 
 app.listen(PORT, () => {
