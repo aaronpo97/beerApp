@@ -15,7 +15,7 @@ import User from './database/models/User.js';
 
 dotenv.config();
 
-const { PORT, MONGO_DB_URI } = process.env;
+const { PORT, MONGO_DB_URI, SESSION_SECRET } = process.env;
 
 const app = express();
 
@@ -30,7 +30,19 @@ initializeDB();
 app.use(cors());
 app.use(express.json()); // To parse the incoming requests with JSON payloads
 app.use(express.urlencoded({ extended: true }));
-app.use(session({ secret: 'secret', resave: true, saveUninitialized: true }));
+
+const sessionConfig = {
+	secret: SESSION_SECRET,
+	resave: false,
+	saveUninitialized: true,
+	cookie: {
+		httpOnly: true,
+		expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+		maxAge: 1000 * 60 * 60 * 24 * 7,
+	},
+};
+
+app.use(session(sessionConfig));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -46,7 +58,7 @@ app.use('/beer', beerRoutes);
 
 app.use((err, req, res, next) => {
 	const { status = 500, stack = '', message = 'Oh no, something went wrong.' } = err;
-	res.status(status).json({ message, status, success: false, stack });
+	res.status(status).json({ message, status, success: false });
 });
 
 app.listen(PORT, () => {
