@@ -43,7 +43,7 @@ app.use('/beer', beerRoutes);
 app.use('/user', userRoutes);
 
 app.use((err, req, res, next) => {
-	const { status = 500, stack = '', message = 'Oh no, something went wrong.' } = err;
+	const { status = 500, message = 'Oh no, something went wrong.' } = err;
 	res.status(status).json({ message, status });
 });
 
