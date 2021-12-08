@@ -43,8 +43,8 @@ app.use('/beer', beerRoutes);
 app.use('/user', userRoutes);
 
 app.use((err, req, res, next) => {
-	const { status = 500, message = 'Oh no, something went wrong.' } = err;
-	res.status(status).json({ message, status });
+	const { status = 500, message = 'Oh no, something went wrong.', stack } = err;
+	res.status(status).json({ message, status, stack });
 });
 
 app.listen(PORT, () => {

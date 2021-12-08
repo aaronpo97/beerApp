@@ -16,6 +16,11 @@ const userSchema = mongoose.Schema({
 		type: Boolean,
 		required: true,
 	},
+	profile: {
+		about: { type: String },
+		occupation: { type: String },
+		brewingExperience: { type: String },
+	},
 });
 
 userSchema.plugin(passportLocalMongoose);
