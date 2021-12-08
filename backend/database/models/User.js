@@ -12,6 +12,10 @@ const userSchema = mongoose.Schema({
 		required: true,
 		unique: true,
 	},
+	accountConfirmed: {
+		type: Boolean,
+		required: true,
+	},
 });
 
 userSchema.plugin(passportLocalMongoose);

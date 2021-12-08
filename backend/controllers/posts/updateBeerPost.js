@@ -2,6 +2,7 @@ import BeerPost from '../../database/models/BeerPost.js';
 import ServerError from '../../utilities/ServerError.js';
 
 const updateBeerPost = async (req, res, next) => {
+	console.log('updating!');
 	try {
 		const { id } = req.params;
 		const post = await BeerPost.findById(id);

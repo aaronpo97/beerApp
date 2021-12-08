@@ -23,7 +23,7 @@ const seedDB = async () => {
 	const username = 'admin';
 	const password = 'password';
 
-	const createUser = new User({ email, username });
+	const createUser = new User({ email, username, accountConfirmed: true });
 	await User.register(createUser, password);
 };
 

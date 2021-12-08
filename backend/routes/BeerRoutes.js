@@ -6,12 +6,11 @@ import createBeerPost from '../controllers/posts/createBeerPost.js';
 import deleteBeerPost from '../controllers/posts/deleteBeerPost.js';
 import updateBeerPost from '../controllers/posts/updateBeerPost.js';
 
-import isLoggedIn from '../middleware/auth/isLoggedIn.js';
 import validateBeerPost from '../middleware/validation/validateBeerPost.js';
 
 const router = express.Router();
 
-router.route('/').get(getAllPosts).post(isLoggedIn, validateBeerPost, createBeerPost);
+router.route('/').get(getAllPosts).post(validateBeerPost, createBeerPost);
 router.route('/:id').get(showBeerPost).delete(deleteBeerPost).put(updateBeerPost);
 
 export default router;
