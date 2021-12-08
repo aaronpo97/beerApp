@@ -19,12 +19,16 @@ const seedDB = async () => {
 		await post.save();
 	}
 
-	const email = 'admin@beerapp.com';
-	const username = 'admin';
-	const password = 'password';
+	const createAdminUser = new User({ email: 'admin@beerapp.com', username: 'admin', accountConfirmed: true });
+	const createRegularUser = new User({ email: 'user@beerapp.com', username: 'user', accountConfirmed: true });
 
-	const createUser = new User({ email, username, accountConfirmed: true });
-	await User.register(createUser, password);
+	await User.register(createAdminUser, 'password');
+	await User.register(createRegularUser, 'password');
 };
 
-export default seedDB;
+seedDB().then(() => {
+	console.log('\nDevelopment database cleared and repopulated.');
+	console.log('Goodbye.\n');
+
+	process.exit(0);
+});

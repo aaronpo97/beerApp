@@ -9,8 +9,7 @@ const loginUser = async (req, res, next) => {
 	try {
 		const { username } = req.body;
 		const user = await User.findOne({ username });
-		const token = jwt.sign({ username: user.username, id: user._id }, JWT_SECRET);
-
+		const token = jwt.sign({ username: user.username, id: user._id }, JWT_SECRET, { expiresIn: '60m' }, { algorithm: 'RS256' });
 		if (!user) throw new Error();
 
 		res.json({ message: 'User logged in.', success: true, token, id: user._id });

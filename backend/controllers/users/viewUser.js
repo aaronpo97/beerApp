@@ -4,14 +4,23 @@ import ServerError from '../../utilities/ServerError.js';
 const viewUser = async (req, res, next) => {
 	try {
 		const { id } = req.params;
-		const user = await User.findById({ _id: id });
+		const userToView = await User.findById({ _id: id });
 
-		if (!user) throw new ServerError('Cannot find a user with that id.', 401);
+		if (req.user._id.toString() !== userToView._id.toString())
+			throw new ServerError('You are not permitted to do that.', 403);
 
-		res.json({ message: 'ok', status: 200, payload: user });
+		if (!userToView)
+			throw new ServerError('Cannot find a user with that id.', 401);
+
+		res.json({ message: 'ok', status: 200, payload: userToView });
 	} catch (error) {
-		if ((error.type = 'CastError')) {
-			next(new ServerError('Cannot find a user with that id as it is invalid.', 400));
+		if (error.type === 'CastError') {
+			next(
+				new ServerError(
+					'Cannot find a user with that id as it is invalid.',
+					400
+				)
+			);
 		}
 		next(error);
 	}

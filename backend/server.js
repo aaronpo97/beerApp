@@ -11,17 +11,15 @@ import beerRoutes from './routes/beerRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 
-import seed from './seed.js';
 import User from './database/models/User.js';
 
 dotenv.config();
 
-const { PORT, MONGO_DB_URI, SESSION_SECRET } = process.env;
+const { PORT, MONGO_DB_URI } = process.env;
 
 const app = express();
 
 const initializeDB = async () => {
-	// await seed();
 	await connectDB(MONGO_DB_URI);
 	console.log('Connected to MongoDB.');
 };
@@ -46,7 +44,7 @@ app.use('/user', userRoutes);
 
 app.use((err, req, res, next) => {
 	const { status = 500, stack = '', message = 'Oh no, something went wrong.' } = err;
-	res.status(status).json({ message, status, success: false });
+	res.status(status).json({ message, status });
 });
 
 app.listen(PORT, () => {
