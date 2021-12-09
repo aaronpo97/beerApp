@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import passportLocalMongoose from 'passport-local-mongoose';
 
+const calculateMinAge = () => Date.now() - 599_594_400_000;
+
 const userSchema = mongoose.Schema({
 	email: {
 		type: String,
@@ -15,12 +17,29 @@ const userSchema = mongoose.Schema({
 	accountConfirmed: {
 		type: Boolean,
 		required: true,
+		default: false,
+	},
+	dateOfBirth: {
+		type: Date,
+		required: true,
+		max: calculateMinAge(),
+	},
+	createdAt: {
+		type: Date,
+		default: Date.now(),
+		required: true,
 	},
 	profile: {
-		about: { type: String },
-		occupation: { type: String },
-		brewingExperience: { type: String },
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Profile',
+		required: true,
 	},
+	posts: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'BeerPost',
+		},
+	],
 });
 
 userSchema.plugin(passportLocalMongoose);

@@ -1,6 +1,5 @@
 import BeerPost from '../../database/models/BeerPost.js';
 import ServerError from '../../utilities/ServerError.js';
-import Joi from 'joi';
 
 const createBeerPost = async (req, res, next) => {
 	try {
