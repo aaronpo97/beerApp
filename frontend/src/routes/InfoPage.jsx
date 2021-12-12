@@ -18,9 +18,9 @@ const InfoPage = () => {
 			try {
 				const url = `http://localhost:5000/beer/${beerID}`;
 				const response = await fetch(url);
-				if (response.status !== 200) setCurrentBeer(null);
 				const data = await response.json();
-				setCurrentBeer(data);
+
+				setCurrentBeer(response.status === 200 ? data : null);
 			} catch (error) {
 				console.error(error);
 			}
@@ -51,7 +51,6 @@ const InfoPage = () => {
 
 	return (
 		<Container>
-			<PageHeader />
 			<BeerInfo currentBeer={currentBeer} handleDelete={beer => setDeletedBeer(beer)} handleEdit={() => navigate(`edit`)} />
 			<Outlet />
 		</Container>

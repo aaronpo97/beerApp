@@ -1,10 +1,9 @@
-import { Segment, Grid, Header, Button, Image, Loader } from 'semantic-ui-react';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { Segment, Grid, Header, Button, Image } from 'semantic-ui-react';
 
 const BeerInfo = ({ currentBeer, handleDelete, handleEdit }) => {
+	console.log(currentBeer);
 	return !currentBeer ? (
-		<Loader active inline='centered' />
+		<p>Not found.</p>
 	) : (
 		<Segment>
 			<Grid key={currentBeer._id}>
@@ -18,8 +17,8 @@ const BeerInfo = ({ currentBeer, handleDelete, handleEdit }) => {
 					<Header>
 						About
 						<Header.Subheader>Type: {currentBeer.type}</Header.Subheader>
-						{currentBeer.abv ? <Header.Subheader>{currentBeer.abv}% ABV </Header.Subheader> : null}
-						{currentBeer.ibu ? <Header.Subheader>{currentBeer.ibu} IBU </Header.Subheader> : null}
+						<Header.Subheader>{currentBeer.abv}% ABV </Header.Subheader>
+						<Header.Subheader>{currentBeer.ibu} IBU </Header.Subheader>
 					</Header>
 
 					<p>{currentBeer.description}</p>

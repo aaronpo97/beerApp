@@ -62,7 +62,6 @@ const RegisterForm = () => {
 
 const Register = () => (
 	<Container>
-		<PageHeader currentPage='register' />
 		<RegisterForm />
 	</Container>
 );

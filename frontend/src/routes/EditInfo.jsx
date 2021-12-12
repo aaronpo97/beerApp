@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 const EditInfo = () => {
 	return (
 		<Container>
-			<PageHeader />
 			<EditInfoForm />
 		</Container>
 	);

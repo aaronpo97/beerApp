@@ -1,14 +1,17 @@
-import { createRequire } from 'module';
 import dotenv from 'dotenv';
+import { createRequire } from 'module';
+
 import connectDB from './database/connectDB.js';
 import BeerPost from './database/models/BeerPost.js';
 import User from './database/models/User.js';
 import Profile from './database/models/Profile.js';
 import Brewery from './database/models/Brewery.js';
-dotenv.config();
-const { MONGO_DB_URI } = process.env;
+
 const require = createRequire(import.meta.url);
 const data = require('./sampleData.json');
+
+dotenv.config();
+const { MONGO_DB_URI } = process.env;
 
 const postData = async () => {
 	const brewery = new Brewery({
@@ -24,7 +27,7 @@ const postData = async () => {
 		affiliation: brewery,
 	});
 
-	const newUser = new User({
+	const user = new User({
 		email: 'user@beerapp.com',
 		username: 'users',
 		accountConfirmed: true,
@@ -32,19 +35,10 @@ const postData = async () => {
 		dateOfBirth: '2000-04-20',
 	});
 
+	await User.register(user, 'password');
 	brewery.associatedProfiles.push(profile);
 
-	profile.user = newUser;
-
-	const beer = new BeerPost({
-		name: 'Lorem Porter',
-		type: 'Porter',
-		description: 'Lorem ipsum dolor sit amet.',
-		image: 'somesite.net',
-		abv: 8,
-		ibu: 35,
-		brewery,
-	});
+	profile.user = user;
 
 	for (const dataElement of data) {
 		const { name, type, description, image, abv, ibu } = dataElement;
@@ -56,17 +50,17 @@ const postData = async () => {
 			abv,
 			ibu,
 			brewery,
-			author: newUser,
+			author: user,
 		});
+
 		await post.save();
 		brewery.beers.push(post);
-		newUser.posts.push(post);
+		user.posts.push(post);
 	}
 
 	await brewery.save();
-	await beer.save();
 	await profile.save();
-	await User.register(newUser, 'password');
+	await user.save();
 };
 
 const seedDB = async () => {

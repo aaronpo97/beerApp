@@ -9,20 +9,16 @@ const LoginForm = () => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 
-	// const navigate = useNavigate();
+	const navigate = useNavigate();
 	const handleLogin = async () => {
 		const response = await fetch('http://localhost:5000/login', {
 			method: 'POST',
 			headers: { 'Content-type': 'application/json' },
 			body: JSON.stringify({ username, password }),
 		});
-
 		const data = await response.json();
-		console.log(data);
-
 		localStorage.setItem('token', data.token);
-
-		// navigate('/beers');
+		navigate('/beers');
 	};
 
 	return (
@@ -45,6 +41,7 @@ const LoginForm = () => {
 							placeholder='Username'
 							onChange={e => setUsername(e.target.value)}
 							value={username}
+							type='text'
 						/>
 						<Form.Input
 							fluid
@@ -68,7 +65,6 @@ const LoginForm = () => {
 
 const Login = () => (
 	<Container>
-		<PageHeader currentPage='login' />
 		<LoginForm />
 	</Container>
 );

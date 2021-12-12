@@ -9,6 +9,11 @@ const BeerSchema = new Schema({
 	image: { type: String },
 	abv: { type: Number },
 	ibu: { type: Number },
+	author: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'User',
+		required: true,
+	},
 });
 
 const BeerPost = mongoose.model('BeerPost', BeerSchema);

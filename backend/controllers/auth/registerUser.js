@@ -6,7 +6,6 @@ const registerUser = async (req, res, next) => {
 	try {
 		const userToRegister = req.body;
 		const { username, email, password, dateOfBirth } = userToRegister;
-
 		const user = new User({ username, email, dateOfBirth, profile: null });
 		const profile = new Profile({ about: '', occupation: '', user });
 
@@ -17,7 +16,6 @@ const registerUser = async (req, res, next) => {
 		await user.save();
 
 		const newUser = await User.findById(user._id);
-
 		const populatedNewUser = await newUser.populate('profile');
 
 		res.json({
@@ -28,6 +26,7 @@ const registerUser = async (req, res, next) => {
 		});
 	} catch (error) {
 		next(new ServerError(error.message, 400));
+		console.log(error);
 	}
 };
 

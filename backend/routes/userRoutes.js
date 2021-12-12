@@ -6,6 +6,7 @@ import isUserAuthorized from '../middleware/auth/isUserAuthorized.js';
 import verifyJWT from '../middleware/auth/verifyJWT.js';
 
 import deleteUser from '../controllers/users/deleteUser.js';
+import editUser from '../controllers/users/editUser.js';
 
 const router = express.Router();
 
@@ -13,11 +14,6 @@ router
 	.route('/:id')
 	.get(verifyJWT, isUserAuthorized, viewUser)
 	.delete(verifyJWT, isUserAuthorized, deleteUser)
-	.put(verifyJWT, isUserAuthorized, async (req, res, next) => {
-		const userToEdit = req.queriedUser;
-
-		console.log(userToEdit);
-		res.json({ message: 'editing a user' });
-	});
+	.put(verifyJWT, isUserAuthorized, editUser);
 
 export default router;
