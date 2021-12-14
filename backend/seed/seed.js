@@ -1,14 +1,14 @@
 import dotenv from 'dotenv';
 import { createRequire } from 'module';
 
-import connectDB from './database/connectDB.js';
-import BeerPost from './database/models/BeerPost.js';
-import User from './database/models/User.js';
-import Profile from './database/models/Profile.js';
-import Brewery from './database/models/Brewery.js';
+import connectDB from '../database/connectDB.js';
+import BeerPost from '../database/models/BeerPost.js';
+import User from '../database/models/User.js';
+import Profile from '../database/models/Profile.js';
+import Brewery from '../database/models/Brewery.js';
 
 const require = createRequire(import.meta.url);
-const data = require('./sampleData.json');
+const data = require('../sampleData.json');
 
 dotenv.config();
 const { MONGO_DB_URI } = process.env;
@@ -76,6 +76,5 @@ const seedDB = async () => {
 
 seedDB().then(() => {
 	console.log('\nDevelopment database cleared and repopulated.');
-
 	process.exit(0);
 });
