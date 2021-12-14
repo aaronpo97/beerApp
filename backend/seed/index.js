@@ -8,7 +8,7 @@ import Profile from '../database/models/Profile.js';
 import Brewery from '../database/models/Brewery.js';
 
 const require = createRequire(import.meta.url);
-const data = require('../sampleData.json');
+const data = require('./sampleData.json');
 
 dotenv.config();
 const { MONGO_DB_URI } = process.env;
