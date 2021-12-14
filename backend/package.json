@@ -6,6 +6,7 @@
 		"express": "^4.17.1",
 		"express-session": "^1.17.2",
 		"joi": "^17.4.2",
+		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^6.0.13",
 		"passport": "^0.5.0",
 		"passport-local": "^1.0.0",
@@ -31,6 +32,5 @@
 		"url": "https://github.com/aaronpo97/beerApp/issues"
 	},
 	"homepage": "https://github.com/aaronpo97/beerApp#readme",
-	"devDependencies": {},
 	"description": ""
 }

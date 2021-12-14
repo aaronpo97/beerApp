@@ -10,6 +10,7 @@ const brewerySchema = mongoose.Schema({
 		type: String,
 		required: true,
 	},
+
 	beers: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
@@ -22,6 +23,10 @@ const brewerySchema = mongoose.Schema({
 			ref: 'Profile',
 		},
 	],
+	postedBy: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'User',
+	},
 });
 
 const Brewery = mongoose.model('Brewery', brewerySchema);
