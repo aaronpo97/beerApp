@@ -18,6 +18,9 @@ const verifyJWT = async (req, res, next) => {
 		if (error.type === 'JsonWebTokenError') {
 			next(new ServerError('Invalid signature.', 401));
 		}
+		if (error.message === 'jwt expired') {
+			next(new ServerError('Cannot fulfill request as your JWT is expired.', 401));
+		}
 		next(error);
 	}
 };

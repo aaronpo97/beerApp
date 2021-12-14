@@ -30,9 +30,12 @@ const userSchema = mongoose.Schema({
 		required: true,
 	},
 	profile: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Profile',
-		required: true,
+		occupation: { type: String, required: true },
+		about: { type: String, required: true },
+		affiliation: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Brewery',
+		},
 	},
 	posts: [
 		{

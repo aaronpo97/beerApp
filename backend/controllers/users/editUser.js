@@ -3,7 +3,6 @@ import ServerError from '../../utilities/ServerError.js';
 
 const editUser = async (req, res, next) => {
 	const userUpdates = req.body;
-
 	const updatedUser = await User.findByIdAndUpdate(req.queriedUser._id, userUpdates);
 
 	res.json({

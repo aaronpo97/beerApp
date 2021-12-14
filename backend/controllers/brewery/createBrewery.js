@@ -1,4 +1,5 @@
 import ServerError from '../../utilities/ServerError.js';
+import Brewery from '../../database/models/Brewery.js';
 
 const createBrewery = async (req, res, next) => {
 	try {
@@ -7,7 +8,7 @@ const createBrewery = async (req, res, next) => {
 		newBrewery.postedBy = req.currentUser;
 		await newBrewery.save();
 
-		res.json({ message: 'success', payload: newBrewery, status: 200 });
+		res.status(201).json({ message: 'success', payload: newBrewery, status: 200 });
 	} catch (error) {
 		if (error.name === 'ValidationError') {
 			next(new ServerError(`Mongoose validation error. ${error.message}`, 401));

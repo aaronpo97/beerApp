@@ -12,6 +12,8 @@ import breweryRoutes from './routes/breweryRoutes.js';
 
 import User from './database/models/User.js';
 
+import ServerError from './utilities/ServerError.js';
+
 dotenv.config();
 
 const { PORT, MONGO_DB_URI } = process.env;
@@ -37,6 +39,10 @@ app.use(passport.initialize());
 passport.use(new PassportLocal.Strategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+app.get('/teapot', (req, res, next) => {
+	throw new ServerError(`I'm a teapot!`, 418);
+});
 
 // Express router:
 app.use('', authRoutes);

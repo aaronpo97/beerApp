@@ -1,19 +1,11 @@
 import BeerPost from '../../database/models/BeerPost.js';
-import ServerError from '../../utilities/ServerError.js';
 import Brewery from '../../database/models/Brewery.js';
+
+import ServerError from '../../utilities/ServerError.js';
 
 const createBeerPost = async (req, res, next) => {
 	try {
-		const {
-			name,
-			type,
-			description,
-			brewery: breweryID,
-			location,
-			image,
-			abv,
-			ibu,
-		} = req.body;
+		const { name, type, description, brewery: breweryID, location, image, abv, ibu } = req.body;
 
 		const brewery = await Brewery.findById(breweryID);
 		if (!brewery) throw new ServerError('Cannot find a brewery with that id.', 404);
@@ -36,8 +28,13 @@ const createBeerPost = async (req, res, next) => {
 		brewery.beers.push(post);
 		await brewery.save();
 
+		//add the post to the user object
+		req.currentUser.posts.push(post);
+		await req.currentUser.save();
+
 		//send the response
-		res.status(201).json({ message: 'ok', status: 201, payload: post });
+		const status = 201;
+		res.status(status).json({ message: 'ok', status, payload: post });
 	} catch (error) {
 		switch (error.name) {
 			case 'ValidationError':
@@ -46,6 +43,7 @@ const createBeerPost = async (req, res, next) => {
 			case 'CastError':
 				next(new ServerError(`Cannot create beer post. ${error.message}`, 401));
 			default:
+				next(error);
 				break;
 		}
 	}

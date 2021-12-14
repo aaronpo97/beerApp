@@ -8,11 +8,6 @@ const viewUser = async (req, res, next) => {
 		}
 		res.json({ message: 'ok', status: 200, payload: userToView });
 	} catch (error) {
-		if (error.type === 'CastError') {
-			next(
-				new ServerError('Cannot find a user with that id as it is invalid.', 400)
-			);
-		}
 		next(error);
 	}
 };

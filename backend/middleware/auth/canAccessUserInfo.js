@@ -1,7 +1,7 @@
 import ServerError from '../../utilities/ServerError.js';
 import User from '../../database/models/User.js';
 
-const isUserAuthorized = async (req, res, next) => {
+const canAccessUserInfo = async (req, res, next) => {
 	try {
 		const { id } = req.params;
 		req.queriedUser = await User.findById({ _id: id });
@@ -14,8 +14,11 @@ const isUserAuthorized = async (req, res, next) => {
 		}
 		next();
 	} catch (error) {
+		if (error.name === 'CastError') {
+			next(new ServerError('Cannot find a user with that id as it is invalid.', 404));
+		}
 		next(error);
 	}
 };
 
-export default isUserAuthorized;
+export default canAccessUserInfo;

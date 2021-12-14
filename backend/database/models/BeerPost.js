@@ -5,10 +5,10 @@ const BeerSchema = new Schema({
 	name: { type: String, required: true },
 	type: { type: String, required: true },
 	description: { type: String },
-	brewery: { type: mongoose.Schema.Types.ObjectId, ref: 'Brewery' },
 	image: { type: String },
 	abv: { type: Number },
 	ibu: { type: Number },
+	brewery: { type: mongoose.Schema.Types.ObjectId, ref: 'Brewery', required: true },
 	author: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User',

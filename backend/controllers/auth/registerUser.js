@@ -1,32 +1,31 @@
 import User from '../../database/models/User.js';
-import Profile from '../../database/models/Profile.js';
 import ServerError from '../../utilities/ServerError.js';
 
 const registerUser = async (req, res, next) => {
 	try {
 		const userToRegister = req.body;
-		const { username, email, password, dateOfBirth } = userToRegister;
-		const user = new User({ username, email, dateOfBirth, profile: null });
-		const profile = new Profile({ about: '', occupation: '', user });
+		const { username, email, password, dateOfBirth, profile } = userToRegister;
+		const user = new User({
+			username,
+			email,
+			dateOfBirth,
+			profile,
+		});
 
-		user.profile = profile;
-
-		await profile.save();
 		await User.register(user, password);
 		await user.save();
 
 		const newUser = await User.findById(user._id);
-		const populatedNewUser = await newUser.populate('profile');
 
-		res.json({
+		const status = 201;
+		res.status(status).json({
 			message: 'New user created.',
-			status: 201,
+			status,
 			success: true,
-			populatedNewUser,
+			newUser,
 		});
 	} catch (error) {
 		next(new ServerError(error.message, 400));
-		console.log(error);
 	}
 };
 

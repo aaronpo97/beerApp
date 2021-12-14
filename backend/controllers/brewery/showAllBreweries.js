@@ -4,7 +4,7 @@ const showAllBreweries = async (req, res, next) => {
 	try {
 		const allBreweries = await Brewery.find();
 		res.json({
-			message: 'Showing all breweries!',
+			message: 'success',
 			payload: allBreweries,
 			status: 200,
 		});

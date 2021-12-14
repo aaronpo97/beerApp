@@ -6,10 +6,12 @@ const deleteBrewery = async (req, res, next) => {
 		const { id } = req.params;
 		const brewery = await Brewery.findByIdAndDelete(id);
 
-		// console.log(brewery.beers[0]);
+		for (let beerPost of brewery.beers) {
+			await BeerPost.findByIdAndDelete(beerPost.toString());
+		}
 
 		res.json({
-			message: 'success',
+			message: `Successfully deleted brewery: ${brewery.name}`,
 			status: 200,
 			payload: { brewery, deleted: true },
 		});
