@@ -31,11 +31,10 @@ const postData = async () => {
 		email: 'user@beerapp.com',
 		username: 'users',
 		accountConfirmed: true,
-		profile: null,
+		profile: profile,
 		dateOfBirth: '2000-04-20',
 	});
 
-	user.profile = profile;
 	await User.register(user, 'password');
 	brewery.associatedProfiles.push(profile);
 
