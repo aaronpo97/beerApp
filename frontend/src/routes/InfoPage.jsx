@@ -17,10 +17,25 @@ const InfoPage = () => {
 		const getBeerData = async () => {
 			try {
 				const url = `http://localhost:5000/beer/${beerID}`;
-				const response = await fetch(url);
+				const headers = { 'x-access-token': localStorage.token };
+				const response = await fetch(url, { headers });
 				const data = await response.json();
 
-				setCurrentBeer(response.status === 200 ? data : null);
+				const {
+					author,
+					brewery: breweryInfo,
+					description,
+					ibu,
+					image,
+					name: beerName,
+					type,
+					abv,
+				} = data;
+
+				const { name: breweryName } = breweryInfo;
+
+				const beer = { author, breweryName, description, ibu, image, beerName, type, abv };
+				setCurrentBeer(beer);
 			} catch (error) {
 				console.error(error);
 			}
@@ -28,30 +43,13 @@ const InfoPage = () => {
 		getBeerData();
 	}, [beerID]);
 
-	//handle beer deletion
-	useEffect(() => {
-		const deleteRequest = async () => {
-			try {
-				if (!deletedBeer) return;
-				const url = `http://localhost:5000/beer/${deletedBeer._id}`;
-				const data = deletedBeer;
-				const response = await fetch(url, {
-					method: 'DELETE',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify(data),
-				});
-				if (response.status !== 200) throw new Error('Unable to delete.');
-				navigate('/beers');
-			} catch (error) {
-				console.log(`Something went wrong: ${error}`);
-			}
-		};
-		deleteRequest();
-	}, [deletedBeer, navigate]);
-
 	return (
 		<Container>
-			<BeerInfo currentBeer={currentBeer} handleDelete={beer => setDeletedBeer(beer)} handleEdit={() => navigate(`edit`)} />
+			<BeerInfo
+				currentBeer={currentBeer}
+				handleDelete={beer => setDeletedBeer(beer)}
+				handleEdit={() => navigate(`edit`)}
+			/>
 			<Outlet />
 		</Container>
 	);

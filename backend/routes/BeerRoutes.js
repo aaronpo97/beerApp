@@ -12,7 +12,7 @@ import isPostOwner from '../middleware/auth/isPostOwner.js';
 
 const router = express.Router();
 
-router.route('/').get(verifyJWT, getAllPosts).post(verifyJWT, validateBeerPost, createBeerPost);
+router.route('/').get(getAllPosts).post(verifyJWT, validateBeerPost, createBeerPost);
 router
 	.route('/:id')
 	.get(verifyJWT, showBeerPost)

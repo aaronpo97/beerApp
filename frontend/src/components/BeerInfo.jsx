@@ -9,8 +9,8 @@ const BeerInfo = ({ currentBeer, handleDelete, handleEdit }) => {
 			<Grid key={currentBeer._id}>
 				<Grid.Column width={12}>
 					<Header as='h1'>
-						{currentBeer.name}
-						<Header.Subheader>{currentBeer.brewery}</Header.Subheader>
+						{currentBeer.beerName}
+						<Header.Subheader>{currentBeer.breweryName}</Header.Subheader>
 						<Header.Subheader>{currentBeer.location}</Header.Subheader>
 					</Header>
 
@@ -22,10 +22,10 @@ const BeerInfo = ({ currentBeer, handleDelete, handleEdit }) => {
 					</Header>
 
 					<p>{currentBeer.description}</p>
-					<Button onClick={() => handleDelete(currentBeer)}>Delete '{currentBeer.name}'</Button>
-					<Button onClick={() => handleEdit(currentBeer)}>Edit '{currentBeer.name}'</Button>
 				</Grid.Column>
-				<Grid.Column width={4}>{currentBeer.image ? <Image src={currentBeer.image} /> : null}</Grid.Column>
+				<Grid.Column width={4}>
+					{currentBeer.image ? <Image src={currentBeer.image} /> : null}
+				</Grid.Column>
 			</Grid>
 		</Segment>
 	);

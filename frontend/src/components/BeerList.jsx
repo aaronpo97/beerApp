@@ -7,28 +7,32 @@ const BeerList = () => {
 		const getData = async () => {
 			const res = await fetch('http://localhost:5000/beer');
 			const data = await res.json();
-			if (data.length !== beers.length) setBeers(data);
+
+			if (data.length !== beers.length) setBeers(data.payload);
 
 			return;
 		};
 
 		getData();
-	}, [beers, setBeers]);
+	}, []);
 
 	if (!beers.length) return null;
 
 	return beers.map(beer => {
+		console.log(beer);
 		return (
 			<Segment key={beer._id} id={beer._id}>
 				<Grid>
 					<Grid.Column width={12}>
 						<Header as='h1'>
 							<Link to={`${beer._id}`}> {beer.name}</Link>
-							<Header.Subheader>{beer.brewery}</Header.Subheader>
+							<Header.Subheader>{beer.brewery.name}</Header.Subheader>
 							<Header.Subheader>{beer.location}</Header.Subheader>
 						</Header>
 					</Grid.Column>
-					<Grid.Column width={4}>{beer.image ? <Image size='medium' src={beer.image} /> : null}</Grid.Column>
+					<Grid.Column width={4}>
+						{beer.image ? <Image size='medium' src={beer.image} /> : null}
+					</Grid.Column>
 				</Grid>
 			</Segment>
 		);

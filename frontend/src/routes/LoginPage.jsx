@@ -17,6 +17,8 @@ const LoginForm = () => {
 			body: JSON.stringify({ username, password }),
 		});
 		const data = await response.json();
+
+		console.log(data);
 		localStorage.setItem('token', data.token);
 		navigate('/beers');
 	};
