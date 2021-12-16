@@ -9,6 +9,7 @@ import beerRoutes from './routes/beerRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import breweryRoutes from './routes/breweryRoutes.js';
+import imageRoutes from './routes/imageRoutes.js';
 
 import User from './database/models/User.js';
 
@@ -49,6 +50,7 @@ app.use('', authRoutes);
 app.use('/beer', beerRoutes);
 app.use('/user', userRoutes);
 app.use('/breweries', breweryRoutes);
+app.use('/images', imageRoutes);
 
 // Error handling:
 app.use((err, req, res, next) => {

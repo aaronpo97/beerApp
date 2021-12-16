@@ -1,5 +1,7 @@
 import ServerError from '../../utilities/ServerError.js';
 
+//todo - delete associated images, beerposts, and brewery
+
 const deleteUser = async (req, res, next) => {
 	try {
 		if (!req.currentUser) throw new ServerError('Cannot delete user.', 412);

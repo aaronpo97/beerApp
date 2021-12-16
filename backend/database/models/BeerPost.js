@@ -5,7 +5,7 @@ const BeerSchema = new Schema({
 	name: { type: String, required: true },
 	type: { type: String, required: true },
 	description: { type: String },
-	image: { type: String },
+	images: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
 	abv: { type: Number },
 	ibu: { type: Number },
 	brewery: { type: mongoose.Schema.Types.ObjectId, ref: 'Brewery', required: true },
