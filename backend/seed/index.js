@@ -28,10 +28,10 @@ const postData = async () => {
 	};
 
 	const user = new User({
+		profile,
 		email: 'user@beerapp.com',
 		username: 'user',
 		accountConfirmed: true,
-		profile,
 		dateOfBirth: '2000-04-20',
 	});
 
@@ -39,15 +39,15 @@ const postData = async () => {
 	brewery.associatedProfiles.push(user);
 
 	for (const dataElement of data) {
-		const { name, type, description, image, abv, ibu } = dataElement;
+		const { name, type, description, abv, ibu } = dataElement;
 		const post = new BeerPost({
 			name,
 			type,
 			description,
-			image,
 			abv,
 			ibu,
 			brewery,
+			images: [],
 			author: user,
 		});
 
@@ -57,7 +57,6 @@ const postData = async () => {
 	}
 
 	await brewery.save();
-
 	await user.save();
 };
 
