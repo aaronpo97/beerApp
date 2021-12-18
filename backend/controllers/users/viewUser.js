@@ -1,4 +1,4 @@
-import ServerError from '../../utilities/ServerError.js';
+import ServerError from '../../utilities/errors/ServerError.js';
 
 const viewUser = async (req, res, next) => {
 	try {

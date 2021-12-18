@@ -1,5 +1,5 @@
 import BeerPost from '../../database/models/BeerPost.js';
-import ServerError from '../../utilities/ServerError.js';
+import ServerError from '../../utilities/errors/ServerError.js';
 import Brewery from '../../database/models/Brewery.js';
 
 const deleteBeerPost = async (req, res, next) => {

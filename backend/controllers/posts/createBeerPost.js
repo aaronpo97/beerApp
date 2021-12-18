@@ -1,7 +1,7 @@
 import BeerPost from '../../database/models/BeerPost.js';
 import Brewery from '../../database/models/Brewery.js';
 
-import ServerError from '../../utilities/ServerError.js';
+import ServerError from '../../utilities/errors/ServerError.js';
 
 const createBeerPost = async (req, res, next) => {
 	try {

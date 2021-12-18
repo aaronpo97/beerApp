@@ -1,4 +1,4 @@
-import ServerError from '../../utilities/ServerError.js';
+import ServerError from '../../utilities/errors/ServerError.js';
 import Brewery from '../../database/models/Brewery.js';
 
 const createBrewery = async (req, res, next) => {

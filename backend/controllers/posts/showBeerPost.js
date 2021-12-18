@@ -1,5 +1,5 @@
 import BeerPost from '../../database/models/BeerPost.js';
-import ServerError from '../../utilities/ServerError.js';
+import ServerError from '../../utilities/errors/ServerError.js';
 
 const showBeerPost = async (req, res, next) => {
 	const { id } = req.params;

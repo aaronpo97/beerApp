@@ -13,7 +13,7 @@ import imageRoutes from './routes/imageRoutes.js';
 
 import User from './database/models/User.js';
 
-import ServerError from './utilities/ServerError.js';
+import ServerError from './utilities/errors/ServerError.js';
 
 dotenv.config();
 

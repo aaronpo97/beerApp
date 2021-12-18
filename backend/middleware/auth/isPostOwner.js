@@ -1,5 +1,5 @@
 import BeerPost from '../../database/models/BeerPost.js';
-import ServerError from '../../utilities/ServerError.js';
+import ServerError from '../../utilities/errors/ServerError.js';
 import User from '../../database/models/User.js';
 
 const isPostOwner = async (req, res, next) => {

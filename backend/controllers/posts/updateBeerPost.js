@@ -1,5 +1,5 @@
 import BeerPost from '../../database/models/BeerPost.js';
-import ServerError from '../../utilities/ServerError.js';
+import ServerError from '../../utilities/errors/ServerError.js';
 
 const updateBeerPost = async (req, res, next) => {
 	try {
@@ -7,14 +7,10 @@ const updateBeerPost = async (req, res, next) => {
 		const post = await BeerPost.findById(id);
 		const updatedBeer = req.body;
 
-		const { name, type, description, brewery, location, image, abv, ibu } =
-			updatedBeer;
+		const { name, type, description, brewery, location, image, abv, ibu } = updatedBeer;
 
 		if (!post)
-			throw new ServerError(
-				`Could not edit post id:${id} as it cannot be found.`,
-				404
-			);
+			throw new ServerError(`Could not edit post id:${id} as it cannot be found.`, 404);
 
 		post.name = name;
 		post.type = type;

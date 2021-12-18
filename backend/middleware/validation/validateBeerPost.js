@@ -1,4 +1,4 @@
-import ServerError from '../../utilities/ServerError.js';
+import ServerError from '../../utilities/errors/ServerError.js';
 import beerPostValidationSchema from './validationSchemas/beerPostValidationSchema.js';
 
 const validateBeerPost = (req, res, next) => {
