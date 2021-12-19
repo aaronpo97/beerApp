@@ -1,42 +1,65 @@
 import { useEffect, useState } from 'react';
-import { Grid, Image, Segment, Header } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { Card } from '@mui/material';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { ThemeProvider, Grid, CssBaseline } from '@mui/material';
+import theme from '../theme';
+
+import { useNavigate } from 'react-router-dom';
+
 const BeerList = () => {
+	const navigate = useNavigate();
 	const [beers, setBeers] = useState([]);
 	useEffect(() => {
-		const getData = async () => {
-			const res = await fetch('http://localhost:5000/beer');
-			const data = await res.json();
-
-			if (data.length !== beers.length) setBeers(data.payload);
-
-			return;
+		const requestOptions = {
+			method: 'GET',
+			headers: {
+				'x-access-token': localStorage.token,
+			},
 		};
 
-		getData();
+		fetch('http://localhost:5000/beer', requestOptions)
+			.then(response => response.json())
+			.then(result => {
+				setBeers(result.payload);
+			})
+			.catch(error => console.log('error', error));
 	}, []);
 
-	if (!beers.length) return null;
-
-	return beers.map(beer => {
-		console.log(beer);
-		return (
-			<Segment key={beer._id} id={beer._id}>
-				<Grid>
-					<Grid.Column width={12}>
-						<Header as='h1'>
-							<Link to={`${beer._id}`}> {beer.name}</Link>
-							<Header.Subheader>{beer.brewery.name}</Header.Subheader>
-							<Header.Subheader>{beer.location}</Header.Subheader>
-						</Header>
-					</Grid.Column>
-					<Grid.Column width={4}>
-						{beer.image ? <Image size='medium' src={beer.image} /> : null}
-					</Grid.Column>
-				</Grid>
-			</Segment>
-		);
-	});
+	return !beers
+		? null
+		: beers.map(beer => {
+				return (
+					<Card sx={{ marginTop: '1em' }}>
+						<CardMedia
+							component='img'
+							height='400'
+							image='https://res.cloudinary.com/dxie9b7na/image/upload/v1639796820/BeerApp/bsdi8bxgy5mlayjyabld.jpg'
+							alt='green iguana'
+						/>
+						<CardContent>
+							<Typography variant='h4'>{beer.brewery.name}</Typography>
+							<Typography gutterBottom variant='h2' component='div'>
+								{beer.name}
+							</Typography>
+							<Typography variant='body2' color='text.secondary'>
+								{beer.description}
+							</Typography>
+						</CardContent>
+						<CardActions>
+							<Button
+								size='small'
+								onClick={e => navigate(`/beers/${beer._id}`)}>
+								Learn More
+							</Button>
+						</CardActions>
+					</Card>
+				);
+		  });
 };
 
 export default BeerList;

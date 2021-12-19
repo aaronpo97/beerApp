@@ -30,8 +30,8 @@ const userSchema = mongoose.Schema({
 		required: true,
 	},
 	profile: {
-		occupation: { type: String, required: true },
-		about: { type: String, required: true },
+		occupation: { type: String },
+		about: { type: String },
 		affiliation: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Brewery',

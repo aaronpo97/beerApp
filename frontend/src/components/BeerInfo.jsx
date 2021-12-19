@@ -1,33 +1,26 @@
-import { Segment, Grid, Header, Button, Image } from 'semantic-ui-react';
+import { Image } from 'semantic-ui-react';
+
+import { Container, Typography } from '@mui/material';
 
 const BeerInfo = ({ currentBeer, handleDelete, handleEdit }) => {
 	console.log(currentBeer);
 	return !currentBeer ? (
 		<p>Not found.</p>
 	) : (
-		<Segment>
-			<Grid key={currentBeer._id}>
-				<Grid.Column width={12}>
-					<Header as='h1'>
-						{currentBeer.beerName}
-						<Header.Subheader>{currentBeer.breweryName}</Header.Subheader>
-						<Header.Subheader>{currentBeer.location}</Header.Subheader>
-					</Header>
+		<div key={currentBeer._id}>
+			<div width={12}>
+				<Typography variant='h1'>{currentBeer.beerName}</Typography>
+				<p>{currentBeer.breweryName}</p>
+				<p>{currentBeer.location}</p>
 
-					<Header>
-						About
-						<Header.Subheader>Type: {currentBeer.type}</Header.Subheader>
-						<Header.Subheader>{currentBeer.abv}% ABV </Header.Subheader>
-						<Header.Subheader>{currentBeer.ibu} IBU </Header.Subheader>
-					</Header>
+				<p>About</p>
+				<p>Type: {currentBeer.type}</p>
+				<p>{currentBeer.abv}% ABV </p>
+				<p>{currentBeer.ibu} IBU </p>
 
-					<p>{currentBeer.description}</p>
-				</Grid.Column>
-				<Grid.Column width={4}>
-					{currentBeer.image ? <Image src={currentBeer.image} /> : null}
-				</Grid.Column>
-			</Grid>
-		</Segment>
+				<p>{currentBeer.description}</p>
+			</div>
+		</div>
 	);
 };
 

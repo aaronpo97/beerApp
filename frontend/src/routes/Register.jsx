@@ -1,69 +1,19 @@
-import { useState } from 'react';
-import { Button, Container, Form, Grid, Header, Segment } from 'semantic-ui-react';
+import { ThemeProvider, Grid, CssBaseline } from '@mui/material';
+import RegisterForm from '../components/RegisterForm';
+import theme from '../theme';
+import SideImage from '../components/SideImage';
 
-import PageHeader from '../components/PageHeader';
-
-import { useNavigate } from 'react-router';
-
-const RegisterForm = () => {
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
-	const [email, setEmail] = useState('');
-
+const Login = () => {
 	return (
-		<Grid textAlign='center' verticalAlign='middle'>
-			<Grid.Column style={{ maxWidth: 450 }}>
-				<Header as='h2' color='black' textAlign='center'>
-					Register an account!
-				</Header>
-				<Form
-					size='large'
-					onSubmit={e => {
-						e.preventDefault();
-						// handleLogin();
-					}}>
-					<Segment>
-						<Form.Input
-							fluid
-							icon='mail'
-							iconPosition='left'
-							placeholder='email'
-							type='email'
-							onChange={e => setEmail(e.target.value)}
-							value={email}
-						/>
-						<Form.Input
-							fluid
-							icon='user'
-							iconPosition='left'
-							placeholder='username'
-							onChange={e => setUsername(e.target.value)}
-							value={username}
-						/>
-						<Form.Input
-							fluid
-							icon='lock'
-							iconPosition='left'
-							placeholder='password'
-							type='password'
-							onChange={e => setPassword(e.target.value)}
-							value={password}
-						/>
-
-						<Button color='black' fluid size='large'>
-							Register
-						</Button>
-					</Segment>
-				</Form>
-			</Grid.Column>
+		<Grid container component='main' sx={{ height: '100vh' }}>
+			<SideImage
+				imageUrl={
+					'https://images.pexels.com/photos/5659494/pexels-photo-5659494.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
+				}
+			/>
+			<RegisterForm />
 		</Grid>
 	);
 };
 
-const Register = () => (
-	<Container>
-		<RegisterForm />
-	</Container>
-);
-
-export default Register;
+export default Login;

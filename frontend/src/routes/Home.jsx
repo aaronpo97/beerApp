@@ -1,8 +1,11 @@
-import { Container } from 'semantic-ui-react';
-import PageHeader from '../components/PageHeader';
-
+import { ThemeProvider, Grid, CssBaseline } from '@mui/material';
+import theme from '../theme';
 const Home = () => {
-	return <Container></Container>;
+	return (
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
+		</ThemeProvider>
+	);
 };
 
 export default Home;

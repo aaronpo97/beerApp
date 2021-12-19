@@ -1,7 +1,6 @@
 import { useParams, Outlet, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 
-import { Container } from 'semantic-ui-react';
 import BeerInfo from '../components/BeerInfo';
 import PageHeader from '../components/PageHeader';
 
@@ -44,14 +43,14 @@ const InfoPage = () => {
 	}, [beerID]);
 
 	return (
-		<Container>
+		<>
 			<BeerInfo
 				currentBeer={currentBeer}
 				handleDelete={beer => setDeletedBeer(beer)}
 				handleEdit={() => navigate(`edit`)}
 			/>
 			<Outlet />
-		</Container>
+		</>
 	);
 };
 
