@@ -5,7 +5,7 @@ import ServerError from '../../utilities/errors/ServerError.js';
 
 const createBeerPost = async (req, res, next) => {
 	try {
-		const { name, type, description, brewery: breweryID, location, image, abv, ibu } = req.body;
+		const { name, type, description, abv, ibu, images, brewery: breweryID } = req.body;
 
 		const brewery = await Brewery.findById(breweryID);
 		if (!brewery) throw new ServerError('Cannot find a brewery with that id.', 404);
@@ -16,8 +16,7 @@ const createBeerPost = async (req, res, next) => {
 			type,
 			description,
 			brewery,
-			location,
-			image,
+			images,
 			abv,
 			ibu,
 			author: req.currentUser,
@@ -27,10 +26,12 @@ const createBeerPost = async (req, res, next) => {
 		//add the post to the brewery object
 		brewery.beers.push(post);
 		await brewery.save();
+		console.log('successfully saved beer to brewery');
 
 		//add the post to the user object
 		req.currentUser.posts.push(post);
 		await req.currentUser.save();
+		console.log('successfully saved beer to user');
 
 		//send the response
 		const status = 201;

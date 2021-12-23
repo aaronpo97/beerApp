@@ -5,8 +5,7 @@ const beerPostValidationSchema = Joi.object({
 	type: Joi.string().required(),
 	description: Joi.string().max(400).required(),
 	brewery: Joi.string().required(),
-	location: Joi.string().required(),
-	image: Joi.string(),
+	images: Joi.array(),
 	abv: Joi.number().min(0),
 	ibu: Joi.number().min(0),
 });

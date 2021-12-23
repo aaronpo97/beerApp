@@ -54,8 +54,8 @@ app.use('/images', imageRoutes);
 
 // Error handling:
 app.use((err, req, res, next) => {
-	const { status = 500, message = 'Oh no, something went wrong.' } = err;
-	res.status(status).json({ message, status });
+	const { stack, status = 500, message = 'Oh no, something went wrong.' } = err;
+	res.status(status).json({ message, status, stack });
 });
 
 app.listen(PORT, () => {

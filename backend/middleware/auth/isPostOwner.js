@@ -6,14 +6,19 @@ const isPostOwner = async (req, res, next) => {
 	try {
 		const { id } = req.params;
 		const post = await BeerPost.findById(id);
+		console.log(post);
+
 		if (!post) throw new ServerError('Cannot find a post with that id', 404);
 		const author = await User.findById(post.author.toString());
 
-		if (author !== req.currentUser) {
+		if (req.currentUser._id.toString() !== author._id.toString()) {
 			throw new ServerError('You are not authorized to do that.', 403);
 		}
 		next();
 	} catch (error) {
+		if (error.name === 'CastError') {
+			next(new ServerError('Invalid post id.', 400));
+		}
 		next(error);
 	}
 };

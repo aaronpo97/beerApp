@@ -14,11 +14,6 @@ const userSchema = mongoose.Schema({
 		required: true,
 		unique: true,
 	},
-	accountConfirmed: {
-		type: Boolean,
-		required: true,
-		default: false,
-	},
 	dateOfBirth: {
 		type: Date,
 		required: true,
