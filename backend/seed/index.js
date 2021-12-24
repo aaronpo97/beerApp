@@ -6,6 +6,7 @@ import BeerPost from '../database/models/BeerPost.js';
 import User from '../database/models/User.js';
 
 import Brewery from '../database/models/Brewery.js';
+import geocode from '../geocode.js';
 
 const require = createRequire(import.meta.url);
 const data = require('./sampleData.json');
@@ -14,16 +15,21 @@ dotenv.config();
 const { MONGO_DB_URI } = process.env;
 
 const postData = async () => {
+	const locationData = await geocode('powerhouse brewing company london ontario');
+
+	console.log(locationData);
+
 	const brewery = new Brewery({
-		name: 'Lorem Ipsum Brewing Company',
-		location: 'Null Island',
+		name: 'Powerhouse Brewing Company',
+		location: { address: locationData.place_name },
 		beers: [],
 		associatedProfiles: [],
+		description: `Lorem ipsum dolor sit amet consectetur adipisicing elit.`,
 	});
 
 	const profile = {
 		about: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in facilisis libero, eget congue lorem.',
-		occupation: 'Apprentice Brewer',
+		occupation: 'Bartender',
 		affiliation: brewery,
 	};
 

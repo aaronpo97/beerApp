@@ -7,8 +7,11 @@ const brewerySchema = mongoose.Schema({
 		unique: true,
 	},
 	location: {
-		type: String,
-		required: true,
+		address: { type: String, required: true },
+		coordinates: [
+			{ type: Number, required: true },
+			{ type: Number, required: true },
+		],
 	},
 
 	beers: [
@@ -27,6 +30,7 @@ const brewerySchema = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User',
 	},
+	description: { type: String, required: true },
 });
 
 const Brewery = mongoose.model('Brewery', brewerySchema);
