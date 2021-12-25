@@ -6,7 +6,7 @@ import BeerPost from '../database/models/BeerPost.js';
 import User from '../database/models/User.js';
 
 import Brewery from '../database/models/Brewery.js';
-import geocode from '../geocode.js';
+import geocode from '../utilities/geocode/geocode.js';
 
 const require = createRequire(import.meta.url);
 const data = require('./sampleData.json');
@@ -21,7 +21,10 @@ const postData = async () => {
 
 	const brewery = new Brewery({
 		name: 'Powerhouse Brewing Company',
-		location: { address: locationData.place_name },
+		location: {
+			place_name: locationData.place_name,
+			geometry: locationData.geometry,
+		},
 		beers: [],
 		associatedProfiles: [],
 		description: `Lorem ipsum dolor sit amet consectetur adipisicing elit.`,

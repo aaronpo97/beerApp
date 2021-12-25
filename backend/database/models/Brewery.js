@@ -1,36 +1,26 @@
 import mongoose from 'mongoose';
 
 const brewerySchema = mongoose.Schema({
-	name: {
-		type: String,
-		required: true,
-		unique: true,
-	},
-	location: {
-		address: { type: String, required: true },
-		coordinates: [
-			{ type: Number, required: true },
-			{ type: Number, required: true },
-		],
-	},
-
-	beers: [
-		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'BeerPost',
-		},
-	],
-	associatedProfiles: [
-		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Profile',
-		},
-	],
-	postedBy: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User',
-	},
+	name: { type: String, required: true, unique: true },
+	beers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'BeerPost' }],
+	associatedProfiles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Profile' }],
+	images: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
+	postedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 	description: { type: String, required: true },
+	location: {
+		place_name: { type: String, required: true },
+		geometry: {
+			type: {
+				type: String,
+				enum: ['Point'],
+				required: true,
+			},
+			coordinates: {
+				type: [Number],
+				required: true,
+			},
+		},
+	},
 });
 
 const Brewery = mongoose.model('Brewery', brewerySchema);

@@ -2,6 +2,7 @@ import Image from '../../database/models/Image.js';
 import ServerError from '../../utilities/errors/ServerError.js';
 const uploadImages = async (req, res, next) => {
 	try {
+		console.log(req.files);
 		if (!req.files.length) throw new ServerError('No files have been uploaded.', 400);
 
 		let images = [];
