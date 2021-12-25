@@ -12,9 +12,10 @@ const deleteUser = async (req, res, next) => {
 
 		const beerPosts = await BeerPost.find({ author: req.currentUser });
 		const images = await Image.find({ uploadedBy: req.currentUser });
-		const afilliatedBrewery = await Brewery.findById(
-			req.currentUser.profile.affiliation.toString()
-		);
+
+		const afilliatedBrewery = req.currentUser.profile.affiliation
+			? await Brewery.findById(req.currentUser.profile.affiliation.toString())
+			: null;
 
 		for (let post of beerPosts) {
 			await Brewery.findByIdAndUpdate(post.brewery.toString(), {
@@ -30,7 +31,11 @@ const deleteUser = async (req, res, next) => {
 			await image.delete();
 		}
 
-		await afilliatedBrewery.updateOne({ $pull: { associatedProfiles: req.currentUser._id } });
+		if (afilliatedBrewery) {
+			await afilliatedBrewery.updateOne({
+				$pull: { associatedProfiles: req.currentUser._id },
+			});
+		}
 
 		const status = 200;
 
