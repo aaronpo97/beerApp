@@ -5,11 +5,7 @@ const viewBrewery = async (req, res, next) => {
 	try {
 		const { id } = req.params;
 		const brewery = await Brewery.findById(id);
-		res.json({
-			message: `success`,
-			status: 200,
-			payload: brewery,
-		});
+		res.json({ message: `success`, status: 200, payload: brewery });
 	} catch (error) {
 		const { id } = req.params;
 		if (error.name === 'CastError') {

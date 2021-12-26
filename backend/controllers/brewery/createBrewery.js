@@ -1,12 +1,16 @@
 import ServerError from '../../utilities/errors/ServerError.js';
+import geocode from '../../utilities/mapbox/geocode.js';
 import Brewery from '../../database/models/Brewery.js';
-import geocode from '../../utilities/geocode/geocode.js';
 
 const createBrewery = async (req, res, next) => {
 	try {
-		const { name, address, description, images = [] } = req.body;
+		const { name, description, address, images = [] } = req.body;
 
-		const geoData = await geocode(name);
+		if (!(name && description && address)) {
+			throw new ServerError('Name, description and address must be provided.', 401);
+		}
+
+		const geoData = await geocode(address);
 		const { place_name, geometry } = geoData;
 
 		const breweryData = {
@@ -16,9 +20,9 @@ const createBrewery = async (req, res, next) => {
 			location: { place_name, geometry },
 			postedBy: req.currentUser,
 		};
-
-		const brewery = new Brewery(breweryData);
-		res.json({ message: 'created a new brewery', status: 201, payload: brewery });
+		const newBrewery = new Brewery(breweryData);
+		await newBrewery.save();
+		res.status(201).json({ message: 'success', payload: newBrewery, status: 200 });
 	} catch (error) {
 		if (error.name === 'ValidationError') {
 			next(new ServerError(`Mongoose validation error. ${error.message}`, 401));
@@ -27,5 +31,4 @@ const createBrewery = async (req, res, next) => {
 		}
 	}
 };
-
 export default createBrewery;

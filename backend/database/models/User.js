@@ -4,6 +4,11 @@ import passportLocalMongoose from 'passport-local-mongoose';
 const calculateMinAge = () => Date.now() - 599_594_400_000;
 
 const userSchema = mongoose.Schema({
+	isAccountConfirmed: {
+		type: Boolean,
+		required: true,
+		default: false,
+	},
 	email: {
 		type: String,
 		required: true,
