@@ -10,10 +10,6 @@ import updateBrewery from '../controllers/brewery/updateBrewery.js';
 const router = express.Router();
 
 router.route('/').get(verifyJWT, showAllBreweries).post(verifyJWT, createBrewery);
-router
-	.route('/:id')
-	.get(verifyJWT, viewBrewery)
-	.put(verifyJWT, updateBrewery)
-	.delete(verifyJWT, deleteBrewery);
+router.route('/:id').get(verifyJWT, viewBrewery).put(verifyJWT, updateBrewery).delete(verifyJWT, deleteBrewery);
 
 export default router;

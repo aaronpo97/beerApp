@@ -10,12 +10,7 @@ const viewImage = async (req, res, next) => {
 		res.json(image);
 	} catch (error) {
 		if (error.name === 'CastError') {
-			next(
-				new ServerError(
-					`Cannot find an image with the id of '${req.params.id}' as it is invalid.`,
-					404
-				)
-			);
+			next(new ServerError(`Cannot find an image with the id of '${req.params.id}' as it is invalid.`, 404));
 		} else {
 			next(error);
 		}

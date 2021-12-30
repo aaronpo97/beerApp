@@ -9,10 +9,14 @@ import updateBeerPost from '../controllers/posts/updateBeerPost.js';
 import validateBeerPost from '../middleware/validation/validateBeerPost.js';
 import verifyJWT from '../middleware/auth/verifyJWT.js';
 import isPostOwner from '../middleware/auth/isPostOwner.js';
+import checkToken from './checkToken.js';
 
 const router = express.Router();
 
-router.route('/').get(getAllPosts).post(verifyJWT, validateBeerPost, createBeerPost);
+router
+	.route('/')
+	.get(checkToken, verifyJWT, getAllPosts)
+	.post(verifyJWT, validateBeerPost, createBeerPost);
 
 router
 	.route('/:id')

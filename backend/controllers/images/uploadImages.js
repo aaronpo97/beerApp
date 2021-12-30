@@ -7,11 +7,7 @@ const uploadImages = async (req, res, next) => {
 
 		let images = [];
 		for (let file of req.files) {
-			const imageToUpload = new Image({
-				filename: file.filename,
-				url: file.path,
-				uploadedBy: req.currentUser,
-			});
+			const imageToUpload = new Image({ filename: file.filename, url: file.path, uploadedBy: req.currentUser });
 			images.push(imageToUpload);
 			await imageToUpload.save();
 		}

@@ -4,21 +4,21 @@ import User from '../../database/models/User.js';
 
 import dotenv from 'dotenv';
 dotenv.config();
-const { JWT_SECRET } = process.env;
+const { ACCESS_TOKEN_SECRET } = process.env;
 
 const verifyJWT = async (req, res, next) => {
 	try {
-		const token = req.headers['x-access-token'];
-		const decoded = jwt.verify(token, JWT_SECRET);
+		const token = req.accessToken;
+		const decoded = req.decoded || jwt.verify(token, ACCESS_TOKEN_SECRET);
 
-		req.currentUser = await User.findById(decoded.id);
+		req.currentUser = await User.findById(decoded.audience);
 		if (!req.currentUser) throw new ServerError('Unable to authenticate user.', 401);
 		next();
 	} catch (error) {
-		if (error.type === 'JsonWebTokenError') {
+		if (error.name === 'JsonWebTokenError') {
 			next(new ServerError('Invalid signature.', 401));
 		}
-		if (error.message === 'jwt expired') {
+		if (error.name === 'jwt expired') {
 			next(new ServerError('Cannot fulfill request as your JWT is expired.', 401));
 		}
 		next(error);

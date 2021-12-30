@@ -9,7 +9,6 @@ const geocoder = mbxGeocoding({ accessToken });
 
 const geocode = async query => {
 	const geoData = await geocoder.forwardGeocode({ query, limit: 1 }).send();
-
 	return geoData.body.features[0];
 };
 
