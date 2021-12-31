@@ -6,10 +6,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 const { ACCESS_TOKEN_SECRET } = process.env;
 
-const verifyJWT = async (req, res, next) => {
+const verifyAccessToken = async (req, res, next) => {
 	try {
 		const token = req.accessToken;
-		const decoded = req.decoded || jwt.verify(token, ACCESS_TOKEN_SECRET);
+
+		const decoded = !req.decoded ? jwt.verify(token, ACCESS_TOKEN_SECRET) : req.decoded;
 
 		req.currentUser = await User.findById(decoded.audience);
 		if (!req.currentUser) throw new ServerError('Unable to authenticate user.', 401);
@@ -25,4 +26,4 @@ const verifyJWT = async (req, res, next) => {
 	}
 };
 
-export default verifyJWT;
+export default verifyAccessToken;

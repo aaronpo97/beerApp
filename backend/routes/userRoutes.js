@@ -3,7 +3,7 @@ import express from 'express';
 import viewUser from '../controllers/users/viewUser.js';
 
 import canAccessUserInfo from '../middleware/auth/canAccessUserInfo.js';
-import verifyJWT from '../middleware/auth/verifyJWT.js';
+import verifyJWT from '../middleware/auth/verifyAccessToken.js';
 
 import deleteUser from '../controllers/users/deleteUser.js';
 import editUser from '../controllers/users/editUser.js';

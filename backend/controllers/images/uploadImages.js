@@ -2,12 +2,14 @@ import Image from '../../database/models/Image.js';
 import ServerError from '../../utilities/errors/ServerError.js';
 const uploadImages = async (req, res, next) => {
 	try {
-		console.log(req.files);
 		if (!req.files.length) throw new ServerError('No files have been uploaded.', 400);
-
 		let images = [];
 		for (let file of req.files) {
-			const imageToUpload = new Image({ filename: file.filename, url: file.path, uploadedBy: req.currentUser });
+			const imageToUpload = new Image({
+				filename: file.filename,
+				url: file.path,
+				uploadedBy: req.currentUser,
+			});
 			images.push(imageToUpload);
 			await imageToUpload.save();
 		}

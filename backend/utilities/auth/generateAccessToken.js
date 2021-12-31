@@ -1,11 +1,14 @@
-import User from '../database/models/User.js';
 import jwt from 'jsonwebtoken';
-import ServerError from '../utilities/errors/ServerError.js';
+import dotenv from 'dotenv';
 
-const generateAccessToken = async (req, res, next) => {
+import User from '../../database/models/User.js';
+import ServerError from '../errors/ServerError.js';
+
+dotenv.config();
+
+const generateAccessToken = async req => {
 	const { REFRESH_TOKEN_SECRET, ACCESS_TOKEN_SECRET } = process.env;
-
-	const refreshToken = req.headers['x-auth-token'];
+	const refreshToken = req.headers['x-auth-token'] || req.refreshToken;
 
 	try {
 		const decoded = jwt.verify(refreshToken, REFRESH_TOKEN_SECRET);

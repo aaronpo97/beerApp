@@ -8,7 +8,7 @@ import sendConfirmationEmail from '../../utilities/nodemailer/sendConfirmationEm
 const registerUser = async (req, res, next) => {
 	try {
 		const userToRegister = req.body;
-		const { username, email, password, dateOfBirth, profile } = userToRegister;
+		const { username, email, password, dateOfBirth, profile = {} } = userToRegister;
 		const user = new User({ username, email, dateOfBirth, profile });
 
 		await User.register(user, password);

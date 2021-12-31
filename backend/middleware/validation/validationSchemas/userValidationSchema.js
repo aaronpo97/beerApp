@@ -12,7 +12,9 @@ const userValidationSchema = Joi.object({
 	username: Joi.string().required(),
 	dateOfBirth: Joi.date().max(calculateMinAge()).required(),
 	password: Joi.string().min(8).max(32).required(),
-	profile: Joi.object().required(),
+	profile: Joi.object(),
+	firstName: Joi.string(),
+	lastName: Joi.string(),
 });
 
 export default userValidationSchema;

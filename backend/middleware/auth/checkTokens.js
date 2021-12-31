@@ -1,8 +1,8 @@
-import ServerError from '../utilities/errors/ServerError.js';
+import ServerError from '../../utilities/errors/ServerError.js';
 import jwt from 'jsonwebtoken';
-import generateAccessToken from './generateAccessToken.js';
+import generateAccessToken from '../../utilities/auth/generateAccessToken.js';
 
-const checkToken = async (req, res, next) => {
+const checkTokens = async (req, res, next) => {
 	const { ACCESS_TOKEN_SECRET } = process.env;
 
 	const refreshToken = req.headers['x-auth-token'];
@@ -36,4 +36,4 @@ const checkToken = async (req, res, next) => {
 	}
 };
 
-export default checkToken;
+export default checkTokens;

@@ -1,27 +1,25 @@
 import jwt from 'jsonwebtoken';
 import User from '../../database/models/User.js';
 import dotenv from 'dotenv';
+import generateAccessToken from '../../utilities/auth/generateAccessToken.js';
 
 dotenv.config();
 
-const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
+const { REFRESH_TOKEN_SECRET } = process.env;
 
 const loginUser = async (req, res, next) => {
 	try {
 		const { username } = req.body;
 		const user = await User.findOne({ username });
-		const accessToken = jwt.sign(
-			{ audience: user._id, issuer: 'http://localhost:5000/login' },
-			ACCESS_TOKEN_SECRET,
-			{ expiresIn: '1m' },
-			{ algorithm: 'HS256' }
-		);
 		const refreshToken = jwt.sign(
 			{ audience: user._id, issuer: 'http://localhost:5000' },
 			REFRESH_TOKEN_SECRET,
 			{ expiresIn: '43200m' },
 			{ algorithm: 'HS256' }
 		);
+
+		req.refreshToken = refreshToken;
+		const accessToken = await generateAccessToken(req);
 		if (!user) throw new Error();
 
 		const status = 200;

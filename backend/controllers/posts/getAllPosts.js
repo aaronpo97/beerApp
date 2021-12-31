@@ -1,15 +1,31 @@
 import BeerPost from '../../database/models/BeerPost.js';
-import Brewery from '../../database/models/Brewery.js';
+import { populateData } from '../../utilities/data/dataUtil.js';
 
 const getAllPosts = async (req, res) => {
-	const allPosts = await BeerPost.find().populate('brewery');
+	try {
+		const allPosts = !populateData(req.query.populate)
+			? await BeerPost.find()
+			: await BeerPost.find()
+					.populate('brewery')
+					.populate('images')
+					.populate('author');
 
-	res.json({
-		message: 'ok',
-		newAccessToken: req.didTokenRegenerate ? req.accessToken : null,
-		payload: allPosts,
-		status: 200,
-	}).status(200);
+		const status = 200;
+		console.log(
+			allPosts.sort(function (a, b) {
+				return a.name - b.name;
+			})
+		);
+		const resBody = {
+			status,
+			message: 'ok',
+			payload: allPosts,
+		};
+		resBody.newAccessToken = req.didTokenRegenerate ? req.accessToken : undefined;
+		res.json(resBody).status(status);
+	} catch (error) {
+		next(error);
+	}
 };
 
 export default getAllPosts;

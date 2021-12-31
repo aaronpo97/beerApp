@@ -12,8 +12,18 @@ import dotenv from 'dotenv';
 dotenv.config();
 const router = express.Router();
 
-router.route('/login').post(passport.authenticate('local'), loginUser);
-router.route('/register').post(validateRegistration, registerUser);
-router.route('/confirm/:userID/:token').get(confirmUser);
+router
+	.route('/login')
+	.get(() => {
+		throw new ServerError('Not allowed.', 405);
+	})
+	.post(passport.authenticate('local'), loginUser);
+
+router
+	.route('/register')
+	.get(() => {
+		throw new ServerError('Not allowed.', 405);
+	})
+	.post(validateRegistration, registerUser);
 
 export default router;

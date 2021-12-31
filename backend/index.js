@@ -38,7 +38,7 @@ passport.use(new PassportLocal.Strategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.all('/teapot', (req, res, next) => {
+app.all('/teapot', () => {
 	throw new ServerError(`I'm a teapot!`, 418);
 });
 
@@ -51,8 +51,11 @@ app.use('/images', imageRoutes);
 
 // Error handling:
 app.use((err, req, res, next) => {
-	const { stack, status = 500, message = 'Oh no, something went wrong.' } = err;
-	res.status(status).json({ message, status, stack });
+	const { status = 500, message = 'Oh no, something went wrong.' } = err;
+	res.status(status).json({
+		message,
+		status,
+	});
 });
 
 app.listen(PORT, () => {
