@@ -16,11 +16,15 @@ const uploadImages = async (req, res, next) => {
 
 		const status = 201;
 		const fileCount = req.files.length;
-		res.status(status).json({
+
+		const resBody = {
 			status,
 			message: `Uploaded ${fileCount} image${fileCount > 1 ? 's' : ''}`,
 			payload: images,
-		});
+			newAccessToken: req.didTokenRegenerate ? req.accessToken : undefined,
+		};
+
+		res.status(status).json(resBody);
 	} catch (error) {
 		next(error);
 	}

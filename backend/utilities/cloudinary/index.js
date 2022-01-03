@@ -12,10 +12,7 @@ const {
 
 cloudinary.config({ cloud_name, api_key, api_secret });
 
-const storage = new CloudinaryStorage({
-	cloudinary,
-	params: { folder: 'BeerApp', allowedFormats: ['jpg', 'jpeg', 'png'] },
-});
+const storage = new CloudinaryStorage({ cloudinary, params: { folder: 'BeerApp' } });
 
 const config = { cloudinary, storage };
 

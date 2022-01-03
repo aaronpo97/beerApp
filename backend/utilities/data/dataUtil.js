@@ -1,1 +1,1 @@
-export const populateData = populate => populate === 'true';
+export const boolChecker = populate => populate === 'true';

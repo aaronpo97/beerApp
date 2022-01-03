@@ -10,15 +10,8 @@ const brewerySchema = mongoose.Schema({
 	location: {
 		place_name: { type: String, required: true },
 		geometry: {
-			type: {
-				type: String,
-				enum: ['Point'],
-				required: true,
-			},
-			coordinates: {
-				type: [Number],
-				required: true,
-			},
+			type: { type: String, enum: ['Point'], required: true },
+			coordinates: { type: [Number], required: true },
 		},
 	},
 });

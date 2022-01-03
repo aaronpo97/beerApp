@@ -9,7 +9,6 @@ import connectDB from './database/connectDB.js';
 import User from './database/models/User.js';
 
 import beerRoutes from './routes/beerRoutes.js';
-import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import breweryRoutes from './routes/breweryRoutes.js';
 import imageRoutes from './routes/imageRoutes.js';
@@ -43,9 +42,8 @@ app.all('/teapot', () => {
 });
 
 // Express router:
-app.use('', authRoutes);
-app.use('/beer', beerRoutes);
-app.use('/user', userRoutes);
+app.use('/beers', beerRoutes);
+app.use('/users', userRoutes);
 app.use('/breweries', breweryRoutes);
 app.use('/images', imageRoutes);
 

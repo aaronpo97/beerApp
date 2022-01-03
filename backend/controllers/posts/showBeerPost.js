@@ -1,12 +1,12 @@
 import BeerPost from '../../database/models/BeerPost.js';
 import ServerError from '../../utilities/errors/ServerError.js';
-import { populateData } from '../../utilities/data/dataUtil.js';
+import { boolChecker } from '../../utilities/data/dataUtil.js';
 
 const showBeerPost = async (req, res, next) => {
 	const { id } = req.params;
-	const query = req.query;
+	const { query } = req;
 	try {
-		const post = !populateData(query.populate)
+		const post = !boolChecker(query.populate)
 			? await BeerPost.findById(id)
 			: await BeerPost.findById(id)
 					.populate('brewery')

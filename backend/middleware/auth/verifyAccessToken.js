@@ -9,9 +9,9 @@ const { ACCESS_TOKEN_SECRET } = process.env;
 const verifyAccessToken = async (req, res, next) => {
 	try {
 		const token = req.accessToken;
-
-		const decoded = !req.decoded ? jwt.verify(token, ACCESS_TOKEN_SECRET) : req.decoded;
-
+		const decoded = !req.decoded
+			? jwt.verify(token, ACCESS_TOKEN_SECRET)
+			: req.decoded;
 		req.currentUser = await User.findById(decoded.audience);
 		if (!req.currentUser) throw new ServerError('Unable to authenticate user.', 401);
 		next();

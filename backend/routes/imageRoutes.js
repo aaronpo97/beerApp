@@ -22,7 +22,7 @@ router
 	.post(checkTokens, verifyAccessToken, upload.array('files'), uploadImages);
 router
 	.route('/:id')
-	.get(verifyAccessToken, viewImage)
+	.get(checkTokens, verifyAccessToken, viewImage)
 	.delete(verifyAccessToken, deleteImage);
 
 export default router;

@@ -1,9 +1,11 @@
 import BeerPost from '../../database/models/BeerPost.js';
-import { populateData } from '../../utilities/data/dataUtil.js';
+import { boolChecker } from '../../utilities/data/dataUtil.js';
+import sort from '../../utilities/data/sorter.js';
 
-const getAllPosts = async (req, res) => {
+const getAllPosts = async (req, res, next) => {
 	try {
-		const allPosts = !populateData(req.query.populate)
+		const { query } = req;
+		const allPosts = !boolChecker(req.query.populate)
 			? await BeerPost.find()
 			: await BeerPost.find()
 					.populate('brewery')
@@ -11,17 +13,15 @@ const getAllPosts = async (req, res) => {
 					.populate('author');
 
 		const status = 200;
-		console.log(
-			allPosts.sort(function (a, b) {
-				return a.name - b.name;
-			})
-		);
+
+		const payload = sort(allPosts, req.query.sort, req.query.param);
 		const resBody = {
 			status,
+			payload,
+			newAccessToken: req.didTokenRegenerate ? req.accessToken : undefined,
 			message: 'ok',
-			payload: allPosts,
 		};
-		resBody.newAccessToken = req.didTokenRegenerate ? req.accessToken : undefined;
+
 		res.json(resBody).status(status);
 	} catch (error) {
 		next(error);
