@@ -28,7 +28,7 @@ const App = () => {
 					<Route path='/beers/:id' element={<InfoPage />} />
 
 					<Route path='/login' element={<Login />} />
-					<Route path='/logout' element={<>{localStorage.clear()}</>} />
+
 					<Route path='/register' element={<Register />} />
 				</Routes>
 			</ThemeProvider>

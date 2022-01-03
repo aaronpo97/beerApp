@@ -18,11 +18,12 @@ const BeerList = () => {
 		const requestOptions = {
 			method: 'GET',
 			headers: {
-				'x-access-token': localStorage.token,
+				'x-access-token': localStorage['access-token'],
+				'x-auth-token': localStorage['refresh-token'],
 			},
 		};
 
-		fetch('http://localhost:5000/beer', requestOptions)
+		fetch('http://localhost:5000/beers?populate=true', requestOptions)
 			.then(response => response.json())
 			.then(result => {
 				setBeers(result.payload);

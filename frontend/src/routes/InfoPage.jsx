@@ -33,7 +33,16 @@ const InfoPage = () => {
 
 				const { name: breweryName } = breweryInfo;
 
-				const beer = { author, breweryName, description, ibu, image, beerName, type, abv };
+				const beer = {
+					author,
+					breweryName,
+					description,
+					ibu,
+					image,
+					beerName,
+					type,
+					abv,
+				};
 				setCurrentBeer(beer);
 			} catch (error) {
 				console.error(error);
@@ -43,14 +52,11 @@ const InfoPage = () => {
 	}, [beerID]);
 
 	return (
-		<>
-			<BeerInfo
-				currentBeer={currentBeer}
-				handleDelete={beer => setDeletedBeer(beer)}
-				handleEdit={() => navigate(`edit`)}
-			/>
-			<Outlet />
-		</>
+		<BeerInfo
+			currentBeer={currentBeer}
+			handleDelete={beer => setDeletedBeer(beer)}
+			handleEdit={() => navigate(`edit`)}
+		/>
 	);
 };
 

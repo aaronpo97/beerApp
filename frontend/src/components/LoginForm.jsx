@@ -31,7 +31,7 @@ const LoginForm = () => {
 		try {
 			if (!(username && password))
 				throw new AuthenticationError('Missing username or password.');
-			const response = await fetch('http://localhost:5000/login', {
+			const response = await fetch('http://localhost:5000/users/login', {
 				method: 'POST',
 				headers: { 'Content-type': 'application/json' },
 				body: JSON.stringify({ username, password }),
@@ -43,7 +43,9 @@ const LoginForm = () => {
 				throw new AuthenticationError('Invalid credentials.');
 			const data = await response.json();
 
-			localStorage.setItem('token', data.token);
+			localStorage.setItem('access-token', data.accessToken);
+			localStorage.setItem('refresh-token', data.refreshToken);
+
 			navigate('/beers');
 		} catch (error) {
 			console.log(error);
