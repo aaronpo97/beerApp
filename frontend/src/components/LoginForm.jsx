@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
 import Copyright from './Copyright';
-import { ThemeProvider, Grid, CssBaseline } from '@mui/material';
+import { Grid } from '@mui/material';
 
 class AuthenticationError extends Error {
 	constructor(message) {

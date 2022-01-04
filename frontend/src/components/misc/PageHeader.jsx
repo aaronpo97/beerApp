@@ -17,7 +17,7 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-import theme from '../theme';
+import theme from '../../theme';
 import { Navigate } from 'react-router-dom';
 
 const pages = [

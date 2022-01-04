@@ -1,11 +1,9 @@
-import { Image } from 'semantic-ui-react';
+import { Typography, LinearProgress } from '@mui/material';
 
-import { Container, Typography } from '@mui/material';
-
-const BeerInfo = ({ currentBeer, handleDelete, handleEdit }) => {
+const BeerInfo = ({ currentBeer }) => {
 	console.log(currentBeer);
 	return !currentBeer ? (
-		<p>Not found.</p>
+		<LinearProgress />
 	) : (
 		<div key={currentBeer._id}>
 			<div width={12}>

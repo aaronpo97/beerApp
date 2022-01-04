@@ -1,7 +1,7 @@
 import { ThemeProvider, Grid, CssBaseline } from '@mui/material';
 import LoginForm from '../components/LoginForm';
 import theme from '../theme';
-import SideImage from '../components/SideImage';
+import SideImage from '../components/misc/SideImage';
 
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';

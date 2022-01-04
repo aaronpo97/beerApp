@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Beers from './routes/Beers';
+import Beers from './routes/BeerIndex';
 import Home from './routes/Home';
 
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import CreateBeer from './routes/CreateBeer';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import InfoPage from './routes/InfoPage';
-import EditInfo from './routes/EditInfo';
 import Login from './routes/Login';
 
-import PageHeader from './components/PageHeader';
 import Register from './routes/Register';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';

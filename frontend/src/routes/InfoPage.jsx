@@ -1,8 +1,7 @@
-import { useParams, Outlet, useNavigate } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 
 import BeerInfo from '../components/BeerInfo';
-import PageHeader from '../components/PageHeader';
 
 const InfoPage = () => {
 	const { id: beerID } = useParams();
@@ -15,8 +14,11 @@ const InfoPage = () => {
 	useEffect(() => {
 		const getBeerData = async () => {
 			try {
-				const url = `http://localhost:5000/beer/${beerID}`;
-				const headers = { 'x-access-token': localStorage.token };
+				const url = `http://localhost:5000/beers/${beerID}`;
+				const headers = {
+					'x-access-token': localStorage['access-token'],
+					'x-auth-token': localStorage['refresh-token'],
+				};
 				const response = await fetch(url, { headers });
 				const data = await response.json();
 

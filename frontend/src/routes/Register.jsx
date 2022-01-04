@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import RegisterPageOne from '../components/registration/RegisterPageOne';
 import { useState } from 'react';
-import SideImage from '../components/SideImage';
+import SideImage from '../components/misc/SideImage';
 import RegisterPageTwo from '../components/registration/RegisterPageTwo';
 
 const checkUsername = username => {
