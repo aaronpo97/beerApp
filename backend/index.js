@@ -13,7 +13,8 @@ import userRoutes from './routes/userRoutes.js';
 import breweryRoutes from './routes/breweryRoutes.js';
 import imageRoutes from './routes/imageRoutes.js';
 
-dotenv.config();
+// use the environment variables in local .env when not in production (dev)
+if (process.env.NODE_ENV !== 'production') dotenv.config();
 
 const { PORT, MONGO_DB_URI } = process.env;
 
@@ -25,7 +26,7 @@ const initializeDB = async () => {
 };
 
 // Enable cross origin resource sharing (dev only)
-app.use(cors());
+if (process.env.NODE_ENV === 'development') app.use(cors());
 
 // To parse the incoming requests with JSON payloads
 app.use(express.json());
@@ -50,10 +51,7 @@ app.use('/images', imageRoutes);
 // Error handling:
 app.use((err, req, res, next) => {
 	const { status = 500, message = 'Oh no, something went wrong.' } = err;
-	res.status(status).json({
-		message,
-		status,
-	});
+	res.status(status).json({ message, status });
 });
 
 app.listen(PORT, () => {

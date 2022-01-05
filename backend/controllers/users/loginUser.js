@@ -24,13 +24,13 @@ const loginUser = async (req, res, next) => {
 
 		const status = 200;
 		res.json({
-			message: 'User logged in.',
-			success: true,
 			accessToken,
 			refreshToken,
 			status,
-			id: user._id,
-			brewery: user.profile.affiliation,
+			message: 'User logged in.',
+			success: true,
+			// id: user._id,
+			// brewery: user.profile.affiliation,
 		});
 	} catch (err) {
 		console.log(err);

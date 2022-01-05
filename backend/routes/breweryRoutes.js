@@ -14,11 +14,17 @@ const router = express.Router();
 router
 	.route('/')
 	.get(checkTokens, verifyAccessToken, showAllBreweries)
-	.post(checkTokens, verifyAccessToken, createBrewery);
+	.post(checkTokens, verifyAccessToken, createBrewery)
+	.all(() => {
+		throw new ServerError('Not allowed.', 405);
+	});
 router
 	.route('/:id')
 	.get(checkTokens, verifyAccessToken, viewBrewery)
 	.put(checkTokens, verifyAccessToken, updateBrewery)
-	.delete(checkTokens, verifyAccessToken, deleteBrewery);
+	.delete(checkTokens, verifyAccessToken, deleteBrewery)
+	.all(() => {
+		throw new ServerError('Not allowed.', 405);
+	});
 
 export default router;

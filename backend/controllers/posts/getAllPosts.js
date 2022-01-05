@@ -7,10 +7,7 @@ const getAllPosts = async (req, res, next) => {
 		const { query } = req;
 		const allPosts = !boolChecker(req.query.populate)
 			? await BeerPost.find()
-			: await BeerPost.find()
-					.populate('brewery')
-					.populate('images')
-					.populate('author');
+			: await BeerPost.find().populate('brewery').populate('images').populate('author');
 
 		const status = 200;
 

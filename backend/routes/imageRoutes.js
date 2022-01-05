@@ -16,13 +16,16 @@ const router = express.Router();
 
 router
 	.route('/')
-	.get(() => {
+	.post(checkTokens, verifyAccessToken, upload.array('files'), uploadImages)
+	.all(() => {
 		throw new ServerError('Not allowed.', 405);
-	})
-	.post(checkTokens, verifyAccessToken, upload.array('files'), uploadImages);
+	});
 router
 	.route('/:id')
 	.get(checkTokens, verifyAccessToken, viewImage)
-	.delete(verifyAccessToken, deleteImage);
+	.delete(verifyAccessToken, deleteImage)
+	.all(() => {
+		throw new ServerError('Not allowed.', 405);
+	});
 
 export default router;

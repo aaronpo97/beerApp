@@ -13,15 +13,32 @@ import checkTokens from '../middleware/auth/checkTokens.js';
 
 const router = express.Router();
 
+const searchBeerPosts = async (req, res, next) => {
+	res.status(501).send('Not implemented.');
+};
+
 router
 	.route('/')
 	.get(checkTokens, verifyAccessToken, getAllPosts)
-	.post(checkTokens, verifyAccessToken, validateBeerPost, createBeerPost);
+	.post(checkTokens, verifyAccessToken, validateBeerPost, createBeerPost)
+	.all(() => {
+		throw new ServerError('Not allowed.', 405);
+	});
+
+router
+	.route('/search')
+	.get(checkTokens, verifyAccessToken, searchBeerPosts)
+	.all(() => {
+		throw new ServerError('Not allowed.', 405);
+	});
 
 router
 	.route('/:id')
 	.get(checkTokens, verifyAccessToken, showBeerPost)
 	.put(checkTokens, verifyAccessToken, isPostOwner, updateBeerPost)
-	.delete(checkTokens, verifyAccessToken, isPostOwner, deleteBeerPost);
+	.delete(checkTokens, verifyAccessToken, isPostOwner, deleteBeerPost)
+	.all(() => {
+		throw new ServerError('Not allowed.', 405);
+	});
 
 export default router;

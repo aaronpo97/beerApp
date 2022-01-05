@@ -17,30 +17,38 @@ import validateRegistration from '../middleware/validation/validateRegistration.
 
 import passport from 'passport';
 import dotenv from 'dotenv';
+import ServerError from '../utilities/errors/ServerError.js';
 
 dotenv.config();
 const router = express.Router();
 
 router
 	.route('/login')
-	.get(() => {
+	.post(passport.authenticate('local'), loginUser)
+	.all(() => {
 		throw new ServerError('Not allowed.', 405);
-	})
-	.post(passport.authenticate('local'), loginUser);
+	});
 
 router
 	.route('/register')
-	.get(() => {
+	.post(validateRegistration, registerUser)
+	.all(() => {
 		throw new ServerError('Not allowed.', 405);
-	})
-	.post(validateRegistration, registerUser);
+	});
 
 router
 	.route('/:id')
 	.get(checkTokens, verifyAccessToken, canAccessUserInfo, viewUser)
 	.delete(checkTokens, verifyAccessToken, canAccessUserInfo, deleteUser)
 	.put(checkTokens, verifyAccessToken, canAccessUserInfo, editUser)
-	.post(() => {
+	.all(() => {
+		throw new ServerError('Not allowed.', 405);
+	});
+
+router
+	.route('/confirm/:userID/:token')
+	.put(confirmUser)
+	.all(() => {
 		throw new ServerError('Not allowed.', 405);
 	});
 

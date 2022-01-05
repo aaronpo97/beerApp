@@ -18,17 +18,17 @@ const {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const sendEmail = async (email, userObj, token) => {
+const sendEmail = async (email, userObj, confirmationToken) => {
 	try {
 		const transporter = nodemailer.createTransport({
 			service: 'gmail',
 			auth: { user, pass, clientId, clientSecret, refreshToken, type: 'OAuth2' },
 		});
-
-		const confirmationCode = token;
-		const data = await ejs.renderFile(__dirname + '/confirmationEmail.ejs', { userObj, confirmationCode });
+		const data = await ejs.renderFile(__dirname + '/confirmationEmail.ejs', {
+			userObj,
+			confirmationToken,
+		});
 		const mailOptions = { subject: 'Welcome!', html: data, from: user, to: email };
-
 		await transporter.sendMail(mailOptions);
 	} catch (error) {
 		return Promise.reject(error);

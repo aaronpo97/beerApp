@@ -5,15 +5,7 @@ import ServerError from '../../utilities/errors/ServerError.js';
 
 const createBeerPost = async (req, res, next) => {
 	try {
-		const {
-			name,
-			type,
-			description,
-			abv,
-			ibu,
-			images,
-			brewery: breweryID,
-		} = req.body;
+		const { name, type, description, abv, ibu, images, brewery: breweryID } = req.body;
 
 		const brewery = await Brewery.findById(breweryID);
 		if (!brewery) throw new ServerError('Cannot find a brewery with that id.', 404);

@@ -6,7 +6,11 @@ const deleteBeerPost = async (req, res, next) => {
 	try {
 		const { id } = req.params;
 		const post = await BeerPost.findById(id);
-		if (!post) throw new ServerError(`Cannot delete a post with the id: ${id} as it could not be found.`, 404);
+		if (!post)
+			throw new ServerError(
+				`Cannot delete a post with the id: ${id} as it could not be found.`,
+				404
+			);
 		await deletePost(post);
 		res.json({ message: `Deleted a post with the id ${id}.`, success: true });
 	} catch (error) {
