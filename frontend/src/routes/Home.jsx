@@ -4,6 +4,7 @@ const Home = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
+			the biergarten app
 		</ThemeProvider>
 	);
 };
