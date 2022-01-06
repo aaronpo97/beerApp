@@ -9,12 +9,14 @@ import viewBrewery from '../controllers/brewery/viewBrewery.js';
 import deleteBrewery from '../controllers/brewery/deleteBrewery.js';
 import updateBrewery from '../controllers/brewery/updateBrewery.js';
 
+import validateBrewery from '../middleware/validation/validateBrewery.js';
+
 const router = express.Router();
 
 router
 	.route('/')
 	.get(checkTokens, verifyAccessToken, showAllBreweries)
-	.post(checkTokens, verifyAccessToken, createBrewery)
+	.post(checkTokens, verifyAccessToken, validateBrewery, createBrewery)
 	.all(() => {
 		throw new ServerError('Not allowed.', 405);
 	});

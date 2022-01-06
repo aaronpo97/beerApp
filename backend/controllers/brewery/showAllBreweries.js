@@ -6,7 +6,7 @@ const showAllBreweries = async (req, res, next) => {
 	try {
 		const allBreweries = !boolChecker(req.query.populate)
 			? await Brewery.find()
-			: await Brewery.find().populate('beers').populate('postedBy');
+			: await Brewery.find().populate('beers').populate('postedBy').populate('headerImage');
 
 		const status = 200;
 
