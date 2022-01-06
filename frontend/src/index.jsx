@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 
 import theme from './theme';
 import { CssBaseline, ThemeProvider, AppBar, Box, Toolbar, IconButton, Typography, Button } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import UserIcon from '@mui/icons-material/Menu';
 
 import BeerInfoPage from './routes/BeerInfoPage';
 import BeerIndex from './routes/BeerIndex';
@@ -16,20 +16,23 @@ import BreweryIndex from './routes/BreweryIndex';
 import BreweryInfoPage from './routes/BreweryInfoPage';
 
 const App = () => {
+	// const navigate = useNavigate();
 	return (
 		<BrowserRouter>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 				<Box sx={{ flexGrow: 1 }}>
-					<AppBar position='static'>
+					<AppBar position='sticky'>
 						<Toolbar>
 							<IconButton size='large' edge='start' color='inherit' aria-label='menu' sx={{ mr: 2 }}>
-								<MenuIcon />
+								<UserIcon />
 							</IconButton>
 							<Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
 								the biergarten app
 							</Typography>
-							<Button color='inherit'>Login</Button>
+							<Button color='inherit'>Beers</Button>
+							<Button color='inherit'>Breweries</Button>
+							<Button color='inherit'>Home</Button>
 						</Toolbar>
 					</AppBar>
 				</Box>

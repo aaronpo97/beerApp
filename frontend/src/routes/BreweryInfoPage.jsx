@@ -1,41 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Container, Link, LinearProgress } from '@mui/material';
+import { Container, Box } from '@mui/material';
 
-import { useNavigate } from 'react-router-dom';
-
-const BreweryInfo = ({ breweryData }) => {
-	const navigate = useNavigate();
-	return !breweryData ? (
-		<LinearProgress />
-	) : (
-		<div>
-			<h1>{breweryData.name}</h1>
-			<h2>{breweryData.location.place_name}</h2>
-			<h3>About</h3>
-			<p>{breweryData.description}</p>
-			<h3>Beers</h3>
-			{breweryData.beers.map(beer => {
-				return (
-					<div key={beer._id}>
-						<Link underline='hover' onClick={() => navigate(`/beers/${beer._id}`)}>
-							<h4>{beer.name}</h4>
-						</Link>
-
-						<p>{beer.abv}% ABV</p>
-						<p>{beer.ibu} IBU</p>
-						<p>Type: {beer.type}</p>
-					</div>
-				);
-			})}
-		</div>
-	);
-};
+import BreweryInfo from '../components/breweryIndex/BreweryInfo';
 
 const BreweryInfoPage = () => {
 	const { id } = useParams();
-
 	const [breweryData, setBreweryData] = useState(null);
 
 	useEffect(() => {
@@ -48,6 +19,7 @@ const BreweryInfoPage = () => {
 				};
 				const response = await fetch(url, { headers });
 				const data = await response.json();
+				console.log(data);
 
 				setBreweryData(data.payload);
 			} catch (error) {
@@ -58,9 +30,19 @@ const BreweryInfoPage = () => {
 	}, []);
 
 	return (
-		<Container maxWidth={'xl'}>
-			<BreweryInfo breweryData={breweryData} />
-		</Container>
+		<Box>
+			<Box>
+				<img
+					style={{ height: '40em', width: '100%', objectFit: 'cover' }}
+					src={
+						'https://images.squarespace-cdn.com/content/v1/58d1e3e66a4963c19a0ab3d5/1580226516577-XUJNTGU4GVSB3X5YK6TQ/BREWSYSTEM_SJ.jpg?format=2500w'
+					}
+				/>
+			</Box>
+			<Container maxWidth={'xl'}>
+				<BreweryInfo breweryData={breweryData} />
+			</Container>
+		</Box>
 	);
 };
 
