@@ -3,7 +3,9 @@ import dotenv from 'dotenv';
 import express from 'express';
 import passport from 'passport';
 import PassportLocal from 'passport-local';
+
 import ServerError from './utilities/errors/ServerError.js';
+import { ErrorResponse } from './utilities/response/responses.js';
 
 import connectDB from './database/connectDB.js';
 import User from './database/models/User.js';
@@ -50,8 +52,8 @@ app.use('/images', imageRoutes);
 
 // Error handling:
 app.use((err, req, res, next) => {
-	const { status = 500, message = 'Oh no, something went wrong.' } = err;
-	res.status(status).json({ message, status });
+	const { status = 500, message = 'Oh no, something went wrong.', stack } = err;
+	res.status(status).json(new ErrorResponse(message, status, process.NODE_ENV !== 'production' ? stack : undefined));
 });
 
 app.listen(PORT, () => {

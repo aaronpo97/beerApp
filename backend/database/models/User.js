@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import passportLocalMongoose from 'passport-local-mongoose';
+import ms from 'ms';
 
 const userSchema = mongoose.Schema({
 	isAccountConfirmed: { type: Boolean, required: true, default: false },
@@ -8,7 +9,7 @@ const userSchema = mongoose.Schema({
 	dateOfBirth: {
 		type: Date,
 		required: true,
-		max: Date.now() - 599_594_400_000, //current day in unix time subtracted by 19 years in unix
+		max: Date.now() - ms('19 years'),
 	},
 	createdAt: { type: Date, default: Date.now(), required: true },
 	profile: {
@@ -16,6 +17,8 @@ const userSchema = mongoose.Schema({
 		about: { type: String },
 		affiliation: { type: mongoose.Schema.Types.ObjectId, ref: 'Brewery' },
 	},
+	firstName: { type: String },
+	lastName: { type: String },
 	posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'BeerPost' }],
 });
 

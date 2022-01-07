@@ -1,5 +1,6 @@
 import Brewery from '../../database/models/Brewery.js';
 import ServerError from '../../utilities/errors/ServerError.js';
+import { SuccessResponse } from '../../utilities/response/responses.js';
 
 const updateBrewery = async (req, res, next) => {
 	try {
@@ -13,7 +14,15 @@ const updateBrewery = async (req, res, next) => {
 		await brewery.save();
 		const updatedBrewery = await Brewery.findById(id);
 
-		res.json({ message: 'Updating a brewery!', payload: { updatedBrewery } });
+		const status = 200;
+		res.json(
+			new SuccessResponse(
+				`Updated brewery '${id}'`,
+				status,
+				updateBrewery,
+				req.didTokenRegenerate ? req.accessToken : undefined
+			)
+		);
 	} catch (error) {
 		next(error);
 	}

@@ -1,19 +1,31 @@
 import Image from '../../database/models/Image.js';
 import ServerError from '../../utilities/errors/ServerError.js';
 import imageDeleter from '../../utilities/deletion/deleteImage.js';
+import { SuccessResponse } from '../../utilities/response/responses.js';
 const deleteImage = async (req, res, next) => {
 	try {
 		const { id } = req.params;
 		const imageToDelete = await Image.findById(id);
-		const errorMessage = `Cannot delete an image with the id of ${id} as it does not exist.`;
-		const errorCode = 404;
 
-		if (!imageToDelete) throw new ServerError(errorMessage, errorCode);
+		if (!imageToDelete)
+			throw new ServerError(`Cannot delete an image with the id of ${id} as it does not exist.`, 404);
+
 		await imageDeleter(imageToDelete);
 
-		const successMessage = `Image successfully deleted`;
-		const successCode = 200;
-		res.json({ message: successMessage }).status(successCode);
+		const status = 200;
+
+		const payload = {
+			image: imageToDelete,
+			deleted: true,
+		};
+		res.json(
+			new SuccessResponse(
+				`Image ${imageToDelete._id} successfully deleted.`,
+				status,
+				payload,
+				req.didTokenRegenerate ? req.accessToken : undefined
+			)
+		).status(successCode);
 	} catch (error) {
 		next(error);
 	}

@@ -1,6 +1,7 @@
 import BeerPost from '../../database/models/BeerPost.js';
 import { boolChecker } from '../../utilities/data/dataUtil.js';
 import sort from '../../utilities/data/sorter.js';
+import { SuccessResponse } from '../../utilities/response/responses.js';
 
 const getAllPosts = async (req, res, next) => {
 	try {
@@ -19,7 +20,13 @@ const getAllPosts = async (req, res, next) => {
 			message: 'ok',
 		};
 
-		res.json(resBody).status(status);
+		const message = `Sending beer index.${
+			req.query.sort && req.query.param ? ` Sorting by ${req.query.param} in ${req.query.sort} order.` : ''
+		}`;
+
+		res.json(
+			new SuccessResponse(message, status, payload, req.didTokenRegenerate ? req.accessToken : undefined)
+		).status(status);
 	} catch (error) {
 		next(error);
 	}

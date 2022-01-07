@@ -1,16 +1,16 @@
 import Joi from 'joi';
+import ms from 'ms';
 
 //email - must be a valid email account
 //password - must have one uppercase character, one number, and one special character, must be greater than 10 characters
-//username - must be greater than 5 characters, must not be inappropriate and must be less than 20 characters
-
-// const stuff = /[0-9]/;
-const calculateMinAge = () => Date.now() - 599_594_400_000;
+//username - must be greater than 5 characters, and must be less than 20 characters
 
 const userValidationSchema = Joi.object({
 	email: Joi.string().email().required(),
-	username: Joi.string().required(),
-	dateOfBirth: Joi.date().max(calculateMinAge()).required(),
+	username: Joi.string().required().min(5).max(20),
+	dateOfBirth: Joi.date()
+		.max(Date.now() - ms('19 years')) //because of JS date formatting, max refers to the max dateOfBirth in which someone can join the app
+		.required(),
 	password: Joi.string().min(8).max(32).required(),
 	profile: Joi.object(),
 	firstName: Joi.string(),

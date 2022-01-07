@@ -5,6 +5,7 @@ import Brewery from '../../database/models/Brewery.js';
 
 import deletePost from '../../utilities/deletion/deletePost.js';
 import deleteImage from '../../utilities/deletion/deleteImage.js';
+import { SuccessResponse } from '../../utilities/response/responses.js';
 
 const deleteUser = async (req, res, next) => {
 	try {
@@ -27,7 +28,15 @@ const deleteUser = async (req, res, next) => {
 		await req.currentUser.delete();
 
 		const status = 200;
-		res.status(status).json({ status, message: 'Successfully deleted user.' });
+
+		res.status(status).json(
+			new SuccessResponse(
+				'Successfully deleted user.',
+				status,
+				undefined,
+				req.didTokenRegenerate ? req.accessToken : undefined
+			)
+		);
 	} catch (error) {
 		next(error);
 	}

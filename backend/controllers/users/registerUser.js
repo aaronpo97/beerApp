@@ -6,6 +6,7 @@ import ServerError from '../../utilities/errors/ServerError.js';
 import sendConfirmationEmail from '../../utilities/nodemailer/sendConfirmationEmail.js';
 
 import dotenv from 'dotenv';
+import { SuccessResponse } from '../../utilities/response/responses.js';
 
 dotenv.config();
 
@@ -27,20 +28,22 @@ const registerUser = async (req, res, next) => {
 			{ algorithm: 'HS256' }
 		);
 
-		// await sendConfirmationEmail(email, user, confirmationToken);
-		console.log(
-			`http://localhost:5000/users/confirm/${userObj._id}/${confirmationToken}`
-		);
+		await sendConfirmationEmail(email, user, confirmationToken);
+
+		//link
+		console.log(`http://localhost:5000/users/confirm/${user._id}/${confirmationToken}`);
 
 		const newUser = await User.findById(user._id);
 
 		const status = 201;
-		res.status(status).json({
-			status,
-			newUser,
-			success: true,
-			message: 'New user created.',
-		});
+		res.status(status).json(
+			new SuccessResponse(
+				`New user created.`,
+				status,
+				newUser,
+				req.didTokenRegenerate ? req.newAccessToken : undefined
+			)
+		);
 	} catch (error) {
 		next(new ServerError(error.message, 400));
 	}

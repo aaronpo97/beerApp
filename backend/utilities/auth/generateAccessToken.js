@@ -18,7 +18,7 @@ const generateAccessToken = async req => {
 		const token = jwt.sign(
 			{ audience: user._id, issuer: 'http://localhost:5000' },
 			ACCESS_TOKEN_SECRET,
-			{ expiresIn: '1m' },
+			{ expiresIn: '20s' },
 			{ algorithm: 'HS256' }
 		);
 		return token;
