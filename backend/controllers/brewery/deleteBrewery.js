@@ -1,6 +1,7 @@
 import BeerPost from '../../database/models/BeerPost.js';
 import Brewery from '../../database/models/Brewery.js';
 import ServerError from '../../utilities/errors/ServerError.js';
+import { SuccessResponse } from '../../utilities/response/responses.js';
 
 const deleteBrewery = async (req, res, next) => {
 	try {
@@ -13,11 +14,16 @@ const deleteBrewery = async (req, res, next) => {
 
 		for (let beerPost of brewery.beers) await BeerPost.findByIdAndDelete(beerPost.toString());
 
-		res.json({
-			message: `Successfully deleted brewery: ${brewery.name}`,
-			status: 200,
-			payload: { brewery, deleted: true },
-		});
+		const status = 200;
+		const payload = { brewery, deleted: true };
+		res.json(
+			new SuccessResponse(
+				`Successfully deleted brewery '${id}'.`,
+				status,
+				payload,
+				req.didTokenRegenerate ? req.accessToken : undefined
+			)
+		);
 	} catch (error) {
 		next(error);
 	}

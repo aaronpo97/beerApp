@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import User from '../../database/models/User.js';
 import dotenv from 'dotenv';
 import generateAccessToken from '../../utilities/auth/generateAccessToken.js';
+import { SuccessResponse } from '../../utilities/response/responses.js';
 
 dotenv.config();
 
@@ -23,15 +24,16 @@ const loginUser = async (req, res, next) => {
 		if (!user) throw new Error();
 
 		const status = 200;
-		res.json({
-			accessToken,
-			refreshToken,
-			status,
-			message: 'User logged in.',
-			success: true,
-			// id: user._id,
-			// brewery: user.profile.affiliation,
-		});
+
+		const payload = {
+			userID: user._id,
+			refreshToken: req.refreshToken,
+			accessToken: accessToken,
+			associatedBrewery: user.profile.affiliation ? user.profile.affiliation : undefined,
+		};
+		res.json(
+			new SuccessResponse('User logged in', status, payload, req.didTokenRegenerate ? req.accessToken : undefined)
+		);
 	} catch (err) {
 		console.log(err);
 		next(err.message + err.stack);

@@ -1,8 +1,10 @@
 import Image from '../../database/models/Image.js';
 import ServerError from '../../utilities/errors/ServerError.js';
+import { SuccessResponse } from '../../utilities/response/responses.js';
 const uploadImages = async (req, res, next) => {
 	try {
-		if (!req.files.length) throw new ServerError('No files have been uploaded.', 400);
+		if (!req.files) throw new ServerError('No files were given to the uploader.', 400);
+
 		let images = [];
 		for (let file of req.files) {
 			const imageToUpload = new Image({
@@ -15,16 +17,17 @@ const uploadImages = async (req, res, next) => {
 		}
 
 		const status = 201;
+
 		const fileCount = req.files.length;
 
-		const resBody = {
-			status,
-			message: `Uploaded ${fileCount} image${fileCount > 1 ? 's' : ''}`,
-			payload: images,
-			newAccessToken: req.didTokenRegenerate ? req.accessToken : undefined,
-		};
-
-		res.status(status).json(resBody);
+		res.status(status).json(
+			new SuccessResponse(
+				`Uploaded ${fileCount} image${fileCount > 1 ? 's' : ''}`,
+				status,
+				images,
+				req.didTokenRegenerate ? req.accessToken : undefined
+			)
+		);
 	} catch (error) {
 		next(error);
 	}

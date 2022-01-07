@@ -1,4 +1,5 @@
 import ServerError from '../../utilities/errors/ServerError.js';
+import { SuccessResponse } from '../../utilities/response/responses.js';
 
 const viewUser = async (req, res, next) => {
 	try {
@@ -6,7 +7,15 @@ const viewUser = async (req, res, next) => {
 		if (!userToView) {
 			throw new ServerError('Cannot find a user with that id.', 401);
 		}
-		res.json({ message: 'ok', status: 200, payload: userToView });
+		const status = 200;
+		res.json(
+			new SuccessResponse(
+				`Viewing the user with the id of: ${userToView._id}`,
+				200,
+				userToView,
+				req.didTokenRegenerate ? req.accessToken : undefined
+			)
+		);
 	} catch (error) {
 		next(error);
 	}

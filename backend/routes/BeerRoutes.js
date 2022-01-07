@@ -11,6 +11,8 @@ import verifyAccessToken from '../middleware/auth/verifyAccessToken.js';
 import isPostOwner from '../middleware/auth/isPostOwner.js';
 import checkTokens from '../middleware/auth/checkTokens.js';
 
+import ServerError from '../utilities/errors/ServerError.js';
+
 const router = express.Router();
 
 const searchBeerPosts = async (req, res, next) => {

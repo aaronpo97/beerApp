@@ -2,6 +2,7 @@ import ServerError from '../../utilities/errors/ServerError.js';
 import Brewery from '../../database/models/Brewery.js';
 
 import { boolChecker } from '../../utilities/data/dataUtil.js';
+import { SuccessResponse } from '../../utilities/response/responses.js';
 const viewBrewery = async (req, res, next) => {
 	try {
 		const { id } = req.params;
@@ -11,7 +12,14 @@ const viewBrewery = async (req, res, next) => {
 
 		const status = 200;
 
-		res.json({ message: `success`, status, payload: brewery });
+		res.json(
+			new SuccessResponse(
+				`Viewing brewery: '${brewery.name}'`,
+				status,
+				brewery,
+				req.didTokenRegenerate ? req.accessToken : undefined
+			)
+		).status(status);
 	} catch (error) {
 		const { id } = req.params;
 		if (error.name === 'CastError') {

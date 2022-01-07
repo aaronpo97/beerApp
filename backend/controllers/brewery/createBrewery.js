@@ -1,6 +1,8 @@
 import ServerError from '../../utilities/errors/ServerError.js';
+
 import geocode from '../../utilities/mapbox/geocode.js';
 import Brewery from '../../database/models/Brewery.js';
+import { SuccessResponse } from '../../utilities/response/responses.js';
 
 const createBrewery = async (req, res, next) => {
 	try {
@@ -22,7 +24,17 @@ const createBrewery = async (req, res, next) => {
 		};
 		const newBrewery = new Brewery(breweryData);
 		await newBrewery.save();
-		res.status(201).json({ message: 'success', payload: newBrewery, status: 200 });
+
+		const payload = newBrewery;
+		const status = 201;
+		res.status(201).json(
+			new SuccessResponse(
+				`Successfully created brewery: ${breweryData.name}`,
+				status,
+				payload,
+				req.didTokenRegenerate ? req.accessToken : undefined
+			)
+		);
 	} catch (error) {
 		if (error.name === 'ValidationError') {
 			next(new ServerError(`Mongoose validation error. ${error.message}`, 401));

@@ -2,6 +2,7 @@ import BeerPost from '../../database/models/BeerPost.js';
 import Brewery from '../../database/models/Brewery.js';
 
 import ServerError from '../../utilities/errors/ServerError.js';
+import { SuccessResponse } from '../../utilities/response/responses.js';
 
 const createBeerPost = async (req, res, next) => {
 	try {
@@ -31,7 +32,15 @@ const createBeerPost = async (req, res, next) => {
 
 		//send the response
 		const status = 201;
-		res.status(status).json({ message: 'ok', status, payload: post });
+
+		res.status(status).json(
+			new SuccessResponse(
+				`Resource beerPost created. id: ${post._id}`,
+				status,
+				post,
+				req.didTokenRegenerate ? req.accessToken : undefined
+			)
+		);
 	} catch (error) {
 		switch (error.name) {
 			case 'ValidationError':
