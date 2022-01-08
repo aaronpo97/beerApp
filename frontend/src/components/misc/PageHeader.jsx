@@ -50,13 +50,6 @@ const ResponsiveAppBar = () => {
 		<AppBar position='static'>
 			<Container maxWidth='xl'>
 				<Toolbar disableGutters>
-					<Typography
-						variant='h6'
-						noWrap
-						component='div'
-						sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
-						the brewpub
-					</Typography>
 					{/* This is the left hamburger menu (mobile) */}
 					<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
 						<IconButton
@@ -79,21 +72,13 @@ const ResponsiveAppBar = () => {
 							sx={{ display: { xs: 'block', md: 'none' } }}>
 							{pages.map(page => (
 								<MenuItem key={page.name} onClick={handleCloseNavMenu}>
-									<Typography textAlign='center'>
-										{page.name}
-									</Typography>
+									<Typography textAlign='center'>{page.name}</Typography>
 								</MenuItem>
 							))}
 						</Menu>
 					</Box>
 					{/* Desktop view */}
-					<Typography
-						variant='h6'
-						noWrap
-						component='div'
-						sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-						LOGO
-					</Typography>
+
 					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 						{pages.map(page => (
 							<Button
@@ -109,10 +94,7 @@ const ResponsiveAppBar = () => {
 					<Box sx={{ flexGrow: 0 }}>
 						<Tooltip title='Open settings'>
 							<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-								<Avatar
-									alt='Remy Sharp'
-									src='/static/images/avatar/2.jpg'
-								/>
+								<Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' />
 							</IconButton>
 						</Tooltip>
 						<Menu

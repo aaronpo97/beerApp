@@ -11,7 +11,7 @@ import {
 	Box,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import BeerCard from '../BeerCard';
+import BeerCard from '../misc/BeerCard';
 import { Masonry } from '@mui/lab';
 
 export default function ({ breweryData }) {

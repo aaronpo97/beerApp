@@ -23,18 +23,9 @@ const InfoPage = () => {
 				const response = await fetch(url, { headers });
 				const data = await response.json();
 
-				const { author, brewery, description, ibu, image, name: beerName, type, abv } = data;
+				const { author, brewery, description, ibu, image, name: beerName, type, abv } = data.payload;
 
-				const beer = {
-					author,
-					brewery,
-					description,
-					ibu,
-					image,
-					beerName,
-					type,
-					abv,
-				};
+				const beer = { author, brewery, description, ibu, image, beerName, type, abv };
 				setCurrentBeer(beer);
 			} catch (error) {
 				console.error(error);
@@ -45,7 +36,7 @@ const InfoPage = () => {
 
 	return (
 		<Container maxWidth={'xl'}>
-			<BeerInfo currentBeer={currentBeer} handleEdit={() => navigate(`edit`)} />
+			<BeerInfo currentBeer={currentBeer} />
 		</Container>
 	);
 };
