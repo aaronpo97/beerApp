@@ -29,18 +29,14 @@ const LoginForm = () => {
 	const navigate = useNavigate();
 	const handleLogin = async () => {
 		try {
-			if (!(username && password))
-				throw new AuthenticationError('Missing username or password.');
+			if (!(username && password)) throw new AuthenticationError('Missing username or password.');
 			const response = await fetch('http://localhost:5000/users/login', {
 				method: 'POST',
 				headers: { 'Content-type': 'application/json' },
 				body: JSON.stringify({ username, password }),
 			});
 
-			console.log(response);
-
-			if (response.status !== 200)
-				throw new AuthenticationError('Invalid credentials.');
+			if (response.status !== 200) throw new AuthenticationError('Invalid credentials.');
 			const data = await response.json();
 
 			localStorage.setItem('access-token', data.accessToken);
@@ -48,7 +44,8 @@ const LoginForm = () => {
 
 			navigate('/beers');
 		} catch (error) {
-			console.log(error);
+			setUsername('');
+			setPassword('');
 		}
 	};
 
@@ -101,11 +98,7 @@ const LoginForm = () => {
 							onChange={e => setPassword(e.target.value)}
 						/>
 
-						<Button
-							type='submit'
-							fullWidth
-							variant='contained'
-							sx={{ mt: 3, mb: 2 }}>
+						<Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
 							Sign In
 						</Button>
 						<Grid container>
@@ -113,9 +106,7 @@ const LoginForm = () => {
 								<Link to={'/'}>Forgot password?</Link>
 							</Grid>
 							<Grid item>
-								<Link to={'/register'}>
-									{"Don't have an account? Sign Up"}
-								</Link>
+								<Link to={'/register'}>{"Don't have an account? Sign Up"}</Link>
 							</Grid>
 						</Grid>
 						<Copyright sx={{ mt: 5 }} />

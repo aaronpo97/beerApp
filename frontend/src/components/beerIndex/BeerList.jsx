@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Grid, LinearProgress, Button, Typography, Box } from '@mui/material';
-import BeerCard from '../BeerCard';
+import BeerCard from '../misc/BeerCard';
 import { Masonry } from '@mui/lab';
 const BeerList = () => {
 	const [sortingParam, setSortingParam] = useState('default');

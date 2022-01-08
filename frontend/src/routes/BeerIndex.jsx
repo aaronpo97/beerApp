@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Container, Button, Select, MenuItem } from '@mui/material';
 
-import BeerList from '../components/beer-index/BeerList';
+import BeerList from '../components/beerIndex/BeerList';
 
 const Beers = () => {
 	return (
