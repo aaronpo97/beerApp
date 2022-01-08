@@ -39,8 +39,8 @@ const LoginForm = () => {
 			if (response.status !== 200) throw new AuthenticationError('Invalid credentials.');
 			const data = await response.json();
 
-			localStorage.setItem('access-token', data.accessToken);
-			localStorage.setItem('refresh-token', data.refreshToken);
+			localStorage.setItem('access-token', data.payload.accessToken);
+			localStorage.setItem('refresh-token', data.payload.refreshToken);
 
 			navigate('/beers');
 		} catch (error) {
