@@ -17,7 +17,7 @@ export const SuccessResponse = class extends Response {
 export const ErrorResponse = class extends Response {
 	constructor(message, status, stack) {
 		super(message, status);
-		this.stack = stack;
 		this.success = false;
+		this.stack = stack;
 	}
 };
