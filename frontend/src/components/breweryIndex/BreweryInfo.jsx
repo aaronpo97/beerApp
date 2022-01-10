@@ -1,15 +1,4 @@
-import {
-	Link,
-	LinearProgress,
-	Grid,
-	Card,
-	CardMedia,
-	CardContent,
-	Typography,
-	CardActions,
-	Button,
-	Box,
-} from '@mui/material';
+import { LinearProgress, Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import BeerCard from '../misc/BeerCard';
 import { Masonry } from '@mui/lab';
@@ -40,7 +29,7 @@ export default function ({ breweryData }) {
 				Beers
 			</Typography>
 
-			<Masonry columns={3} spacing={2} sx={{ mb: 0 }}>
+			<Masonry columns={{ xs: 1, sm: 1, md: 2, lg: 3, xl: 4 }} spacing={2} sx={{ mb: 0 }}>
 				{breweryData.beers.map(beer => {
 					return <BeerCard key={beer._id} beer={beer} size={'small'} />;
 				})}

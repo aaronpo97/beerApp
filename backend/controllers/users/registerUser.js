@@ -29,18 +29,17 @@ const registerUser = async (req, res, next) => {
 		);
 
 		await sendConfirmationEmail(email, user, confirmationToken);
-
-		//link
-		console.log(`http://localhost:5000/users/confirm/${user._id}/${confirmationToken}`);
+		const link = `http://localhost:5000/users/confirm/${user._id}/${confirmationToken}`;
 
 		const newUser = await User.findById(user._id);
+		if (!newUser) throw new ServerError('User registration failed.', 400);
 
 		const status = 201;
 		res.status(status).json(
 			new SuccessResponse(
 				`New user created.`,
 				status,
-				newUser,
+				{ newUser, link },
 				req.didTokenRegenerate ? req.newAccessToken : undefined
 			)
 		);

@@ -23,7 +23,9 @@ const theme = createTheme({
 		h5: {
 			fontSize: '1rem',
 		},
-		fontFamily: ['-apple-system', 'BlinkMacSystemFont', '"Helvetica Neue"', 'Arial', 'sans-serif'].join(','),
+		fontFamily: ['Cairo', '-apple-system', 'BlinkMacSystemFont', '"Helvetica Neue"', 'Arial', 'sans-serif'].join(
+			','
+		),
 	},
 });
 

@@ -20,7 +20,6 @@ const confirmUser = async (req, res, next) => {
 		}
 
 		const decodedUser = await User.findById(decoded.id);
-
 		if (decodedUser._id.toString() !== userToConfirm._id.toString()) {
 			throw new ServerError('Invalid link', 400);
 		}
@@ -28,12 +27,13 @@ const confirmUser = async (req, res, next) => {
 		await userToConfirm.save();
 
 		const status = 200;
+		const payload = { decodedUser, confirmed: true };
 
 		res.json(
 			new SuccessResponse(
 				'Account confirmed.',
 				status,
-				undefined,
+				payload,
 				req.didTokenRegenerate ? req.accessToken : undefined
 			)
 		).status(200);

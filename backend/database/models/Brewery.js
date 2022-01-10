@@ -9,11 +9,16 @@ const brewerySchema = mongoose.Schema({
 	postedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 	description: { type: String, required: true },
 	location: {
-		place_name: { type: String, required: true },
+		place_name: { type: String },
 		geometry: {
-			type: { type: String, enum: ['Point'], required: true },
-			coordinates: { type: [Number], required: true },
+			type: { type: String, enum: ['Point'] },
+			coordinates: { type: [Number] },
 		},
+	},
+	createdTimestamp: {
+		type: Date,
+		default: Date.now(),
+		required: true,
 	},
 });
 

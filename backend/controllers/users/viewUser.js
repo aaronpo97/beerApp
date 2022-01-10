@@ -8,11 +8,16 @@ const viewUser = async (req, res, next) => {
 			throw new ServerError('Cannot find a user with that id.', 401);
 		}
 		const status = 200;
+
+		const payload = await userToView.populate({
+			path: 'profile',
+			populate: { path: 'affiliation', model: 'Brewery' },
+		});
 		res.json(
 			new SuccessResponse(
 				`Viewing the user with the id of: ${userToView._id}`,
-				200,
-				userToView,
+				status,
+				payload,
 				req.didTokenRegenerate ? req.accessToken : undefined
 			)
 		);
