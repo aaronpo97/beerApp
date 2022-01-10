@@ -9,11 +9,9 @@ const BeerSchema = new Schema({
 	abv: { type: Number },
 	ibu: { type: Number },
 	brewery: { type: mongoose.Schema.Types.ObjectId, ref: 'Brewery', required: true },
-	author: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User',
-		required: true,
-	},
+	postedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+	createdTimestamp: { type: Date, default: Date.now(), required: true },
+	likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 });
 
 const BeerPost = mongoose.model('BeerPost', BeerSchema);

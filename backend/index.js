@@ -18,12 +18,14 @@ import imageRoutes from './routes/imageRoutes.js';
 // use the environment variables in local .env when not in production (dev)
 if (process.env.NODE_ENV !== 'production') dotenv.config();
 
-const { PORT, MONGO_DB_URI } = process.env;
+const { PORT, MONGO_DB_URI, BASE_URL } = process.env;
 
 const app = express();
 
 const initializeDB = async () => {
 	await connectDB(MONGO_DB_URI);
+	console.clear();
+	console.log('The Biergarten API \n');
 	console.log('Connected to MongoDB.');
 };
 
@@ -53,10 +55,13 @@ app.use('/images', imageRoutes);
 // Error handling:
 app.use((err, req, res, next) => {
 	const { status = 500, message = 'Oh no, something went wrong.', stack } = err;
-	res.status(status).json(new ErrorResponse(message, status, process.NODE_ENV !== 'production' ? stack : undefined));
+	res.status(status).json(
+		new ErrorResponse(message, status, process.NODE_ENV !== 'production' ? stack : undefined)
+	);
 });
 
 app.listen(PORT, () => {
-	initializeDB();
-	console.log(`Connected to http://localhost:${PORT}`);
+	console.clear();
+	console.log('Loading the Biergarten API...');
+	initializeDB().then(() => console.log(`Connected to '${BASE_URL}${PORT}'.`));
 });

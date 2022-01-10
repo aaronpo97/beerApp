@@ -10,6 +10,11 @@ const isPostOwner = async (req, res, next) => {
 		req.post = post;
 		if (!post) throw new ServerError('Cannot find a post with that id', 404);
 		const author = await User.findById(post.author.toString());
+		if (!author)
+			throw new ServerError(
+				'Post has no author, and therefore no one is authorized to delete it.',
+				403
+			);
 
 		if (req.currentUser._id.toString() !== author._id.toString()) {
 			throw new ServerError('You are not authorized to do that.', 403);

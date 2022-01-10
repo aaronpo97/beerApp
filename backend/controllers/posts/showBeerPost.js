@@ -10,7 +10,11 @@ const showBeerPost = async (req, res, next) => {
 	try {
 		const payload = !boolChecker(query.populate)
 			? await BeerPost.findById(id)
-			: await BeerPost.findById(id).populate('brewery').populate('author').populate('images');
+			: await BeerPost.findById(id)
+					.populate('brewery')
+					.populate('postedBy')
+					.populate('images')
+					.populate('likedBy');
 
 		if (!payload) throw new ServerError('Could not find a post with that id.', 404);
 

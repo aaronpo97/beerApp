@@ -1,4 +1,4 @@
-import { Card, CardContent, CardMedia, CardActions, Typography, Link, Grid, Button } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Link } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import { Stack } from '@mui/material';
@@ -10,7 +10,8 @@ const BeerCard = ({ beer, size = 'large' }) => {
 			<Card sx={{ marginTop: '1em' }}>
 				<CardMedia
 					component='img'
-					height='350'
+					// height={Math.floor(Math.random() * 150 + 200)}
+					height={300}
 					onClick={() => navigate(`/beers/${beer._id}`)}
 					image='https://cdn2.justwineapp.com/assets/article/2017/05/free-images-beer-pouring-creative-commons-cc-commercial-royalty-free-photo.jpg'
 				/>
@@ -30,6 +31,9 @@ const BeerCard = ({ beer, size = 'large' }) => {
 					) : null}
 					<Typography variant='body1' sx={{ mt: '1em' }} color='text.secondary'>
 						{beer.description}
+					</Typography>
+					<Typography variant='body1' sx={{ mt: '1em' }} color='text.secondary'>
+						{beer.ibu} IBU, {beer.abv}% ABV
 					</Typography>
 					<Typography sx={{ mt: '1em' }} variant='h4'>
 						<Link underline='hover' onClick={() => navigate(``)}>

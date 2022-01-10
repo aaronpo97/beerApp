@@ -12,7 +12,7 @@ import isPostOwner from '../middleware/auth/isPostOwner.js';
 import checkTokens from '../middleware/auth/checkTokens.js';
 
 import ServerError from '../utilities/errors/ServerError.js';
-
+import likeUnlikePost from './likeUnlikePost.js';
 const router = express.Router();
 
 const searchBeerPosts = async (req, res, next) => {
@@ -34,6 +34,12 @@ router
 		throw new ServerError('Not allowed.', 405);
 	});
 
+router
+	.route('/:id/like')
+	.put(checkTokens, verifyAccessToken, likeUnlikePost)
+	.all(() => {
+		throw new ServerError('Not allowed.', 405);
+	});
 router
 	.route('/:id')
 	.get(checkTokens, verifyAccessToken, showBeerPost)

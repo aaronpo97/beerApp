@@ -17,7 +17,7 @@ const updateBeerPost = async (req, res, next) => {
 			new SuccessResponse(
 				`Updating beer post: ${post._id}`,
 				status,
-				updateBeerPost,
+				updatedBeer,
 				req.didTokenRegenerate ? req.newAccessToken : undefined
 			)
 		);
