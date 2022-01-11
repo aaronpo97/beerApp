@@ -8,11 +8,7 @@ const getAllPosts = async (req, res, next) => {
 		const { query } = req;
 		const allPosts = !boolChecker(req.query.populate)
 			? await BeerPost.find()
-			: await BeerPost.find()
-					.populate('brewery')
-					.populate('images')
-					.populate('postedBy')
-					.populate('likedBy');
+			: await BeerPost.find().populate('brewery').populate('images').populate('postedBy');
 
 		const status = 200;
 		const payload = sort(allPosts, query.sort, query.param);

@@ -1,6 +1,6 @@
-import ServerError from '../utilities/errors/ServerError.js';
-import BeerPost from '../database/models/BeerPost.js';
-import { SuccessResponse } from '../utilities/response/responses.js';
+import ServerError from '../../utilities/errors/ServerError.js';
+import BeerPost from '../../database/models/BeerPost.js';
+import { SuccessResponse } from '../../utilities/response/responses.js';
 
 const likeUnlikePost = async (req, res, next) => {
 	try {
@@ -18,9 +18,7 @@ const likeUnlikePost = async (req, res, next) => {
 
 		if (isPostLikedByUser && isUserListed) {
 			console.log(beer.likedBy, beer.name);
-			beer.update({ name: 'fuckers' });
 
-			await beer.save();
 			const status = 204;
 			res.json(new SuccessResponse(`Successfully unliked post.`, status));
 		} else {
