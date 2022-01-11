@@ -23,9 +23,29 @@ const InfoPage = () => {
 				const response = await fetch(url, { headers });
 				const data = await response.json();
 
-				const { author, brewery, description, ibu, image, name: beerName, type, abv } = data.payload;
+				const {
+					postedBy,
+					brewery,
+					description,
+					ibu,
+					image,
+					name: beerName,
+					type,
+					abv,
+					likedBy,
+				} = data.payload;
 
-				const beer = { author, brewery, description, ibu, image, beerName, type, abv };
+				const beer = {
+					postedBy,
+					brewery,
+					description,
+					ibu,
+					image,
+					beerName,
+					type,
+					abv,
+					likedBy,
+				};
 				setCurrentBeer(beer);
 			} catch (error) {
 				console.error(error);
@@ -33,6 +53,8 @@ const InfoPage = () => {
 		};
 		getBeerData();
 	}, [beerID]);
+
+	useEffect(() => console.log(currentBeer), [currentBeer]);
 
 	return (
 		<Container maxWidth={'xl'}>
