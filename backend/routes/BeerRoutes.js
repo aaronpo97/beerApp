@@ -12,7 +12,7 @@ import isPostOwner from '../middleware/auth/isPostOwner.js';
 import checkTokens from '../middleware/auth/checkTokens.js';
 
 import ServerError from '../utilities/errors/ServerError.js';
-import likeUnlikePost from './likeUnlikePost.js';
+import likeUnlikePost from '../controllers/posts/likeUnlikePost.js';
 const router = express.Router();
 
 const searchBeerPosts = async (req, res, next) => {

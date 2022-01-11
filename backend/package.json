@@ -26,7 +26,7 @@
 	"scripts": {
 		"test": "node index.js",
 		"start": "node index.js",
-		"dev": "echo \"Starting up backend application.\" && curl \"https://api.mockaroo.com/api/becb10e0?count=50&key=256fc480\" > \"seed/userData.json\" && node seed && nodemon index.js"
+		"dev": "echo \"Starting up backend application.\" && curl \"https://api.mockaroo.com/api/becb10e0?count=20&key=256fc480\" > \"seed/userData.json\" && node seed && nodemon index.js"
 	},
 	"devDependencies": {
 		"eslint": "^8.5.0"
