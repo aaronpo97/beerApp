@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
 	palette: {
-		primary: { main: '#272731' },
+		primary: { main: '#111111' },
 		secondary: { main: '#e5ebff' },
 		error: { main: '#d32f2f' },
 	},
@@ -23,9 +23,13 @@ const theme = createTheme({
 		h5: {
 			fontSize: '1rem',
 		},
-		fontFamily: ['Cairo', '-apple-system', 'BlinkMacSystemFont', '"Helvetica Neue"', 'Arial', 'sans-serif'].join(
-			','
-		),
+		fontFamily: [
+			'-apple-system',
+			'BlinkMacSystemFont',
+			'"Helvetica Neue"',
+			'Arial',
+			'sans-serif',
+		].join(','),
 	},
 });
 

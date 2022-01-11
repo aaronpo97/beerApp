@@ -9,8 +9,6 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
 	const navigate = useNavigate();
 
-	useEffect(() => (localStorage.token ? navigate('/beers') : null), []);
-
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />

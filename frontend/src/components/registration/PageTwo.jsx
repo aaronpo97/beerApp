@@ -2,16 +2,21 @@ import { Link } from 'react-router-dom';
 
 import { Grid, Avatar, Button, TextField, Paper, Box, Typography } from '@mui/material';
 
-const RegisterForm = ({
+const PageTwo = ({
 	password,
 	setPassword,
 	email,
 	setEmail,
 	confirmPassword,
 	setConfirmPassword,
-	confirmEmail,
-	setConfirmEmail,
+	setPageNum,
 }) => {
+	const handleSubmit = () => {
+		if (password === confirmPassword) return setPageNum(3);
+
+		setPassword('');
+		setConfirmPassword('');
+	};
 	return (
 		<Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
 			<Box
@@ -30,7 +35,11 @@ const RegisterForm = ({
 				<Box
 					component='form'
 					noValidate
-					sx={{ mt: 1, display: 'flex', flexDirection: 'column', width: '90%' }}>
+					sx={{ mt: 1, display: 'flex', flexDirection: 'column', width: '90%' }}
+					onSubmit={e => {
+						e.preventDefault();
+						handleSubmit();
+					}}>
 					<TextField
 						margin='normal'
 						required
@@ -71,15 +80,15 @@ const RegisterForm = ({
 						onChange={e => setConfirmPassword(e.target.value)}
 					/>
 
-					<>
+					<Box>
 						<Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
 							Create an Account
 						</Button>
-					</>
+					</Box>
 				</Box>
 			</Box>
 		</Grid>
 	);
 };
 
-export default RegisterForm;
+export default PageTwo;

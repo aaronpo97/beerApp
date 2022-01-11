@@ -1,4 +1,4 @@
-import { LinearProgress, Typography, Box } from '@mui/material';
+import { LinearProgress, Typography, Box, Link } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import BeerCard from '../misc/BeerCard';
 import { Masonry } from '@mui/lab';
@@ -10,11 +10,19 @@ export default function ({ breweryData }) {
 	) : (
 		<Box>
 			<Box sx={{ mt: '2em' }}>
-				<Typography gutterBottom variant='h1'>
-					{breweryData.name}
-				</Typography>
+				<Typography variant='h1'>{breweryData.name}</Typography>
 				<Typography gutterBottom variant='h2'>
 					{breweryData.location.place_name}
+				</Typography>
+			</Box>
+			<Box sx={{ mt: '2em' }}>
+				<Typography gutterBottom variant='h3'>
+					Submitted by:{' '}
+					<Link
+						underline='hover'
+						onClick={() => navigate(`/profile/${breweryData.postedBy._id}`)}>
+						{breweryData.postedBy.username}
+					</Link>
 				</Typography>
 			</Box>
 			<Box sx={{ mt: '1em', mb: '2em' }}>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 
@@ -25,11 +25,28 @@ class AuthenticationError extends Error {
 const LoginForm = () => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
-
 	const navigate = useNavigate();
+	useEffect(() => {
+		const redirectIfLoggedIn = async () => {
+			if (!(localStorage['access-token'] && localStorage['refresh-token'])) return;
+			var requestOptions = {
+				method: 'GET',
+				headers: {
+					'x-access-token': localStorage['access-token'],
+					'x-auth-token': localStorage['refresh-token'],
+				},
+			};
+
+			const response = await fetch('http://localhost:5000/verifytoken', requestOptions);
+			if (response.status === 200) navigate('/beers');
+		};
+		redirectIfLoggedIn();
+	}, []);
+
 	const handleLogin = async () => {
 		try {
-			if (!(username && password)) throw new AuthenticationError('Missing username or password.');
+			if (!(username && password))
+				throw new AuthenticationError('Missing username or password.');
 			const response = await fetch('http://localhost:5000/users/login', {
 				method: 'POST',
 				headers: { 'Content-type': 'application/json' },
