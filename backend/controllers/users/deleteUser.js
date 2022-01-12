@@ -19,8 +19,17 @@ const deleteUser = async (req, res, next) => {
 		const affiliatonId = affiliaton ? affiliaton.toString() : null;
 		const afilliatedBrewery = affiliaton ? await Brewery.findById(affiliatonId) : null;
 
-		for (let post of beerPosts) await deletePost(post);
-		for (let image of images) await deleteImage(image);
+		if (beerPosts.length) {
+			for (let post of beerPosts) {
+				console.log(post);
+				await deletePost(post);
+			}
+		}
+		if (images.length) {
+			for (let image of images) {
+				await deleteImage(image);
+			}
+		}
 
 		if (afilliatedBrewery) {
 			await afilliatedBrewery.updateOne({ $pull: { associatedProfiles: req.currentUser._id } });

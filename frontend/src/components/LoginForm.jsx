@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 
@@ -9,63 +8,11 @@ import Box from '@mui/material/Box';
 
 import Typography from '@mui/material/Typography';
 
-import { useNavigate } from 'react-router-dom';
-
 import { Link } from 'react-router-dom';
 import Copyright from './Copyright';
 import { Grid } from '@mui/material';
 
-class AuthenticationError extends Error {
-	constructor(message) {
-		super();
-		this.message = message;
-	}
-}
-
-const LoginForm = () => {
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
-	const navigate = useNavigate();
-	useEffect(() => {
-		const redirectIfLoggedIn = async () => {
-			if (!(localStorage['access-token'] && localStorage['refresh-token'])) return;
-			var requestOptions = {
-				method: 'GET',
-				headers: {
-					'x-access-token': localStorage['access-token'],
-					'x-auth-token': localStorage['refresh-token'],
-				},
-			};
-
-			const response = await fetch('http://localhost:5000/verifytoken', requestOptions);
-			if (response.status === 200) navigate('/beers');
-		};
-		redirectIfLoggedIn();
-	}, []);
-
-	const handleLogin = async () => {
-		try {
-			if (!(username && password))
-				throw new AuthenticationError('Missing username or password.');
-			const response = await fetch('http://localhost:5000/users/login', {
-				method: 'POST',
-				headers: { 'Content-type': 'application/json' },
-				body: JSON.stringify({ username, password }),
-			});
-
-			if (response.status !== 200) throw new AuthenticationError('Invalid credentials.');
-			const data = await response.json();
-
-			localStorage.setItem('access-token', data.payload.accessToken);
-			localStorage.setItem('refresh-token', data.payload.refreshToken);
-
-			navigate('/beers');
-		} catch (error) {
-			setUsername('');
-			setPassword('');
-		}
-	};
-
+const LoginForm = ({ handleLogin, username, setUsername, password, setPassword }) => {
 	return (
 		<>
 			<Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>

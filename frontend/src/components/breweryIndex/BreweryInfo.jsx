@@ -18,9 +18,7 @@ export default function ({ breweryData }) {
 			<Box sx={{ mt: '2em' }}>
 				<Typography gutterBottom variant='h3'>
 					Submitted by:{' '}
-					<Link
-						underline='hover'
-						onClick={() => navigate(`/profile/${breweryData.postedBy._id}`)}>
+					<Link underline='hover' onClick={() => navigate(`/profile/${breweryData.postedBy._id}`)}>
 						{breweryData.postedBy.username}
 					</Link>
 				</Typography>
@@ -37,7 +35,7 @@ export default function ({ breweryData }) {
 				Beers
 			</Typography>
 
-			<Masonry columns={{ xs: 1, sm: 1, md: 2, lg: 3, xl: 4 }} spacing={2} sx={{ mb: 0 }}>
+			<Masonry columns={{ xs: 1, sm: 1, md: 2, lg: 3, xl: 3 }} spacing={2} sx={{ mb: 0 }}>
 				{breweryData.beers.map(beer => {
 					return <BeerCard key={beer._id} beer={beer} size={'small'} />;
 				})}

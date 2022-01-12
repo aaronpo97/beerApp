@@ -3,9 +3,7 @@
 		"@mapbox/mapbox-sdk": "^0.13.2",
 		"body-parser": "^1.19.0",
 		"cloudinary": "^1.27.1",
-		"colors": "^1.4.0",
 		"cors": "^2.8.5",
-		"dotenv": "^10.0.0",
 		"ejs": "^3.1.6",
 		"express": "^4.17.2",
 		"joi": "^17.5.0",
@@ -29,7 +27,8 @@
 		"dev": "echo \"Starting up backend application.\" && curl \"https://api.mockaroo.com/api/becb10e0?count=20&key=256fc480\" > \"seed/userData.json\" && node seed && nodemon index.js"
 	},
 	"devDependencies": {
-		"eslint": "^8.5.0"
+		"dotenv": "^10.0.0",
+		"randomstring": "^1.2.1"
 	},
 	"keywords": [],
 	"author": "Aaron Po",

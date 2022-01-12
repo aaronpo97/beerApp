@@ -8,7 +8,18 @@ const viewBrewery = async (req, res, next) => {
 		const { id } = req.params;
 		const brewery = !boolChecker(req.query.populate)
 			? await Brewery.findById(id)
-			: await Brewery.findById(id).populate('headerImage').populate('beers').populate('postedBy');
+			: await Brewery.findById(id)
+					.populate('headerImage')
+					.populate('headerImage')
+					.populate('postedBy')
+					.populate('beers')
+					.populate({
+						path: 'beers',
+						populate: {
+							path: 'images',
+							model: 'Image',
+						},
+					});
 
 		const status = 200;
 

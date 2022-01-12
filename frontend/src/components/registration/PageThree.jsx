@@ -31,12 +31,6 @@ const PageThree = () => {
 					<Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
 						Create an Account
 					</Button>
-
-					<Grid container>
-						<Grid item>
-							<Link to={'/login'}>{'Already have an account?'}</Link>
-						</Grid>
-					</Grid>
 				</Box>
 			</Box>
 		</Grid>

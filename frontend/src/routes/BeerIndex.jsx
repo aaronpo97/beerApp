@@ -14,7 +14,7 @@ const Beers = () => {
 					}
 				/>
 			</Box>
-			<Container maxWidth={'xl'}>
+			<Container maxWidth={'lg'}>
 				<BeerList />
 			</Container>
 		</Box>

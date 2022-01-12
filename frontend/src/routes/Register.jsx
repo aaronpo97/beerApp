@@ -8,12 +8,14 @@ import PageThree from '../components/registration/PageThree';
 
 const RegisterPageSelection = () => {
 	const [username, setUsername] = useState('');
-	const [dateOfBirth, setDateOfBirth] = useState('');
+	const [dateOfBirth, setDateOfBirth] = useState(null);
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [email, setEmail] = useState('');
-
 	const [pageNum, setPageNum] = useState(1);
+
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
 
 	switch (pageNum) {
 		case 1:
@@ -25,6 +27,10 @@ const RegisterPageSelection = () => {
 					setDateOfBirth={setDateOfBirth}
 					pageNum={pageNum}
 					setPageNum={setPageNum}
+					firstName={firstName}
+					setFirstName={setFirstName}
+					lastName={lastName}
+					setLastName={setLastName}
 				/>
 			);
 		case 2:

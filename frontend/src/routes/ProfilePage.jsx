@@ -46,7 +46,7 @@ const ProfilePage = () => {
 								<Grid item xs={2}>
 									<Avatar
 										alt={user.username}
-										src='/static/images/avatar/1.jpg'
+										src={user.displayImage.url}
 										sx={{ width: 150, height: 150 }}
 									/>
 								</Grid>
