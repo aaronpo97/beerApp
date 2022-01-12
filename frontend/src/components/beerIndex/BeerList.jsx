@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { LinearProgress, InputLabel, Box, Select, MenuItem, FormControl, Typography } from '@mui/material';
 import BeerCard from '../misc/BeerCard';
 import { Masonry } from '@mui/lab';
+import BeerCardSideImage from '../misc/BeerCardSideImage';
 const BeerList = () => {
 	const [sortingParam, setSortingParam] = useState('default');
 	const [sortingDirection, setSortingDirection] = useState('default');
@@ -79,9 +80,9 @@ const BeerList = () => {
 		<LinearProgress />
 	) : (
 		<Box sx={{ mt: '2em' }}>
-			<Typography variant='h1'>The Beer Index</Typography>
+			<Typography variant='h1'>The Biergarten Index</Typography>
 			<Typography variant='h2' gutterBottom sx={{ mb: '1em' }}>
-				biergarten app
+				Beers
 			</Typography>
 			<FormControl variant='standard' fullWidth>
 				<InputLabel id='select-sorting-method'>Sort</InputLabel>
@@ -103,12 +104,12 @@ const BeerList = () => {
 				</Select>
 			</FormControl>
 			<Masonry
-				columns={sortingOption === 0 ? { xs: 1, sm: 2, md: 2, lg: 3, xl: 4 } : '1'}
+				columns={sortingOption === 0 ? { xs: 1, sm: 2, md: 2, lg: 3, xl: 3 } : '1'}
 				spacing={{ xs: 1, sm: 1, md: 1, lg: 1, xl: 2 }}
 				sx={{ mb: 0 }}>
-				{beers.map(beer => (
-					<BeerCard key={beer.name} beer={beer} />
-				))}
+				{beers.map(beer => {
+					return sortingOption === 0 ? <BeerCard beer={beer} /> : <BeerCardSideImage beer={beer} />;
+				})}
 			</Masonry>
 		</Box>
 	);

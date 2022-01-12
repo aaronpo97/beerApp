@@ -27,13 +27,14 @@ const BreweryIndex = () => {
 			}
 			const result = await response.json();
 			if (!result.payload) return;
-			localStorage['access-token'] = result.payload.newAccessToken || localStorage['access-token'];
+			localStorage['access-token'] =
+				result.payload.newAccessToken || localStorage['access-token'];
 			setBreweries(result.payload || []);
 		};
 		fetchData();
 	}, [sortingParam, sortingDirection]);
 	return (
-		<Container maxWidth={'xl'}>
+		<Container>
 			<BreweryList
 				breweries={breweries}
 				setBreweries={setBreweries}

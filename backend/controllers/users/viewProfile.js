@@ -1,21 +1,22 @@
 import { SuccessResponse } from '../../utilities/response/responses.js';
 import User from '../../database/models/User.js';
+import ServerError from '../../utilities/errors/ServerError.js';
 
 const viewProfile = async (req, res, next) => {
 	try {
 		const { id } = req.params;
+
 		const user = await User.findById(id).populate({
 			path: 'profile',
 			populate: {
 				path: 'likes',
 				model: 'BeerPost',
-				populate: {
-					path: 'brewery',
-					model: 'Brewery',
-				},
+				populate: { path: 'brewery', model: 'Brewery' },
 			},
+			populate: { path: 'displayImage', model: 'Image' },
 		});
 
+		if (!user) throw new ServerError('Unable to find that user.', 404);
 		const { profile, username, dateOfBirth, firstName, lastName, createdAt } = user;
 		const status = 200;
 

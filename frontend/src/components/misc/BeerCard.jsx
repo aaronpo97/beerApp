@@ -10,20 +10,19 @@ const BeerCard = ({ beer, size = 'large' }) => {
 			<Card sx={{ marginTop: '1em' }}>
 				<CardMedia
 					component='img'
-					// height={Math.floor(Math.random() * 150 + 200)}
-					height={300}
+					height={Math.floor(Math.random() * 100 + 400)}
 					onClick={() => navigate(`/beers/${beer._id}`)}
-					image='https://cdn2.justwineapp.com/assets/article/2017/05/free-images-beer-pouring-creative-commons-cc-commercial-royalty-free-photo.jpg'
+					image={beer.images[0].url}
 				/>
 				<CardContent>
-					<Typography variant={size === 'small' ? 'h3' : 'h2'}>
+					<Typography variant={'h3'}>
 						<Link underline='hover' onClick={() => navigate(`/beers/${beer._id}`)}>
 							{beer.name}
 						</Link>
 					</Typography>
 
 					{beer.brewery.name ? (
-						<Typography variant='h3' gutterBottom>
+						<Typography variant='h4' gutterBottom>
 							<Link underline='hover' onClick={() => navigate(`/breweries/${beer.brewery._id}`)}>
 								{beer.brewery.name}
 							</Link>
@@ -33,7 +32,7 @@ const BeerCard = ({ beer, size = 'large' }) => {
 						{beer.description}
 					</Typography>
 					<Typography variant='body1' sx={{ mt: '1em' }} color='text.secondary'>
-						{beer.ibu} IBU, {beer.abv}% ABV
+						{beer.abv}% ABV{beer.ibu ? `, ${beer.ibu} IBU` : null}
 					</Typography>
 					<Typography sx={{ mt: '1em' }} variant='h4'>
 						<Link underline='hover' onClick={() => navigate(``)}>

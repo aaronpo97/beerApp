@@ -10,7 +10,7 @@ const BreweryInfoPage = () => {
 	const [breweryData, setBreweryData] = useState(null);
 
 	useEffect(() => {
-		const getBeerData = async () => {
+		const getBreweryData = async () => {
 			try {
 				const url = `http://localhost:5000/breweries/${id}?populate=true`;
 				const headers = {
@@ -26,20 +26,15 @@ const BreweryInfoPage = () => {
 				console.error(error);
 			}
 		};
-		getBeerData();
+		getBreweryData();
 	}, []);
 
-	return (
+	return !breweryData ? null : (
 		<Box>
 			<Box>
-				<img
-					style={{ height: '40em', width: '100%', objectFit: 'cover' }}
-					src={
-						'https://images.squarespace-cdn.com/content/v1/58d1e3e66a4963c19a0ab3d5/1580226516577-XUJNTGU4GVSB3X5YK6TQ/BREWSYSTEM_SJ.jpg?format=2500w'
-					}
-				/>
+				<img style={{ height: '35em', width: '100%', objectFit: 'cover' }} src={breweryData.headerImage.url} />
 			</Box>
-			<Container maxWidth={'xl'}>
+			<Container maxWidth={'lg'}>
 				<BreweryInfo breweryData={breweryData} />
 			</Container>
 		</Box>
