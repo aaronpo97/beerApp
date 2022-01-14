@@ -10,30 +10,12 @@ const PageTwo = ({
 	confirmPassword,
 	setConfirmPassword,
 	setPageNum,
-	username,
-	dateOfBirth,
-	firstName,
-	lastName,
 }) => {
-	const checkEmailInDB = async () => {
-		const response = await fetch(`http://localhost:5000/users/doesuserexist?email=${username}`);
-		const data = await response.json();
-		const { usernameExists } = data.payload;
-		return usernameExists;
-	};
+	const handleSubmit = () => {
+		if (password === confirmPassword) return setPageNum(3);
 
-	const handleSubmit = async () => {
-		if (password === confirmPassword) {
-			const requestOptions = {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ username, password, email, dateOfBirth, firstName, lastName }),
-			};
-			const url = 'http://localhost:5000/users/register';
-			const response = await fetch(url, requestOptions);
-			const data = await response.json();
-			console.log(data);
-		}
+		setPassword('');
+		setConfirmPassword('');
 	};
 	return (
 		<Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -98,23 +80,11 @@ const PageTwo = ({
 						onChange={e => setConfirmPassword(e.target.value)}
 					/>
 
-					<Grid spacing={'1em'} container>
-						<Grid item md={6}>
-							<Button
-								type='submit'
-								onClick={() => setPageNum(1)}
-								fullWidth
-								variant='contained'
-								sx={{ mt: 3, mb: 2 }}>
-								Go back
-							</Button>
-						</Grid>
-						<Grid item md={6}>
-							<Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
-								Create an Account
-							</Button>
-						</Grid>
-					</Grid>
+					<Box>
+						<Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
+							Create an Account
+						</Button>
+					</Box>
 				</Box>
 			</Box>
 		</Grid>

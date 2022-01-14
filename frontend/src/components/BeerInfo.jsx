@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 const BeerInfo = ({ currentBeer }) => {
 	const navigate = useNavigate();
+	const likeCount = !currentBeer ? null : currentBeer.likedBy.length;
 
 	return !currentBeer ? (
 		<LinearProgress />

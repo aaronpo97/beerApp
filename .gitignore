@@ -4,4 +4,3 @@ backend/seed
 .eslintrc.cjs
 .env
 backend/notes.md
-.DS_Store

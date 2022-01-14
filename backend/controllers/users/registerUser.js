@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import generateAccessToken from '../../utilities/auth/generateAccessToken.js';
 
 import User from '../../database/models/User.js';
 import ServerError from '../../utilities/errors/ServerError.js';
@@ -11,23 +10,16 @@ import { SuccessResponse } from '../../utilities/response/responses.js';
 
 dotenv.config();
 
-const { CONFIRMATION_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
+const { CONFIRMATION_TOKEN_SECRET } = process.env;
 
 const registerUser = async (req, res, next) => {
 	try {
-		const profile = {
-			likes: [],
-			affiliation: null,
-			displayImage: null,
-			currentCity: null,
-			bio: null,
-			gender: null,
-		};
-		const { username, email, password, dateOfBirth, firstName, lastName } = req.body;
-		const user = new User({ username, firstName, lastName, dateOfBirth, password, email });
+		const userToRegister = req.body;
+		const { username, email, password, dateOfBirth, profile = {} } = userToRegister;
+		const user = new User({ username, email, dateOfBirth, profile });
 
 		await User.register(user, password);
-		const newUser = await user.save();
+		await user.save();
 
 		const confirmationToken = jwt.sign(
 			{ userToConfirm: user.username, id: user._id },
@@ -36,22 +28,21 @@ const registerUser = async (req, res, next) => {
 			{ algorithm: 'HS256' }
 		);
 
-		// await sendConfirmationEmail(email, user, confirmationToken);
-
-		const refreshToken = jwt.sign(
-			{ audience: user._id, issuer: 'http://localhost:5000' },
-			REFRESH_TOKEN_SECRET,
-			{ expiresIn: '43200m' },
-			{ algorithm: 'HS256' }
-		);
-
-		req.refreshToken = refreshToken;
-		const accessToken = await generateAccessToken(req);
-
+		await sendConfirmationEmail(email, user, confirmationToken);
 		const link = `http://localhost:5000/users/confirm/${user._id}/${confirmationToken}`;
 
+		const newUser = await User.findById(user._id);
+		if (!newUser) throw new ServerError('User registration failed.', 400);
+
 		const status = 201;
-		res.status(status).json(new SuccessResponse(`New user created.`, status, { newUser, link, refreshToken, accessToken }));
+		res.status(status).json(
+			new SuccessResponse(
+				`New user created.`,
+				status,
+				{ newUser, link },
+				req.didTokenRegenerate ? req.newAccessToken : undefined
+			)
+		);
 	} catch (error) {
 		next(new ServerError(error.message, 400));
 	}

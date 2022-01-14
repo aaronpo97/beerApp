@@ -1,84 +1,59 @@
-import { useEffect, useState } from 'react';
+import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { LinearProgress, InputLabel, Box, Select, MenuItem, FormControl, Typography } from '@mui/material';
-import BreweryCard from '../components/misc/BreweryCard';
-import { Masonry } from '@mui/lab';
+import { Card, CardContent, CardMedia, Grid, Typography, Link } from '@mui/material';
 
-const BeerList = () => {
-	const [sortingParam, setSortingParam] = useState('default');
-	const [sortingDirection, setSortingDirection] = useState('default');
-	const [sortingOption, setSortingOption] = useState(0);
-
+export default ({ breweries, setSortingDirection, setSortingParam }) => {
 	const navigate = useNavigate();
-	const [breweries, setBreweries] = useState([]);
-
-	useEffect(() => {
-		const fetchData = async () => {
-			const requestOptions = {
-				method: 'GET',
-				headers: {
-					'x-access-token': localStorage['access-token'],
-					'x-auth-token': localStorage['refresh-token'],
-				},
-			};
-			const url = `http://localhost:5000/breweries?populate=true&sort=${sortingDirection}&param=${sortingParam}`;
-			const response = await fetch(url, requestOptions);
-			if (response.status === 401) {
-				localStorage.clear();
-				navigate('/login');
-			}
-			const result = await response.json();
-			if (!result.payload) return;
-			localStorage['access-token'] = result.payload.newAccessToken || localStorage['access-token'];
-			setBreweries(result.payload || []);
-		};
-		fetchData();
-	}, [sortingParam, sortingDirection]);
-
-	useEffect(() => {
-		switch (sortingOption) {
-			case 1:
-				setSortingParam('name');
-				setSortingDirection('ascending');
-				break;
-			case 2:
-				setSortingParam('name');
-				setSortingDirection('descending');
-				break;
-			default:
-				setSortingParam('default');
-				setSortingDirection('default');
-				break;
-		}
-	}, [sortingOption]);
-
-	return !breweries.length ? (
-		<LinearProgress />
-	) : (
-		<Box sx={{ mt: '2em' }}>
-			<Typography variant='h1'>The Biergarten Index</Typography>
-			<Typography variant='h2' gutterBottom sx={{ mb: '1em' }}>
-				Breweries
-			</Typography>
-			<FormControl variant='standard' fullWidth>
-				<InputLabel id='select-sorting-method'>Sort</InputLabel>
-				<Select
-					labelId='select-sorting-method'
-					id='select-sort'
-					value={sortingOption}
-					label='Sort'
-					onChange={e => setSortingOption(e.target.value)}>
-					<MenuItem value={0}>Default sorting</MenuItem>
-					<MenuItem value={1}>Sort by name (ascending)</MenuItem>
-					<MenuItem value={2}>Sort by name (descending)</MenuItem>
-				</Select>
-			</FormControl>
-			<Masonry columns={1} spacing={{ xs: 1, sm: 1, md: 1, lg: 1, xl: 2 }} sx={{ mb: 0 }}>
+	return (
+		<>
+			<Button
+				onClick={e => {
+					setSortingDirection('ascending');
+					setSortingParam('name');
+				}}
+				variant='contained'>
+				Sort by name (ascending)
+			</Button>
+			<Button
+				onClick={e => {
+					setSortingDirection('descending');
+					setSortingParam('name');
+				}}
+				variant='contained'>
+				Sort by name (descending)
+			</Button>
+			<Button
+				onClick={e => {
+					setSortingDirection('default');
+					setSortingParam('default');
+				}}
+				variant='contained'>
+				No sorting!
+			</Button>
+			<Grid container spacing={1}>
 				{breweries.map(brewery => (
-					<BreweryCard brewery={brewery} />
+					<Grid item xs={12} sm={6} md={4}>
+						<Card sx={{ marginTop: '1em' }}>
+							<CardMedia
+								component='img'
+								height='300'
+								onClick={() => navigate(`/breweries/${brewery._id}`)}
+								image='https://images.unsplash.com/photo-1615332579037-3c44b3660b53?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80'
+							/>
+							<CardContent>
+								<Typography variant='h4'>
+									<Link underline='hover' onClick={() => navigate(`/breweries/${brewery._id}`)}>
+										{brewery.name}
+									</Link>
+								</Typography>
+								<Typography variant='body1' sx={{ mt: '1em' }} color='text.secondary'>
+									{brewery.description}
+								</Typography>
+							</CardContent>
+						</Card>
+					</Grid>
 				))}
-			</Masonry>
-		</Box>
+			</Grid>
+		</>
 	);
 };
-export default BeerList;
