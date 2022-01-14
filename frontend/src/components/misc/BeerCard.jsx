@@ -15,7 +15,7 @@ const BeerCard = ({ beer, size = 'large' }) => {
 					image={beer.images[0].url}
 				/>
 				<CardContent>
-					<Typography variant='h3' sx={{ fontSize: '1.5rem' }}>
+					<Typography variant={'h3'}>
 						<Link underline='hover' onClick={() => navigate(`/beers/${beer._id}`)}>
 							{beer.name}
 						</Link>

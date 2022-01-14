@@ -1,11 +1,19 @@
+import { Grid } from '@mui/material';
 import { useState } from 'react';
+<<<<<<< HEAD
 import { useNavigate } from 'react-router';
 
 import RegistrationForm from '../components/registration/RegistrationForm';
 import { Grid, Container } from '@mui/material';
+=======
+import SideImage from '../components/misc/SideImage';
+>>>>>>> 9ec18256559f920e60b5af3b3ef5deb92c13b31b
 
-import ms from 'ms'; // converts time into milliseconds
+import PageOne from '../components/registration/PageOne';
+import PageTwo from '../components/registration/PageTwo';
+import PageThree from '../components/registration/PageThree';
 
+<<<<<<< HEAD
 const Register = () => {
   const blocklistedWords = ['1^Ce9T]Re-J|']; //test phrase
 
@@ -128,6 +136,63 @@ const Register = () => {
       </Grid>
     </Container>
   );
+=======
+const RegisterPageSelection = () => {
+	const [username, setUsername] = useState('');
+	const [dateOfBirth, setDateOfBirth] = useState(null);
+	const [password, setPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
+	const [email, setEmail] = useState('');
+	const [pageNum, setPageNum] = useState(1);
+
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+
+	switch (pageNum) {
+		case 1:
+			return (
+				<PageOne
+					username={username}
+					setUsername={setUsername}
+					dateOfBirth={dateOfBirth}
+					setDateOfBirth={setDateOfBirth}
+					pageNum={pageNum}
+					setPageNum={setPageNum}
+					firstName={firstName}
+					setFirstName={setFirstName}
+					lastName={lastName}
+					setLastName={setLastName}
+				/>
+			);
+		case 2:
+			return (
+				<PageTwo
+					password={password}
+					setPassword={setPassword}
+					email={email}
+					setEmail={setEmail}
+					confirmPassword={confirmPassword}
+					setConfirmPassword={setConfirmPassword}
+					pageNum={pageNum}
+					setPageNum={setPageNum}
+				/>
+			);
+		case 3:
+			return <PageThree />;
+	}
+};
+const Register = () => {
+	return (
+		<Grid container component='main' sx={{ height: '100vh' }}>
+			<SideImage
+				imageUrl={
+					'https://images.pexels.com/photos/5659494/pexels-photo-5659494.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
+				}
+			/>
+			<RegisterPageSelection />
+		</Grid>
+	);
+>>>>>>> 9ec18256559f920e60b5af3b3ef5deb92c13b31b
 };
 
 export default Register;
