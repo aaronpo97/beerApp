@@ -11,30 +11,18 @@ const PageOne = ({
 	setUsername,
 	dateOfBirth,
 	setDateOfBirth,
-	setPageNum,
 	firstName,
 	setFirstName,
 	lastName,
 	setLastName,
+	email,
+	setEmail,
+	password,
+	setPassword,
+	confirmPassword,
+	setConfirmPassword,
+	handleSubmit,
 }) => {
-	const checkUsername = () => {
-		return username ? true : false;
-	};
-	const checkDateOfBirth = () => {
-		if (!dateOfBirth) return false;
-		const minimumDOB = Date.now() - 599_594_400_000;
-		return dateOfBirth <= minimumDOB;
-	};
-
-	const checkData = () => {
-		if (checkUsername() && checkDateOfBirth()) {
-			setPageNum(2);
-		}
-
-		if (!checkUsername) console.log('something is up with your username dude');
-		if (!checkDateOfBirth) console.log(`you're too young to use this app dude`);
-	};
-
 	return (
 		<Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
 			<Box
@@ -52,10 +40,7 @@ const PageOne = ({
 
 				<Box
 					component='form'
-					onSubmit={e => {
-						e.preventDefault();
-						checkData();
-					}}
+					onSubmit={handleSubmit}
 					noValidate
 					sx={{
 						mt: 1,
@@ -68,7 +53,7 @@ const PageOne = ({
 							<Grid item md={6}>
 								<TextField
 									margin='normal'
-									// required
+									required
 									fullWidth
 									id='first-name'
 									label='First Name'
@@ -82,7 +67,7 @@ const PageOne = ({
 							<Grid item md={6}>
 								<TextField
 									margin='normal'
-									// required
+									required
 									fullWidth
 									id='last-name'
 									label='Last Name'
@@ -95,10 +80,10 @@ const PageOne = ({
 							</Grid>
 						</Grid>
 					</Box>
-					<Box sx={{ mb: '1em' }}>
+					<Box>
 						<TextField
 							margin='normal'
-							// required
+							required
 							fullWidth
 							id='username'
 							label='Username'
@@ -109,6 +94,21 @@ const PageOne = ({
 							onChange={e => setUsername(e.target.value)}
 						/>
 					</Box>
+
+					<TextField
+						margin='normal'
+						required
+						fullWidth
+						id='email'
+						label='Email'
+						name='email'
+						value={email}
+						type='email'
+						autoComplete='email'
+						autoFocus
+						onChange={e => setEmail(e.target.value)}
+						sx={{ mb: '1.5em' }}
+					/>
 
 					<>
 						<LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -122,8 +122,36 @@ const PageOne = ({
 						</LocalizationProvider>
 					</>
 
+					<TextField
+						margin='normal'
+						required
+						fullWidth
+						id='password'
+						label='Password'
+						name='password'
+						value={password}
+						type='password'
+						autoComplete='password'
+						autoFocus
+						sx={{ mt: '1.5em' }}
+						onChange={e => setPassword(e.target.value)}
+					/>
+					<TextField
+						margin='normal'
+						required
+						type='password'
+						fullWidth
+						id='confirm-password'
+						label='Confirm Password'
+						name='confirm-password'
+						value={confirmPassword}
+						autoComplete='password'
+						autoFocus
+						onChange={e => setConfirmPassword(e.target.value)}
+					/>
+
 					<Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
-						go to next step
+						Register Account
 					</Button>
 
 					<Grid container>

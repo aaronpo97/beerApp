@@ -19,9 +19,35 @@ import validateRegistration from '../middleware/validation/validateRegistration.
 import passport from 'passport';
 import dotenv from 'dotenv';
 import ServerError from '../utilities/errors/ServerError.js';
+import User from '../database/models/User.js';
+import { SuccessResponse } from '../utilities/response/responses.js';
 
 dotenv.config();
 const router = express.Router();
+
+router
+	.route('/doesuserexist')
+	.get(async (req, res, next) => {
+		try {
+			const { username = '', email = '' } = req.query;
+
+			if (!(username || email)) throw new ServerError('Missing necessary query parameters for GET /doesUserExist', 400);
+			const doesUsernameExist = await User.findOne({ username });
+			const doesEmailExist = await User.findOne({ email });
+
+			const payload = {
+				usernameExists: username ? !!doesUsernameExist : undefined,
+				emailExists: email ? !!doesEmailExist : undefined,
+			};
+
+			res.json(new SuccessResponse(undefined, 200, payload, undefined));
+		} catch (error) {
+			next(error);
+		}
+	})
+	.all(() => {
+		throw new ServerError('Not allowed.', 405);
+	});
 
 router
 	.route('/login')
@@ -32,7 +58,7 @@ router
 
 router
 	.route('/register')
-	.post(validateRegistration, registerUser)
+	.post(registerUser)
 	.all(() => {
 		throw new ServerError('Not allowed.', 405);
 	});
