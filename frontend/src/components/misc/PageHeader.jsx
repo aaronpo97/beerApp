@@ -21,24 +21,24 @@ const PageHeader = () => {
 						<>
 							{localStorage['access-token'] && localStorage['refresh-token']
 								? pagesLoggedIn.map(page => (
-										<Typography variant='h6'>
-											<Button
-												variant='contained'
-												onClick={() => navigate(page.link)}>
-												{page.name}
-											</Button>
-										</Typography>
+										<Button key={page.name} variant='contained' onClick={() => navigate(page.link)}>
+											<Typography variant='body1'>{page.name}</Typography>
+										</Button>
 								  ))
 								: pagesNotLoggedIn.map(page => (
-										<Typography variant='h6'>
-											<Button
-												variant='contained'
-												onClick={() => navigate(page.link)}>
-												{page.name}
-											</Button>
-										</Typography>
+										<Button key={page.name} variant='contained' onClick={() => navigate(page.link)}>
+											<Typography variant='h6'>{page.name}</Typography>
+										</Button>
 								  ))}
 						</>
+						<Button
+							variant='contained'
+							onClick={() => {
+								localStorage.clear();
+								navigate('/login');
+							}}>
+							<Typography variant='body1'>Logout</Typography>
+						</Button>
 					</Toolbar>
 				</Container>
 			</AppBar>

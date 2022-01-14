@@ -6,8 +6,6 @@ import { Stack } from '@mui/material';
 const BeerCard = ({ beer, size = 'large' }) => {
 	const navigate = useNavigate();
 
-	console.log(beer);
-
 	return (
 		<Stack spacing={1}>
 			<Card sx={{ marginTop: '1em' }}>
@@ -17,12 +15,12 @@ const BeerCard = ({ beer, size = 'large' }) => {
 							component='img'
 							height={'400px'}
 							onClick={() => navigate(`/beers/${beer._id}`)}
-							image={beer.images[0].url}
+							image='https://cdn2.justwineapp.com/assets/article/2017/05/free-images-beer-pouring-creative-commons-cc-commercial-royalty-free-photo.jpg'
 						/>
 					</Grid>
 					<Grid item md={8}>
 						<CardContent sx={{ padding: '2em' }}>
-							<Typography variant={'h2'} sx={{ fontSize: '3rem' }}>
+							<Typography variant={size === 'small' ? 'h3' : 'h2'}>
 								<Link underline='hover' onClick={() => navigate(`/beers/${beer._id}`)}>
 									{beer.name}
 								</Link>
