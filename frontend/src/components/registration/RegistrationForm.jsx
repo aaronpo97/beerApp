@@ -1,22 +1,12 @@
 import { Link } from 'react-router-dom';
-
-import { Grid, Avatar, Button, TextField, Paper, Box, Typography } from '@mui/material';
+import { Grid, Avatar, Button, TextField, Paper, Box, Typography, Alert, AlertTitle } from '@mui/material';
 
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 
-const RegistrationForm = ({ registrationFormValues, setRegistrationFormValues, handleSubmit, formErrors }) => {
-  const handleFormInputChange = event => {
-    setRegistrationFormValues({ ...registrationFormValues, [event.target.name]: event.target.value });
-  };
-
-  const handleDatePickerChange = value => {
-    setRegistrationFormValues({ ...registrationFormValues, dateOfBirth: value });
-  };
-
-  const { firstName, lastName, password, username, email, dateOfBirth, confirmPassword } = registrationFormValues;
-
+const RegistrationForm = ({ formValues, formErrors, handleFormInputChange, handleDatePickerChange, handleSubmit }) => {
+  const { firstName, lastName, password, username, email, dateOfBirth, confirmPassword } = formValues;
   return (
     <Box sx={{ width: '100%' }} square>
       <Box sx={{ my: 8, mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -31,9 +21,9 @@ const RegistrationForm = ({ registrationFormValues, setRegistrationFormValues, h
           noValidate
           sx={{ mt: 1, display: 'flex', flexDirection: 'column', width: '90%' }}
         >
-          <Box>
-            <Grid container spacing={2}>
-              <Grid item md={6}>
+          <Grid container spacing={{ xs: 0, md: 2 }}>
+            <Grid item md={6} xs={12}>
+              <Box>
                 <TextField
                   margin='normal'
                   required
@@ -46,10 +36,29 @@ const RegistrationForm = ({ registrationFormValues, setRegistrationFormValues, h
                   autoFocus
                   error={formErrors.firstName ? true : false}
                   onChange={handleFormInputChange}
+                  sx={{ mb: 0 }}
                 />
-                <Typography variant='body2'>{formErrors.firstName}</Typography>
-              </Grid>
-              <Grid item md={6}>
+
+                {formErrors.firstName && (
+                  <Alert
+                    severity='error'
+                    sx={{
+                      mt: '10px',
+                      mb: '0em',
+                      padding: '0px',
+                      paddingLeft: '10px',
+                      paddingRight: '10px',
+                      fontSize: '0.77rem',
+                      height: '32px',
+                    }}
+                  >
+                    {formErrors.firstName}
+                  </Alert>
+                )}
+              </Box>
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <Box>
                 <TextField
                   margin='normal'
                   required
@@ -62,11 +71,27 @@ const RegistrationForm = ({ registrationFormValues, setRegistrationFormValues, h
                   autoFocus
                   error={formErrors.lastName ? true : false}
                   onChange={handleFormInputChange}
+                  sx={{ mb: 0 }}
                 />
-                <Typography variant='body2'>{formErrors.lastName}</Typography>
-              </Grid>
+                {formErrors.lastName && (
+                  <Alert
+                    severity='error'
+                    sx={{
+                      mt: '10px',
+                      mb: '0em',
+                      padding: '0px',
+                      paddingLeft: '10px',
+                      paddingRight: '10px',
+                      fontSize: '0.77rem',
+                      height: '32px',
+                    }}
+                  >
+                    {formErrors.lastName}
+                  </Alert>
+                )}
+              </Box>
             </Grid>
-          </Box>
+          </Grid>
 
           <Box>
             <TextField
@@ -81,8 +106,24 @@ const RegistrationForm = ({ registrationFormValues, setRegistrationFormValues, h
               autoFocus
               error={formErrors.username ? true : false}
               onChange={handleFormInputChange}
+              sx={{ mb: 0 }}
             />
-            <Typography variant='body2'>{formErrors.username}</Typography>
+            {formErrors.username && (
+              <Alert
+                severity='error'
+                sx={{
+                  mt: '10px',
+                  mb: '0em',
+                  padding: '0px',
+                  paddingLeft: '10px',
+                  paddingRight: '10px',
+                  fontSize: '0.77rem',
+                  height: '32px',
+                }}
+              >
+                {formErrors.username}
+              </Alert>
+            )}
           </Box>
 
           <Box>
@@ -99,8 +140,24 @@ const RegistrationForm = ({ registrationFormValues, setRegistrationFormValues, h
               autoFocus
               onChange={handleFormInputChange}
               error={formErrors.email ? true : false}
+              sx={{ mb: formErrors.email ? 0 : '1em' }}
             />
-            <Typography variant='body2'>{formErrors.email}</Typography>
+            {formErrors.email && (
+              <Alert
+                severity='error'
+                sx={{
+                  mt: '10px',
+                  mb: '1em',
+                  padding: '0px',
+                  paddingLeft: '10px',
+                  paddingRight: '10px',
+                  fontSize: '0.77rem',
+                  height: '32px',
+                }}
+              >
+                {formErrors.email}
+              </Alert>
+            )}
           </Box>
           <>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -111,10 +168,24 @@ const RegistrationForm = ({ registrationFormValues, setRegistrationFormValues, h
                 onChange={handleDatePickerChange}
                 error={formErrors.dateOfBirth ? true : false}
                 renderInput={params => <TextField {...params} />}
-                sx={{ width: '100%' }}
               />
             </LocalizationProvider>
-            <Typography variant='body2'>{formErrors.dateOfBirth}</Typography>
+            {formErrors.dateOfBirth && (
+              <Alert
+                severity='error'
+                sx={{
+                  mt: '10px',
+                  mb: '0em',
+                  padding: '0px',
+                  paddingLeft: '10px',
+                  paddingRight: '10px',
+                  fontSize: '0.77rem',
+                  height: '32px',
+                }}
+              >
+                {formErrors.dateOfBirth}
+              </Alert>
+            )}
           </>
 
           <Box>
@@ -129,11 +200,26 @@ const RegistrationForm = ({ registrationFormValues, setRegistrationFormValues, h
               type='password'
               autoComplete='password'
               autoFocus
-              sx={{ mt: '1.5em' }}
               onChange={handleFormInputChange}
               error={formErrors.password ? true : false}
+              sx={{ mb: 0 }}
             />
-            <Typography variant='body2'>{formErrors.password}</Typography>
+            {formErrors.password && (
+              <Alert
+                severity='error'
+                sx={{
+                  mt: '10px',
+                  mb: '0em',
+                  padding: '0px',
+                  paddingLeft: '10px',
+                  paddingRight: '10px',
+                  fontSize: '0.77rem',
+                  height: '32px',
+                }}
+              >
+                {formErrors.password}
+              </Alert>
+            )}
             <TextField
               margin='normal'
               required
@@ -146,8 +232,24 @@ const RegistrationForm = ({ registrationFormValues, setRegistrationFormValues, h
               autoComplete='password'
               autoFocus
               onChange={handleFormInputChange}
-              error={formErrors.password ? true : false}
+              error={formErrors.confirmPassword ? true : false}
             />
+            {formErrors.confirmPassword && (
+              <Alert
+                severity='error'
+                sx={{
+                  mt: '0px',
+                  mb: '0em',
+                  padding: '0px',
+                  paddingLeft: '10px',
+                  paddingRight: '10px',
+                  fontSize: '0.77rem',
+                  height: '32px',
+                }}
+              >
+                {formErrors.confirmPassword}
+              </Alert>
+            )}
           </Box>
 
           <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
