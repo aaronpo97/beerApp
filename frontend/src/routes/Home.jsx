@@ -1,7 +1,5 @@
-import { ThemeProvider, Grid, CssBaseline } from '@mui/material';
-import theme from '../theme';
 const Home = () => {
-	return <></>;
+  return <></>;
 };
 
 export default Home;

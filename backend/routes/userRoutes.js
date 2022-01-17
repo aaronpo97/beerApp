@@ -66,7 +66,10 @@ router
 
 router
    .route('/confirm/resend-confirmation-email')
-   .get(checkTokens, verifyAccessToken, resendConfirmation);
+   .get(checkTokens, verifyAccessToken, resendConfirmation)
+   .all(() => {
+      throw new ServerError('Not allowed.', 405);
+   });
 
 router
    .route('/confirm/:userID/:token')

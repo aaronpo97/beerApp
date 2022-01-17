@@ -1,150 +1,240 @@
 import { useState, useEffect } from 'react';
-import { Container, Box, TextField, Typography, Select, MenuItem, Button } from '@mui/material';
+import {
+   Container,
+   Box,
+   TextField,
+   Typography,
+   Select,
+   MenuItem,
+   Button,
+   Grid,
+   FormControl,
+   InputLabel,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+
+const CreateBeerForm = ({
+   formValues,
+   formErrors,
+   handleSubmit,
+   handleFormInputChange,
+   breweryList,
+}) => {
+   return (
+      <FormControl fullWidth component='form' onSubmit={handleSubmit} variant='outlined' noValidate>
+         <TextField
+            required
+            value={formValues.name}
+            id='name'
+            label='Beer name'
+            name='name'
+            autoComplete='Beer name'
+            autoFocus
+            error={formErrors.name}
+            onChange={handleFormInputChange}
+            margin='normal'
+            fullWidth
+         />
+         <TextField
+            required
+            value={formValues.type}
+            id='type'
+            label='Beer type'
+            name='type'
+            autoComplete='Beer type'
+            autoFocus
+            error={formErrors.type}
+            onChange={handleFormInputChange}
+            margin='normal'
+            fullWidth
+         />
+
+         <Grid container spacing={3}>
+            <Grid item md={6}>
+               <TextField
+                  variant='outlined'
+                  value={formValues.abv}
+                  id='outlined-adornment-abv'
+                  label='ABV (alcohol by volume)'
+                  name='abv'
+                  error={formErrors.abv}
+                  onChange={handleFormInputChange}
+                  margin='normal'
+                  fullWidth
+               />
+            </Grid>
+            <Grid item md={6}>
+               <TextField
+                  variant='outlined'
+                  value={formValues.ibu}
+                  id='outlined-adornment-abv'
+                  label='IBU (international bitterness units)'
+                  name='ibu'
+                  error={formErrors.ibu}
+                  onChange={handleFormInputChange}
+                  margin='normal'
+                  fullWidth
+               />
+            </Grid>
+         </Grid>
+         <TextField
+            required
+            variant='outlined'
+            value={formValues.description}
+            id='outlined-adornment-abv'
+            label='Description'
+            name='description'
+            error={formErrors.description}
+            onChange={handleFormInputChange}
+            sx={{ mb: 2 }}
+            margin='normal'
+            multiline
+            rows={10}
+            fullWidth
+         />
+
+         <Select
+            labelId='brewery-select'
+            label='brewery'
+            value={formValues.brewery}
+            fullWidth
+            name='brewery'
+            onChange={handleFormInputChange}
+         >
+            {breweryList.map(brewery => {
+               return (
+                  <MenuItem key={brewery.name} value={brewery._id}>
+                     {brewery.name}
+                  </MenuItem>
+               );
+            })}
+         </Select>
+
+         <Button type='submit' fullWidth sx={{ mt: 3, mb: 2 }} variant='contained'>
+            Post a beer!
+         </Button>
+      </FormControl>
+   );
+};
+
 const CreateBeer = () => {
-	const navigate = useNavigate();
-	const [name, setName] = useState('');
-	const [type, setType] = useState('');
-	const [description, setDescription] = useState('');
-	const [abv, setABV] = useState('');
-	const [ibu, setIBU] = useState('');
-	const [brewery, setBrewery] = useState('');
-	const [beer, setBeer] = useState({
-		name,
-		type,
-		description,
-		abv,
-		ibu,
-		brewery,
-	});
-	useEffect(
-		() => setBeer({ name, type, description, abv, ibu, brewery, images: [] }),
-		[name, type, description, abv, ibu, brewery]
-	);
-	//get brewery list
-	const [breweryList, setBreweryList] = useState([]);
-	useEffect(() => {
-		const fetchData = async () => {
-			const requestOptions = {
-				method: 'GET',
-				headers: {
-					'x-access-token': localStorage['access-token'],
-					'x-auth-token': localStorage['refresh-token'],
-				},
-			};
-			const url = `http://localhost:5000/breweries`;
-			const response = await fetch(url, requestOptions);
-			const data = await response.json();
-			setBreweryList(data.payload || []);
-			localStorage['access-token'] = response.newAccessToken || localStorage['access-token'];
-			if (response.status === 401) {
-				localStorage.clear();
-			}
-		};
-		fetchData();
-	}, []);
-	const handleChange = event => setBrewery(event.target.value);
-	const handleSubmit = () => {
-		const postData = async () => {
-			const requestOptions = {
-				method: 'POST',
-				headers: {
-					'x-access-token': localStorage['access-token'],
-					'x-auth-token': localStorage['refresh-token'],
-					'Content-type': 'application/json',
-				},
-				body: JSON.stringify(beer),
-			};
-			const response = await fetch('http://localhost:5000/beers/', requestOptions);
-			const data = await response.json();
-			if (!data.payload) return;
-			const post = data.payload;
-			navigate(`/beers/${post._id}`);
-		};
-		postData();
-	};
-	return (
-		<Container>
-			<Typography variant='h1'>Post a Beer</Typography>
-			<Box
-				component='form'
-				onSubmit={e => {
-					e.preventDefault();
-					handleSubmit();
-				}}
-				noValidate>
-				<TextField
-					margin='normal'
-					required
-					fullWidth
-					autoFocus
-					label='name'
-					type='text'
-					id='name'
-					value={name}
-					autoComplete='name'
-					onChange={e => setName(e.target.value)}
-				/>
-				<TextField
-					margin='normal'
-					required
-					fullWidth
-					autoFocus
-					label='beer type'
-					type='text'
-					id='type'
-					value={type}
-					onChange={e => setType(e.target.value)}
-				/>
-				<TextField
-					margin='normal'
-					required
-					fullWidth
-					autoFocus
-					multiline
-					rows={10}
-					label='description'
-					type='text'
-					id='description'
-					value={description}
-					onChange={e => setDescription(e.target.value)}
-				/>
-				<TextField
-					margin='normal'
-					required
-					fullWidth
-					autoFocus
-					label='abv'
-					type='text'
-					id='abv'
-					value={abv}
-					onChange={e => setABV(e.target.value)}
-				/>
-				<TextField
-					margin='normal'
-					required
-					fullWidth
-					autoFocus
-					label='ibu'
-					type='text'
-					id='ibu'
-					value={ibu}
-					onChange={e => setIBU(e.target.value)}
-				/>
-				<Select labelId='brewery-select' label='brewery' value={brewery} fullWidth onChange={handleChange}>
-					{breweryList.map(brewery => {
-						return (
-							<MenuItem key={brewery.name} value={brewery._id}>
-								{brewery.name}
-							</MenuItem>
-						);
-					})}
-				</Select>
-				<Button type='submit' fullWidth sx={{ mt: 3, mb: 2 }} variant='contained'>
-					Post a beer!
-				</Button>
-			</Box>
-		</Container>
-	);
+   const navigate = useNavigate();
+   const [formValues, setFormValues] = useState({
+      name: '',
+      type: '',
+      description: '',
+      abv: '',
+      ibu: '',
+      brewery: '',
+   });
+   const [formErrors, setFormErrors] = useState({});
+
+   //get brewery list
+   const [breweryList, setBreweryList] = useState([]);
+
+   const onFormSubmit = event => {
+      event.preventDefault();
+      const validateData = async () => {
+         const errors = {};
+
+         if (!formValues.name) {
+            errors.name = 'Beer name is required.';
+         }
+         if (!formValues.type) {
+            errors.type = 'Beer type is required.';
+         }
+
+         if (formValues.abv && !parseFloat(formValues.abv)) {
+            errors.abv = 'ABV must be a number.';
+         }
+         if (formValues.ibu && !parseFloat(formValues.ibu)) {
+            errors.ibu = 'IBU must be a number.';
+         }
+
+         if (!formErrors.description) {
+            errors.description = 'Description is required.';
+         }
+         if (!breweryList.map(brewery => brewery._id).includes(formValues.brewery)) {
+            errors.brewery = 'Invalid brewery.';
+         }
+
+         if (Object.keys(errors).length) {
+            setFormErrors(errors);
+            throw new Error('Form validation failed.');
+         }
+      };
+
+      const handleSubmit = () => {
+         const postData = async () => {
+            const requestOptions = {
+               method: 'POST',
+               headers: {
+                  'x-access-token': localStorage['access-token'],
+                  'x-auth-token': localStorage['refresh-token'],
+                  'Content-type': 'application/json',
+               },
+               body: JSON.stringify(formValues),
+            };
+            const response = await fetch('http://localhost:5000/beers/', requestOptions);
+            const data = await response.json();
+            if (!data.payload) return;
+            const post = data.payload;
+            navigate(`/beers/${post._id}`);
+         };
+         postData();
+      };
+
+      validateData()
+         .then(() => handleSubmit())
+         .catch(error => console.error(error));
+   };
+
+   useEffect(() => {
+      const fetchData = async () => {
+         const requestOptions = {
+            method: 'GET',
+            headers: {
+               'x-access-token': localStorage['access-token'],
+               'x-auth-token': localStorage['refresh-token'],
+            },
+         };
+         const url = `http://localhost:5000/breweries`;
+         const response = await fetch(url, requestOptions);
+         const data = await response.json();
+         setBreweryList(data.payload || []);
+         localStorage['access-token'] = response.newAccessToken || localStorage['access-token'];
+         if (response.status === 401) {
+            localStorage.clear();
+         }
+      };
+      fetchData();
+   }, []);
+
+   const handleFormInputChange = event => {
+      setFormValues({ ...formValues, [event.target.name]: event.target.value });
+   };
+
+   return (
+      <Box>
+         <Box>
+            <img
+               style={{ height: '30em', width: '100%', objectFit: 'cover' }}
+               src={
+                  'https://media.blogto.com/articles/20190621-TheHomeway1.jpg?w=2048&cmd=resize_then_crop&height=1365&quality=70'
+               }
+            />
+         </Box>
+         <Container sx={{ marginTop: 4 }}>
+            <Typography variant='h1'>Post a Beer</Typography>
+            <CreateBeerForm
+               formValues={formValues}
+               formErrors={formErrors}
+               handleFormInputChange={handleFormInputChange}
+               handleSubmit={onFormSubmit}
+               breweryList={breweryList}
+            />
+         </Container>
+      </Box>
+   );
 };
 export default CreateBeer;
