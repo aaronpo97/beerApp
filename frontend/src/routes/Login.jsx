@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { ThemeProvider, Grid, CssBaseline } from '@mui/material';
+import { Grid } from '@mui/material';
 import LoginForm from '../components/LoginForm';
-import theme from '../theme';
 import SideImage from '../components/misc/SideImage';
 
 const Login = () => {
@@ -26,7 +25,7 @@ const Login = () => {
          if (response.status === 200) navigate('/beers');
       };
       redirectIfLoggedIn();
-   }, []);
+   }, [navigate]);
 
    const handleSubmit = event => {
       event.preventDefault();
@@ -78,22 +77,19 @@ const Login = () => {
    };
 
    return (
-      <ThemeProvider theme={theme}>
-         <CssBaseline />
-         <Grid container component='main' sx={{ height: '100vh' }}>
-            <SideImage
-               imageUrl={
-                  'https://images.pexels.com/photos/5858056/pexels-photo-5858056.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
-               }
-            />
-            <LoginForm
-               formValues={formValues}
-               formErrors={formErrors}
-               handleSubmit={handleSubmit}
-               handleFormInputChange={handleFormInputChange}
-            />
-         </Grid>
-      </ThemeProvider>
+      <Grid container component='main' sx={{ height: '100vh' }}>
+         <SideImage
+            imageUrl={
+               'https://images.pexels.com/photos/5858056/pexels-photo-5858056.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
+            }
+         />
+         <LoginForm
+            formValues={formValues}
+            formErrors={formErrors}
+            handleSubmit={handleSubmit}
+            handleFormInputChange={handleFormInputChange}
+         />
+      </Grid>
    );
 };
 

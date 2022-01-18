@@ -1,18 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-   LinearProgress,
-   InputLabel,
-   Box,
-   Select,
-   MenuItem,
-   FormControl,
-   Typography,
-   Button,
-} from '@mui/material';
-import BeerCard from '../misc/BeerCard';
+
+import { LinearProgress, InputLabel, Box, Select, MenuItem, FormControl } from '@mui/material';
 import { Masonry } from '@mui/lab';
+
+import BeerCard from '../misc/BeerCard';
 import BeerCardSideImage from '../misc/BeerCardSideImage';
+
 const BeerList = () => {
    const [sortingParam, setSortingParam] = useState('default');
    const [sortingDirection, setSortingDirection] = useState('default');
@@ -32,22 +26,26 @@ const BeerList = () => {
          };
          const url = `http://localhost:5000/beers?populate=true&sort=${sortingDirection}&param=${sortingParam}`;
          const response = await fetch(url, requestOptions);
+
          if (response.status === 401) {
             localStorage.clear();
             navigate('/login');
          }
-
          if (response.status === 403) {
             navigate('/confirmaccount');
          }
+
          const result = await response.json();
+
          if (!result.payload) return;
+
          localStorage['access-token'] =
             result.payload.newAccessToken || localStorage['access-token'];
+
          setBeers(result.payload || []);
       };
       fetchData();
-   }, [sortingParam, sortingDirection]);
+   }, [sortingParam, sortingDirection, navigate]);
 
    useEffect(() => {
       switch (sortingOption) {

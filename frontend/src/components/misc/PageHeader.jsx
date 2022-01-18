@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { AppBar, Toolbar, Container, Typography, Grid, Button } from '@mui/material';
+import { AppBar, Toolbar, Container, Typography, Button } from '@mui/material';
 
 const PageHeader = () => {
    const pagesLoggedIn = [

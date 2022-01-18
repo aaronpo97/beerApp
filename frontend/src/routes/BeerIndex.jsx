@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Container, Box, Typography, Button, Grid } from '@mui/material';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 
@@ -13,9 +12,8 @@ const Beers = () => {
          <Box>
             <img
                style={{ height: '30em', width: '100%', objectFit: 'cover' }}
-               src={
-                  'https://media.blogto.com/articles/20190621-TheHomeway1.jpg?w=2048&cmd=resize_then_crop&height=1365&quality=70'
-               }
+               src={'https://source.unsplash.com/random?biergarten'}
+               alt='A drinking patio at a bar.'
             />
          </Box>
          <Container maxWidth={'lg'}>
