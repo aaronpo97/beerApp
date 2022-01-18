@@ -38,7 +38,7 @@ const BreweryInfoPage = () => {
                alt=''
             />
          </Box>
-         <Container maxWidth={'lg'}>
+         <Container maxWidth={'xl'}>
             <BreweryInfo breweryData={breweryData} />
          </Container>
       </Box>

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { AppBar, Toolbar, Container, Typography, Button } from '@mui/material';
+import { AppBar, Toolbar, Container, Typography, Button, Box } from '@mui/material';
 
 const PageHeader = () => {
    const pagesLoggedIn = [
@@ -19,8 +19,8 @@ const PageHeader = () => {
       navigate('/login');
    };
    return (
-      <>
-         <AppBar position='fixed'>
+      <Box>
+         <AppBar position='fixed' elevation={12}>
             <Container maxWidth='xl'>
                <Toolbar sx={{ flexWrap: 'wrap' }}>
                   <>
@@ -55,7 +55,7 @@ const PageHeader = () => {
             </Container>
          </AppBar>
          <Toolbar />
-      </>
+      </Box>
    );
 };
 

@@ -16,7 +16,7 @@ const Beers = () => {
                alt='A drinking patio at a bar.'
             />
          </Box>
-         <Container maxWidth={'lg'}>
+         <Container maxWidth={'xl'}>
             <Grid container sx={{ mt: 5 }}>
                <Grid item md={10} sm={12}>
                   <Typography variant='h1'>The Biergarten Index</Typography>
@@ -29,6 +29,7 @@ const Beers = () => {
                      startIcon={<AddCircleOutlinedIcon />}
                      onClick={() => navigate('/beers/create')}
                      variant='contained'
+                     sx={{ width: '100%' }}
                   >
                      Post a new beer
                   </Button>

@@ -113,7 +113,7 @@ const BeerList = () => {
             </Select>
          </FormControl>
          <Masonry
-            columns={sortingOption === 0 ? { xs: 1, sm: 2, md: 2, lg: 3, xl: 3 } : '1'}
+            columns={sortingOption === 0 ? { xs: 1, sm: 2, md: 2, lg: 3, xl: 4 } : '1'}
             spacing={{ xs: 1, sm: 1, md: 1, lg: 1, xl: 2 }}
             sx={{ mb: 0 }}
          >

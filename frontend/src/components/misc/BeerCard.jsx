@@ -7,7 +7,7 @@ const BeerCard = ({ beer, size = 'large' }) => {
    const navigate = useNavigate();
    return (
       <Stack spacing={1}>
-         <Card sx={{ marginTop: '1em' }}>
+         <Card elevation={5} sx={{ marginTop: '1em' }}>
             <CardMedia
                component='img'
                height={Math.floor(Math.random() * 100 + 400)}

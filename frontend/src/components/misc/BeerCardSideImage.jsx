@@ -10,7 +10,7 @@ const BeerCardSideImage = ({ beer, size = 'large' }) => {
 
    return (
       <Stack spacing={1}>
-         <Card sx={{ marginTop: '1em' }}>
+         <Card elevation={5} sx={{ marginTop: '1em' }}>
             <Grid container>
                <Grid item md={4}>
                   <CardMedia

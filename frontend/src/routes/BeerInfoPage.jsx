@@ -32,7 +32,7 @@ const InfoPage = () => {
    useEffect(() => console.log(currentBeer), [currentBeer]);
 
    return (
-      <Container>
+      <Container maxWidth='xl'>
          <BeerInfo currentBeer={currentBeer} />
       </Container>
    );
