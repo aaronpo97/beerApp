@@ -18,7 +18,7 @@ const ProfilePage = () => {
                'x-auth-token': localStorage['refresh-token'],
             },
          };
-         const url = `http://localhost:5000/users/profile/${id}`;
+         const url = `http://localhost:5000/api/users/profile/${id}`;
          const response = await fetch(url, requestOptions);
          if (response.status === 404) return;
          if (response.status === 401) {

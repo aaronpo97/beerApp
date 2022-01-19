@@ -10,7 +10,7 @@ const ConfirmAccount = () => {
 
    useEffect(() => {
       const confirmationRequest = async () => {
-         const link = `http://localhost:5000/users/confirm/${userId}/${confirmationToken}`;
+         const link = `http://localhost:5000/api/users/confirm/${userId}/${confirmationToken}`;
          const requestOptions = { method: 'PUT' };
 
          const response = await fetch(link, requestOptions);

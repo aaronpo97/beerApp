@@ -10,7 +10,7 @@ const BreweryList = ({ breweries }) => {
          </Typography>
          <Grid container spacing={1}>
             {breweries.map(brewery => (
-               <BreweryCardSideImage brewery={brewery} />
+               <BreweryCardSideImage key={brewery._id} brewery={brewery} />
             ))}
          </Grid>
       </Box>

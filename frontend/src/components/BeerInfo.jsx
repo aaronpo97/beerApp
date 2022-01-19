@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { Typography, LinearProgress, Link, Box, Grid, Paper } from '@mui/material';
+import { Typography, LinearProgress, Link, Box, Grid, Paper, Card } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const BeerInfo = ({ currentBeer }) => {
@@ -43,9 +43,9 @@ const BeerInfo = ({ currentBeer }) => {
                   />
                </Box>
             </Grid>
-            <Grid item md={6}>
-               <Box sx={{ height: '100%', width: '100%', padding: 4 }}>
-                  <Paper elevation={5} sx={{ padding: 1.5, mb: '30px' }}>
+            <Grid item md={7}>
+               <Card sx={{ height: '100%' }}>
+                  <Box>
                      <Typography variant='h1' sx={{ fontSize: '40pt' }}>
                         {currentBeer.name}
                      </Typography>
@@ -68,8 +68,8 @@ const BeerInfo = ({ currentBeer }) => {
                            {currentBeer.postedBy.username}
                         </Link>
                      </Typography>
-                  </Paper>
-                  <Paper elevation={5} sx={{ height: '70%', padding: 1.5 }}>
+                  </Box>
+                  <Box>
                      <Typography gutterBottom variant='h2'>
                         About
                      </Typography>
@@ -91,21 +91,9 @@ const BeerInfo = ({ currentBeer }) => {
                         )}
                      </Grid>
 
-                     {/* <div>
-					{likeCount} like{likeCount > 1 ? 's' : ''}
-				</div>
-				{currentBeer.likedBy.map(like => (
-					<div>
-						<Link onClick={() => navigate(`/profile/${like._id}`)}>
-							{like.username}
-						</Link>
-						likes this!
-					</div>
-				))} */}
-
                      <Typography variant='body1'>{currentBeer.description}</Typography>
-                  </Paper>
-               </Box>
+                  </Box>
+               </Card>
             </Grid>
          </Grid>
       </Box>

@@ -19,7 +19,7 @@ const BreweryIndex = () => {
                'x-auth-token': localStorage['refresh-token'],
             },
          };
-         const url = `http://localhost:5000/breweries?populate=true&sort=${sortingDirection}&param=${sortingParam}`;
+         const url = `http://localhost:5000/api/breweries?sort=${sortingDirection}&param=${sortingParam}`;
          const response = await fetch(url, requestOptions);
          if (response.status === 401) {
             localStorage.clear();

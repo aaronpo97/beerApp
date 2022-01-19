@@ -5,7 +5,7 @@ import { Stack } from '@mui/material';
 
 const BreweryCardSideImage = ({ brewery, size = 'large' }) => {
    const navigate = useNavigate();
-   console.log(brewery);
+
    return (
       <Stack spacing={1}>
          <Card elevation={5} sx={{ marginTop: '1em' }}>

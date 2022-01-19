@@ -7,87 +7,7 @@ import { Masonry } from '@mui/lab';
 import BeerCard from '../misc/BeerCard';
 import BeerCardSideImage from '../misc/BeerCardSideImage';
 
-const BeerList = () => {
-   const [sortingParam, setSortingParam] = useState('default');
-   const [sortingDirection, setSortingDirection] = useState('default');
-   const [sortingOption, setSortingOption] = useState(0);
-
-   const navigate = useNavigate();
-   const [beers, setBeers] = useState([]);
-
-   useEffect(() => {
-      const fetchData = async () => {
-         const requestOptions = {
-            method: 'GET',
-            headers: {
-               'x-access-token': localStorage['access-token'],
-               'x-auth-token': localStorage['refresh-token'],
-            },
-         };
-         const url = `http://localhost:5000/beers?populate=true&sort=${sortingDirection}&param=${sortingParam}`;
-         const response = await fetch(url, requestOptions);
-
-         if (response.status === 401) {
-            localStorage.clear();
-            navigate('/login');
-         }
-         if (response.status === 403) {
-            navigate('/confirmaccount');
-         }
-
-         const result = await response.json();
-
-         if (!result.payload) return;
-
-         localStorage['access-token'] =
-            result.payload.newAccessToken || localStorage['access-token'];
-
-         setBeers(result.payload || []);
-      };
-      fetchData();
-   }, [sortingParam, sortingDirection, navigate]);
-
-   useEffect(() => {
-      switch (sortingOption) {
-         case 1:
-            setSortingParam('name');
-            setSortingDirection('ascending');
-            break;
-         case 2:
-            setSortingParam('name');
-            setSortingDirection('descending');
-            break;
-         case 3:
-            setSortingParam('type');
-            setSortingDirection('ascending');
-            break;
-         case 4:
-            setSortingParam('type');
-            setSortingDirection('descending');
-            break;
-         case 5:
-            setSortingParam('abv');
-            setSortingDirection('ascending');
-            break;
-         case 6:
-            setSortingParam('abv');
-            setSortingDirection('descending');
-            break;
-         case 7:
-            setSortingParam('ibu');
-            setSortingDirection('ascending');
-            break;
-         case 8:
-            setSortingParam('ibu');
-            setSortingDirection('descending');
-            break;
-         default:
-            setSortingParam('default');
-            setSortingDirection('default');
-            break;
-      }
-   }, [sortingOption]);
-
+const BeerList = ({ beers, sortingOption, setSortingOption }) => {
    return !beers.length ? (
       <LinearProgress />
    ) : (
@@ -113,7 +33,7 @@ const BeerList = () => {
             </Select>
          </FormControl>
          <Masonry
-            columns={sortingOption === 0 ? { xs: 1, sm: 2, md: 2, lg: 3, xl: 4 } : '1'}
+            columns={sortingOption === 0 ? { xs: 1, sm: 2, md: 2, lg: 3, xl: 3 } : '1'}
             spacing={{ xs: 1, sm: 1, md: 1, lg: 1, xl: 2 }}
             sx={{ mb: 0 }}
          >

@@ -5,27 +5,11 @@ import { Grid } from '@mui/material';
 import LoginForm from '../components/LoginForm';
 import SideImage from '../components/misc/SideImage';
 
-const Login = () => {
+const Login = ({ setCurrentUser }) => {
    const [formValues, setFormValues] = useState({ username: '', password: '' });
    const [formErrors, setFormErrors] = useState({});
 
    const navigate = useNavigate();
-
-   useEffect(() => {
-      const redirectIfLoggedIn = async () => {
-         if (!(localStorage['access-token'] && localStorage['refresh-token'])) return;
-         var requestOptions = {
-            method: 'GET',
-            headers: {
-               'x-access-token': localStorage['access-token'],
-               'x-auth-token': localStorage['refresh-token'],
-            },
-         };
-         const response = await fetch('http://localhost:5000/verifytoken', requestOptions);
-         if (response.status === 200) navigate('/beers');
-      };
-      redirectIfLoggedIn();
-   }, [navigate]);
 
    const handleSubmit = event => {
       event.preventDefault();
@@ -40,8 +24,10 @@ const Login = () => {
                headers: { 'Content-Type': 'application/json' },
                method: 'POST',
             };
-            const response = await fetch('http://localhost:5000/users/login', requestOptions);
+            const response = await fetch('http://localhost:5000/api/users/login', requestOptions);
             const data = response.status === 200 ? await response.json() : await response.text();
+
+            setCurrentUser(data.payload.userId);
             return response.status === 200 ? data : { message: data };
          };
 

@@ -176,7 +176,7 @@ const CreateBeer = () => {
                },
                body: JSON.stringify(formValues),
             };
-            const response = await fetch('http://localhost:5000/beers/', requestOptions);
+            const response = await fetch('http://localhost:5000/api/beers/', requestOptions);
             const data = await response.json();
             if (!data.payload) return;
             const post = data.payload;
@@ -199,7 +199,7 @@ const CreateBeer = () => {
                'x-auth-token': localStorage['refresh-token'],
             },
          };
-         const url = `http://localhost:5000/breweries`;
+         const url = `http://localhost:5000/api/breweries`;
          const response = await fetch(url, requestOptions);
          const data = await response.json();
          setBreweryList(data.payload || []);

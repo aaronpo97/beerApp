@@ -1,12 +1,12 @@
 import { Card, CardContent, CardMedia, Typography, Link, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
+import LikeButton from './LikeButton';
+
 import { Stack } from '@mui/material';
 
-const BeerCardSideImage = ({ beer, size = 'large' }) => {
+const BeerCardSideImage = ({ beer }) => {
    const navigate = useNavigate();
-
-   console.log(beer);
 
    return (
       <Stack spacing={1}>
@@ -44,11 +44,19 @@ const BeerCardSideImage = ({ beer, size = 'large' }) => {
                      <Typography variant='body1' sx={{ mt: '1em' }} color='text.secondary'>
                         {beer.abv}% ABV{beer.ibu ? `, ${beer.ibu} IBU` : null}
                      </Typography>
-                     <Typography sx={{ mt: '1em' }} variant='h4'>
-                        <Link underline='hover' onClick={() => navigate(``)}>
-                           {beer.type}
-                        </Link>
-                     </Typography>
+
+                     <Grid container>
+                        <Grid item md={10}>
+                           <Typography sx={{ mt: '1em' }} variant='h4'>
+                              <Link underline='hover' onClick={() => navigate(``)}>
+                                 {beer.type}
+                              </Link>
+                           </Typography>
+                        </Grid>
+                        <Grid item md={2}>
+                           <LikeButton beer={beer} />
+                        </Grid>
+                     </Grid>
                   </CardContent>
                </Grid>
             </Grid>

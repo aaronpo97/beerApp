@@ -13,7 +13,7 @@ const InfoPage = () => {
    useEffect(() => {
       const getBeerData = async () => {
          try {
-            const url = `http://localhost:5000/beers/${beerID}?populate=true`;
+            const url = `http://localhost:5000/api/beers/${beerID}`;
             const headers = {
                'x-access-token': localStorage['access-token'],
                'x-auth-token': localStorage['refresh-token'],
@@ -32,7 +32,7 @@ const InfoPage = () => {
    useEffect(() => console.log(currentBeer), [currentBeer]);
 
    return (
-      <Container maxWidth='xl'>
+      <Container maxWidth='lg'>
          <BeerInfo currentBeer={currentBeer} />
       </Container>
    );

@@ -91,7 +91,7 @@ const Register = () => {
       };
 
       const registerUser = async () => {
-         const url = 'http://localhost:5000/users/register';
+         const url = 'http://localhost:5000/api/users/register';
          const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

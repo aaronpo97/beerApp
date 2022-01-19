@@ -14,7 +14,7 @@ const ConfirmPage = () => {
                },
             };
             const response = await fetch(
-               'http://localhost:5000/users/confirm/resend-confirmation-email',
+               'http://localhost:5000/api/users/confirm/resend-confirmation-email',
                requestOptions
             );
             const data = await response.json();
