@@ -26,10 +26,10 @@ const { PORT, MONGO_DB_URI, BASE_URL } = process.env;
 const app = express();
 
 const initializeDB = async () => {
-	await connectDB(MONGO_DB_URI);
-	console.clear();
-	console.log('The Biergarten API \n');
-	console.log('Connected to MongoDB.');
+   await connectDB(MONGO_DB_URI);
+   console.clear();
+   console.log('The Biergarten API \n');
+   console.log('Connected to MongoDB.');
 };
 
 // Enable cross origin resource sharing (dev only)
@@ -45,37 +45,27 @@ passport.use(new PassportLocal.Strategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.all('/teapot', () => {
-	throw new ServerError(`I'm a teapot!`, 418);
-});
-
-app.get('/verifytoken', checkTokens, verifyAccessToken, (req, res, next) => {
-	res.json(
-		new SuccessResponse(
-			`Successfully verified ${req.currentUser.username}.`,
-			200,
-			undefined,
-			req.didTokenRegenerate ? req.accessToken : undefined
-		)
-	);
+app.all('api/teapot', () => {
+   throw new ServerError(`I'm a teapot!`, 418);
 });
 
 // Express router:
-app.use('/beers', beerRoutes);
-app.use('/users', userRoutes);
-app.use('/breweries', breweryRoutes);
-app.use('/images', imageRoutes);
+app.use('/api/beers', beerRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/breweries', breweryRoutes);
+app.use('/api/images', imageRoutes);
 
 // Error handling:
 app.use((err, req, res, next) => {
-	const { status = 500, message = 'Oh no, something went wrong.', stack } = err;
-	res.status(status).json(
-		new ErrorResponse(message, status, process.NODE_ENV !== 'production' ? stack : undefined)
-	);
+   console.log(process.env.NODE_ENV);
+   const { status = 500, message = 'Oh no, something went wrong.', stack } = err;
+   res.status(status).json(
+      new ErrorResponse(message, status, process.env.NODE_ENV === 'development' ? stack : undefined)
+   );
 });
 
 app.listen(PORT, () => {
-	console.clear();
-	console.log('Loading the Biergarten API...');
-	initializeDB().then(() => console.log(`Connected to '${BASE_URL}${PORT}'.`));
+   console.clear();
+   console.log('Loading the Biergarten API...');
+   initializeDB().then(() => console.log(`Connected to '${BASE_URL}${PORT}'.`));
 });

@@ -21,7 +21,7 @@ const checkTokens = async (req, res, next) => {
    } catch (err) {
       if (err.name === 'TokenExpiredError') {
          try {
-            const accessToken = await generateAccessToken(req, res);
+            const accessToken = await generateAccessToken(req);
             req.accessToken = accessToken;
             req.didTokenRegenerate = true;
             req.decoded = null;

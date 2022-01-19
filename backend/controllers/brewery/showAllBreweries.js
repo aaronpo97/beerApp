@@ -6,13 +6,11 @@ import { SuccessResponse } from '../../utilities/response/responses.js';
 
 const showAllBreweries = async (req, res, next) => {
    try {
-      const allBreweries = !boolChecker(req.query.populate)
-         ? await Brewery.find()
-         : await Brewery.find()
-              .populate('beers')
-              .populate('postedBy')
-              .populate('headerImage')
-              .populate('images');
+      const allBreweries = await Brewery.find()
+         .populate('beers')
+         .populate('postedBy', 'username')
+         .populate('headerImage', 'url')
+         .populate('images', 'url');
 
       const message = `Sending brewery index.${
          req.query.sort && req.query.param

@@ -6,20 +6,17 @@ import { SuccessResponse } from '../../utilities/response/responses.js';
 const viewBrewery = async (req, res, next) => {
    try {
       const { id } = req.params;
-      const brewery = !boolChecker(req.query.populate)
-         ? await Brewery.findById(id)
-         : await Brewery.findById(id)
-              .populate('headerImage')
-              .populate('headerImage')
-              .populate('postedBy')
-              .populate('beers')
-              .populate({
-                 path: 'beers',
-                 populate: {
-                    path: 'images',
-                    model: 'Image',
-                 },
-              });
+      const brewery = await Brewery.findById(id)
+         .populate('headerImage')
+         .populate('postedBy', 'username')
+         .populate('beers')
+         .populate({
+            path: 'beers',
+            populate: {
+               path: 'images',
+               model: 'Image',
+            },
+         });
 
       const status = 200;
 

@@ -5,31 +5,29 @@ import { boolChecker } from '../../utilities/data/dataUtil.js';
 import { SuccessResponse } from '../../utilities/response/responses.js';
 
 const showBeerPost = async (req, res, next) => {
-	const { id } = req.params;
-	const { query } = req;
-	try {
-		const payload = !boolChecker(query.populate)
-			? await BeerPost.findById(id)
-			: await BeerPost.findById(id)
-					.populate('brewery')
-					.populate('postedBy')
-					.populate('images')
-					.populate('likedBy');
+   const { id } = req.params;
 
-		if (!payload) throw new ServerError('Could not find a post with that id.', 404);
+   try {
+      const payload = await BeerPost.findById(id)
+         .populate('brewery', 'name')
+         .populate('postedBy', 'username')
+         .populate('images', 'url')
+         .populate('likedBy', 'username');
 
-		const status = 200;
-		res.json(
-			new SuccessResponse(
-				`Sending data for beerpost '${id}'`,
-				status,
-				payload,
-				req.didTokenRegenerate ? req.accessToken : undefined
-			)
-		);
-	} catch (error) {
-		next(error);
-	}
+      if (!payload) throw new ServerError('Could not find a post with that id.', 404);
+
+      const status = 200;
+      res.json(
+         new SuccessResponse(
+            `Sending data for beerpost '${id}'`,
+            status,
+            payload,
+            req.didTokenRegenerate ? req.accessToken : undefined
+         )
+      );
+   } catch (error) {
+      next(error);
+   }
 };
 
 export default showBeerPost;

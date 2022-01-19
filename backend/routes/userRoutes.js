@@ -16,6 +16,8 @@ import viewProfile from '../controllers/users/viewProfile.js';
 
 import validateRegistration from '../middleware/validation/validateRegistration.js';
 
+import { SuccessResponse } from '../utilities/response/responses.js';
+
 import ServerError from '../utilities/errors/ServerError.js';
 import checkIfUserExists from '../controllers/users/checkIfUserExists.js';
 
@@ -26,6 +28,18 @@ dotenv.config();
 import resendConfirmation from '../controllers/users/resendConfirmation.js';
 
 const router = express.Router();
+
+router.route('/verifytoken').get(checkTokens, verifyAccessToken, (req, res) => {
+   const { currentUser } = req;
+   res.json(
+      new SuccessResponse(
+         `Successfully verified ${req.currentUser.username}.`,
+         200,
+         currentUser,
+         req.didTokenRegenerate ? req.accessToken : undefined
+      )
+   );
+});
 
 router
    .route('/checkifuserexists')

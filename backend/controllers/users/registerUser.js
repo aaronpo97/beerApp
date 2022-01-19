@@ -4,7 +4,11 @@ import User from '../../database/models/User.js';
 import ServerError from '../../utilities/errors/ServerError.js';
 
 import sendConfirmationEmail from '../../utilities/nodemailer/sendConfirmationEmail.js';
-import { generateAccessToken, generateRefreshToken } from '../../utilities/auth/generateTokens.js';
+import {
+   generateAccessToken,
+   generateConfirmationToken,
+   generateRefreshToken,
+} from '../../utilities/auth/generateTokens.js';
 
 import dotenv from 'dotenv';
 import { SuccessResponse } from '../../utilities/response/responses.js';
@@ -31,16 +35,11 @@ const registerUser = async (req, res, next) => {
       await User.register(user, password);
       await user.save();
 
-      const confirmationToken = jwt.sign(
-         { userToConfirm: user.username, id: user._id },
-         CONFIRMATION_TOKEN_SECRET,
-         { expiresIn: '10m' },
-         { algorithm: 'HS256' }
-      );
-
+      const confirmationToken = await generateConfirmationToken(user);
       // await sendConfirmationEmail(email, user, confirmationToken);
 
       const refreshToken = await generateRefreshToken(user);
+
       req.refreshToken = refreshToken;
       const accessToken = await generateAccessToken(req);
 
