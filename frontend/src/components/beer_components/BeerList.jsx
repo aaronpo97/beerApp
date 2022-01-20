@@ -1,11 +1,8 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
 import { LinearProgress, InputLabel, Box, Select, MenuItem, FormControl } from '@mui/material';
 import { Masonry } from '@mui/lab';
 
-import BeerCard from '../misc/BeerCard';
-import BeerCardSideImage from '../misc/BeerCardSideImage';
+import BeerCard from './BeerCard';
+import BeerCardSideImage from './BeerCardSideImage';
 
 const BeerList = ({ beers, sortingOption, setSortingOption }) => {
    return !beers.length ? (
@@ -38,11 +35,7 @@ const BeerList = ({ beers, sortingOption, setSortingOption }) => {
             sx={{ mb: 0 }}
          >
             {beers.map(beer => {
-               return sortingOption === 0 ? (
-                  <BeerCard beer={beer} />
-               ) : (
-                  <BeerCardSideImage beer={beer} />
-               );
+               return sortingOption === 0 ? <BeerCard beer={beer} /> : <BeerCardSideImage beer={beer} />;
             })}
          </Masonry>
       </Box>

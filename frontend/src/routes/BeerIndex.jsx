@@ -4,7 +4,7 @@ import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import BeerList from '../components/beerIndex/BeerList';
+import BeerList from '../components/beer_components/BeerList';
 
 const Beers = () => {
    const [sortingParam, setSortingParam] = useState('default');
@@ -38,8 +38,7 @@ const Beers = () => {
 
          if (!result.payload) return;
 
-         localStorage['access-token'] =
-            result.payload.newAccessToken || localStorage['access-token'];
+         localStorage['access-token'] = result.payload.newAccessToken || localStorage['access-token'];
 
          setBeers(result.payload || []);
       };

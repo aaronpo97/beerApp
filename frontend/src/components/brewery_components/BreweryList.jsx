@@ -1,5 +1,5 @@
 import { Box, Grid, Typography } from '@mui/material';
-import BreweryCardSideImage from '../misc/BreweryCardSideImage';
+import BreweryCardSideImage from './BreweryCardSideImage';
 
 const BreweryList = ({ breweries }) => {
    return (

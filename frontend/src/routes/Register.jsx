@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import ms from 'ms';
 
-import RegistrationForm from '../components/registration/RegistrationForm';
+import RegistrationForm from '../components/user_functions/RegistrationForm';
 const blocklistedWords = ['1^Ce9T]Re-J|']; //test phrase
 
 const Register = () => {
@@ -26,8 +26,7 @@ const Register = () => {
       event.preventDefault();
 
       const validateData = async () => {
-         const { firstName, lastName, password, username, email, dateOfBirth, confirmPassword } =
-            formValues;
+         const { firstName, lastName, password, username, email, dateOfBirth, confirmPassword } = formValues;
          const errors = {};
          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
@@ -67,6 +66,9 @@ const Register = () => {
 
          if (!password) {
             errors.password = 'Password is required.';
+         }
+         if (!confirmPassword) {
+            errors.confirmPassword = 'Please confirm your password.';
          } else if (password !== confirmPassword) {
             errors.confirmPassword = 'Password and confirm password do not match.';
          }

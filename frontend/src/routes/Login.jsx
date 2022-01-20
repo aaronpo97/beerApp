@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Grid } from '@mui/material';
-import LoginForm from '../components/LoginForm';
-import SideImage from '../components/misc/SideImage';
+
+import LoginForm from '../components/user_functions/LoginForm';
+import SideImage from '../components/utilities/SideImage';
 
 const Login = ({ setCurrentUser }) => {
    const [formValues, setFormValues] = useState({ username: '', password: '' });
@@ -27,18 +28,27 @@ const Login = ({ setCurrentUser }) => {
             const response = await fetch('http://localhost:5000/api/users/login', requestOptions);
             const data = response.status === 200 ? await response.json() : await response.text();
 
-            setCurrentUser(data.payload.userId);
+            if (response.status === 200) {
+               setCurrentUser(data.payload.userId);
+            }
             return response.status === 200 ? data : { message: data };
          };
 
          const attemptedLogin = await loginUser();
 
-         if (
-            attemptedLogin.message === 'Bad Request' ||
-            attemptedLogin.message === 'Unauthorized'
-         ) {
-            const errors = { credentials: 'Your username or password is incorrect.' };
-            setFormValues({ username: '', password: '' });
+         if (attemptedLogin.message === 'Bad Request' || attemptedLogin.message === 'Unauthorized') {
+            const errors = {};
+
+            if (!formValues.username) {
+               errors.username = 'Missing username.';
+            }
+            if (!formValues.password) {
+               errors.password = 'Missing password.';
+               setFormValues({ ...formValues, password: '' });
+            } else {
+               errors.credentials = 'Username or password is incorrect.';
+               setFormValues({ username: '', password: '' });
+            }
             setFormErrors(errors);
             throw new Error('Login failed.');
          }

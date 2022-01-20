@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { Container, Box } from '@mui/material';
 
-import BreweryInfo from '../components/breweryIndex/BreweryInfo';
+import BreweryInfo from '../components/brewery_components/BreweryInfo';
 
 const BreweryInfoPage = () => {
    const { id } = useParams();

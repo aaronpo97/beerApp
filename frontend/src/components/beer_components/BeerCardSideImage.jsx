@@ -1,7 +1,7 @@
 import { Card, CardContent, CardMedia, Typography, Link, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import LikeButton from './LikeButton';
+import LikeButton from '../utilities/LikeButton';
 
 import { Stack } from '@mui/material';
 
@@ -30,10 +30,7 @@ const BeerCardSideImage = ({ beer }) => {
 
                      {beer.brewery.name ? (
                         <Typography variant='h3' gutterBottom>
-                           <Link
-                              underline='hover'
-                              onClick={() => navigate(`/breweries/${beer.brewery._id}`)}
-                           >
+                           <Link underline='hover' onClick={() => navigate(`/breweries/${beer.brewery._id}`)}>
                               {beer.brewery.name}
                            </Link>
                         </Typography>

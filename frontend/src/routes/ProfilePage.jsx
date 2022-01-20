@@ -1,7 +1,8 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Box, Container, Typography, Avatar, Grid } from '@mui/material';
-import BeerCard from '../components/misc/BeerCard';
+
+import BeerCard from '../components/beer_components/BeerCard';
 
 const ProfilePage = () => {
    const { id } = useParams();
@@ -27,8 +28,7 @@ const ProfilePage = () => {
          }
          const result = await response.json();
          if (!result.payload) return;
-         localStorage['access-token'] =
-            result.payload.newAccessToken || localStorage['access-token'];
+         localStorage['access-token'] = result.payload.newAccessToken || localStorage['access-token'];
 
          setUser(result.payload);
       };
@@ -51,9 +51,7 @@ const ProfilePage = () => {
                            />
                         </Grid>
                         <Grid item xs={10}>
-                           <Typography variant={'h1'}>
-                              {`${user.firstName} ${user.lastName}`}
-                           </Typography>
+                           <Typography variant={'h1'}>{`${user.firstName} ${user.lastName}`}</Typography>
                            <Typography variant={'h2'} gutterBottom>
                               {`${user.username}`}
                            </Typography>

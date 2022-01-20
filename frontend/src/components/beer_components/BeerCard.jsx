@@ -3,23 +3,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { Stack } from '@mui/material';
 
-import { useContext, useState, useEffect } from 'react';
-import { UserContext } from '../../util/UserContext';
-
-import LikeButton from '../misc/LikeButton';
+import LikeButton from '../utilities/LikeButton';
 
 const BeerCard = ({ beer, size = 'large' }) => {
-   const [liked, setLiked] = useState(null);
    const navigate = useNavigate();
-   const user = useContext(UserContext);
-
-   useEffect(() => {
-      setLiked(beer.likedBy.includes(user));
-   }, []);
-
-   const onLikeClick = () => {
-      setLiked(!liked);
-   };
 
    return (
       <Stack spacing={1}>
@@ -39,10 +26,7 @@ const BeerCard = ({ beer, size = 'large' }) => {
 
                {beer.brewery.name ? (
                   <Typography variant='h4' gutterBottom>
-                     <Link
-                        underline='hover'
-                        onClick={() => navigate(`/breweries/${beer.brewery._id}`)}
-                     >
+                     <Link underline='hover' onClick={() => navigate(`/breweries/${beer.brewery._id}`)}>
                         {beer.brewery.name}
                      </Link>
                   </Typography>
@@ -55,14 +39,14 @@ const BeerCard = ({ beer, size = 'large' }) => {
                </Typography>
 
                <Grid container>
-                  <Grid item md={9}>
+                  <Grid item md={8.5}>
                      <Typography sx={{ mt: '1em' }} variant='h4'>
                         <Link underline='hover' onClick={() => navigate(``)}>
                            {beer.type}
                         </Link>
                      </Typography>
                   </Grid>
-                  <Grid item md={3}>
+                  <Grid item md={2.5}>
                      <Box sx={{ mt: '1em' }}>
                         <LikeButton beer={beer} />
                      </Box>

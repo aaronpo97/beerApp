@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
 
 import { AppBar, Toolbar, Container, Typography, Button, Box } from '@mui/material';
 
@@ -55,6 +55,7 @@ const PageHeader = () => {
             </Container>
          </AppBar>
          <Toolbar />
+         <Outlet />
       </Box>
    );
 };

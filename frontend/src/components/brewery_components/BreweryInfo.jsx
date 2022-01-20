@@ -1,6 +1,8 @@
 import { LinearProgress, Typography, Box, Link } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import BeerCard from '../misc/BeerCard';
+
+import BeerCard from '../beer_components/BeerCard';
+
 import { Masonry } from '@mui/lab';
 
 const BreweryInfo = ({ breweryData }) => {
@@ -18,10 +20,7 @@ const BreweryInfo = ({ breweryData }) => {
          <Box sx={{ mt: '2em' }}>
             <Typography gutterBottom variant='h3'>
                Submitted by:{' '}
-               <Link
-                  underline='hover'
-                  onClick={() => navigate(`/profile/${breweryData.postedBy._id}`)}
-               >
+               <Link underline='hover' onClick={() => navigate(`/profile/${breweryData.postedBy._id}`)}>
                   {breweryData.postedBy.username}
                </Link>
             </Typography>

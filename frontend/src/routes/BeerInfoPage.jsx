@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { Container } from '@mui/material';
 
-import BeerInfo from '../components/BeerInfo';
+import BeerInfo from '../components/beer_components/BeerInfo';
 
 const InfoPage = () => {
    const { id: beerID } = useParams();

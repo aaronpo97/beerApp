@@ -23,19 +23,22 @@ const LikeButton = ({ beer }) => {
             },
          };
 
-         const response = await fetch(
-            `http://localhost:5000/api/beers/${beer._id}/like`,
-            requestOptions
-         );
+         const response = await fetch(`http://localhost:5000/api/beers/${beer._id}/like`, requestOptions);
          const data = await response.json();
-         console.log(data);
+
+         if (data.newAccessToken) {
+            localStorage['access-token'] = data.newAccessToken;
+         }
          return data;
       };
 
-      sendLikeRequest().then(() => setLiked(!liked));
+      sendLikeRequest()
+         .then(() => setLiked(!liked))
+         .error(error => console.error('Something went wrong: ' + error));
    };
    return (
       <Button
+         variant='outlined'
          onClick={onLikeClick}
          startIcon={liked ? <ThumbUpIcon /> : <ThumbUpAltOutlinedIcon />}
       >

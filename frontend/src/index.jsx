@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import theme from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
-import PageHeader from './components/misc/PageHeader';
+import PageHeader from './components/utilities/PageHeader';
 
 import BeerInfoPage from './routes/BeerInfoPage';
 import BeerIndex from './routes/BeerIndex';
@@ -36,10 +36,7 @@ const App = () => {
                'x-auth-token': localStorage['refresh-token'],
             },
          };
-         const response = await fetch(
-            'http://localhost:5000/api/users/verifytoken',
-            requestOptions
-         );
+         const response = await fetch('http://localhost:5000/api/users/verifytoken', requestOptions);
          const data = await response.json();
          if (response.status === 200) setCurrentUser(data.payload._id);
 
@@ -53,27 +50,26 @@ const App = () => {
          <BrowserRouter>
             <ThemeProvider theme={theme}>
                <CssBaseline />
-               <PageHeader />
+
                <UserContext.Provider value={currentUser}>
                   <Routes>
-                     <Route path='/' element={<Home />} />
-                     <Route path='/login' element={<Login setCurrentUser={setCurrentUser} />} />
-                     <Route
-                        path='/register'
-                        element={<Register setCurrentUser={setCurrentUser} />}
-                     />
-                     <Route path='/beers' element={<BeerIndex />} />
-                     <Route path='/beers/create' element={<CreateBeer />} />
-                     <Route path='/beers/:id' element={<BeerInfoPage />} />
-                     <Route path='/breweries' element={<BreweryIndex />} />
-                     <Route path='/breweries/create' element={<CreateBrewery />} />
-                     <Route path='/breweries/:id' element={<BreweryInfoPage />} />
-                     <Route path='/profile/:id' element={<ProfilePage />} />
-                     <Route
-                        path='/confirmaccount/:userId/:confirmationToken'
-                        element={<ConfirmAccount />}
-                     />
-                     <Route path='/confirmaccount/' element={<ConfirmPage />} />
+                     <Route path='/' element={<PageHeader />}>
+                        <Route path='' element={<Home />} />
+                        <Route path='/login' element={<Login setCurrentUser={setCurrentUser} />} />
+                        <Route path='/register' element={<Register setCurrentUser={setCurrentUser} />} />
+                        <Route path='/beers' element={<BeerIndex />} />
+                        <Route path='/beers/create' element={<CreateBeer />} />
+                        <Route path='/beers/:id' element={<BeerInfoPage />} />
+                        <Route path='/breweries' element={<BreweryIndex />} />
+                        <Route path='/breweries/create' element={<CreateBrewery />} />
+                        <Route path='/breweries/:id' element={<BreweryInfoPage />} />
+                        <Route path='/profile/:id' element={<ProfilePage />} />
+                        <Route
+                           path='/confirmaccount/:userId/:confirmationToken'
+                           element={<ConfirmAccount />}
+                        />
+                        <Route path='/confirmaccount/' element={<ConfirmPage />} />
+                     </Route>
                   </Routes>
                </UserContext.Provider>
             </ThemeProvider>

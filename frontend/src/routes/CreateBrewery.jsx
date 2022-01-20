@@ -13,65 +13,7 @@ import {
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
-
-const CreateBreweryForm = ({
-   formValues,
-   formErrors,
-   handleSubmit,
-   handleFormInputChange,
-   breweryList,
-}) => {
-   return (
-      <FormControl fullWidth component='form' onSubmit={handleSubmit} variant='outlined' noValidate>
-         <TextField
-            required
-            value={formValues.name}
-            id='name'
-            label='Brewery name'
-            name='name'
-            autoComplete='Brewery name'
-            autoFocus
-            error={formErrors.name}
-            onChange={handleFormInputChange}
-            margin='normal'
-            fullWidth
-         />
-
-         <TextField
-            required
-            variant='outlined'
-            value={formValues.description}
-            id='outlined-adornment-abv'
-            label='Description'
-            name='description'
-            error={formErrors.description}
-            onChange={handleFormInputChange}
-            sx={{ mb: 2 }}
-            margin='normal'
-            multiline
-            rows={10}
-            fullWidth
-         />
-         <TextField
-            required
-            value={formValues.address}
-            id='name'
-            label='Address'
-            name='address'
-            autoComplete='Beer name'
-            autoFocus
-            error={formErrors.address}
-            onChange={handleFormInputChange}
-            margin='normal'
-            fullWidth
-         />
-
-         <Button type='submit' fullWidth sx={{ mt: 3, mb: 2 }} variant='contained'>
-            Post a brewery!
-         </Button>
-      </FormControl>
-   );
-};
+import CreateBreweryForm from '../components/brewery_components/CreateBreweryForm';
 
 const CreateBrewery = () => {
    const navigate = useNavigate();

@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { Container, Box, Grid, Typography, Button } from '@mui/material';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import { useNavigate } from 'react-router-dom';
-import BreweryList from '../components/breweryIndex/BreweryList';
+
+import BreweryList from '../components/brewery_components/BreweryList';
 
 const BreweryIndex = () => {
    const [breweries, setBreweries] = useState([]);
@@ -31,8 +32,7 @@ const BreweryIndex = () => {
          }
          const result = await response.json();
          if (!result.payload) return;
-         localStorage['access-token'] =
-            result.payload.newAccessToken || localStorage['access-token'];
+         localStorage['access-token'] = result.payload.newAccessToken || localStorage['access-token'];
          setBreweries(result.payload || []);
       };
       fetchData();
