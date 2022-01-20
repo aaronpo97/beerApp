@@ -8,14 +8,19 @@ const BreweryCardSideImage = ({ brewery, size = 'large' }) => {
 
    return (
       <Stack spacing={1}>
-         <Card elevation={5} sx={{ marginTop: '1em' }}>
+         <Card elevation={5} sx={{ marginTop: '1em', width: '100%' }}>
             <Grid container>
                <Grid item md={4}>
                   <CardMedia
                      component='img'
                      height={'100%'}
+                     width={'100%'}
                      onClick={() => navigate(`/breweries/${brewery._id}`)}
-                     image={brewery.images.length ? brewery.images[0].url : ''}
+                     image={
+                        brewery.images.length
+                           ? brewery.images[0].url
+                           : `https://source.unsplash.com/random`
+                     }
                   />
                </Grid>
                <Grid item md={8}>

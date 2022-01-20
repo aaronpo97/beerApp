@@ -34,7 +34,7 @@ const BreweryInfoPage = () => {
          <Box>
             <img
                style={{ height: '35em', width: '100%', objectFit: 'cover' }}
-               src={breweryData.headerImage.url}
+               src={breweryData.headerImage ? breweryData.headerImage.url : ''}
                alt=''
             />
          </Box>

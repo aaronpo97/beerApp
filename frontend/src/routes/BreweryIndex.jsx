@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Container, Box } from '@mui/material';
+import { Container, Box, Grid, Typography, Button } from '@mui/material';
+import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import { useNavigate } from 'react-router-dom';
 import BreweryList from '../components/breweryIndex/BreweryList';
 
@@ -46,6 +47,24 @@ const BreweryIndex = () => {
             />
          </Box>
          <Container maxWidth={'lg'}>
+            <Grid container sx={{ mt: 5 }}>
+               <Grid item md={9} sm={12}>
+                  <Typography variant='h1'>The Biergarten Index</Typography>
+                  <Typography variant='h2' gutterBottom sx={{ mb: '1em' }}>
+                     Breweries
+                  </Typography>
+               </Grid>
+               <Grid md={3} sm={12} item>
+                  <Button
+                     startIcon={<AddCircleOutlinedIcon />}
+                     onClick={() => navigate('/breweries/create')}
+                     variant='contained'
+                     sx={{ width: '100%' }}
+                  >
+                     Post a new brewery
+                  </Button>
+               </Grid>
+            </Grid>
             <BreweryList
                breweries={breweries}
                setBreweries={setBreweries}

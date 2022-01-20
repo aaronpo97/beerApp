@@ -19,6 +19,7 @@ import BreweryInfoPage from './routes/BreweryInfoPage';
 import ConfirmAccount from './routes/ConfirmAccount';
 import ConfirmPage from './routes/ConfirmPage';
 import ProfilePage from './routes/ProfilePage';
+import CreateBrewery from './routes/CreateBrewery';
 
 import { UserContext } from './util/UserContext';
 const App = () => {
@@ -65,6 +66,7 @@ const App = () => {
                      <Route path='/beers/create' element={<CreateBeer />} />
                      <Route path='/beers/:id' element={<BeerInfoPage />} />
                      <Route path='/breweries' element={<BreweryIndex />} />
+                     <Route path='/breweries/create' element={<CreateBrewery />} />
                      <Route path='/breweries/:id' element={<BreweryInfoPage />} />
                      <Route path='/profile/:id' element={<ProfilePage />} />
                      <Route
