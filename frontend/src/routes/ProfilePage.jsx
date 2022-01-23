@@ -19,7 +19,7 @@ const ProfilePage = () => {
                'x-auth-token': localStorage['refresh-token'],
             },
          };
-         const url = `http://localhost:5000/api/users/profile/${id}`;
+         const url = `/api/users/profile/${id}`;
          const response = await fetch(url, requestOptions);
          if (response.status === 404) return;
          if (response.status === 401) {
@@ -60,12 +60,12 @@ const ProfilePage = () => {
                      </Grid>
                   </Box>
 
-                  <Grid container>
-                     <Grid item xs={4}>
-                        {user.likes.map(beer => (
+                  <Grid container spacing={2}>
+                     {user.likes.map(beer => (
+                        <Grid item xs={3}>
                            <BeerCard beer={beer} size='small' />
-                        ))}
-                     </Grid>
+                        </Grid>
+                     ))}
                   </Grid>
                </>
             ) : null}

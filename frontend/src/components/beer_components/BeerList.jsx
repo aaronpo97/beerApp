@@ -35,7 +35,11 @@ const BeerList = ({ beers, sortingOption, setSortingOption }) => {
             sx={{ mb: 0 }}
          >
             {beers.map(beer => {
-               return sortingOption === 0 ? <BeerCard beer={beer} /> : <BeerCardSideImage beer={beer} />;
+               return sortingOption === 0 ? (
+                  <BeerCard key={beer._id} beer={beer} />
+               ) : (
+                  <BeerCardSideImage key={beer._id} beer={beer} />
+               );
             })}
          </Masonry>
       </Box>

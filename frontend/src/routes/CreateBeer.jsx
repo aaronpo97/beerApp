@@ -14,13 +14,7 @@ import {
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 
-const CreateBeerForm = ({
-   formValues,
-   formErrors,
-   handleSubmit,
-   handleFormInputChange,
-   breweryList,
-}) => {
+const CreateBeerForm = ({ formValues, formErrors, handleSubmit, handleFormInputChange, breweryList }) => {
    return (
       <FormControl fullWidth component='form' onSubmit={handleSubmit} variant='outlined' noValidate>
          <TextField
@@ -176,7 +170,7 @@ const CreateBeer = () => {
                },
                body: JSON.stringify(formValues),
             };
-            const response = await fetch('http://localhost:5000/api/beers/', requestOptions);
+            const response = await fetch('/api/beers/', requestOptions);
             const data = await response.json();
             if (!data.payload) return;
             const post = data.payload;

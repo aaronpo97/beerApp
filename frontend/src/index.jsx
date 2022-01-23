@@ -36,11 +36,9 @@ const App = () => {
                'x-auth-token': localStorage['refresh-token'],
             },
          };
-         const response = await fetch('http://localhost:5000/api/users/verifytoken', requestOptions);
+         const response = await fetch('/api/users/verifytoken', requestOptions);
          const data = await response.json();
-         if (response.status === 200) setCurrentUser(data.payload._id);
-
-         console.log(data.payload);
+         if (response.status === 200) setCurrentUser(data.payload);
       };
       checkCredentials();
    }, []);
@@ -53,7 +51,7 @@ const App = () => {
 
                <UserContext.Provider value={currentUser}>
                   <Routes>
-                     <Route path='/' element={<PageHeader />}>
+                     <Route path='/' element={<PageHeader setCurrentUser={setCurrentUser} />}>
                         <Route path='' element={<Home />} />
                         <Route path='/login' element={<Login setCurrentUser={setCurrentUser} />} />
                         <Route path='/register' element={<Register setCurrentUser={setCurrentUser} />} />

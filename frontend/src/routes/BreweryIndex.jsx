@@ -21,7 +21,7 @@ const BreweryIndex = () => {
                'x-auth-token': localStorage['refresh-token'],
             },
          };
-         const url = `http://localhost:5000/api/breweries?sort=${sortingDirection}&param=${sortingParam}`;
+         const url = `/api/breweries?sort=${sortingDirection}&param=${sortingParam}`;
          const response = await fetch(url, requestOptions);
          if (response.status === 401) {
             localStorage.clear();
@@ -42,7 +42,7 @@ const BreweryIndex = () => {
          <Box>
             <img
                style={{ height: '30em', width: '100%', objectFit: 'cover' }}
-               src={'https://source.unsplash.com/random?biergarten'}
+               src={'https://source.unsplash.com/random?bar'}
                alt='A drinking patio at a bar.'
             />
          </Box>

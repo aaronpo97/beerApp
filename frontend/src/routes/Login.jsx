@@ -25,12 +25,9 @@ const Login = ({ setCurrentUser }) => {
                headers: { 'Content-Type': 'application/json' },
                method: 'POST',
             };
-            const response = await fetch('http://localhost:5000/api/users/login', requestOptions);
+            const response = await fetch('/api/users/login', requestOptions);
             const data = response.status === 200 ? await response.json() : await response.text();
 
-            if (response.status === 200) {
-               setCurrentUser(data.payload.userId);
-            }
             return response.status === 200 ? data : { message: data };
          };
 
@@ -56,15 +53,28 @@ const Login = ({ setCurrentUser }) => {
          return attemptedLogin;
       };
 
-      const handleRedirect = async data => {
+      const SetUserAndHandleRedirect = async data => {
+         const getUserInfo = async ({ accessToken, refreshToken }) => {
+            const requestOptions = {
+               method: 'GET',
+               headers: {
+                  'x-access-token': accessToken,
+                  'x-auth-token': refreshToken,
+               },
+            };
+            const response = await fetch('/api/users/verifytoken', requestOptions);
+            const { payload } = await response.json();
+            if (response.status === 200) setCurrentUser(payload);
+         };
+         await getUserInfo(data.payload);
+
          localStorage['access-token'] = data.payload.accessToken;
          localStorage['refresh-token'] = data.payload.refreshToken;
-
          navigate(`/beers`);
       };
 
       validateLogin()
-         .then(data => handleRedirect(data))
+         .then(data => SetUserAndHandleRedirect(data))
          .catch(error => console.error(error));
    };
 

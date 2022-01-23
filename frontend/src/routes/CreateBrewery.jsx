@@ -65,7 +65,7 @@ const CreateBrewery = () => {
                },
                body: JSON.stringify(formValues),
             };
-            const response = await fetch('http://localhost:5000/api/breweries/', requestOptions);
+            const response = await fetch('/api/breweries/', requestOptions);
             const data = await response.json();
             if (!data.payload) return;
             const post = data.payload;

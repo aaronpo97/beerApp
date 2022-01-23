@@ -29,13 +29,18 @@ import resendConfirmation from '../controllers/users/resendConfirmation.js';
 
 const router = express.Router();
 
-router.route('/verifytoken').get(checkTokens, verifyAccessToken, (req, res) => {
+router.route('/verifytoken').get(checkTokens, verifyAccessToken, async (req, res) => {
    const { currentUser } = req;
+
+   const payload = await currentUser.populate({
+      path: 'profile',
+      populate: { path: 'displayImage', model: 'Image' },
+   });
    res.json(
       new SuccessResponse(
          `Successfully verified ${req.currentUser.username}.`,
          200,
-         currentUser,
+         payload,
          req.didTokenRegenerate ? req.accessToken : undefined
       )
    );

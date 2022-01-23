@@ -33,7 +33,7 @@ const Register = () => {
          const checkUserInDB = async (usernameQuery, emailQuery) => {
             try {
                const response = await fetch(
-                  `http://localhost:5000/users/checkifuserexists?username=${usernameQuery}&email=${emailQuery}`
+                  `/api/users/checkifuserexists?username=${usernameQuery}&email=${emailQuery}`
                );
                const data = await response.json();
                return data.payload;
@@ -93,7 +93,7 @@ const Register = () => {
       };
 
       const registerUser = async () => {
-         const url = 'http://localhost:5000/api/users/register';
+         const url = '/api/users/register';
          const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

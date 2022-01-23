@@ -13,7 +13,7 @@ const InfoPage = () => {
    useEffect(() => {
       const getBeerData = async () => {
          try {
-            const url = `http://localhost:5000/api/beers/${beerID}`;
+            const url = `/api/beers/${beerID}`;
             const headers = {
                'x-access-token': localStorage['access-token'],
                'x-auth-token': localStorage['refresh-token'],

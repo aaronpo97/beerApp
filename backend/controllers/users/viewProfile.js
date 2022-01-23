@@ -13,7 +13,6 @@ const viewProfile = async (req, res, next) => {
             model: 'BeerPost',
             populate: { path: 'brewery', model: 'Brewery' },
          },
-         populate: { path: 'displayImage', model: 'Image' },
       });
 
       if (!user) throw new ServerError('Unable to find that user.', 404);

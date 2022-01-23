@@ -13,10 +13,7 @@ const ConfirmPage = () => {
                   'x-auth-token': localStorage['refresh-token'],
                },
             };
-            const response = await fetch(
-               'http://localhost:5000/api/users/confirm/resend-confirmation-email',
-               requestOptions
-            );
+            const response = await fetch('/api/users/confirm/resend-confirmation-email', requestOptions);
             const data = await response.json();
             console.log(data);
             setDidLinkSend('true');

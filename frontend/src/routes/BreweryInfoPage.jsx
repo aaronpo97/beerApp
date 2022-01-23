@@ -12,7 +12,7 @@ const BreweryInfoPage = () => {
    useEffect(() => {
       const getBreweryData = async () => {
          try {
-            const url = `http://localhost:5000/api/breweries/${id}`;
+            const url = `/api/breweries/${id}`;
             const headers = {
                'x-access-token': localStorage['access-token'],
                'x-auth-token': localStorage['refresh-token'],

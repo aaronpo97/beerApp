@@ -23,7 +23,7 @@ const Beers = () => {
                'x-auth-token': localStorage['refresh-token'],
             },
          };
-         const url = `http://localhost:5000/api/beers?sort=${sortingDirection}&param=${sortingParam}`;
+         const url = `/api/beers?sort=${sortingDirection}&param=${sortingParam}`;
          const response = await fetch(url, requestOptions);
 
          if (response.status === 401) {
@@ -91,7 +91,7 @@ const Beers = () => {
          <Box>
             <img
                style={{ height: '30em', width: '100%', objectFit: 'cover' }}
-               src={'https://source.unsplash.com/random?biergarten'}
+               src={'https://source.unsplash.com/random?patio'}
                alt='A drinking patio at a bar.'
             />
          </Box>

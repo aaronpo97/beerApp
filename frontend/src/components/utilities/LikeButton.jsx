@@ -10,7 +10,8 @@ const LikeButton = ({ beer }) => {
    const user = useContext(UserContext);
 
    useEffect(() => {
-      setLiked(beer.likedBy.includes(user));
+      if (!user) return;
+      setLiked(beer.likedBy.includes(user._id));
    }, [beer.likedBy, user]);
 
    const onLikeClick = () => {
@@ -23,8 +24,10 @@ const LikeButton = ({ beer }) => {
             },
          };
 
-         const response = await fetch(`http://localhost:5000/api/beers/${beer._id}/like`, requestOptions);
+         const response = await fetch(`/api/beers/${beer._id}/like`, requestOptions);
          const data = await response.json();
+
+         console.log(data);
 
          if (data.newAccessToken) {
             localStorage['access-token'] = data.newAccessToken;
@@ -34,16 +37,18 @@ const LikeButton = ({ beer }) => {
 
       sendLikeRequest()
          .then(() => setLiked(!liked))
-         .error(error => console.error('Something went wrong: ' + error));
+         .catch(error => console.error('Something went wrong: ' + error));
    };
    return (
-      <Button
-         variant='outlined'
-         onClick={onLikeClick}
-         startIcon={liked ? <ThumbUpIcon /> : <ThumbUpAltOutlinedIcon />}
-      >
-         Like
-      </Button>
+      user && (
+         <Button
+            variant='outlined'
+            onClick={onLikeClick}
+            startIcon={liked ? <ThumbUpIcon /> : <ThumbUpAltOutlinedIcon />}
+         >
+            {liked ? 'Liked' : 'Like'}
+         </Button>
+      )
    );
 };
 
