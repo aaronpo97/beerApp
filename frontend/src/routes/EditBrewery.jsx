@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+
 import {
    Container,
    Box,
@@ -12,20 +13,62 @@ import {
 } from '@mui/material';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useNavigate } from 'react-router-dom';
-import CreateBreweryForm from '../components/brewery_components/CreateBreweryForm';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const CreateBrewery = () => {
+import EditBreweryForm from '../components/brewery_components/EditBreweryForm';
+import { UserContext } from '../util/UserContext';
+
+const EditBrewery = () => {
    const navigate = useNavigate();
+   const { id } = useParams();
    const [formValues, setFormValues] = useState({
       name: '',
       description: '',
       address: '',
    });
+
+   const currentUser = useContext(UserContext);
+
    const [formErrors, setFormErrors] = useState({});
 
    //get brewery list
    const [breweryList, setBreweryList] = useState([]);
+
+   useEffect(() => {
+      const fetchData = async () => {
+         const requestOptions = {
+            method: 'GET',
+            headers: {
+               'x-access-token': localStorage['access-token'],
+               'x-auth-token': localStorage['refresh-token'],
+            },
+         };
+         const url = `/api/breweries/${id}`;
+         const response = await fetch(url, requestOptions);
+         if (response.status !== 200) navigate('/notfound');
+         const data = await response.json();
+
+         console.log(data.payload);
+         const { name, description } = data.payload;
+         setFormValues({ name, description });
+
+         localStorage['access-token'] = response.newAccessToken || localStorage['access-token'];
+         if (response.status === 401) {
+            localStorage.clear();
+         }
+
+         return data;
+      };
+
+      const checkAuthStatus = data => {
+         if (currentUser._id !== data.payload.postedBy._id || !currentUser) {
+            navigate(`/breweries/${id}`);
+            return;
+         }
+         return;
+      };
+      fetchData().then(data => checkAuthStatus(data));
+   }, [currentUser, id, navigate]);
 
    const onFormSubmit = event => {
       event.preventDefault();
@@ -44,9 +87,9 @@ const CreateBrewery = () => {
             errors.description = 'Description must be greater than 20 characters.';
          }
 
-         if (!formValues.address) {
-            errors.address = 'Address is required.';
-         }
+         // if (!formValues.address) {
+         //    errors.address = 'Address is required.';
+         // }
          console.log(errors);
          if (Object.keys(errors).length) {
             setFormErrors(errors);
@@ -57,7 +100,7 @@ const CreateBrewery = () => {
       const handleSubmit = () => {
          const postData = async () => {
             const requestOptions = {
-               method: 'POST',
+               method: 'PUT',
                headers: {
                   'x-access-token': localStorage['access-token'],
                   'x-auth-token': localStorage['refresh-token'],
@@ -65,7 +108,7 @@ const CreateBrewery = () => {
                },
                body: JSON.stringify(formValues),
             };
-            const response = await fetch('/api/breweries/', requestOptions);
+            const response = await fetch(`/api/breweries/${id}`, requestOptions);
             const data = await response.json();
             if (!data.payload) return;
             const post = data.payload;
@@ -77,6 +120,22 @@ const CreateBrewery = () => {
       validateData()
          .then(() => handleSubmit())
          .catch(error => console.error(error));
+   };
+
+   const handleDelete = () => {
+      const sendDeleteRequest = async () => {
+         const requestOptions = {
+            method: 'DELETE',
+            headers: {
+               'x-access-token': localStorage['access-token'],
+               'x-auth-token': localStorage['refresh-token'],
+            },
+         };
+
+         const response = await fetch(`/api/breweries/${id}`, requestOptions);
+         if (response.status === 200) navigate('/beers');
+      };
+      sendDeleteRequest();
    };
 
    const handleFormInputChange = event => {
@@ -111,14 +170,15 @@ const CreateBrewery = () => {
                   </Button>
                </Grid>
             </Grid>
-            <CreateBreweryForm
+            <EditBreweryForm
                formValues={formValues}
                formErrors={formErrors}
                handleFormInputChange={handleFormInputChange}
                handleSubmit={onFormSubmit}
+               handleDelete={handleDelete}
             />
          </Container>
       </Box>
    );
 };
-export default CreateBrewery;
+export default EditBrewery;

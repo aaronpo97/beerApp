@@ -20,8 +20,18 @@ import ConfirmAccount from './routes/ConfirmAccount';
 import ConfirmPage from './routes/ConfirmPage';
 import ProfilePage from './routes/ProfilePage';
 import CreateBrewery from './routes/CreateBrewery';
+import EditBrewery from './routes/EditBrewery';
+
+import SearchBeers from './routes/SearchBeers';
+import EditBeer from './routes/EditBeerPage';
 
 import { UserContext } from './util/UserContext';
+
+const UserProvider = ({ value, children }) => <UserContext.Provider value={value} children={children} />;
+
+const NotFound = () => {
+   return <div>404 not found</div>;
+};
 const App = () => {
    const [currentUser, setCurrentUser] = useState(null);
 
@@ -49,7 +59,7 @@ const App = () => {
             <ThemeProvider theme={theme}>
                <CssBaseline />
 
-               <UserContext.Provider value={currentUser}>
+               <UserProvider value={currentUser}>
                   <Routes>
                      <Route path='/' element={<PageHeader setCurrentUser={setCurrentUser} />}>
                         <Route path='' element={<Home />} />
@@ -58,18 +68,22 @@ const App = () => {
                         <Route path='/beers' element={<BeerIndex />} />
                         <Route path='/beers/create' element={<CreateBeer />} />
                         <Route path='/beers/:id' element={<BeerInfoPage />} />
+                        <Route path='/beers/:id/edit' element={<EditBeer />} />
+                        <Route path='/beers/search' element={<SearchBeers />} />
                         <Route path='/breweries' element={<BreweryIndex />} />
                         <Route path='/breweries/create' element={<CreateBrewery />} />
                         <Route path='/breweries/:id' element={<BreweryInfoPage />} />
+                        <Route path='/breweries/:id/edit' element={<EditBrewery />} />
                         <Route path='/profile/:id' element={<ProfilePage />} />
                         <Route
                            path='/confirmaccount/:userId/:confirmationToken'
                            element={<ConfirmAccount />}
                         />
                         <Route path='/confirmaccount/' element={<ConfirmPage />} />
+                        <Route path='*' element={<NotFound />} />
                      </Route>
                   </Routes>
-               </UserContext.Provider>
+               </UserProvider>
             </ThemeProvider>
          </BrowserRouter>
       </StrictMode>

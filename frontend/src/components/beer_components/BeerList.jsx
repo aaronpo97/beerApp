@@ -8,7 +8,7 @@ const BeerList = ({ beers, sortingOption, setSortingOption }) => {
    return !beers.length ? (
       <LinearProgress />
    ) : (
-      <Box>
+      <Box component='main'>
          <FormControl variant='standard' fullWidth>
             <InputLabel id='select-sorting-method'>Sort</InputLabel>
             <Select

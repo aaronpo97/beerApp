@@ -95,14 +95,14 @@ const PageHeader = ({ setCurrentUser }) => {
                         ))
                      )}
                   </Box>
-                  <Box sx={{ flexGrow: 0 }}>
+                  <Box>
                      {user && (
-                        <>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                            <Tooltip title='Open settings'>
-                              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, mt: 1 }}>
                                  <Avatar
                                     alt={`${user.firstName} ${user.lastName}`}
-                                    src={user.profile.displayImage.url}
+                                    src={user.profile.displayImage?.url ?? ''}
                                  />
                               </IconButton>
                            </Tooltip>
@@ -130,7 +130,8 @@ const PageHeader = ({ setCurrentUser }) => {
                                  </MenuItem>
                               ))}
                            </Menu>
-                        </>
+                           <Typography sx={{ mb: 0.5 }}>{user ? user.username : ''}</Typography>
+                        </Box>
                      )}
                   </Box>
                </Toolbar>

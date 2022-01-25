@@ -1,21 +1,42 @@
-import { LinearProgress, Typography, Box, Link } from '@mui/material';
+import { useContext } from 'react';
+
+import { LinearProgress, Typography, Box, Link, Grid, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import BeerCard from '../beer_components/BeerCard';
 
 import { Masonry } from '@mui/lab';
+import { UserContext } from '../../util/UserContext';
 
 const BreweryInfo = ({ breweryData }) => {
+   const user = useContext(UserContext);
    const navigate = useNavigate();
+
+   console.log(breweryData);
    return !breweryData ? (
       <LinearProgress />
    ) : (
       <Box>
          <Box sx={{ mt: '2em' }}>
-            <Typography variant='h1'>{breweryData.name}</Typography>
-            <Typography gutterBottom variant='h2'>
-               {breweryData.location.place_name}
-            </Typography>
+            <Grid container spacing={2}>
+               <Grid item md={9.5}>
+                  <Typography variant='h1'>{breweryData.name}</Typography>
+                  <Typography gutterBottom variant='h2'>
+                     {breweryData.location.place_name}
+                  </Typography>
+               </Grid>
+               <Grid item md={2.5}>
+                  {user._id === breweryData.postedBy._id && (
+                     <Button
+                        onClick={() => navigate(`/breweries/${breweryData._id}/edit`)}
+                        variant={'contained'}
+                        fullWidth
+                     >
+                        Edit
+                     </Button>
+                  )}
+               </Grid>
+            </Grid>
          </Box>
          <Box sx={{ mt: '2em' }}>
             <Typography gutterBottom variant='h3'>

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 
 import { Container } from '@mui/material';
@@ -6,6 +6,7 @@ import { Container } from '@mui/material';
 import BeerInfo from '../components/beer_components/BeerInfo';
 
 const InfoPage = () => {
+   const navigate = useNavigate();
    const { id: beerID } = useParams();
    const [currentBeer, setCurrentBeer] = useState(undefined);
 
@@ -19,6 +20,14 @@ const InfoPage = () => {
                'x-auth-token': localStorage['refresh-token'],
             };
             const response = await fetch(url, { headers });
+            if (response.status === 401) {
+               localStorage.clear();
+               navigate('/login');
+            }
+            if (response.status === 403) {
+               navigate('/confirmaccount');
+            }
+
             const data = await response.json();
 
             setCurrentBeer(data.payload);

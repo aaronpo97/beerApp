@@ -5,7 +5,7 @@ import LikeButton from '../utilities/LikeButton';
 
 import { Stack } from '@mui/material';
 
-const BeerCardSideImage = ({ beer }) => {
+const BeerCardSideImage = ({ beer, showLike = true }) => {
    const navigate = useNavigate();
 
    return (
@@ -50,9 +50,12 @@ const BeerCardSideImage = ({ beer }) => {
                               </Link>
                            </Typography>
                         </Grid>
-                        <Grid item md={2}>
-                           <LikeButton beer={beer} />
-                        </Grid>
+
+                        {showLike && (
+                           <Grid item md={2}>
+                              <LikeButton beer={beer} />
+                           </Grid>
+                        )}
                      </Grid>
                   </CardContent>
                </Grid>

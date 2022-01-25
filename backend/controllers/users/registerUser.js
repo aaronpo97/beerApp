@@ -23,9 +23,9 @@ const registerUser = async (req, res, next) => {
       const { username, email, password, dateOfBirth, firstName, lastName } = userToRegister;
 
       const profile = {
-         likes: null,
+         likes: [],
          affiliation: null,
-         displayImage: null,
+         displayImage: '',
          currentCity: null,
          bio: null,
          gender: null,
@@ -43,7 +43,7 @@ const registerUser = async (req, res, next) => {
       req.refreshToken = refreshToken;
       const accessToken = await generateAccessToken(req);
 
-      const link = `http://localhost:3000/confirmaccount/${user._id}/${confirmationToken}`;
+      const link = `/confirmaccount/${user._id}/${confirmationToken}`;
 
       const newUser = await User.findById(user._id);
       if (!newUser) throw new ServerError('User registration failed.', 400);

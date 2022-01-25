@@ -8,7 +8,7 @@ const BreweryCardSideImage = ({ brewery, size = 'large' }) => {
 
    return (
       <Stack spacing={1}>
-         <Card elevation={5} sx={{ marginTop: '1em', width: '100%' }}>
+         <Card elevation={5} sx={{ mt: 2, mb: 2, width: '100%' }}>
             <Grid container>
                <Grid item md={4}>
                   <CardMedia
@@ -17,19 +17,14 @@ const BreweryCardSideImage = ({ brewery, size = 'large' }) => {
                      width={'100%'}
                      onClick={() => navigate(`/breweries/${brewery._id}`)}
                      image={
-                        brewery.images.length
-                           ? brewery.images[0].url
-                           : `https://source.unsplash.com/random`
+                        brewery.images.length ? brewery.images[0].url : `https://source.unsplash.com/random`
                      }
                   />
                </Grid>
                <Grid item md={8}>
                   <CardContent sx={{ padding: '2em' }}>
                      <Typography variant={'h2'} sx={{ fontSize: '3rem' }}>
-                        <Link
-                           underline='hover'
-                           onClick={() => navigate(`/breweries/${brewery._id}`)}
-                        >
+                        <Link underline='hover' onClick={() => navigate(`/breweries/${brewery._id}`)}>
                            {brewery.name}
                         </Link>
                      </Typography>

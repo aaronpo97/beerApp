@@ -6,20 +6,36 @@ const viewProfile = async (req, res, next) => {
    try {
       const { id } = req.params;
 
-      const user = await User.findById(id).populate({
+      const user = await User.findById(
+         id,
+         'username dateOfBirth firstName lastName createdAt posts'
+      ).populate('posts', 'name brewery');
+      const userProfileLikes = await User.findById(id, 'profile').populate({
          path: 'profile',
-         populate: {
-            path: 'likes',
-            model: 'BeerPost',
-            populate: { path: 'brewery', model: 'Brewery' },
-         },
+         populate: { path: 'likes', model: 'BeerPost' },
+      });
+
+      const userProfileDisplayImage = await User.findById(id, 'profile').populate({
+         path: 'profile',
+         populate: { path: 'displayImage' },
       });
 
       if (!user) throw new ServerError('Unable to find that user.', 404);
 
-      const { profile, username, dateOfBirth, firstName, lastName, createdAt } = user;
+      console.log(user);
+      const { username, dateOfBirth, firstName, lastName, createdAt, posts } = user;
       const status = 200;
-      const payload = { username, firstName, lastName, ...profile, dateOfBirth, createdAt };
+      const payload = {
+         username,
+         dateOfBirth,
+         firstName,
+         lastName,
+         createdAt,
+         posts,
+         likes: userProfileLikes.profile.likes,
+         displayImage: userProfileDisplayImage.profile.displayImage,
+         bio: userProfileLikes.profile.bio,
+      };
 
       res.json(
          new SuccessResponse(

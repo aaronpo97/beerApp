@@ -5,7 +5,7 @@ import passport from 'passport';
 import PassportLocal from 'passport-local';
 
 import ServerError from './utilities/errors/ServerError.js';
-import { ErrorResponse, SuccessResponse } from './utilities/response/responses.js';
+import { ErrorResponse } from './utilities/response/responses.js';
 
 import connectDB from './database/connectDB.js';
 import User from './database/models/User.js';
@@ -14,9 +14,7 @@ import beerRoutes from './routes/beerRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import breweryRoutes from './routes/breweryRoutes.js';
 import imageRoutes from './routes/imageRoutes.js';
-
-import checkTokens from './middleware/auth/checkTokens.js';
-import verifyAccessToken from './middleware/auth/verifyAccessToken.js';
+import commentRoutes from './routes/commentRoutes.js';
 
 // use the environment variables in local .env when not in production (dev)
 if (process.env.NODE_ENV !== 'production') dotenv.config();
@@ -50,14 +48,15 @@ app.all('api/teapot', () => {
 });
 
 // Express router:
+
 app.use('/api/beers', beerRoutes);
+app.use('/api/beers/:id/comments', commentRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/breweries', breweryRoutes);
 app.use('/api/images', imageRoutes);
 
 // Error handling:
 app.use((err, req, res, next) => {
-   console.log(process.env.NODE_ENV);
    const { status = 500, message = 'Oh no, something went wrong.', stack } = err;
    res.status(status).json(
       new ErrorResponse(message, status, process.env.NODE_ENV === 'development' ? stack : undefined)

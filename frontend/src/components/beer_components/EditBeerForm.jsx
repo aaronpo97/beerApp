@@ -1,7 +1,8 @@
-import { FormControl, TextField, Grid, Select, MenuItem, Button } from '@mui/material';
+import { FormControl, TextField, Grid, Button } from '@mui/material';
 import FormErrorAlert from '../utilities/FormErrorAlert';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-const CreateBeerForm = ({ formValues, formErrors, handleSubmit, handleFormInputChange, breweryList }) => {
+const EditBeerForm = ({ formValues, formErrors, handleSubmit, handleFormInputChange, handleDelete }) => {
    return (
       <FormControl fullWidth component='form' onSubmit={handleSubmit} variant='outlined' noValidate>
          <TextField
@@ -80,30 +81,28 @@ const CreateBeerForm = ({ formValues, formErrors, handleSubmit, handleFormInputC
             fullWidth
          />
          {formErrors.description && <FormErrorAlert children={formErrors.description} />}
-         <Select
-            sx={{ mt: 2 }}
-            labelId='brewery-select'
-            label='brewery'
-            value={formValues.brewery}
-            fullWidth
-            name='brewery'
-            onChange={handleFormInputChange}
-         >
-            {breweryList.map(brewery => {
-               return (
-                  <MenuItem key={brewery.name} value={brewery._id}>
-                     {brewery.name}
-                  </MenuItem>
-               );
-            })}
-         </Select>
-         {formErrors.brewery && <FormErrorAlert children={formErrors.brewery} />}
 
-         <Button type='submit' fullWidth sx={{ mt: 3, mb: 2 }} variant='contained'>
-            Post a beer!
-         </Button>
+         <Grid container spacing={2}>
+            <Grid item md={6}>
+               <Button
+                  startIcon={<DeleteForeverIcon />}
+                  fullWidth
+                  sx={{ mt: 3, mb: 2 }}
+                  variant='contained'
+                  color='error'
+                  onClick={handleDelete}
+               >
+                  Delete "{formValues.name}"
+               </Button>
+            </Grid>
+            <Grid item md={6}>
+               <Button type='submit' fullWidth sx={{ mt: 3, mb: 2 }} variant='contained'>
+                  Post Edits
+               </Button>
+            </Grid>
+         </Grid>
       </FormControl>
    );
 };
 
-export default CreateBeerForm;
+export default EditBeerForm;

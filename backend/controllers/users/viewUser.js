@@ -9,15 +9,10 @@ const viewUser = async (req, res, next) => {
       }
       const status = 200;
 
-      const payload = await userToView
-         .populate({
-            path: 'profile',
-            populate: { path: 'affiliation', model: 'Brewery' },
-         })
-         .populate({
-            path: 'profile',
-            populate: { path: 'affiliation', model: 'Brewery' },
-         });
+      const payload = await userToView.populate({
+         path: 'profile',
+         populate: { path: 'affiliation', model: 'Brewery' },
+      });
 
       res.json(
          new SuccessResponse(

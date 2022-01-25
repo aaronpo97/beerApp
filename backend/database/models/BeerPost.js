@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 const { Schema } = mongoose;
 
 const BeerSchema = new Schema({
@@ -12,6 +13,7 @@ const BeerSchema = new Schema({
    postedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
    createdTimestamp: { type: Date, default: Date.now(), required: true },
    likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
 });
 
 const BeerPost = mongoose.model('BeerPost', BeerSchema);

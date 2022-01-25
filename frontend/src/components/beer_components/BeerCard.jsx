@@ -5,7 +5,7 @@ import { Stack } from '@mui/material';
 
 import LikeButton from '../utilities/LikeButton';
 
-const BeerCard = ({ beer, size = 'large' }) => {
+const BeerCard = ({ beer, showLike = true }) => {
    const navigate = useNavigate();
 
    return (
@@ -41,15 +41,17 @@ const BeerCard = ({ beer, size = 'large' }) => {
                <Grid container>
                   <Grid item md={8.5}>
                      <Typography sx={{ mt: '1em' }} variant='h4'>
-                        <Link underline='hover' onClick={() => navigate(``)}>
+                        <Link underline='hover' onClick={() => navigate(`/beers/search?type=${beer.type}`)}>
                            {beer.type}
                         </Link>
                      </Typography>
                   </Grid>
                   <Grid item md={2.5}>
-                     <Box sx={{ mt: '1em' }}>
-                        <LikeButton beer={beer} />
-                     </Box>
+                     {showLike && (
+                        <Box sx={{ mt: '1em' }}>
+                           <LikeButton beer={beer} />
+                        </Box>
+                     )}
                   </Grid>
                </Grid>
             </CardContent>

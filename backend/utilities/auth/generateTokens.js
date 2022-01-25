@@ -14,13 +14,12 @@ export const generateAccessToken = async req => {
 
       const user = await User.findById(decoded.audience);
       if (!user) throw new ServerError('Invalid JWT.', 401);
-      const token = jwt.sign(
+      return jwt.sign(
          { audience: user._id, issuer: 'http://localhost:5000' },
          ACCESS_TOKEN_SECRET,
          { expiresIn: '10m' },
          { algorithm: 'HS256' }
       );
-      return token;
    } catch (error) {
       return Promise.reject(error);
    }

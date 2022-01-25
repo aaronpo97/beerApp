@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import User from '../../database/models/User.js';
 import dotenv from 'dotenv';
-import { generateAccessToken } from '../../utilities/auth/generateTokens.js';
+import { generateAccessToken, generateRefreshToken } from '../../utilities/auth/generateTokens.js';
 import { SuccessResponse } from '../../utilities/response/responses.js';
 
 dotenv.config();
@@ -12,14 +12,9 @@ const loginUser = async (req, res, next) => {
    try {
       const { username } = req.body;
       const user = await User.findOne({ username });
-      const refreshToken = jwt.sign(
-         { audience: user._id, issuer: 'http://localhost:5000' },
-         REFRESH_TOKEN_SECRET,
-         { expiresIn: '43200m' },
-         { algorithm: 'HS256' }
-      );
+      const refreshToken = await generateRefreshToken(user);
 
-      req.refreshToken = refreshToken;
+      req.refreshToken = refreshToken; // this is used in generateAccessToken
       const accessToken = await generateAccessToken(req);
       if (!user) throw new Error();
 
@@ -27,7 +22,7 @@ const loginUser = async (req, res, next) => {
 
       const payload = {
          userId: user._id,
-         refreshToken: req.refreshToken,
+         refreshToken,
          accessToken: accessToken,
          associatedBrewery: user.profile.affiliation ? user.profile.affiliation : undefined,
       };
@@ -40,7 +35,6 @@ const loginUser = async (req, res, next) => {
          )
       );
    } catch (err) {
-      console.log(err);
       next(err.message + err.stack);
    }
 };
