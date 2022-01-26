@@ -13,7 +13,7 @@ const updateBrewery = async (req, res, next) => {
             404
          );
 
-      await brewery.update(req.body);
+      await brewery.updateOne(req.body);
       await brewery.save();
       const updatedBrewery = await Brewery.findById(id);
 

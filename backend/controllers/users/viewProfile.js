@@ -22,7 +22,6 @@ const viewProfile = async (req, res, next) => {
 
       if (!user) throw new ServerError('Unable to find that user.', 404);
 
-      console.log(user);
       const { username, dateOfBirth, firstName, lastName, createdAt, posts } = user;
       const status = 200;
       const payload = {

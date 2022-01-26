@@ -6,22 +6,26 @@ import Comment from '../../database/models/Comment.js';
 const postComment = async (req, res, next) => {
    try {
       const { comment: body } = req.body;
-      console.log(req.params);
+
       const { currentUser: author } = req;
 
       const beerPost = await BeerPost.findById(req.params.id);
 
-      const comment = new Comment({ body, author });
-
+      const comment = new Comment({ body, author, post: beerPost, timestamp: Date.now() });
+      await comment.save();
       if (!beerPost) throw new Error('notfound');
       beerPost.comments.push(comment);
       await beerPost.save();
 
-      res.send(
+      const postedComment = await Comment.findById(comment._id)
+         .populate('author', 'username')
+         .populate('post', 'name');
+
+      res.status(201).json(
          new SuccessResponse(
             `Posted a comment on ${beerPost.name}.`,
-            200,
-            comment,
+            201,
+            postedComment,
             req.newAccessToken ? req.newAccessToken : undefined
          )
       );

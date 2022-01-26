@@ -15,8 +15,6 @@ import { SuccessResponse } from '../../utilities/response/responses.js';
 
 dotenv.config();
 
-const { CONFIRMATION_TOKEN_SECRET } = process.env;
-
 const registerUser = async (req, res, next) => {
    try {
       const userToRegister = req.body;
@@ -25,7 +23,7 @@ const registerUser = async (req, res, next) => {
       const profile = {
          likes: [],
          affiliation: null,
-         displayImage: '',
+         displayImage: null,
          currentCity: null,
          bio: null,
          gender: null,

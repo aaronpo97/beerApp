@@ -24,7 +24,7 @@ const createBeerPost = async (req, res, next) => {
       });
       await post.save();
 
-      brewery.beers.push(post);
+      await brewery.beers.push(post);
       req.currentUser.posts.push(post);
 
       await brewery.save();
@@ -33,12 +33,17 @@ const createBeerPost = async (req, res, next) => {
       //send the response
       const status = 201;
 
+      const createdPost = await BeerPost.findById(post._id)
+         .populate('postedBy', 'username')
+         .populate('images', 'url filename')
+         .populate('brewery', 'name');
+
       res.status(status).json(
          new SuccessResponse(
-            `Resource beerPost created. id: ${post._id}`,
+            `Post ${createdPost.name} created.`,
             status,
-            post,
-            req.didTokenRegenerate ? req.accessToken : undefined
+            createdPost,
+            req.newAccessToken ? req.newAccessToken : undefined
          )
       );
    } catch (error) {

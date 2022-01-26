@@ -6,10 +6,10 @@ const isPostOwner = async (req, res, next) => {
    try {
       const { id } = req.params;
       const post = await BeerPost.findById(id);
-      const author = await User.findById(post.postedBy.toString());
       if (!post) {
          throw new ServerError('Cannot find a post with that id.', 404);
       }
+      const author = await User.findById(post.postedBy.toString());
       if (!author) {
          throw new ServerError(
             'Post has no author, and therefore no one is authorized to edit or delete it.',

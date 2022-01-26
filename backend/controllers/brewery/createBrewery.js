@@ -5,42 +5,43 @@ import Brewery from '../../database/models/Brewery.js';
 import { SuccessResponse } from '../../utilities/response/responses.js';
 
 const createBrewery = async (req, res, next) => {
-	try {
-		const { name, description, address, images = [] } = req.body;
+   try {
+      const { name, description, address, images = [] } = req.body;
 
-		if (!(name && description && address)) {
-			throw new ServerError('Name, description and address must be provided.', 401);
-		}
+      if (!(name && description && address)) {
+         throw new ServerError('Name, description and address must be provided.', 401);
+      }
 
-		const geoData = await geocode(address);
-		const { place_name, geometry } = geoData;
+      const geoData = await geocode(address);
+      const { place_name, geometry } = geoData;
 
-		const breweryData = {
-			name,
-			description,
-			images,
-			location: { place_name, geometry },
-			postedBy: req.currentUser,
-		};
-		const newBrewery = new Brewery(breweryData);
-		await newBrewery.save();
+      const breweryData = {
+         name,
+         description,
+         images,
+         location: { place_name, geometry },
+         postedBy: req.currentUser,
+         beers: [],
+      };
+      const newBrewery = new Brewery(breweryData);
+      await newBrewery.save();
 
-		const payload = newBrewery;
-		const status = 201;
-		res.status(201).json(
-			new SuccessResponse(
-				`Successfully created brewery: ${breweryData.name}`,
-				status,
-				payload,
-				req.didTokenRegenerate ? req.accessToken : undefined
-			)
-		);
-	} catch (error) {
-		if (error.name === 'ValidationError') {
-			next(new ServerError(`Mongoose validation error. ${error.message}`, 401));
-		} else {
-			next(error);
-		}
-	}
+      const payload = newBrewery;
+      const status = 201;
+      res.status(201).json(
+         new SuccessResponse(
+            `Successfully created brewery: ${breweryData.name}`,
+            status,
+            payload,
+            req.didTokenRegenerate ? req.accessToken : undefined
+         )
+      );
+   } catch (error) {
+      if (error.name === 'ValidationError') {
+         next(new ServerError(`Mongoose validation error. ${error.message}`, 401));
+      } else {
+         next(error);
+      }
+   }
 };
 export default createBrewery;
