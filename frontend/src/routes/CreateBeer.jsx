@@ -63,24 +63,21 @@ const CreateBeer = () => {
          }
       };
 
-      const handleSubmit = () => {
-         const postData = async () => {
-            const requestOptions = {
-               method: 'POST',
-               headers: {
-                  'x-access-token': localStorage['access-token'],
-                  'x-auth-token': localStorage['refresh-token'],
-                  'Content-type': 'application/json',
-               },
-               body: JSON.stringify(formValues),
-            };
-            const response = await fetch('/api/beers/', requestOptions);
-            const data = await response.json();
-            if (!data.payload) return;
-            const post = data.payload;
-            navigate(`/beers/${post._id}`);
+      const handleSubmit = async () => {
+         const requestOptions = {
+            method: 'POST',
+            headers: {
+               'x-access-token': localStorage['access-token'],
+               'x-auth-token': localStorage['refresh-token'],
+               'Content-type': 'application/json',
+            },
+            body: JSON.stringify(formValues),
          };
-         postData();
+         const response = await fetch('/api/beers/', requestOptions);
+         const data = await response.json();
+         if (!data.payload) return;
+         const post = data.payload;
+         navigate(`/beers/${post._id}`);
       };
 
       validateData()
