@@ -7,7 +7,6 @@ const viewBrewery = async (req, res, next) => {
    try {
       const { id } = req.params;
       const brewery = await Brewery.findById(id)
-         .populate('headerImage')
          .populate('postedBy', 'username')
          .populate('beers')
          .populate({
@@ -16,7 +15,8 @@ const viewBrewery = async (req, res, next) => {
                path: 'images',
                model: 'Image',
             },
-         });
+         })
+         .populate('images', 'url');
 
       const status = 200;
 

@@ -4,7 +4,6 @@ const brewerySchema = mongoose.Schema({
    name: { type: String, required: true },
    beers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'BeerPost' }],
    associatedProfiles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Profile' }],
-   headerImage: { type: mongoose.Schema.Types.ObjectId, ref: 'Image' },
    images: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
    postedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
    description: { type: String, required: true },

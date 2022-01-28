@@ -8,7 +8,6 @@ const showAllBreweries = async (req, res, next) => {
       const allBreweries = await Brewery.find()
          .populate('beers')
          .populate('postedBy', 'username')
-         .populate('headerImage', 'url')
          .populate('images', 'url');
 
       const message = `Sending brewery index.${

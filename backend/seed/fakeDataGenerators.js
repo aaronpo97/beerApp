@@ -35,23 +35,27 @@ export const generateBeerPosts = async adminUser => {
       const breweryPost = new Brewery({ postedBy: adminUser, ...brewery.info });
       await breweryPost.save();
 
-      const headerImage = new Image({
-         url: 'https://res.cloudinary.com/dxie9b7na/image/upload/v1643318746/BeerApp/pexels-elevate-1267328_gqjiji.jpg',
-         filename: `${randomstring.generate()}.png`,
+      const breweryImageOne = new Image({
+         url: 'https://res.cloudinary.com/dxie9b7na/image/upload/v1643345945/BeerApp/small-brewery-demographics2_ze5maz.jpg',
+         filename: `BiergartenApp/${randomstring.generate()}.png`,
          uploadedBy: adminUser,
       });
-      await headerImage.save();
-
-      breweryPost.headerImage = headerImage;
-
-      const image = new Image({
-         url: 'https://source.unsplash.com/random/?brewery&pub',
-         filename: `${randomstring.generate()}.png`,
+      const breweryImageTwo = new Image({
+         url: 'https://res.cloudinary.com/dxie9b7na/image/upload/v1643345945/BeerApp/brewery_191643227_oa8jr3.jpg',
+         filename: `BiergartenApp/${randomstring.generate()}.png`,
+         uploadedBy: adminUser,
+      });
+      const breweryImageThree = new Image({
+         url: 'https://res.cloudinary.com/dxie9b7na/image/upload/v1643345945/BeerApp/BREWSYSTEM_SJ_b5vwnu.jpg',
+         filename: `BiergartenApp/${randomstring.generate()}.png`,
          uploadedBy: adminUser,
       });
 
-      await image.save();
-      breweryPost.images = [image];
+      await breweryImageOne.save();
+      await breweryImageTwo.save();
+      await breweryImageThree.save();
+
+      breweryPost.images = [breweryImageOne, breweryImageTwo, breweryImageThree];
       await breweryPost.save();
 
       for (let beer of brewery.beers) {
@@ -117,7 +121,7 @@ export const generateFakeUsers = async () => {
       });
       await User.register(userToRegister, password);
       const displayImage = new Image({
-         url: 'https://source.unsplash.com/random/?beer&brewery',
+         url: 'https://res.cloudinary.com/dxie9b7na/image/upload/v1643318741/BeerApp/pexels-tembela-bohle-1089930_o9inku.jpg',
          filename: `/${image.filename}.jpg`,
          createdTimestamp: image.createdTimestamp,
          uploadedBy: userToRegister,
