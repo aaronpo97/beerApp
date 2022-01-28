@@ -10,7 +10,7 @@ const BeerCard = ({ beer, showLike = true }) => {
 
    return (
       <Stack spacing={1}>
-         <Card elevation={5} sx={{ marginTop: '1em' }}>
+         <Card elevation={3} sx={{ marginTop: '1em' }}>
             <CardMedia
                component='img'
                height={Math.floor(Math.random() * 100 + 400)}

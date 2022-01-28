@@ -4,6 +4,10 @@ const theme = createTheme({
       primary: { main: '#111111' },
       secondary: { main: '#e5ebff' },
       error: { main: '#800020' },
+      background: {
+         default: '#ffffff',
+         paper: '#fafafa',
+      },
    },
    typography: {
       h1: { fontSize: '3.5rem', fontWeight: 400 },
@@ -12,7 +16,7 @@ const theme = createTheme({
       h4: { fontSize: '1rem' },
       h5: { fontSize: '1rem' },
       body1: { fontSize: '10pt' },
-      fontFamily: ['"Noto Sans","Helvetica Neue"', 'Arial', 'sans-serif'].join(','),
+      fontFamily: ['"Helvetica Neue"', 'Arial', 'sans-serif'].join(','),
    },
 });
 

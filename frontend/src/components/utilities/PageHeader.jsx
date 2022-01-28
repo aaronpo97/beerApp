@@ -17,15 +17,10 @@ import {
 import { UserContext } from '../../util/UserContext';
 
 const PageHeader = ({ setCurrentUser }) => {
-   const [anchorElNav, setAnchorElNav] = useState(null);
    const [anchorElUser, setAnchorElUser] = useState(null);
 
    const handleOpenUserMenu = event => {
       setAnchorElUser(event.currentTarget);
-   };
-
-   const handleCloseNavMenu = () => {
-      setAnchorElNav(null);
    };
 
    const handleCloseUserMenu = () => {
@@ -63,8 +58,9 @@ const PageHeader = ({ setCurrentUser }) => {
                   <Typography
                      variant='h6'
                      noWrap
-                     component='div'
-                     sx={{ mr: 5, display: { xs: 'none', md: 'flex' } }}
+                     component='a'
+                     sx={{ mr: 5, display: { xs: 'none', md: 'flex' }, cursor: 'pointer' }}
+                     onClick={() => navigate('/')}
                   >
                      The Biergarten Index
                   </Typography>
@@ -123,7 +119,7 @@ const PageHeader = ({ setCurrentUser }) => {
                               onClose={handleCloseUserMenu}
                            >
                               {settings.map(setting => (
-                                 <MenuItem key={setting} onClick={handleCloseNavMenu}>
+                                 <MenuItem key={setting}>
                                     <Typography component='a' textAlign='center' onClick={setting.action}>
                                        {setting.name}
                                     </Typography>

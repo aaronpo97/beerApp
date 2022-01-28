@@ -36,7 +36,7 @@ export const generateBeerPosts = async adminUser => {
       await breweryPost.save();
 
       const headerImage = new Image({
-         url: 'https://source.unsplash.com/random/?brewery&pub',
+         url: 'https://res.cloudinary.com/dxie9b7na/image/upload/v1643318746/BeerApp/pexels-elevate-1267328_gqjiji.jpg',
          filename: `${randomstring.generate()}.png`,
          uploadedBy: adminUser,
       });
@@ -58,17 +58,17 @@ export const generateBeerPosts = async adminUser => {
          const { name, type, description, abv, ibu } = beer;
 
          const imageOne = new Image({
-            url: 'https://source.unsplash.com/random/?beers',
+            url: 'https://res.cloudinary.com/dxie9b7na/image/upload/v1643318738/BeerApp/pexels-jens-mahnke-1718384_xnoxit.jpg',
             filename: `BiergartenApp/${randomstring.generate()}.png`,
             uploadedBy: adminUser,
          });
          const imageTwo = new Image({
-            url: 'https://source.unsplash.com/random/?brewery',
+            url: 'https://res.cloudinary.com/dxie9b7na/image/upload/v1643318735/BeerApp/pexels-pavel-danilyuk-5858163_txh7mu.jpg',
             filename: `BiergartenApp/${randomstring.generate()}.png`,
             uploadedBy: adminUser,
          });
          const imageThree = new Image({
-            url: 'https://source.unsplash.com/random/?bar',
+            url: 'https://res.cloudinary.com/dxie9b7na/image/upload/v1643318730/BeerApp/pexels-elevate-1267314_uo6w9s.jpg',
             filename: `BiergartenApp/${randomstring.generate()}.png`,
             uploadedBy: adminUser,
          });

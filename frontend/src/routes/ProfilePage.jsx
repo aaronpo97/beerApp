@@ -17,7 +17,10 @@ const ProfileHeader = ({ user }) => {
                <CardMedia
                   component='img'
                   alt={user.username}
-                  image={user.displayImage.url}
+                  image={
+                     user.displayImage?.url ||
+                     'https://c.tenor.com/h99LQHUExJIAAAAd/19dollar-fortnite-card-among-us.gif'
+                  }
                   sx={{ maxWidth: 'auto', height: '100%' }}
                />
             </Grid>

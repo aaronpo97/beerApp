@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import BeerCard from '../components/beer_components/BeerCard';
 
 import { Box, Container } from '@mui/material';
-import { Masonry } from '@mui/lab';
+
 import BeerCardSideImage from '../components/beer_components/BeerCardSideImage';
 
 const SearchBeers = () => {
@@ -23,13 +22,12 @@ const SearchBeers = () => {
          const response = await fetch(`/api/beers/search?type=${type}`, requestOptions);
 
          const data = await response.json();
-         setResults(data.payload);
 
          return data;
       };
 
       getSearchResults();
-   }, []);
+   }, [type]);
 
    return (
       <Box component='main'>

@@ -1,9 +1,37 @@
 import { useParams, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 
-import { Container } from '@mui/material';
+import { Container, Box, Grid, LinearProgress } from '@mui/material';
 
-import BeerInfo from '../components/beer_components/BeerInfo';
+import BeerInfoHeader from '../components/beer_components/BeerInfoHeader';
+import ImageCarousel from '../components/utilities/ImageCarousel';
+import BeerAbout from '../components/beer_components/BeerAbout';
+import CommentSection from '../components/comment_components/CommentSection';
+
+const BeerInfo = ({ currentBeer }) => {
+   const [comments, setComments] = useState([]);
+
+   useEffect(() => {
+      if (!currentBeer) return;
+      setComments(currentBeer.comments);
+   }, [currentBeer]);
+
+   return !currentBeer ? (
+      <LinearProgress />
+   ) : (
+      <Box sx={{ mt: '3em' }}>
+         <BeerInfoHeader currentBeer={currentBeer} />
+         <Grid container spacing={2} component='main' sx={{ mt: 2 }}>
+            <Grid md={4} item>
+               <BeerAbout currentBeer={currentBeer} />
+            </Grid>
+            <Grid md={8} item>
+               <CommentSection currentBeer={currentBeer} comments={comments} setComments={setComments} />
+            </Grid>
+         </Grid>
+      </Box>
+   );
+};
 
 const InfoPage = () => {
    const navigate = useNavigate();
@@ -36,15 +64,18 @@ const InfoPage = () => {
          }
       };
       getBeerData();
-   }, [beerID]);
+   }, [beerID, navigate]);
 
    useEffect(() => console.log(currentBeer), [currentBeer]);
 
-   return (
-      <Container maxWidth='lg'>
-         <BeerInfo currentBeer={currentBeer} />
-      </Container>
-   );
+   return currentBeer ? (
+      <>
+         <ImageCarousel images={currentBeer.images} />
+         <Container maxWidth='lg'>
+            <BeerInfo currentBeer={currentBeer} />
+         </Container>
+      </>
+   ) : null;
 };
 
 export default InfoPage;

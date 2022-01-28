@@ -51,7 +51,7 @@ const App = () => {
          if (response.status === 200) setCurrentUser(data.payload);
       };
       checkCredentials();
-   }, []);
+   }, [currentUser]);
 
    return (
       <StrictMode>

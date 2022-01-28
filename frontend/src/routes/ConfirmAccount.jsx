@@ -16,6 +16,8 @@ const ConfirmAccount = () => {
          const response = await fetch(link, requestOptions);
          const data = await response.json();
 
+         console.log(data);
+
          setConfirmationRequestSent(true);
          if (response.status === 200) {
             setConfirmationSuccess(true);
