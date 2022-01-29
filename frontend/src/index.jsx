@@ -24,14 +24,14 @@ import EditBrewery from './routes/EditBrewery';
 
 import SearchBeers from './routes/SearchBeers';
 import EditBeer from './routes/EditBeerPage';
+import NotFound from './routes/NotFound';
+
+import AccountSettingsPage from './routes/AccountSettingsPage';
 
 import { UserContext } from './util/UserContext';
 
 const UserProvider = ({ value, children }) => <UserContext.Provider value={value} children={children} />;
 
-const NotFound = () => {
-   return <div>404 not found</div>;
-};
 const App = () => {
    const [currentUser, setCurrentUser] = useState(null);
 
@@ -75,6 +75,7 @@ const App = () => {
                         <Route path='/breweries/:id' element={<BreweryInfoPage />} />
                         <Route path='/breweries/:id/edit' element={<EditBrewery />} />
                         <Route path='/profile/:id' element={<ProfilePage />} />
+                        <Route path='/account-settings' element={<AccountSettingsPage />} />
                         <Route
                            path='/confirmaccount/:userId/:confirmationToken'
                            element={<ConfirmAccount />}

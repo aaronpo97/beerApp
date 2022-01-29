@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-const ImageCarousel = ({ images }) => {
+const ImageCarousel = ({ images, imageHeight = '400px' }) => {
    return (
       <Box component='div' className='Carousel'>
          <Carousel
@@ -22,7 +22,7 @@ const ImageCarousel = ({ images }) => {
             {images.map(image => {
                return (
                   <img
-                     style={{ maxHeight: '500px', width: '100%', objectFit: 'cover' }}
+                     style={{ maxHeight: imageHeight, width: '100%', objectFit: 'cover' }}
                      src={image.url}
                      alt={''}
                   />

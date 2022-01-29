@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { Container, Box, Grid, Typography, Button } from '@mui/material';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import { useNavigate } from 'react-router-dom';
-
+import ImageCarousel from '../components/utilities/ImageCarousel';
 import BreweryList from '../components/brewery_components/BreweryList';
 
+import images from '../util/images';
 const BreweryIndex = () => {
    const [breweries, setBreweries] = useState([]);
    const [sortingParam, setSortingParam] = useState('default');
@@ -39,15 +40,9 @@ const BreweryIndex = () => {
    }, [sortingParam, sortingDirection, navigate]);
    return (
       <Box>
-         <Box>
-            <img
-               style={{ height: '30em', width: '100%', objectFit: 'cover' }}
-               src={'https://source.unsplash.com/random?bar'}
-               alt='A drinking patio at a bar.'
-            />
-         </Box>
+         <ImageCarousel images={images} />
          <Container maxWidth={'lg'}>
-            <Grid container sx={{ mt: 5 }}>
+            <Grid container sx={{ mt: 3 }}>
                <Grid item md={9} sm={12}>
                   <Typography variant='h1'>The Biergarten Index</Typography>
                   <Typography variant='h2' gutterBottom sx={{ mb: '1em' }}>

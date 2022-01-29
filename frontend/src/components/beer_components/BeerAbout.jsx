@@ -10,11 +10,11 @@ const BeerAbout = ({ currentBeer }) => {
    return (
       <Card>
          <CardContent>
-            <Typography sx={{ mb: 1 }} variant='body1'>
+            <Typography sx={{ mb: 1 }} variant='body2'>
                {currentBeer.description}
             </Typography>
             <Box sx={{ mb: 1 }}>
-               <Typography variant='body3'>
+               <Typography variant='body2'>
                   posted by:{' '}
                   <Link underline='hover' onClick={() => navigate(`/profile/${currentBeer.postedBy._id}`)}>
                      {currentBeer.postedBy.username}

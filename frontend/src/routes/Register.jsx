@@ -6,7 +6,7 @@ import ms from 'ms';
 import RegistrationForm from '../components/user_functions/RegistrationForm';
 const blocklistedWords = ['1^Ce9T]Re-J|']; //test phrase
 
-const Register = () => {
+const Register = ({ setCurrentUser }) => {
    const initialRegistrationData = {
       username: '',
       dateOfBirth: null,
@@ -101,8 +101,10 @@ const Register = () => {
          };
 
          const response = await fetch(url, requestOptions);
-         if (response.status !== 201) throw new Error('Oops!');
+         if (response.status !== 201) throw new Error('Account not registered!');
          const data = await response.json();
+
+         setCurrentUser(data.payload.newUser);
 
          return data;
       };

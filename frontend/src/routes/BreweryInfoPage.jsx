@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import { Container, Box } from '@mui/material';
 
 import BreweryInfo from '../components/brewery_components/BreweryInfo';
 
+import ImageCarousel from '../components/utilities/ImageCarousel';
 const BreweryInfoPage = () => {
+   const navigate = useNavigate();
    const { id } = useParams();
    const [breweryData, setBreweryData] = useState(null);
 
@@ -19,7 +21,9 @@ const BreweryInfoPage = () => {
             };
             const response = await fetch(url, { headers });
             const data = await response.json();
-            console.log(data);
+            if (response.status === 403) {
+               navigate('/confirmaccount');
+            }
 
             setBreweryData(data.payload);
          } catch (error) {
@@ -31,13 +35,7 @@ const BreweryInfoPage = () => {
 
    return !breweryData ? null : (
       <Box>
-         <Box>
-            <img
-               style={{ height: '35em', width: '100%', objectFit: 'cover' }}
-               src={breweryData.headerImage ? breweryData.headerImage.url : ''}
-               alt=''
-            />
-         </Box>
+         <ImageCarousel images={breweryData.images} />
          <Container maxWidth={'lg'}>
             <BreweryInfo breweryData={breweryData} />
          </Container>

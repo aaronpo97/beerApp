@@ -55,13 +55,6 @@ const CommentCard = ({ comment, comments, setComments }) => {
                   {currentUser?._id === comment.author._id && (
                      <Box>
                         <Button
-                           onClick={handleCommentEdit}
-                           fullWidth
-                           sx={{ paddingLeft: 0, justifyContent: 'flex-start' }}
-                        >
-                           Edit
-                        </Button>
-                        <Button
                            onClick={() => handleCommentDelete(comment)}
                            fullWidth
                            sx={{ paddingLeft: 0, justifyContent: 'flex-start' }}

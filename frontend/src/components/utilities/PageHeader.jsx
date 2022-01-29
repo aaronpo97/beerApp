@@ -38,6 +38,7 @@ const PageHeader = ({ setCurrentUser }) => {
    ];
    const settings = [
       { name: 'Profile', action: () => navigate(`/profile/${user._id}`) },
+      { name: 'Account Settings', action: () => navigate(`/account-settings`) },
       {
          name: 'Logout',
          action: () => {

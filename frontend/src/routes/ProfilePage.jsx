@@ -84,6 +84,9 @@ const ProfilePage = () => {
             localStorage.clear();
             navigate('/login');
          }
+         if (response.status === 403) {
+            navigate('/confirmaccount');
+         }
          const result = await response.json();
          if (!result.payload) return;
          localStorage['access-token'] = result.payload.newAccessToken || localStorage['access-token'];

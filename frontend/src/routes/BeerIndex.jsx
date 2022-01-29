@@ -3,9 +3,11 @@ import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ImageCarousel from '../components/utilities/ImageCarousel';
 
 import BeerList from '../components/beer_components/BeerList';
 
+import images from '../util/images';
 const Beers = () => {
    const [sortingParam, setSortingParam] = useState('default');
    const [sortingDirection, setSortingDirection] = useState('default');
@@ -89,11 +91,7 @@ const Beers = () => {
    return (
       <Box>
          <Box>
-            <img
-               style={{ height: '30em', width: '100%', objectFit: 'cover' }}
-               src={'https://source.unsplash.com/random?patio'}
-               alt='A drinking patio at a bar.'
-            />
+            <ImageCarousel images={images} />
          </Box>
          <Container maxWidth={'lg'}>
             <Grid container sx={{ mt: 5 }}>
