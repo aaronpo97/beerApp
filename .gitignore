@@ -1,8 +1,1 @@
-backend/node_modules
-frontend/node_modules
-backend/seed/beerAndBreweryData.json
-backend/seed/userData.json
-.eslintrc.cjs
-.env
-backend/notes.md
 .DS_Store

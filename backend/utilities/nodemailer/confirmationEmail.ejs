@@ -1,25 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Document</title>
-	</head>
-	<body>
-		<div class="container">
-			<h1>Welcome, <%= userObj.username %> to the Biergarten!</h1>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo eos, itaque
-				repudiandae est voluptatibus recusandae saepe eligendi sapiente laudantium
-				ullam odit sunt minima vitae distinctio neque. Ad deserunt architecto
-				illum.
-			</p>
+  <head>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome, <%= userObj.username %> to the Biergarten!</h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo eos, itaque repudiandae est
+        voluptatibus recusandae saepe eligendi sapiente laudantium ullam odit sunt minima vitae
+        distinctio neque. Ad deserunt architecto illum.
+      </p>
 
-			<p>
-				Please confirm your account using this
-				<a
-					href="http://localhost:5000/confirm/<%=userObj._id%>/<%=confirmationToken%>"
-					>link.</a
-				>
-			</p>
-		</div>
-	</body>
+      <p>
+        Please confirm your account using this
+        <a href="http://localhost:5000/confirm/<%=userObj._id%>/<%=confirmationToken%>">link.</a>
+      </p>
+    </div>
+  </body>
 </html>

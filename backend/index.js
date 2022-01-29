@@ -5,7 +5,7 @@ import passport from 'passport';
 import PassportLocal from 'passport-local';
 
 import ServerError from './utilities/errors/ServerError.js';
-import { ErrorResponse } from './utilities/response/responses.js';
+import ErrorResponse from './utilities/response/ErrorResponse.js';
 
 import connectDB from './database/connectDB.js';
 import User from './database/models/User.js';
@@ -17,20 +17,23 @@ import imageRoutes from './routes/imageRoutes.js';
 import commentRoutes from './routes/commentRoutes.js';
 
 // use the environment variables in local .env when not in production (dev)
+// eslint-disable-next-line no-undef
 if (process.env.NODE_ENV !== 'production') dotenv.config();
 
+// eslint-disable-next-line no-undef
 const { PORT, MONGO_DB_URI, BASE_URL } = process.env;
 
 const app = express();
 
 const initializeDB = async () => {
-   await connectDB(MONGO_DB_URI);
-   console.clear();
-   console.log('The Biergarten API \n');
-   console.log('Connected to MongoDB.');
+  await connectDB(MONGO_DB_URI);
+  console.clear();
+  console.log('The Biergarten API \n');
+  console.log('Connected to MongoDB.');
 };
 
 // Enable cross origin resource sharing (dev only)
+
 if (process.env.NODE_ENV === 'development') app.use(cors());
 
 // To parse the incoming requests with JSON payloads
@@ -44,7 +47,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.all('api/teapot', () => {
-   throw new ServerError(`I'm a teapot!`, 418);
+  throw new ServerError("I'm a teapot!", 418);
 });
 
 // Express router:
@@ -56,15 +59,23 @@ app.use('/api/breweries', breweryRoutes);
 app.use('/api/images', imageRoutes);
 
 // Error handling:
+
+
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
-   const { status = 500, message = 'Oh no, something went wrong.', stack } = err;
-   res.status(status).json(
-      new ErrorResponse(message, status, process.env.NODE_ENV === 'development' ? stack : undefined)
-   );
+  const { status = 500, message = 'Oh no, something went wrong.', stack } = err;
+  res.status(status).json(
+    new ErrorResponse(
+      message,
+      status,
+      // eslint-disable-next-line no-undef
+      process.env.NODE_ENV === 'development' ? stack : undefined,
+    ),
+  );
 });
 
 app.listen(PORT, () => {
-   console.clear();
-   console.log('Loading the Biergarten API...');
-   initializeDB().then(() => console.log(`Connected to '${BASE_URL}${PORT}'.`));
+  console.clear();
+  console.log('Loading the Biergarten API...');
+  initializeDB().then(() => console.log(`Connected to '${BASE_URL}${PORT}'.`));
 });
