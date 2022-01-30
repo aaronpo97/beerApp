@@ -3,7 +3,13 @@ import { TextField, Button, FormControl, Grid } from '@mui/material';
 import FormErrorAlert from '../utilities/FormErrorAlert';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-const EditBreweryForm = ({ formValues, formErrors, handleSubmit, handleDelete, handleFormInputChange }) => {
+const EditBreweryForm = ({
+   formValues,
+   formErrors,
+   handleSubmit,
+   handleDelete,
+   handleFormInputChange,
+}) => {
    return (
       <FormControl fullWidth component='form' onSubmit={handleSubmit} variant='outlined' noValidate>
          <TextField
@@ -20,7 +26,7 @@ const EditBreweryForm = ({ formValues, formErrors, handleSubmit, handleDelete, h
             margin='normal'
             fullWidth
          />
-         {formErrors.name && <FormErrorAlert children={formErrors.name} />}
+         {formErrors.name && <FormErrorAlert error={formErrors.name} />}
 
          <TextField
             required
@@ -37,7 +43,7 @@ const EditBreweryForm = ({ formValues, formErrors, handleSubmit, handleDelete, h
             rows={10}
             fullWidth
          />
-         {formErrors.description && <FormErrorAlert children={formErrors.description} />}
+         {formErrors.description && <FormErrorAlert error={formErrors.description} />}
 
          {/* <TextField
             required
@@ -53,7 +59,7 @@ const EditBreweryForm = ({ formValues, formErrors, handleSubmit, handleDelete, h
             margin='normal'
             fullWidth
          />
-         {formErrors.address && <FormErrorAlert children={formErrors.address} />} */}
+         {formErrors.address && <FormErrorAlert error={formErrors.address} />} */}
 
          <Grid container spacing={2}>
             <Grid item md={6}>
@@ -65,7 +71,7 @@ const EditBreweryForm = ({ formValues, formErrors, handleSubmit, handleDelete, h
                   color='error'
                   onClick={handleDelete}
                >
-                  Delete "{formValues.name}"
+                  Delete &quot;{formValues.name}&quot;
                </Button>
             </Grid>
             <Grid item md={6}>

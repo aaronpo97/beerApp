@@ -36,7 +36,7 @@ const LoginForm = ({ formValues, formErrors, handleSubmit, handleFormInputChange
                   onChange={handleFormInputChange}
                   error={formErrors.credentials || formErrors.username}
                />
-               {formErrors.username && <FormErrorAlert children={formErrors.username} />}
+               {formErrors.username && <FormErrorAlert error={formErrors.username} />}
                <TextField
                   margin='normal'
                   required
@@ -51,9 +51,9 @@ const LoginForm = ({ formValues, formErrors, handleSubmit, handleFormInputChange
                   onChange={handleFormInputChange}
                   error={formErrors.credentials || formErrors.password}
                />
-               {formErrors.password && <FormErrorAlert children={formErrors.password} />}
+               {formErrors.password && <FormErrorAlert error={formErrors.password} />}
 
-               {formErrors.credentials && <FormErrorAlert children={formErrors.credentials} />}
+               {formErrors.credentials && <FormErrorAlert error={formErrors.credentials} />}
                <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
                   Sign In
                </Button>

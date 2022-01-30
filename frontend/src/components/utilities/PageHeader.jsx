@@ -94,7 +94,9 @@ const PageHeader = ({ setCurrentUser }) => {
                   </Box>
                   <Box>
                      {user && (
-                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <Box
+                           sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+                        >
                            <Tooltip title='Open settings'>
                               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, mt: 1 }}>
                                  <Avatar
@@ -121,7 +123,11 @@ const PageHeader = ({ setCurrentUser }) => {
                            >
                               {settings.map(setting => (
                                  <MenuItem key={setting}>
-                                    <Typography component='a' textAlign='center' onClick={setting.action}>
+                                    <Typography
+                                       component='a'
+                                       textAlign='center'
+                                       onClick={setting.action}
+                                    >
                                        {setting.name}
                                     </Typography>
                                  </MenuItem>

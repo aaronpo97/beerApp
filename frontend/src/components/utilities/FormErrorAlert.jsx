@@ -1,6 +1,6 @@
 import { Alert, Box } from '@mui/material';
 
-const FormErrorAlert = ({ children }) => {
+const FormErrorAlert = ({ error }) => {
    return (
       <Box sx={{ width: '100%' }}>
          <Alert
@@ -15,7 +15,7 @@ const FormErrorAlert = ({ children }) => {
                height: '32px',
             }}
          >
-            {children}
+            {error}
          </Alert>
       </Box>
    );

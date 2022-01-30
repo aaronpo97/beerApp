@@ -19,7 +19,7 @@ const CreateBreweryForm = ({ formValues, formErrors, handleSubmit, handleFormInp
             margin='normal'
             fullWidth
          />
-         {formErrors.name && <FormErrorAlert children={formErrors.name} />}
+         {formErrors.name && <FormErrorAlert error={formErrors.name} />}
 
          <TextField
             required
@@ -36,7 +36,7 @@ const CreateBreweryForm = ({ formValues, formErrors, handleSubmit, handleFormInp
             rows={10}
             fullWidth
          />
-         {formErrors.description && <FormErrorAlert children={formErrors.description} />}
+         {formErrors.description && <FormErrorAlert error={formErrors.description} />}
 
          <TextField
             required
@@ -52,7 +52,7 @@ const CreateBreweryForm = ({ formValues, formErrors, handleSubmit, handleFormInp
             margin='normal'
             fullWidth
          />
-         {formErrors.address && <FormErrorAlert children={formErrors.address} />}
+         {formErrors.address && <FormErrorAlert error={formErrors.address} />}
 
          <Button type='submit' fullWidth sx={{ mt: 3, mb: 2 }} variant='contained'>
             Post a brewery!

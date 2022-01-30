@@ -1,7 +1,13 @@
 import { FormControl, TextField, Grid, Select, MenuItem, Button } from '@mui/material';
 import FormErrorAlert from '../utilities/FormErrorAlert';
 
-const CreateBeerForm = ({ formValues, formErrors, handleSubmit, handleFormInputChange, breweryList }) => {
+const CreateBeerForm = ({
+   formValues,
+   formErrors,
+   handleSubmit,
+   handleFormInputChange,
+   breweryList,
+}) => {
    return (
       <FormControl fullWidth component='form' onSubmit={handleSubmit} variant='outlined' noValidate>
          <TextField
@@ -18,7 +24,7 @@ const CreateBeerForm = ({ formValues, formErrors, handleSubmit, handleFormInputC
             margin='normal'
             fullWidth
          />
-         {formErrors.name && <FormErrorAlert children={formErrors.name} />}
+         {formErrors.name && <FormErrorAlert error={formErrors.name} />}
          <TextField
             required
             value={formValues.type}
@@ -33,7 +39,7 @@ const CreateBeerForm = ({ formValues, formErrors, handleSubmit, handleFormInputC
             margin='normal'
             fullWidth
          />
-         {formErrors.type && <FormErrorAlert children={formErrors.type} />}
+         {formErrors.type && <FormErrorAlert error={formErrors.type} />}
          <Grid container spacing={3}>
             <Grid item md={6}>
                <TextField
@@ -79,7 +85,7 @@ const CreateBeerForm = ({ formValues, formErrors, handleSubmit, handleFormInputC
             rows={10}
             fullWidth
          />
-         {formErrors.description && <FormErrorAlert children={formErrors.description} />}
+         {formErrors.description && <FormErrorAlert error={formErrors.description} />}
          <Select
             sx={{ mt: 2 }}
             labelId='brewery-select'
@@ -97,7 +103,7 @@ const CreateBeerForm = ({ formValues, formErrors, handleSubmit, handleFormInputC
                );
             })}
          </Select>
-         {formErrors.brewery && <FormErrorAlert children={formErrors.brewery} />}
+         {formErrors.brewery && <FormErrorAlert error={formErrors.brewery} />}
 
          <Button type='submit' fullWidth sx={{ mt: 3, mb: 2 }} variant='contained'>
             Post a beer!
