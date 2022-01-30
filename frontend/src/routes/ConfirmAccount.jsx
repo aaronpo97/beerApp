@@ -1,4 +1,4 @@
-import { Container, Typography, Box } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -30,20 +30,16 @@ const ConfirmAccount = () => {
       confirmationRequest();
    }, [confirmationToken, userId]);
 
-   return (
-      <Container>
-         {confirmationRequestSent ? (
-            <Box>
-               {confirmationSuccess ? (
-                  <Typography>Thank you for confirming your account!</Typography>
-               ) : (
-                  <Typography>Account confirmation failed. Bad link!</Typography>
-               )}
-            </Box>
+   return confirmationRequestSent ? (
+      <Box>
+         {confirmationSuccess ? (
+            <Typography>Thank you for confirming your account!</Typography>
          ) : (
-            <Typography>Confirming account...</Typography>
+            <Typography>Account confirmation failed. Bad link!</Typography>
          )}
-      </Container>
+      </Box>
+   ) : (
+      <Typography>Confirming account...</Typography>
    );
 };
 

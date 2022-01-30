@@ -15,7 +15,7 @@ const resendConfirmation = async (req, res, next) => {
     const message = `Generated new confirmation token for user: ${user.username}`;
     const status = 200;
 
-    // await sendConfirmationEmail(user.email, user, confirmationToken);
+    await sendConfirmationEmail(user.email, user, confirmationToken);
     const link = `http://localhost:5000/api/users/confirm/${user._id}/${confirmationToken}`;
 
     const payload = { confirmationToken, link };

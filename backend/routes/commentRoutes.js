@@ -10,10 +10,10 @@ import viewComment from '../controllers/comments/viewComment.js';
 import checkTokens from '../middleware/auth/checkTokens.js';
 import verifyAccessToken from '../middleware/auth/verifyAccessToken.js';
 import isCommentOwner from '../middleware/auth/isCommentOwner.js';
+import isAccountConfirmed from '../middleware/auth/isAccountConfirmed.js';
 
 // ----- Utilities ------ //
 import ServerError from '../utilities/errors/ServerError.js';
-import isAccountConfirmed from '../middleware/auth/isAccountConfirmed.js';
 
 const router = express.Router({ mergeParams: true });
 
