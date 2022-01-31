@@ -99,7 +99,7 @@ const Register = () => {
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formValues),
+        body: JSON.stringify({ ...formValues, username: formValues.username.toLowerCase() }),
       };
 
       const response = await fetch(url, requestOptions);

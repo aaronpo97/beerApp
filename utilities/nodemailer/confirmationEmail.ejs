@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome, <%= userObj.username %> to the Biergarten!</h1>
+
+      <p>
+        Please confirm your account using this link.
+        <a
+          href="https://biergarten-app.herokuapp.com/confirmaccount/<%=userObj._id%>/<%=confirmationToken%>"
+          >https://biergarten-app.herokuapp.com/confirmaccount/<%=userObj._id%>/<%=confirmationToken%></a
+        >
+      </p>
+    </div>
+  </body>
+</html>

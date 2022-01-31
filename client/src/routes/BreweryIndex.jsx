@@ -37,7 +37,7 @@ const BreweryIndex = () => {
         navigate('/login');
       }
       if (response.status === 403) {
-        setShowConfirmationError;
+        // setShowConfirmationError;
       }
       const result = await response.json();
       if (!result.payload) return;

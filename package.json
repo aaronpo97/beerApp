@@ -21,6 +21,8 @@
     "randomstring": "^1.2.2"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.16.5",
+    "babel-eslint": "^10.1.0",
     "eslint": "^8.8.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-google": "^0.14.0",
@@ -34,7 +36,8 @@
   "scripts": {
     "test": "node index.js",
     "start": "node index.js",
-    "dev": "echo \"Starting up backend application.\" && curl \"https://api.mockaroo.com/api/becb10e0?count=10&key=256fc480\" > \"seed/userData.json\" && node seed && nodemon index.js"
+    "dev": "echo \"Starting up backend application.\" && curl \"https://api.mockaroo.com/api/becb10e0?count=10&key=256fc480\" > \"seed/userData.json\" && node seed && nodemon index.js",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "keywords": [],
   "author": "Aaron Po",

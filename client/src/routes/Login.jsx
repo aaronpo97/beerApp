@@ -21,7 +21,7 @@ const Login = () => {
       const loginUser = async () => {
         const requestOptions = {
           body: JSON.stringify({
-            username: formValues.username,
+            username: formValues.username.toLowerCase(),
             password: formValues.password,
           }),
           headers: { 'Content-Type': 'application/json' },

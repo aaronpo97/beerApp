@@ -1,7 +1,0 @@
-node_modules
-seed/beerAndBreweryData.json
-seed/userData.json
-.eslintrc.cjs
-.env
-.DS_Store
-.eslintrc.cjs

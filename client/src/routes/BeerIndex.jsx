@@ -20,9 +20,7 @@ const Beers = () => {
   const navigate = useNavigate();
   const [beers, setBeers] = useState([]);
 
-  const [currentUser] = useContext(UserContext);
-
-  console.log(currentUser);
+  const [currentUser, dispatch] = useContext(UserContext);
 
   useEffect(() => {
     (async () => {

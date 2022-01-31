@@ -1,5 +1,4 @@
 import nodemailer from 'nodemailer';
-
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import ejs from 'ejs';

@@ -57,7 +57,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 if (inProductionMode) {
-  app.use(express.static(path.join(__dirname, '../frontend/build/')));
+  app.use(express.static(path.join(__dirname, './client/build/')));
 }
 
 app.all('api/teapot', () => {
@@ -83,7 +83,7 @@ app.use((err, req, res, next) => {
 // Serving compiled react app from ../frontend/build
 if (inProductionMode) {
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+    res.sendFile(path.join(__dirname, './client/build', 'index.html'));
   });
 }
 
