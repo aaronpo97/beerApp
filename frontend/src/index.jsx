@@ -47,24 +47,6 @@ const App = () => {
 
   const [currentUser, dispatch] = useReducer(reducer, {});
 
-  useEffect(() => {
-    const checkCredentials = async () => {
-      if (!(localStorage['access-token'] && localStorage['refresh-token'])) return;
-      const requestOptions = {
-        method: 'GET',
-        headers: {
-          'x-access-token': localStorage['access-token'],
-          'x-auth-token': localStorage['refresh-token'],
-        },
-      };
-      const response = await fetch('/api/users/verifytoken', requestOptions);
-      const data = await response.json();
-
-      dispatch({ type: 'UPDATE_CURRENT_USER', payload: data.payload });
-    };
-    checkCredentials();
-  }, []);
-
   return (
     <StrictMode>
       <BrowserRouter>

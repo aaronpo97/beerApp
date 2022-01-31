@@ -14,55 +14,61 @@ import AccountNotConfirmedDialog from '../components/confirmAccount_components/A
 
 const ProfileHeader = ({ user }) => {
   return (
-    <Card elevation={5} sx={{ mb: 2 }}>
-      <Grid container>
-        <Grid item md={2}>
-          <CardMedia
-            component='img'
-            alt={user.username}
-            image={
-              user.displayImage?.url ||
-              'https://c.tenor.com/h99LQHUExJIAAAAd/19dollar-fortnite-card-among-us.gif'
-            }
-            sx={{ maxWidth: 'auto', height: '100%' }}
-          />
-        </Grid>
+    user && (
+      <Card elevation={5} sx={{ mb: 2 }}>
+        <Grid container>
+          <Grid item md={2}>
+            <CardMedia
+              component='img'
+              alt={user.username}
+              image={
+                user.displayImage?.url ||
+                'https://c.tenor.com/h99LQHUExJIAAAAd/19dollar-fortnite-card-among-us.gif'
+              }
+              sx={{ maxWidth: 'auto', height: '100%' }}
+            />
+          </Grid>
 
-        <Grid item md={10}>
-          <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <Box>
-              <Typography variant='h1' component='div'>
-                {user.firstName} {user.lastName}
-              </Typography>
-              <Typography variant='h2' component='div' gutterBottom>
-                {user.username}
-              </Typography>
-              <Typography gutterBottom variant='h3' component='div'>
-                member for {ms(Date.now() - new Date(user.createdAt), { long: true })}
-              </Typography>
-            </Box>
+          <Grid item md={10}>
+            <CardContent
+              sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+            >
+              <Box>
+                <Typography variant='h1' component='div'>
+                  {user.firstName} {user.lastName}
+                </Typography>
+                <Typography variant='h2' component='div' gutterBottom>
+                  {user.username}
+                </Typography>
+                <Typography gutterBottom variant='h3' component='div'>
+                  member for {ms(Date.now() - new Date(user.createdAt), { long: true })}
+                </Typography>
+              </Box>
 
-            <Typography variant='body2'>{user.posts.length} beer posts</Typography>
-            <Typography variant='body2'>
-              {user.likes.length} like{user.likes.length !== 1 ? 's' : ''}
-            </Typography>
-          </CardContent>
+              <Typography variant='body2'>{user.posts.length} beer posts</Typography>
+              <Typography variant='body2'>
+                {user.likes.length} like{user.likes.length !== 1 ? 's' : ''}
+              </Typography>
+            </CardContent>
+          </Grid>
         </Grid>
-      </Grid>
-    </Card>
+      </Card>
+    )
   );
 };
 
 const ProfileBio = ({ user }) => {
   return (
-    <Card elevation={5}>
-      <CardContent>
-        <Typography variant='h2' gutterBottom>
-          About
-        </Typography>
-        {user.bio}
-      </CardContent>
-    </Card>
+    user && (
+      <Card elevation={5}>
+        <CardContent>
+          <Typography variant='h2' gutterBottom>
+            About
+          </Typography>
+          {user.bio}
+        </CardContent>
+      </Card>
+    )
   );
 };
 const ProfilePage = () => {
@@ -96,7 +102,7 @@ const ProfilePage = () => {
     fetchData();
   }, [id, navigate]);
 
-  const currentUser = useContext(UserContext);
+  const [currentUser] = useContext(UserContext);
   return (
     <Box sx={{ mt: 5 }}>
       <Container maxWidth='lg'>
@@ -106,11 +112,13 @@ const ProfilePage = () => {
 
             <Grid container spacing={2}>
               <Grid item md={4}>
-                <Card>
-                  <CardContent>
-                    <Typography variant='h3'>Posts</Typography>
-                  </CardContent>
-                </Card>
+                {user && (
+                  <Card>
+                    <CardContent>
+                      <Typography variant='h3'>Posts</Typography>
+                    </CardContent>
+                  </Card>
+                )}
               </Grid>
               <Grid item md={8}>
                 <ProfileBio user={user} />

@@ -9,9 +9,7 @@ const ConfirmAccount = () => {
   const [confirmationRequestSent, setConfirmationRequestSent] = useState(false);
   const [confirmationSuccess, setConfirmationSuccess] = useState(false);
 
-  const currentUser = useContext(UserContext);
-
-  console.log(currentUser);
+  const [currentUser, dispatch] = useContext(UserContext);
 
   useEffect(() => {
     if (currentUser?.isAccountConfirmed) return;

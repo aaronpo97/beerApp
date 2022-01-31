@@ -18,7 +18,7 @@ const BreweryIndex = () => {
 
   const navigate = useNavigate();
 
-  const currentUser = useContext(UserContext);
+  const [currentUser, dispatch] = useContext(UserContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,6 +32,7 @@ const BreweryIndex = () => {
       const url = `/api/breweries?sort=${sortingDirection}&param=${sortingParam}`;
       const response = await fetch(url, requestOptions);
       if (response.status === 401) {
+        dispatch({ type: 'UPDATE_CURRENT_USER', payload: {} });
         localStorage.clear();
         navigate('/login');
       }
@@ -56,7 +57,7 @@ const BreweryIndex = () => {
               Breweries
             </Typography>
           </Grid>
-          {currentUser?.isAccountConfirmed && (
+          {currentUser.isAccountConfirmed && (
             <Grid md={3} sm={12} item>
               <Button
                 startIcon={<AddCircleOutlinedIcon />}
@@ -70,7 +71,7 @@ const BreweryIndex = () => {
           )}
         </Grid>
 
-        {currentUser?.isAccountConfirmed && (
+        {currentUser.isAccountConfirmed && (
           <BreweryList
             breweries={breweries}
             setBreweries={setBreweries}
@@ -81,7 +82,7 @@ const BreweryIndex = () => {
           />
         )}
 
-        {!currentUser?.isAccountConfirmed && <AccountNotConfirmedDialog />}
+        {!currentUser.isAccountConfirmed && <AccountNotConfirmedDialog />}
       </Container>
     </Box>
   );

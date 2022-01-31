@@ -22,8 +22,9 @@ const Beers = () => {
 
   const [currentUser] = useContext(UserContext);
 
+  console.log(currentUser);
+
   useEffect(() => {
-    if (!currentUser?.isAccountConfirmed) return;
     (async () => {
       const requestOptions = {
         method: 'GET',
@@ -36,8 +37,8 @@ const Beers = () => {
       const response = await fetch(url, requestOptions);
 
       if (response.status === 401) {
+        dispatch({ type: 'UPDATE_CURRENT_USER', payload: {} });
         localStorage.clear();
-
         navigate('/login');
       }
 

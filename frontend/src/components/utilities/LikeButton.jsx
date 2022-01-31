@@ -7,7 +7,7 @@ import { UserContext } from '../../util/UserContext';
 
 const LikeButton = ({ beer }) => {
   const [liked, setLiked] = useState(null);
-  const currentUser = useContext(UserContext);
+  const [currentUser] = useContext(UserContext);
 
   useEffect(() => {
     if (!currentUser) return;
@@ -27,17 +27,14 @@ const LikeButton = ({ beer }) => {
       const response = await fetch(`/api/beers/${beer._id}/like`, requestOptions);
       const data = await response.json();
 
-      console.log(data);
-
       if (data.newAccessToken) {
         localStorage['access-token'] = data.newAccessToken;
       }
       return data;
     };
 
-    sendLikeRequest()
-      .then(() => setLiked(!liked))
-      .catch((error) => console.error(`Something went wrong: ${error}`));
+    setLiked(!liked);
+    sendLikeRequest().catch((error) => console.error(`Something went wrong: ${error}`));
   };
   return (
     currentUser && (

@@ -17,7 +17,7 @@ const BeerInfo = ({ currentBeer }) => {
   }, [currentBeer]);
 
   return !currentBeer ? (
-    <LinearProgress />
+    <LinearProgress sx={{ mt: 5 }} />
   ) : (
     <Box sx={{ mt: '3em' }}>
       <BeerInfoHeader currentBeer={currentBeer} />

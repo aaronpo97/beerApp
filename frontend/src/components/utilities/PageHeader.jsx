@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useNavigate, Outlet } from 'react-router-dom';
 import {
   AppBar,
@@ -51,6 +51,28 @@ const PageHeader = () => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const checkCredentials = async () => {
+      if (!(localStorage['access-token'] && localStorage['refresh-token'])) return;
+      const requestOptions = {
+        method: 'GET',
+        headers: {
+          'x-access-token': localStorage['access-token'],
+          'x-auth-token': localStorage['refresh-token'],
+        },
+      };
+      const response = await fetch('/api/users/verifytoken', requestOptions);
+      const data = await response.json();
+      if (response.status !== 200) {
+        dispatch({ type: 'UPDATE_CURRENT_USER', payload: {} });
+        navigate('/login');
+      }
+
+      dispatch({ type: 'UPDATE_CURRENT_USER', payload: data.payload });
+    };
+    checkCredentials();
+  }, []);
+
   return (
     <>
       <AppBar position='fixed' elevation={12}>
@@ -66,7 +88,7 @@ const PageHeader = () => {
               The Biergarten Index
             </Typography>
             <Box sx={{ flexGrow: 1, display: 'flex' }}>
-              {currentUser ? (
+              {currentUser._id ? (
                 <>
                   {pagesLoggedIn.map((page) => (
                     <Button
@@ -93,7 +115,7 @@ const PageHeader = () => {
               )}
             </Box>
             <Box>
-              {currentUser && (
+              {currentUser._id && (
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                   <Tooltip title='Open settings'>
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, mt: 1 }}>
