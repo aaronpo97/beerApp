@@ -8,8 +8,10 @@ import ImageCarousel from '../components/utilities/ImageCarousel';
 import BeerList from '../components/beer_components/BeerList';
 
 import images from '../util/images';
-import ConfirmAlert from './ConfirmCard';
+
 import { UserContext } from '../util/UserContext';
+
+import AccountNotConfirmedDialog from '../components/confirmAccount_components/AccountNotConfirmedDialog';
 const Beers = () => {
   const [sortingParam, setSortingParam] = useState('default');
   const [sortingDirection, setSortingDirection] = useState('default');
@@ -39,7 +41,6 @@ const Beers = () => {
         navigate('/login');
       }
 
-      setAccountConfirmed(true);
       const result = await response.json();
 
       if (!result.payload) return;
@@ -97,7 +98,7 @@ const Beers = () => {
         <ImageCarousel images={images} />
       </Box>
       <Container maxWidth={'lg'}>
-        <Grid container sx={{ mt: 5 }}>
+        <Grid container sx={{ mt: 3 }}>
           <Grid item md={10} sm={12}>
             <Typography variant='h1'>The Biergarten Index</Typography>
             <Typography variant='h2' gutterBottom sx={{ mb: '1em' }}>
@@ -127,7 +128,7 @@ const Beers = () => {
             setSortingDirection={setSortingDirection}
           />
         ) : (
-          <ConfirmAlert />
+          <AccountNotConfirmedDialog />
         )}
       </Container>
     </Box>

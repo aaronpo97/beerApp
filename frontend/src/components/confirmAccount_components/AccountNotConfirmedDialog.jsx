@@ -1,10 +1,10 @@
 import { useState, useContext } from 'react';
 import { Box } from '@mui/material';
-import { UserContext } from '../util/UserContext';
+import { UserContext } from '../../util/UserContext';
 
-import AccountNotConfirmedWarning from '../components/confirmAccount_components/AccountNotConfirmedWarning';
-import UpdateEmailForm from '../components/confirmAccount_components/UpdateEmailForm';
-import SentConfirmationEmailAlert from '../components/confirmAccount_components/SentConfirmationEmailAlert';
+import AccountNotConfirmedWarning from './AccountNotConfirmedWarning';
+import UpdateEmailForm from './UpdateEmailForm';
+import SentConfirmationEmailAlert from './SentConfirmationEmailAlert';
 
 const AccountNotConfirmedDialog = () => {
   const currentUser = useContext(UserContext);
@@ -53,7 +53,7 @@ const AccountNotConfirmedDialog = () => {
   };
 
   return (
-    currentUser && (
+    (currentUser && (
       <Box sx={{ mb: 5 }}>
         {!requestSent &&
           (!showEmailUpdateField ? (
@@ -71,7 +71,8 @@ const AccountNotConfirmedDialog = () => {
 
         {requestSent && <SentConfirmationEmailAlert updatedEmail={updatedEmail} />}
       </Box>
-    )
+    )) ||
+    null
   );
 };
 
