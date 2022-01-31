@@ -7,8 +7,8 @@ import UpdateEmailForm from './UpdateEmailForm';
 import SentConfirmationEmailAlert from './SentConfirmationEmailAlert';
 
 const AccountNotConfirmedDialog = () => {
-  const currentUser = useContext(UserContext);
-
+  const [currentUser, dispatch] = useContext(UserContext);
+  console.log(currentUser);
   const onClick = async () => {
     try {
       const requestOptions = {

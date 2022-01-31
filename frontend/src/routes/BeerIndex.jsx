@@ -20,7 +20,7 @@ const Beers = () => {
   const navigate = useNavigate();
   const [beers, setBeers] = useState([]);
 
-  const currentUser = useContext(UserContext);
+  const [currentUser] = useContext(UserContext);
 
   useEffect(() => {
     if (!currentUser?.isAccountConfirmed) return;

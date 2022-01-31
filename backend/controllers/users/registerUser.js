@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import User from '../../database/models/User.js';
 import ServerError from '../../utilities/errors/ServerError.js';
+import sendConfirmationEmail from '../../utilities/nodemailer/sendConfirmationEmail.js';
 
 import {
   generateAccessToken,
@@ -31,7 +32,7 @@ const registerUser = async (req, res, next) => {
     await user.save();
 
     const confirmationToken = await generateConfirmationToken(user);
-    // await sendConfirmationEmail(email, user, confirmationToken);
+    await sendConfirmationEmail(email, user, confirmationToken);
 
     const refreshToken = await generateRefreshToken(user);
 

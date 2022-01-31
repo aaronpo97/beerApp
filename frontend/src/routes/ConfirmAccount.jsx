@@ -1,46 +1,58 @@
-import { Typography, Box } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { Typography, Box, AlertTitle, Alert, Container } from '@mui/material';
+import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { UserContext } from '../util/UserContext';
 
 const ConfirmAccount = () => {
-   const { userId, confirmationToken } = useParams();
+  const { userId, confirmationToken } = useParams();
 
-   const [confirmationRequestSent, setConfirmationRequestSent] = useState(false);
-   const [confirmationSuccess, setConfirmationSuccess] = useState(false);
+  const [confirmationRequestSent, setConfirmationRequestSent] = useState(false);
+  const [confirmationSuccess, setConfirmationSuccess] = useState(false);
 
-   useEffect(() => {
-      const confirmationRequest = async () => {
-         const link = `/api/users/confirm/${userId}/${confirmationToken}`;
-         const requestOptions = { method: 'PUT' };
+  const currentUser = useContext(UserContext);
 
-         const response = await fetch(link, requestOptions);
-         const data = await response.json();
+  console.log(currentUser);
 
-         console.log(data);
+  useEffect(() => {
+    if (currentUser?.isAccountConfirmed) return;
+    const confirmationRequest = async () => {
+      const link = `/api/users/confirm/${userId}/${confirmationToken}`;
+      const requestOptions = { method: 'PUT' };
 
-         setConfirmationRequestSent(true);
-         if (response.status === 200) {
-            setConfirmationSuccess(true);
-            return;
-         }
-         setConfirmationSuccess(false);
-         return;
-      };
+      const response = await fetch(link, requestOptions);
+      const data = await response.json();
 
-      confirmationRequest();
-   }, [confirmationToken, userId]);
+      console.log(data);
 
-   return confirmationRequestSent ? (
-      <Box>
-         {confirmationSuccess ? (
-            <Typography>Thank you for confirming your account!</Typography>
-         ) : (
-            <Typography>Account confirmation failed. Bad link!</Typography>
-         )}
-      </Box>
-   ) : (
-      <Typography>Confirming account...</Typography>
-   );
+      setConfirmationRequestSent(true);
+      if (response.status === 200) {
+        setConfirmationSuccess(true);
+        return;
+      }
+      setConfirmationSuccess(false);
+      return;
+    };
+
+    confirmationRequest();
+  }, [confirmationToken, userId, currentUser]);
+
+  return confirmationRequestSent && currentUser ? (
+    <Container sx={{ mt: 5 }}>
+      {confirmationSuccess ? (
+        <Alert severity='success'>
+          <AlertTitle>Account successfully confirmed.</AlertTitle>
+          Thank you for confirming your account!
+        </Alert>
+      ) : (
+        <Alert severity='error'>
+          <AlertTitle>Account confirmation failed!</AlertTitle>
+          Could not confirm your account. Please request a new confirmation email:
+        </Alert>
+      )}
+    </Container>
+  ) : (
+    <Typography>Confirming account...</Typography>
+  );
 };
 
 export default ConfirmAccount;

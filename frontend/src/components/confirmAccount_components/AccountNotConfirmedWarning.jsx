@@ -4,7 +4,7 @@ import { UserContext } from '../../util/UserContext';
 import { Alert, AlertTitle, Typography, Link } from '@mui/material';
 
 const AccountNotConfirmedWarning = ({ setShowEmailUpdateField, onClick }) => {
-  const currentUser = useContext(UserContext);
+  const [currentUser] = useContext(UserContext);
   return (
     <Alert severity='error'>
       <AlertTitle>Please confirm your account.</AlertTitle>

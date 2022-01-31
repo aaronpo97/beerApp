@@ -15,10 +15,11 @@ const resendConfirmation = async (req, res, next) => {
     const message = `Generated new confirmation token for user: ${user.username}`;
     const status = 200;
 
+    // eslint-disable-next-line no-underscore-dangle
+    const link = `/confirmaccount/${user._id}/${confirmationToken}`;
     await sendConfirmationEmail(user.email, user, confirmationToken);
-    const link = `http://localhost:5000/api/users/confirm/${user._id}/${confirmationToken}`;
 
-    const payload = { confirmationToken, link };
+    const payload = { link };
     res.json(new SuccessResponse(message, status, payload)).status(200);
   } catch (error) {
     next(error);

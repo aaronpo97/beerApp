@@ -1,4 +1,4 @@
-import { StrictMode, useState, useEffect } from 'react';
+import { StrictMode, useState, useEffect, useReducer } from 'react';
 
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -30,15 +30,24 @@ import AccountSettingsPage from './routes/AccountSettingsPage';
 
 import { UserContext } from './util/UserContext';
 
-const UserProvider = ({ value, children }) => (
-  <UserContext.Provider value={value}>{children}</UserContext.Provider>
-);
-
 const App = () => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const reducer = (currentUser, action) => {
+    switch (action.type) {
+      case 'UPDATE_EMAIL':
+        return { ...currentUser, email: action.payload.email };
+      case 'UPDATE_CURRENT_USER':
+        return { ...action.payload };
+      case 'CONFIRM_USER_ACCOUNT': {
+        return { ...currentUser, isAccountConfirmed: action.payload.isAccountConfirmed };
+      }
+      default:
+        return { ...currentUser };
+    }
+  };
+
+  const [currentUser, dispatch] = useReducer(reducer, {});
 
   useEffect(() => {
-    if (currentUser) return;
     const checkCredentials = async () => {
       if (!(localStorage['access-token'] && localStorage['refresh-token'])) return;
       const requestOptions = {
@@ -49,13 +58,12 @@ const App = () => {
         },
       };
       const response = await fetch('/api/users/verifytoken', requestOptions);
-
       const data = await response.json();
-      console.log(data);
-      setCurrentUser(data.payload);
+
+      dispatch({ type: 'UPDATE_CURRENT_USER', payload: data.payload });
     };
     checkCredentials();
-  }, [currentUser]);
+  }, []);
 
   return (
     <StrictMode>
@@ -63,12 +71,12 @@ const App = () => {
         <ThemeProvider theme={theme}>
           <CssBaseline />
 
-          <UserProvider value={currentUser}>
+          <UserContext.Provider value={[currentUser, dispatch]}>
             <Routes>
-              <Route path='/' element={<PageHeader setCurrentUser={setCurrentUser} />}>
+              <Route path='/' element={<PageHeader />}>
                 <Route path='' element={<Home />} />
-                <Route path='/login' element={<Login setCurrentUser={setCurrentUser} />} />
-                <Route path='/register' element={<Register setCurrentUser={setCurrentUser} />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/register' element={<Register />} />
                 <Route path='/beers' element={<BeerIndex />} />
                 <Route path='/beers/create' element={<CreateBeer />} />
                 <Route path='/beers/:id' element={<BeerInfoPage />} />
@@ -88,7 +96,7 @@ const App = () => {
                 <Route path='*' element={<NotFound />} />
               </Route>
             </Routes>
-          </UserProvider>
+          </UserContext.Provider>
         </ThemeProvider>
       </BrowserRouter>
     </StrictMode>

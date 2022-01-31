@@ -7,12 +7,12 @@ import { UserContext } from '../../util/UserContext';
 
 const LikeButton = ({ beer }) => {
   const [liked, setLiked] = useState(null);
-  const user = useContext(UserContext);
+  const currentUser = useContext(UserContext);
 
   useEffect(() => {
-    if (!user) return;
-    setLiked(beer.likedBy.includes(user._id));
-  }, [beer.likedBy, user]);
+    if (!currentUser) return;
+    setLiked(beer.likedBy.includes(currentUser._id));
+  }, [beer.likedBy, currentUser]);
 
   const onLikeClick = () => {
     const sendLikeRequest = async () => {
@@ -40,7 +40,7 @@ const LikeButton = ({ beer }) => {
       .catch((error) => console.error(`Something went wrong: ${error}`));
   };
   return (
-    user && (
+    currentUser && (
       <Button
         variant='outlined'
         onClick={onLikeClick}

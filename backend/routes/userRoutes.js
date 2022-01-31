@@ -13,7 +13,8 @@ import confirmUser from '../controllers/users/confirmUser.js';
 import viewProfile from '../controllers/users/viewProfile.js';
 import checkIfUserExists from '../controllers/users/checkIfUserExists.js';
 import resendConfirmation from '../controllers/users/resendConfirmation.js';
-
+import changeEmail from '../controllers/users/changeEmail.js';
+import sendVerifiedUserResponse from '../controllers/users/sendVerifiedUserResponse.js';
 // ----- Middleware ----- //
 import canAccessUserInfo from '../middleware/auth/canAccessUserInfo.js';
 import verifyAccessToken from '../middleware/auth/verifyAccessToken.js';
@@ -21,31 +22,14 @@ import checkTokens from '../middleware/auth/checkTokens.js';
 import isAccountConfirmed from '../middleware/auth/isAccountConfirmed.js';
 
 // ----- Utilities ------ //
-import SuccessResponse from '../utilities/response/SuccessResponse.js';
 import ServerError from '../utilities/errors/ServerError.js';
 import isAccountNotConfirmed from './isAccountNotConfirmed.js';
-import changeEmail from './changeEmail.js';
 
 dotenv.config();
 
 const router = express.Router();
 
-router.route('/verifytoken').get(checkTokens, verifyAccessToken, async (req, res) => {
-  const { currentUser } = req;
-
-  const payload = await currentUser.populate({
-    path: 'profile',
-    populate: { path: 'displayImage', model: 'Image' },
-  });
-  res.json(
-    new SuccessResponse(
-      `Successfully verified ${req.currentUser.username}.`,
-      200,
-      payload,
-      req.didTokenRegenerate ? req.accessToken : undefined,
-    ),
-  );
-});
+router.route('/verifytoken').get(checkTokens, verifyAccessToken, sendVerifiedUserResponse);
 
 router
   .route('/checkifuserexists')

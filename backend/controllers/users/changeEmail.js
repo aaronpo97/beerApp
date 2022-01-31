@@ -1,6 +1,6 @@
-import User from '../database/models/User.js';
-import ServerError from '../utilities/errors/ServerError.js';
-import SuccessResponse from '../utilities/response/SuccessResponse.js';
+import User from '../../database/models/User.js';
+import ServerError from '../../utilities/errors/ServerError.js';
+import SuccessResponse from '../../utilities/response/SuccessResponse.js';
 
 const emailRegex =
   // eslint-disable-next-line no-useless-escape
@@ -12,7 +12,6 @@ const changeEmail = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { email } = req.body;
-    console.log(email);
 
     if (!isValidEmail(email)) throw new ServerError('That email is invalid.', 400);
 
