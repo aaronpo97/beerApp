@@ -5,4 +5,4 @@ seed/beerAndBreweryData.json
 seed/userData.json
 .eslintrc.cjs
 .env
-
+.eslintignore

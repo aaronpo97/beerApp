@@ -9,7 +9,7 @@ import BreweryList from '../components/brewery_components/BreweryList';
 import AccountNotConfirmedDialog from '../components/confirmAccount_components/AccountNotConfirmedDialog';
 
 import images from '../util/images';
-import { UserContext } from '../util/UserContext';
+import { AuthContext } from '../util/AuthContext';
 
 const BreweryIndex = () => {
   const [breweries, setBreweries] = useState([]);
@@ -18,7 +18,7 @@ const BreweryIndex = () => {
 
   const navigate = useNavigate();
 
-  const [currentUser, dispatch] = useContext(UserContext);
+  const [currentUser, dispatch] = useContext(AuthContext);
 
   useEffect(() => {
     const fetchData = async () => {

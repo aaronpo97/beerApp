@@ -9,7 +9,7 @@ import BeerList from '../components/beer_components/BeerList';
 
 import images from '../util/images';
 
-import { UserContext } from '../util/UserContext';
+import { AuthContext } from '../util/AuthContext';
 
 import AccountNotConfirmedDialog from '../components/confirmAccount_components/AccountNotConfirmedDialog';
 const Beers = () => {
@@ -20,7 +20,7 @@ const Beers = () => {
   const navigate = useNavigate();
   const [beers, setBeers] = useState([]);
 
-  const [currentUser, dispatch] = useContext(UserContext);
+  const [currentUser, dispatch] = useContext(AuthContext);
 
   useEffect(() => {
     (async () => {
@@ -48,7 +48,7 @@ const Beers = () => {
 
       setBeers(result.payload || []);
     })();
-  }, [sortingParam, sortingDirection, navigate]);
+  }, [sortingParam, sortingDirection, navigate, dispatch]);
 
   useEffect(() => {
     switch (sortingOption) {

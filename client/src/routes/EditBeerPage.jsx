@@ -5,13 +5,13 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import EditBeerForm from '../components/beer_components/EditBeerForm';
-import { UserContext } from '../util/UserContext';
+import { AuthContext } from '../util/AuthContext';
 
 const EditBeer = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [currentUser] = useContext(UserContext);
+  const [currentUser] = useContext(AuthContext);
 
   const [formValues, setFormValues] = useState({
     name: '',

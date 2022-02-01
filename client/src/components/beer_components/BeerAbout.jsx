@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { UserContext } from '../../util/UserContext';
+import { AuthContext } from '../../util/AuthContext';
 import { Card, CardContent, Box, Typography, Link, Grid, Button } from '@mui/material';
 const BeerAbout = ({ currentBeer }) => {
   const navigate = useNavigate();
-  const [user, dispatch] = useContext(UserContext);
+  const [user] = useContext(AuthContext);
 
   return (
     <Card>
@@ -29,7 +29,7 @@ const BeerAbout = ({ currentBeer }) => {
         </Typography>
         <Grid container spacing={2}>
           <Grid md={6} item>
-            <Typography variant='body2'>{currentBeer.abv}% IBU</Typography>
+            <Typography variant='body2'>{currentBeer.abv}% ABV</Typography>
           </Grid>
           <Grid md={6} item>
             <Typography variant='body2'>{currentBeer.ibu} IBU</Typography>

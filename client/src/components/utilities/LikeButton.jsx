@@ -3,11 +3,11 @@ import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { useState, useEffect, useContext } from 'react';
 
-import { UserContext } from '../../util/UserContext';
+import { AuthContext } from '../../util/AuthContext';
 
 const LikeButton = ({ beer }) => {
   const [liked, setLiked] = useState(null);
-  const [currentUser] = useContext(UserContext);
+  const [currentUser] = useContext(AuthContext);
 
   useEffect(() => {
     if (!currentUser) return;

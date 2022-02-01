@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { UserContext } from '../util/UserContext';
+import { AuthContext } from '../util/AuthContext';
 import { Grid } from '@mui/material';
 
 import LoginForm from '../components/user_functions/LoginForm';
@@ -11,7 +11,7 @@ const Login = () => {
   const [formValues, setFormValues] = useState({ username: '', password: '' });
   const [formErrors, setFormErrors] = useState({});
 
-  const [currentUser, dispatch] = useContext(UserContext);
+  const [currentUser, dispatch] = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {

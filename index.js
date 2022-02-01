@@ -77,7 +77,9 @@ app.use('/api/images', imageRoutes);
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   const { status = 500, message = 'Oh no, something went wrong.', stack } = err;
-  res.status(status).json(new ErrorResponse(message, status, inProductionMode ? stack : undefined));
+  res
+    .status(status)
+    .json(new ErrorResponse(message, status, !inProductionMode ? stack : undefined));
 });
 
 // Serving compiled react app from ../frontend/build
@@ -90,5 +92,5 @@ if (inProductionMode) {
 app.listen(PORT || 3000, () => {
   console.clear();
   console.log('Loading the Biergarten API...');
-  initializeDB().then(() => console.log(`Connected to ${BASE_URL}${PORT || 3000}`.green));
+  initializeDB().then(() => console.log(`Connected to ${BASE_URL}`.green));
 });

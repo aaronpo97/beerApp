@@ -5,17 +5,25 @@ import Comment from '../../database/models/Comment.js';
 
 const postComment = async (req, res, next) => {
   try {
-    const { comment: body } = req.body;
+    const { comment: commentBody } = req.body;
 
-    const { currentUser: author } = req;
+    const { currentUser } = req;
 
     const beerPost = await BeerPost.findById(req.params.id);
 
-    const comment = new Comment({ body, author, post: beerPost, timestamp: Date.now() });
-    await comment.save();
-    if (!beerPost) throw new Error('notfound');
+    const comment = new Comment({
+      body: commentBody,
+      author: currentUser,
+      post: beerPost,
+      timestamp: Date.now(),
+    });
+    if (!beerPost) throw new Error('Beer post not found.');
     beerPost.comments.push(comment);
+    currentUser.comments.push(comment);
+
+    await comment.save();
     await beerPost.save();
+    await currentUser.save();
 
     // eslint-disable-next-line no-underscore-dangle
     const postedComment = await Comment.findById(comment._id)

@@ -6,10 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import BeerCard from '../beer_components/BeerCard';
 
 import { Masonry } from '@mui/lab';
-import { UserContext } from '../../util/UserContext';
+import { AuthContext } from '../../util/AuthContext';
 
 const BreweryInfo = ({ breweryData }) => {
-  const [currentUser] = useContext(UserContext);
+  const [currentUser] = useContext(AuthContext);
 
   console.log('hi');
   const navigate = useNavigate();

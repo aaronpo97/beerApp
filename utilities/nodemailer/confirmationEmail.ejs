@@ -7,13 +7,7 @@
     <div class="container">
       <h1>Welcome, <%= userObj.username %> to the Biergarten!</h1>
 
-      <p>
-        Please confirm your account using this link.
-        <a
-          href="https://biergarten-app.herokuapp.com/confirmaccount/<%=userObj._id%>/<%=confirmationToken%>"
-          >https://biergarten-app.herokuapp.com/confirmaccount/<%=userObj._id%>/<%=confirmationToken%></a
-        >
-      </p>
+      <p>Please confirm your account using this <a href="<%= confirmationLink %>">link</a>.</p>
     </div>
   </body>
 </html>

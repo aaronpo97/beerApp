@@ -1,13 +1,13 @@
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 
-import { UserContext } from '../util/UserContext';
+import { AuthContext } from '../util/AuthContext';
 
-import { Container, Box, Typography, Link } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const AccountSettingsPage = () => {
   const navigate = useNavigate();
-  const currentUser = useContext(UserContext);
+  const [currentUser] = useContext(AuthContext);
 
   if (!currentUser) navigate('/');
   return (
@@ -17,9 +17,11 @@ const AccountSettingsPage = () => {
 
         <Typography variant='h2'>Personal Information</Typography>
 
-        {/* <Typography variant='body2'>Email: {userInformation.email}</Typography>
-
-            <Typography variant='body2'>{userInformation.dateOfBirth}</Typography> */}
+        <Typography>
+          {currentUser.firstName}
+          {currentUser.lastName}
+        </Typography>
+        <Typography>{currentUser.email}</Typography>
       </Container>
     )
   );

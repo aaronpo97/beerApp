@@ -1,4 +1,4 @@
-import { StrictMode, useState, useEffect, useReducer } from 'react';
+import { StrictMode, useReducer } from 'react';
 
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -28,7 +28,7 @@ import NotFound from './routes/NotFound';
 
 import AccountSettingsPage from './routes/AccountSettingsPage';
 
-import { UserContext } from './util/UserContext';
+import { AuthContext } from './util/AuthContext';
 
 const App = () => {
   const reducer = (currentUser, action) => {
@@ -53,7 +53,7 @@ const App = () => {
         <ThemeProvider theme={theme}>
           <CssBaseline />
 
-          <UserContext.Provider value={[currentUser, dispatch]}>
+          <AuthContext.Provider value={[currentUser, dispatch]}>
             <Routes>
               <Route path='/' element={<PageHeader />}>
                 <Route path='' element={<Home />} />
@@ -78,10 +78,11 @@ const App = () => {
                 <Route path='*' element={<NotFound />} />
               </Route>
             </Routes>
-          </UserContext.Provider>
+          </AuthContext.Provider>
         </ThemeProvider>
       </BrowserRouter>
     </StrictMode>
   );
 };
+
 ReactDOM.render(<App />, document.querySelector('#root'));

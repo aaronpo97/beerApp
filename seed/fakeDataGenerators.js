@@ -147,8 +147,23 @@ export const generateFakeUsers = async () => {
         .map((objectID) => objectID.toString())
         .includes(randomBeerPost._id.toString());
 
+      const comments = [
+        'Est quo repudiandae voluptatem in.',
+        'Minima architecto et. Sit rerum qui eius nam ab. Reiciendis molestiae velit. Magni enim ratione commodi maiores.',
+        'Nihil eligendi mollitia debitis dolorem saepe. Dignissimos aliquam dolores.',
+        'A sed eum quasi blanditiis natus impedit reiciendis sint esse.',
+        'Culpa repellendus exercitationem repudiandae cupiditate eos quae quis harum saepe.',
+        'Ratione error ut qui voluptatem aliquam eaque unde. Occaecati sed dolores quia accusamus quas.',
+        'Voluptatum ut fuga rem in. Quidem ipsum et non enim occaecati quidem quaerat repellat eos.',
+        'Laudantium voluptatum itaque aspernatur sapiente amet sunt sunt. Est reiciendis deleniti ut eveniet nihil ipsa et. Quis rerum incidunt earum numquam unde non.',
+        'Nesciunt accusamus architecto delectus enim voluptatem voluptatem provident sint maxime. Qui excepturi aut non qui excepturi delectus quaerat illum vero.',
+        'Saepe earum commodi temporibus deserunt. Soluta rerum necessitatibus.',
+        'Doloremque repellendus veritatis quam nemo consectetur reiciendis quis voluptates. Aliquid explicabo debitis velit placeat dolores modi.',
+      ];
+
+      const randomComment = comments[Math.floor(Math.random() * comments.length)];
       const comment = new Comment({
-        body: `Aerobic cask, bock craft adjunct ale stout Bacterial pint, final brewpub saccharification dopplebock hops fermenting back. Draught bacterial sour pitch Amber abv Autolysis final brewing, Alpha Adjunct fermenting conditioned hefe pump conditioning. Adjunct double dopplebock Beer infusion caramel copper Bottle, ale chocolate de glass Biere Abv carbonation ibu, tun malt lagering craft cider length. Double anaerobic tank garde tun pint units amber hoppy mouthfeel additive, rest real ibu scotch draft pitching bunghole conditioning. Heat tulip Amber back Barley exchanger priming, dextrin cider lager Biere ale, ester malt de lambic Bitter. Amber barleywine crystal Aau pub Barley rest carboy Aerobic Abbey units lagering keg, Anaerobic Bacterial lager tun ibu squares bunghole lambic cider wort glass bottom, filter Attenuation bright extract mouthfeel carbonation de adjunct abv length Autolysis. Fermentation infusion lagering fermenting wort Additive cider Berliner Becher hopping, bacterial barley Acidic scotch  mead stout trappist, Brew bottle aerobic goblet ale oxidized pitching beer.`,
+        body: randomComment,
         author: userToRegister,
         post: randomBeerPost,
         timestamp: Date.now() - Math.floor(Math.random() * ms('20 days')),
@@ -157,9 +172,10 @@ export const generateFakeUsers = async () => {
       await comment.save();
 
       randomBeerPost.comments.push(comment);
+      userToRegister.comments.push(comment);
+
       if (isPostLikedByUser) continue;
       userToRegister.profile.likes.push(randomBeerPost._id);
-
       randomBeerPost.likedBy.push(userToRegister._id);
 
       console.log(`${userToRegister.username} likes ${randomBeerPost.name}`);

@@ -6,7 +6,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import EditBreweryForm from '../components/brewery_components/EditBreweryForm';
-import { UserContext } from '../util/UserContext';
+import { AuthContext } from '../util/AuthContext';
 
 const EditBrewery = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const EditBrewery = () => {
     address: '',
   });
 
-  const [currentUser] = useContext(UserContext);
+  const [currentUser] = useContext(AuthContext);
 
   const [formErrors, setFormErrors] = useState({});
 

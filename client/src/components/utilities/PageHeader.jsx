@@ -14,7 +14,7 @@ import {
   MenuItem,
 } from '@mui/material';
 
-import { UserContext } from '../../util/UserContext';
+import { AuthContext } from '../../util/AuthContext';
 
 const PageHeader = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -26,7 +26,7 @@ const PageHeader = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const [currentUser, dispatch] = useContext(UserContext);
+  const [currentUser, dispatch] = useContext(AuthContext);
 
   const pagesLoggedIn = [
     { name: 'beers', link: '/beers' },

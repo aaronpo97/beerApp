@@ -22,10 +22,10 @@ const ImageCarousel = ({ images, imageHeight = '400px' }) => {
         {images.map((image) => {
           return (
             <img
+              key={image.url}
               style={{ maxHeight: imageHeight, width: '100%', objectFit: 'cover' }}
               src={image.url}
               alt={''}
-              key={image._id}
             />
           );
         })}

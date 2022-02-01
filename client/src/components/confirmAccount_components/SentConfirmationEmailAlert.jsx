@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { Alert, AlertTitle, Typography, Link } from '@mui/material';
-import { UserContext } from '../../util/UserContext';
+import { AuthContext } from '../../util/AuthContext';
 const SentConfirmationEmailAlert = ({ updatedEmail }) => {
-  const currentUser = useContext(UserContext);
+  const currentUser = useContext(AuthContext);
   return (
     <Alert severity='info'>
       <AlertTitle>Resent confirmation email:</AlertTitle>

@@ -1,14 +1,14 @@
 import { useState, useContext } from 'react';
 import { Box } from '@mui/material';
-import { UserContext } from '../../util/UserContext';
+import { AuthContext } from '../../util/AuthContext';
 
 import AccountNotConfirmedWarning from './AccountNotConfirmedWarning';
 import UpdateEmailForm from './UpdateEmailForm';
 import SentConfirmationEmailAlert from './SentConfirmationEmailAlert';
 
 const AccountNotConfirmedDialog = () => {
-  const [currentUser, dispatch] = useContext(UserContext);
-  console.log(currentUser);
+  const [currentUser] = useContext(AuthContext);
+
   const onClick = async () => {
     try {
       const requestOptions = {
@@ -19,8 +19,8 @@ const AccountNotConfirmedDialog = () => {
       };
       const response = await fetch('/api/users/confirm/resend-confirmation-email', requestOptions);
       const data = await response.json();
-      console.log(data);
       setRequestSent(true);
+      return data;
     } catch (error) {
       console.error('Failed to send the resend confirmation email request to the server.');
     }
@@ -43,13 +43,13 @@ const AccountNotConfirmedDialog = () => {
 
     const url = `/api/users/${currentUser._id}/changeemail`;
     const response = await fetch(url, requestOptions);
-    const data = await response.json();
+    if (response.status !== 200) throw new Error('Unable to change that email.');
     await onClick();
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    sendEmailChangeRequest().then(() => console.log('changed email'));
+    sendEmailChangeRequest().catch((error) => console.error(error));
   };
 
   return (

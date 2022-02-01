@@ -35,11 +35,8 @@ const registerUser = async (req, res, next) => {
     await sendConfirmationEmail(email, user, confirmationToken);
 
     const refreshToken = await generateRefreshToken(user);
-
     req.refreshToken = refreshToken;
     const accessToken = await generateAccessToken(req);
-
-    const link = `/confirmaccount/${user._id}/${confirmationToken}`;
 
     const newUser = await User.findById(user._id);
     if (!newUser) throw new ServerError('User registration failed.', 400);
@@ -48,7 +45,6 @@ const registerUser = async (req, res, next) => {
     res.status(status).json(
       new SuccessResponse(`New user created.`, status, {
         newUser,
-        link,
         refreshToken,
         accessToken,
       }),

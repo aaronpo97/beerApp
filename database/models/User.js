@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema({
   dateOfBirth: { type: Date, required: true, max: Date.now() - ms('19 years') },
   createdAt: { type: Date, default: Date.now(), required: true },
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'BeerPost' }],
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
   profile: {
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'BeerPost' }],
     affiliation: { type: mongoose.Schema.Types.ObjectId, ref: 'Brewery' },

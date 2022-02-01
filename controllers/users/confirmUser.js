@@ -15,6 +15,7 @@ const confirmUser = async (req, res, next) => {
 
     const decoded = jwt.verify(token, CONFIRMATION_TOKEN_SECRET);
     const userToConfirm = await User.findById(userID);
+    if (!userToConfirm) throw new ServerError('Cannot find that user.', 404);
 
     if (userToConfirm.isAccountConfirmed === true) {
       throw new ServerError('Account is already confirmed', 400);

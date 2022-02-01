@@ -1,7 +1,7 @@
-import { Typography, Box, AlertTitle, Alert, Container } from '@mui/material';
+import { Typography, AlertTitle, Alert, Container } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { UserContext } from '../util/UserContext';
+import { AuthContext } from '../util/AuthContext';
 
 const ConfirmAccount = () => {
   const { userId, confirmationToken } = useParams();
@@ -9,10 +9,9 @@ const ConfirmAccount = () => {
   const [confirmationRequestSent, setConfirmationRequestSent] = useState(false);
   const [confirmationSuccess, setConfirmationSuccess] = useState(false);
 
-  const [currentUser, dispatch] = useContext(UserContext);
+  const [currentUser, dispatch] = useContext(AuthContext);
 
   useEffect(() => {
-    if (currentUser?.isAccountConfirmed) return;
     const confirmationRequest = async () => {
       const link = `/api/users/confirm/${userId}/${confirmationToken}`;
       const requestOptions = { method: 'PUT' };
@@ -25,6 +24,7 @@ const ConfirmAccount = () => {
       setConfirmationRequestSent(true);
       if (response.status === 200) {
         setConfirmationSuccess(true);
+        dispatch({ type: 'CONFIRM_USER_ACCOUNT', payload: { isAccountConfirmed: true } });
         return;
       }
       setConfirmationSuccess(false);
@@ -32,7 +32,7 @@ const ConfirmAccount = () => {
     };
 
     confirmationRequest();
-  }, [confirmationToken, userId, currentUser]);
+  }, [confirmationToken, userId, dispatch]);
 
   return confirmationRequestSent && currentUser ? (
     <Container sx={{ mt: 5 }}>

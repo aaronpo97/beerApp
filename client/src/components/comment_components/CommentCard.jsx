@@ -1,13 +1,13 @@
 import { useContext } from 'react';
 
-import { UserContext } from '../../util/UserContext';
+import { AuthContext } from '../../util/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, Grid, Avatar, Link, Typography, Box, Button } from '@mui/material';
 
 import ms from 'ms';
 
 const CommentCard = ({ comment, comments, setComments }) => {
-  const [currentUser] = useContext(UserContext);
+  const [currentUser] = useContext(AuthContext);
 
   const navigate = useNavigate();
 

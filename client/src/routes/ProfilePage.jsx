@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 
 import ms from 'ms';
 import { useContext } from 'react';
-import { UserContext } from '../util/UserContext';
+import { AuthContext } from '../util/AuthContext';
 import AccountNotConfirmedDialog from '../components/confirmAccount_components/AccountNotConfirmedDialog';
 
 const ProfileHeader = ({ user }) => {
@@ -102,7 +102,7 @@ const ProfilePage = () => {
     fetchData();
   }, [id, navigate]);
 
-  const [currentUser] = useContext(UserContext);
+  const [currentUser] = useContext(AuthContext);
   return (
     <Box sx={{ mt: 5 }}>
       <Container maxWidth='lg'>

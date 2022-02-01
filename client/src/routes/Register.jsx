@@ -3,7 +3,7 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router';
 import ms from 'ms';
 
-import { UserContext } from '../util/UserContext';
+import { AuthContext } from '../util/AuthContext';
 import RegistrationForm from '../components/user_functions/RegistrationForm';
 const blocklistedWords = ['1^Ce9T]Re-J|']; //test phrase
 
@@ -20,6 +20,7 @@ const Register = () => {
 
   const navigate = useNavigate();
 
+  const [currentUser, dispatch] = useContext(AuthContext);
   const [formValues, setFormValues] = useState(initialRegistrationData);
   const [formErrors, setFormErrors] = useState({});
 
@@ -134,7 +135,7 @@ const Register = () => {
   const handleDatePickerChange = (value) => {
     setFormValues({ ...formValues, dateOfBirth: value });
   };
-  const [currentUser, dispatch] = useContext(UserContext);
+
   return (
     <Container>
       <Grid container component='main' sx={{ height: '100vh' }}>
