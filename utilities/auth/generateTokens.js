@@ -16,7 +16,7 @@ export const generateAccessToken = async (req) => {
     const user = await User.findById(decoded.audience);
     if (!user) throw new ServerError('Invalid JWT.', 401);
     return jwt.sign(
-      { audience: user._id, issuer: 'http://localhost:5000' },
+      { audience: user._id },
       ACCESS_TOKEN_SECRET,
       { expiresIn: '10m' },
       { algorithm: 'HS256' },
@@ -28,7 +28,7 @@ export const generateAccessToken = async (req) => {
 
 export const generateRefreshToken = async (user) =>
   jwt.sign(
-    { audience: user._id, issuer: 'http://localhost:5000' },
+    { audience: user._id },
     REFRESH_TOKEN_SECRET,
     { expiresIn: '43200m' },
     { algorithm: 'HS256' },

@@ -1,7 +1,6 @@
 import path from 'path';
 import process from 'process';
 import { fileURLToPath } from 'url';
-import 'colors';
 
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -39,7 +38,7 @@ const app = express();
 const initializeDB = async () => {
   await connectDB(MONGO_DB_URI);
   console.clear();
-  console.log(`The Biergarten API\n\n${'Connected to MongoDB.'.green}`);
+  console.log(`The Biergarten API\n\n${'Connected to MongoDB.'}`);
 };
 
 if (!inProductionMode) {
@@ -92,5 +91,5 @@ if (inProductionMode) {
 app.listen(PORT || 3000, () => {
   console.clear();
   console.log('Loading the Biergarten API...');
-  initializeDB().then(() => console.log(`Connected to ${BASE_URL}`.green));
+  initializeDB().then(() => console.log(`Connected to ${BASE_URL}`));
 });

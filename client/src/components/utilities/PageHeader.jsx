@@ -65,7 +65,6 @@ const PageHeader = () => {
       const data = await response.json();
       if (response.status !== 200) {
         dispatch({ type: 'UPDATE_CURRENT_USER', payload: {} });
-        navigate('/login');
       }
 
       dispatch({ type: 'UPDATE_CURRENT_USER', payload: data.payload });
@@ -149,7 +148,7 @@ const PageHeader = () => {
                       </MenuItem>
                     ))}
                   </Menu>
-                  <Typography sx={{ mb: 0.5 }}>
+                  <Typography sx={{ mb: 0.5, fontSize: '10pt' }}>
                     {currentUser ? currentUser.username : ''}
                   </Typography>
                 </Box>

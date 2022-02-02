@@ -13,7 +13,7 @@ const BeerCard = ({ beer, showLike = true }) => {
       <Card elevation={3} sx={{ marginTop: '1em' }}>
         <CardMedia
           component='img'
-          height={Math.floor(Math.random() * 100 + 400)}
+          height={400}
           onClick={() => navigate(`/beers/${beer._id}`)}
           image={beer.images?.length ? beer.images[0].url : ''}
         />

@@ -131,14 +131,7 @@ const EditBrewery = () => {
 
   return (
     <Box>
-      <Box>
-        <img
-          style={{ height: '30em', width: '100%', objectFit: 'cover' }}
-          src={'https://source.unsplash.com/random?biergarten'}
-          alt={'A drinking patio at a bar'}
-        />
-      </Box>
-      <Container sx={{ marginTop: 4 }}>
+      <Container sx={{ marginTop: 5 }}>
         <Grid container sx={{ mt: 5 }}>
           <Grid item md={10} sm={12}>
             <Typography variant='h1'>The Biergarten Index</Typography>

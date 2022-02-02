@@ -9,11 +9,12 @@ import {
   Avatar,
   Link,
   Typography,
-  Box,
-  Button,
+  Tooltip,
+  IconButton,
   Rating,
+  Box,
 } from '@mui/material';
-
+import DeleteIcon from '@mui/icons-material/Delete';
 import ms from 'ms';
 
 const CommentCard = ({ comment, comments, setComments }) => {
@@ -61,21 +62,19 @@ const CommentCard = ({ comment, comments, setComments }) => {
             <Typography variant='body2'>
               {ms(Date.now() - new Date(comment.timestamp), { long: true })} ago
             </Typography>
-            {currentUser?._id === comment.author._id && (
-              <Box>
-                <Button
-                  onClick={() => handleCommentDelete(comment)}
-                  fullWidth
-                  sx={{ paddingLeft: 0, justifyContent: 'flex-start' }}
-                >
-                  Delete
-                </Button>
-              </Box>
-            )}
           </Grid>
-          <Grid item md={10}>
+          <Grid item md={9}>
             <Rating readOnly value={comment.rating} />
             <Typography>{comment.body}</Typography>
+          </Grid>
+          <Grid item md={1}>
+            {currentUser?._id === comment.author._id && (
+              <Tooltip title='Delete'>
+                <IconButton onClick={() => handleCommentDelete(comment)}>
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
+            )}
           </Grid>
         </Grid>
       </CardContent>
