@@ -10,11 +10,34 @@ const BeerAbout = ({ currentBeer }) => {
   return (
     <Card>
       <CardContent>
-        <Typography sx={{ mb: 1 }} variant='body2'>
-          {currentBeer.description}
-        </Typography>
         <Box sx={{ mb: 1 }}>
-          <Typography variant='body2'>
+          <Typography variant='body2'>{currentBeer.description}</Typography>
+        </Box>
+
+        <Box sx={{ mt: 3 }}>
+          <Typography variant='body2' sx={{ fontWeight: '500' }} gutterBottom>
+            Type: {' ' + currentBeer.type}
+          </Typography>
+          <Grid container spacing={2}>
+            {currentBeer.abv && (
+              <Grid md={2} item>
+                <Typography variant='body2' sx={{ fontWeight: '500' }}>
+                  {currentBeer.abv}% ABV
+                </Typography>
+              </Grid>
+            )}
+            {currentBeer.ibu && (
+              <Grid md={6} item>
+                <Typography variant='body2' sx={{ fontWeight: '500' }}>
+                  {currentBeer.ibu} IBU
+                </Typography>
+              </Grid>
+            )}
+          </Grid>
+        </Box>
+
+        <Box sx={{ mt: 1.5 }}>
+          <Typography variant='body2' sx={{ fontWeight: '500' }}>
             posted by:{' '}
             <Link
               underline='hover'
@@ -24,32 +47,6 @@ const BeerAbout = ({ currentBeer }) => {
             </Link>
           </Typography>
         </Box>
-        <Typography variant='body2' gutterBottom>
-          Type: {currentBeer.type}
-        </Typography>
-        <Grid container spacing={2}>
-          <Grid md={6} item>
-            <Typography variant='body2'>{currentBeer.abv}% ABV</Typography>
-          </Grid>
-          <Grid md={6} item>
-            <Typography variant='body2'>{currentBeer.ibu} IBU</Typography>
-          </Grid>
-        </Grid>
-        <Box sx={{ mb: 2 }}>
-          <Typography gutterBottom variant='body1'>
-            Liked by {currentBeer.likedBy.length || '0'} user
-            {currentBeer.likedBy.length !== 1 ? 's' : ''}.
-          </Typography>
-        </Box>
-        {user?._id === currentBeer.postedBy._id && (
-          <Button
-            variant={'contained'}
-            onClick={() => navigate(`/beers/${currentBeer._id}/edit`)}
-            sx={{ mt: 1 }}
-          >
-            Edit
-          </Button>
-        )}
       </CardContent>
     </Card>
   );

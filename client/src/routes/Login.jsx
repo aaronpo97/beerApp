@@ -48,8 +48,11 @@ const Login = () => {
           errors.credentials = 'Username or password is incorrect.';
           setFormValues({ username: '', password: '' });
         }
-        setFormErrors(errors);
-        throw new Error('Login failed.');
+
+        if (Object.keys(errors).length) {
+          setFormErrors(errors);
+          throw new Error('Login failed.');
+        }
       }
 
       return attemptedLogin;

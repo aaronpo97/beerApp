@@ -5,7 +5,7 @@ import Comment from '../../database/models/Comment.js';
 
 const postComment = async (req, res, next) => {
   try {
-    const { comment: commentBody } = req.body;
+    const { commentBody, commentRating } = req.body;
 
     const { currentUser } = req;
 
@@ -13,6 +13,7 @@ const postComment = async (req, res, next) => {
 
     const comment = new Comment({
       body: commentBody,
+      rating: commentRating,
       author: currentUser,
       post: beerPost,
       timestamp: Date.now(),

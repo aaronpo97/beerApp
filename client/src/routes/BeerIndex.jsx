@@ -93,11 +93,8 @@ const Beers = () => {
 
   return (
     <Box>
-      <Box>
-        <ImageCarousel images={images} />
-      </Box>
-      <Container maxWidth={'lg'}>
-        <Grid container sx={{ mt: 3 }}>
+      <Container sx={{ mt: '5em ' }} maxWidth={'lg'}>
+        <Grid container>
           <Grid item md={10} sm={12}>
             <Typography variant='h1'>The Biergarten Index</Typography>
             <Typography variant='h2' gutterBottom sx={{ mb: '1em' }}>

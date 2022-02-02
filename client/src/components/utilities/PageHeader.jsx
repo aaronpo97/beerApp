@@ -71,7 +71,7 @@ const PageHeader = () => {
       dispatch({ type: 'UPDATE_CURRENT_USER', payload: data.payload });
     };
     checkCredentials();
-  }, []);
+  }, [dispatch, navigate]);
 
   return (
     <>
@@ -142,7 +142,7 @@ const PageHeader = () => {
                     onClose={handleCloseUserMenu}
                   >
                     {settings.map((setting) => (
-                      <MenuItem key={setting}>
+                      <MenuItem key={setting.name}>
                         <Typography component='a' textAlign='center' onClick={setting.action}>
                           {setting.name}
                         </Typography>

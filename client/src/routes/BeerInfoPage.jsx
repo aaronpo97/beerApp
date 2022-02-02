@@ -6,7 +6,9 @@ import { Container, Box, Grid, LinearProgress } from '@mui/material';
 import BeerInfoHeader from '../components/beer_components/BeerInfoHeader';
 import ImageCarousel from '../components/utilities/ImageCarousel';
 import BeerAbout from '../components/beer_components/BeerAbout';
-import CommentSection from '../components/comment_components/CommentSection';
+
+import CommentCard from '../components/comment_components/CommentCard';
+import CommentCreateForm from '../components/comment_components/CommentCreateForm';
 
 const InfoPage = () => {
   const navigate = useNavigate();
@@ -50,20 +52,35 @@ const InfoPage = () => {
 
   return currentBeer ? (
     <>
-      <ImageCarousel images={currentBeer.images} />
+      <ImageCarousel images={currentBeer.images} imageHeight='600px' />
       <Container maxWidth='lg'>
         <Box sx={{ mt: '3em' }}>
           <BeerInfoHeader currentBeer={currentBeer} />
           <Grid container spacing={2} component='main' sx={{ mt: 2 }}>
-            <Grid md={7} item>
+            <Grid md={12} item>
               <BeerAbout currentBeer={currentBeer} />
             </Grid>
-            <Grid md={5} item>
-              <CommentSection
+          </Grid>
+        </Box>
+
+        <Box sx={{ mt: 3 }}>
+          <Grid container spacing={3}>
+            <Grid item md={4.5}>
+              <CommentCreateForm
                 currentBeer={currentBeer}
                 comments={comments}
                 setComments={setComments}
               />
+            </Grid>
+            <Grid item md={7.5}>
+              {comments.map((comment) => (
+                <CommentCard
+                  key={comment._id}
+                  comment={comment}
+                  setComments={setComments}
+                  comments={comments}
+                />
+              ))}
             </Grid>
           </Grid>
         </Box>

@@ -2,7 +2,17 @@ import { useContext } from 'react';
 
 import { AuthContext } from '../../util/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, Grid, Avatar, Link, Typography, Box, Button } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  Grid,
+  Avatar,
+  Link,
+  Typography,
+  Box,
+  Button,
+  Rating,
+} from '@mui/material';
 
 import ms from 'ms';
 
@@ -21,7 +31,7 @@ const CommentCard = ({ comment, comments, setComments }) => {
           'x-auth-token': localStorage['refresh-token'],
         },
       };
-      console.log(comment);
+
       const url = `/api/beers/${comment.post._id}/comments/${comment._id}`;
       const response = await fetch(url, requestOptions);
       if (response.status !== 200) throw new Error('Could not delete that comment.');
@@ -43,7 +53,6 @@ const CommentCard = ({ comment, comments, setComments }) => {
         <Grid container spacing={2}>
           <Grid item md={2}>
             <Avatar />
-
             <Link underline='hover' onClick={() => navigate(`/profile/${comment.author._id}`)}>
               <Typography variant='body2' sx={{ mt: 1 }}>
                 {comment.author.username}
@@ -65,7 +74,8 @@ const CommentCard = ({ comment, comments, setComments }) => {
             )}
           </Grid>
           <Grid item md={10}>
-            {comment.body}
+            <Rating readOnly value={comment.rating} />
+            <Typography>{comment.body}</Typography>
           </Grid>
         </Grid>
       </CardContent>

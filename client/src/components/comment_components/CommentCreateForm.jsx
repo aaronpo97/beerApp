@@ -1,12 +1,19 @@
-import { useState, useContext } from 'react';
-import { Box, FormControl, TextField, Button } from '@mui/material';
-import { AuthContext } from '../../util/AuthContext';
+import { useState } from 'react';
+import {
+  Box,
+  FormControl,
+  TextField,
+  Button,
+  Rating,
+  Typography,
+  Card,
+  CardContent,
+} from '@mui/material';
 import FormErrorAlert from '../utilities/FormErrorAlert';
 
 const CommentCreateForm = ({ currentBeer, comments, setComments }) => {
-  const [comment, setComment] = useState('');
-
-  const currentUser = useContext(AuthContext);
+  const [commentBody, setCommentBody] = useState('');
+  const [commentRating, setCommentRating] = useState(0);
 
   const [formErrors, setFormErrors] = useState({});
   const handleSubmit = (e) => {
@@ -14,8 +21,11 @@ const CommentCreateForm = ({ currentBeer, comments, setComments }) => {
 
     const validateData = async () => {
       const errors = {};
-      if (!comment) {
-        errors.comment = 'You cannot send an empty comment.';
+      if (!commentBody) {
+        errors.commentBody = 'You cannot send an empty comment.';
+      }
+      if (!commentRating) {
+        errors.commentRating = 'Rating must be greater than 0.';
       }
 
       if (Object.keys(errors).length) {
@@ -34,7 +44,7 @@ const CommentCreateForm = ({ currentBeer, comments, setComments }) => {
           'x-auth-token': localStorage['refresh-token'],
           'Content-type': 'application/json',
         },
-        body: JSON.stringify({ comment }),
+        body: JSON.stringify({ commentBody, commentRating }),
       };
       const response = await fetch(`/api/beers/${currentBeer._id}/comments`, requestOptions);
       const data = await response.json();
@@ -49,26 +59,39 @@ const CommentCreateForm = ({ currentBeer, comments, setComments }) => {
     validateData()
       .then(() => submitComment())
       .then(() => {
-        setComment('');
+        setCommentBody('');
         setFormErrors({});
+        setCommentRating(0);
       })
       .catch((error) => console.error(error));
   };
   return (
     <Box sx={{ mb: 2 }} component='form' onSubmit={handleSubmit} noValidate>
+      <Card sx={{ mb: 2 }}>
+        <CardContent>
+          <Typography variant='h3'>Comments</Typography>
+        </CardContent>
+      </Card>
       <FormControl sx={{ width: '100%' }}>
         <TextField
           id='outlined-basic'
           label='Leave a comment'
           multiline
           minRows={9}
-          onChange={(e) => setComment(e.target.value)}
-          value={comment}
+          onChange={(e) => setCommentBody(e.target.value)}
+          value={commentBody}
           variant='outlined'
           sx={{ mb: 0 }}
-          error={!!formErrors.comment}
+          error={!!formErrors.commentBody}
         />
-        {formErrors.comment && <FormErrorAlert>{formErrors.comment}</FormErrorAlert>}
+        {formErrors.commentBody && <FormErrorAlert error={formErrors.commentBody} />}{' '}
+        <Box sx={{ mt: 2 }}>
+          <Rating
+            onChange={(e) => setCommentRating(parseInt(e.target.value))}
+            value={commentRating}
+          />
+        </Box>
+        {formErrors.commentRating && <FormErrorAlert error={formErrors.commentRating} />}
         <Button sx={{ mt: 1 }} variant='contained' type='submit'>
           Submit
         </Button>

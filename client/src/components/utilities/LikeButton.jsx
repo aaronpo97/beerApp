@@ -42,6 +42,7 @@ const LikeButton = ({ beer }) => {
         variant='outlined'
         onClick={onLikeClick}
         startIcon={liked ? <ThumbUpIcon /> : <ThumbUpAltOutlinedIcon />}
+        sx={{ width: '100px' }}
       >
         {liked ? 'Liked' : 'Like'}
       </Button>

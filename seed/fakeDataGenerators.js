@@ -167,6 +167,7 @@ export const generateFakeUsers = async () => {
         author: userToRegister,
         post: randomBeerPost,
         timestamp: Date.now() - Math.floor(Math.random() * ms('20 days')),
+        rating: Math.floor(Math.random() * 3 + 2),
       });
 
       await comment.save();

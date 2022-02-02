@@ -48,9 +48,8 @@ const BreweryIndex = () => {
   }, [sortingParam, sortingDirection, navigate]);
   return (
     <Box>
-      <ImageCarousel images={images} />
-      <Container maxWidth={'lg'}>
-        <Grid container sx={{ mt: 3 }}>
+      <Container sx={{ mt: '5em' }} maxWidth={'lg'}>
+        <Grid container>
           <Grid item md={9} sm={12}>
             <Typography variant='h1'>The Biergarten Index</Typography>
             <Typography variant='h2' gutterBottom sx={{ mb: '1em' }}>
