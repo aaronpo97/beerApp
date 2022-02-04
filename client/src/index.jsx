@@ -22,9 +22,10 @@ import ProfilePage from './routes/ProfilePage';
 import CreateBrewery from './routes/CreateBrewery';
 import EditBrewery from './routes/EditBrewery';
 
-import SearchBeers from './routes/SearchBeers';
+// import SearchBeers from './routes/SearchBeers';
 import EditBeer from './routes/EditBeerPage';
 import NotFound from './routes/NotFound';
+import PasswordResetPage from './routes/PasswordResetPage';
 
 import AccountSettingsPage from './routes/AccountSettingsPage';
 
@@ -45,15 +46,13 @@ const App = () => {
     }
   };
 
-  const [currentUser, dispatch] = useReducer(reducer, {});
-
   return (
     <StrictMode>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline />
 
-          <AuthContext.Provider value={[currentUser, dispatch]}>
+          <AuthContext.Provider value={useReducer(reducer, {})}>
             <Routes>
               <Route path='/' element={<PageHeader />}>
                 <Route path='' element={<Home />} />
@@ -63,7 +62,7 @@ const App = () => {
                 <Route path='/beers/create' element={<CreateBeer />} />
                 <Route path='/beers/:id' element={<BeerInfoPage />} />
                 <Route path='/beers/:id/edit' element={<EditBeer />} />
-                <Route path='/beers/search' element={<SearchBeers />} />
+                {/* <Route path='/beers/search' element={<SearchBeers />} /> */}
                 <Route path='/breweries' element={<BreweryIndex />} />
                 <Route path='/breweries/create' element={<CreateBrewery />} />
                 <Route path='/breweries/:id' element={<BreweryInfoPage />} />
@@ -74,6 +73,7 @@ const App = () => {
                   path='/confirmaccount/:userId/:confirmationToken'
                   element={<ConfirmAccount />}
                 />
+                <Route path='/forgotpassword' element={<PasswordResetPage />} />
 
                 <Route path='*' element={<NotFound />} />
               </Route>

@@ -35,7 +35,10 @@ const Login = () => {
 
       const attemptedLogin = await loginUser();
 
-      if (attemptedLogin.message === 'Bad Request' || attemptedLogin.message === 'Unauthorized') {
+      if (
+        attemptedLogin.message === 'Bad Request' ||
+        attemptedLogin.message === 'Unauthorized'
+      ) {
         const errors = {};
 
         if (!formValues.username) {

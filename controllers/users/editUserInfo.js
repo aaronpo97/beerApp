@@ -3,19 +3,22 @@ import SuccessResponse from '../../utilities/response/SuccessResponse.js';
 
 const editUser = async (req, res, next) => {
   try {
-    const userUpdates = req.body;
-    const updatedUser = await User.findByIdAndUpdate(req.queriedUser._id, userUpdates);
+    const { firstName, lastName, email, username } = req.body;
+    const updatedUser = await User.findByIdAndUpdate(req.queriedUser._id, {
+      firstName,
+      lastName,
+      email,
+      username,
+    });
 
     const status = 200;
-
     const message = `Successfully edited user: ${updatedUser._id}`;
-    const payload = updatedUser.populate('BeerPost');
 
     res.json(
       new SuccessResponse(
         message,
         status,
-        payload,
+        undefined,
         req.didTokenRegenerate ? req.accessToken : undefined,
       ),
     );

@@ -1,9 +1,9 @@
 {
-  "email": "kabiho5738@nahetech.com",
-  "username": "ayerble",
-  "dateOfBirth": "1997-11-09",
-  "firstName": "Aaron",
-  "lastName": "Po",
+  "email": "testuser@test.com",
+  "username": "test.user",
+  "dateOfBirth": "2000-01-01",
+  "firstName": "Test",
+  "lastName": "User",
   "isAccountConfirmed": true,
   "createdAt": "2021-11-08",
   "profile": {

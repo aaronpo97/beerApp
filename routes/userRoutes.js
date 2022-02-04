@@ -1,12 +1,11 @@
 import express from 'express';
-
 import dotenv from 'dotenv';
 import passport from 'passport';
 
-// ----- Controllers ----- //
+/* ----- Controllers ----- */
 import viewUser from '../controllers/users/viewUser.js';
 import deleteUser from '../controllers/users/deleteUser.js';
-import editUser from '../controllers/users/editUser.js';
+import editUser from '../controllers/users/editUserInfo.js';
 import loginUser from '../controllers/users/loginUser.js';
 import registerUser from '../controllers/users/registerUser.js';
 import confirmUser from '../controllers/users/confirmUser.js';
@@ -15,21 +14,31 @@ import checkIfUserExists from '../controllers/users/checkIfUserExists.js';
 import resendConfirmation from '../controllers/users/resendConfirmation.js';
 import changeEmail from '../controllers/users/changeEmail.js';
 import sendVerifiedUserResponse from '../controllers/users/sendVerifiedUserResponse.js';
-// ----- Middleware ----- //
+import requestPasswordReset from '../controllers/users/requestPasswordReset.js';
+import resetPassword from '../controllers/users/resetPassword.js';
+
+/* ----- Middleware ----- */
 import canAccessUserInfo from '../middleware/auth/canAccessUserInfo.js';
 import verifyAccessToken from '../middleware/auth/verifyAccessToken.js';
 import checkTokens from '../middleware/auth/checkTokens.js';
 import isAccountConfirmed from '../middleware/auth/isAccountConfirmed.js';
 
-// ----- Utilities ------ //
+/* ----- Utilities ----- */
 import ServerError from '../utilities/errors/ServerError.js';
-import isAccountNotConfirmed from './isAccountNotConfirmed.js';
+import isAccountNotConfirmed from '../controllers/users/isAccountNotConfirmed.js';
+import changeUsername from '../controllers/users/changeUsername.js';
+import changeName from '../controllers/users/changeName.js';
 
 dotenv.config();
 
 const router = express.Router();
 
-router.route('/verifytoken').get(checkTokens, verifyAccessToken, sendVerifiedUserResponse);
+router
+  .route('/verifytoken')
+  .get(checkTokens, verifyAccessToken, sendVerifiedUserResponse)
+  .all(() => {
+    throw new ServerError('Not allowed.', 405);
+  });
 
 router
   .route('/checkifuserexists')
@@ -52,6 +61,21 @@ router
     throw new ServerError('Not allowed.', 405);
   });
 
+/* Password Reset and Change Password */
+router
+  .route('/help/requestpasswordreset')
+  .post(requestPasswordReset)
+  .all(() => {
+    throw new ServerError('Not allowed.', 405);
+  });
+
+router
+  .route('/resetpassword/:userId/:passwordResetToken')
+  .put(resetPassword)
+  .all(() => {
+    throw new ServerError('Not allowed.', 405);
+  });
+
 router
   .route('/:id')
   .get(checkTokens, verifyAccessToken, isAccountConfirmed, canAccessUserInfo, viewUser)
@@ -61,6 +85,7 @@ router
     throw new ServerError('Not allowed.', 405);
   });
 
+// unconfirmed users - change email
 router
   .route('/:id/changeemail')
   .put(checkTokens, verifyAccessToken, isAccountNotConfirmed, changeEmail)
@@ -68,6 +93,29 @@ router
     throw new ServerError('Not allowed.', 405);
   });
 
+// confirmed users - change email
+router
+  .route('/:id/updateemail')
+  .put(checkTokens, verifyAccessToken, isAccountNotConfirmed, changeEmail)
+  .all(() => {
+    throw new ServerError('Not allowed.', 405);
+  });
+
+router
+  .route('/:id/changeUsername')
+  .put(checkTokens, verifyAccessToken, isAccountConfirmed, changeUsername)
+  .all(() => {
+    throw new ServerError('Not allowed.', 405);
+  });
+
+router
+  .route('/:id/changeName')
+  .put(checkTokens, verifyAccessToken, isAccountConfirmed, changeName)
+  .all(() => {
+    throw new ServerError('Not Allowed', 405);
+  });
+
+/* View profile */
 router
   .route('/profile/:id')
   .get(checkTokens, verifyAccessToken, isAccountConfirmed, viewProfile)
@@ -75,6 +123,7 @@ router
     throw new ServerError('Not allowed.', 405);
   });
 
+/* User confirmation */
 router
   .route('/confirm/resend-confirmation-email')
   .get(checkTokens, verifyAccessToken, resendConfirmation)

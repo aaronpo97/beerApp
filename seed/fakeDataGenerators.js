@@ -17,10 +17,7 @@ const adminUserInfo = require('./adminUser.json');
 
 export const createAdminUser = async () => {
   const adminUser = new User(adminUserInfo);
-  await User.register(
-    adminUser,
-    `8cc2Phnfwaf9eoHtTZqM1PDqbaPTNs0VJoq0OTs8Ptr2Zl6UaOEZ79VkW5KGbO4u`,
-  );
+  await User.register(adminUser, `testuser`);
 
   const displayImage = new Image({
     url: 'https://res.cloudinary.com/dxie9b7na/image/upload/v1643257136/BeerApp/CloudyCheerfulKakapo-size_restricted_xfyugt.gif',
@@ -63,7 +60,7 @@ export const generateBeerPosts = async (adminUser) => {
     breweryPost.images = [breweryImageOne, breweryImageTwo, breweryImageThree];
     await breweryPost.save();
 
-    for (let beer of brewery.beers) {
+    for (const beer of brewery.beers) {
       const { name, type, description, abv, ibu } = beer;
 
       const imageOne = new Image({
@@ -114,7 +111,8 @@ export const generateBeerPosts = async (adminUser) => {
 
 export const generateFakeUsers = async () => {
   for (const user of userData) {
-    const { email, username, dateOfBirth, firstName, lastName, profile, password, image } = user;
+    const { email, username, dateOfBirth, firstName, lastName, profile, password, image } =
+      user;
     const userToRegister = new User({
       email,
       username,
@@ -139,7 +137,7 @@ export const generateFakeUsers = async () => {
 
     console.group();
 
-    for (let n = 0; n < 17; n++) {
+    for (let n = 0; n < 17; n += 1) {
       const allBeerPosts = await BeerPost.find();
       const randomBeerPost = allBeerPosts[Math.floor(Math.random() * allBeerPosts.length)];
 
@@ -175,12 +173,13 @@ export const generateFakeUsers = async () => {
       randomBeerPost.comments.push(comment);
       userToRegister.comments.push(comment);
 
-      if (isPostLikedByUser) continue;
-      userToRegister.profile.likes.push(randomBeerPost._id);
-      randomBeerPost.likedBy.push(userToRegister._id);
+      if (!isPostLikedByUser) {
+        userToRegister.profile.likes.push(randomBeerPost._id);
+        randomBeerPost.likedBy.push(userToRegister._id);
 
-      console.log(`${userToRegister.username} likes ${randomBeerPost.name}`);
-      randomBeerPost.save();
+        console.log(`${userToRegister.username} likes ${randomBeerPost.name}`);
+        randomBeerPost.save();
+      }
     }
     console.groupEnd();
 

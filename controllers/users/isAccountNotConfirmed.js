@@ -1,4 +1,4 @@
-import ServerError from '../utilities/errors/ServerError.js';
+import ServerError from '../../utilities/errors/ServerError.js';
 
 const isAccountNotConfirmed = (req, res, next) => {
   if (req.currentUser.isAccountConfirmed) {

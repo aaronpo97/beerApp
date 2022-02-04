@@ -19,21 +19,23 @@ const {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const sendEmail = async (email, userObj, confirmationToken) => {
+const sendPasswordResetEmail = async (email, userObj, passwordResetToken) => {
   try {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: { user, pass, clientId, clientSecret, refreshToken, type: 'OAuth2' },
     });
-    const confirmationLink = `${BASE_URL}/confirmaccount/${userObj._id}/${confirmationToken}`;
-    const data = await ejs.renderFile(`${__dirname}/confirmationEmail.ejs`, {
+
+    const passwordResetLink = `${BASE_URL}/resetpassword/${userObj._id}/${passwordResetToken}`;
+    const data = await ejs.renderFile(`${__dirname}/passwordResetEmail.ejs`, {
       userObj,
-      confirmationLink,
+      passwordResetLink,
     });
+
     const mailOptions = { subject: 'Welcome!', html: data, from: user, to: email };
     return await transporter.sendMail(mailOptions);
   } catch (error) {
     return Promise.reject(error);
   }
 };
-export default sendEmail;
+export default sendPasswordResetEmail;

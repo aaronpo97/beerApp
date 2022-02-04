@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Grid, Box, Link, Typography, Button } from '@mui/material';
+import { Grid, Link, Typography, Button } from '@mui/material';
 import { useContext } from 'react';
 import { AuthContext } from '../../util/AuthContext';
 
@@ -12,10 +12,13 @@ const BeerInfoHeader = ({ currentBeer }) => {
       <Grid md={10} item>
         <Typography variant='h1'>{currentBeer.name}</Typography>
         <Typography variant='h2' sx={{ mb: 1 }}>
-          <Link underline='hover' onClick={() => navigate(`/breweries/${currentBeer.brewery._id}`)}>
+          <Link
+            underline='hover'
+            onClick={() => navigate(`/breweries/${currentBeer.brewery._id}`)}
+          >
             {currentBeer.brewery.name}
           </Link>
-        </Typography>{' '}
+        </Typography>
       </Grid>
       <Grid md={2} item>
         {currentUser?._id === currentBeer.postedBy._id && (

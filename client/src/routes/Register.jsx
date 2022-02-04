@@ -80,6 +80,8 @@ const Register = () => {
         errors.email = 'Email is required.';
       } else if (!emailRegex.test(email)) {
         errors.email = 'That email is invalid.';
+      } else if (userQueryResponse.emailExists) {
+        errors.email = 'That email is already associated with an account.';
       }
 
       if (!firstName) {
