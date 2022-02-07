@@ -17,11 +17,10 @@ import CreateBeer from './routes/CreateBeer';
 import BreweryIndex from './routes/BreweryIndex';
 import BreweryInfoPage from './routes/BreweryInfoPage';
 import ConfirmAccount from './routes/ConfirmAccount';
-
 import ProfilePage from './routes/ProfilePage';
 import CreateBrewery from './routes/CreateBrewery';
 import EditBrewery from './routes/EditBrewery';
-
+import EditUsername from './routes/EditUsername';
 // import SearchBeers from './routes/SearchBeers';
 import EditBeer from './routes/EditBeerPage';
 import NotFound from './routes/NotFound';
@@ -36,6 +35,8 @@ const App = () => {
     switch (action.type) {
       case 'UPDATE_EMAIL':
         return { ...currentUser, email: action.payload.email };
+      case 'UPDATE_USERNAME':
+        return { ...currentUser, username: action.payload.username };
       case 'UPDATE_CURRENT_USER':
         return { ...action.payload };
       case 'CONFIRM_USER_ACCOUNT': {
@@ -69,6 +70,7 @@ const App = () => {
                 <Route path='/breweries/:id/edit' element={<EditBrewery />} />
                 <Route path='/profile/:id' element={<ProfilePage />} />
                 <Route path='/account-settings' element={<AccountSettingsPage />} />
+                <Route path='/updateusername' element={<EditUsername />} />
                 <Route
                   path='/confirmaccount/:userId/:confirmationToken'
                   element={<ConfirmAccount />}

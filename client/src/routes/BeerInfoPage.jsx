@@ -50,6 +50,7 @@ const InfoPage = () => {
     setComments(currentBeer.comments);
   }, [currentBeer]);
 
+  console.log(currentBeer);
   return currentBeer ? (
     <>
       <ImageCarousel images={currentBeer.images} imageHeight='600px' />

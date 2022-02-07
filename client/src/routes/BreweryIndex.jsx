@@ -32,7 +32,10 @@ const BreweryIndex = () => {
       const url = `/api/breweries?sort=${sortingDirection}&param=${sortingParam}`;
       const response = await fetch(url, requestOptions);
       if (response.status === 401) {
-        dispatch({ type: 'UPDATE_CURRENT_USER', payload: {} });
+        dispatch({
+          type: 'UPDATE_CURRENT_USER',
+          payload: {},
+        });
         localStorage.clear();
         navigate('/login');
       }
@@ -41,18 +44,30 @@ const BreweryIndex = () => {
       }
       const result = await response.json();
       if (!result.payload) return;
-      localStorage['access-token'] = result.payload.newAccessToken || localStorage['access-token'];
+      localStorage['access-token'] =
+        result.payload.newAccessToken || localStorage['access-token'];
       setBreweries(result.payload || []);
     };
     fetchData();
   }, [sortingParam, sortingDirection, navigate]);
   return (
     <Box>
-      <Container sx={{ mt: '5em' }} maxWidth={'lg'}>
+      <Container
+        sx={{
+          mt: '5em',
+        }}
+        maxWidth={'lg'}
+      >
         <Grid container>
           <Grid item md={9} sm={12}>
             <Typography variant='h1'>The Biergarten Index</Typography>
-            <Typography variant='h2' gutterBottom sx={{ mb: '1em' }}>
+            <Typography
+              variant='h2'
+              gutterBottom
+              sx={{
+                mb: '1em',
+              }}
+            >
               Breweries
             </Typography>
           </Grid>
@@ -62,7 +77,9 @@ const BreweryIndex = () => {
                 startIcon={<AddCircleOutlinedIcon />}
                 onClick={() => navigate('/breweries/create')}
                 variant='contained'
-                sx={{ width: '100%' }}
+                sx={{
+                  width: '100%',
+                }}
               >
                 Post a new brewery
               </Button>

@@ -41,7 +41,9 @@ const CommentCard = ({ comment, comments, setComments }) => {
 
     sendDeleteRequest()
       .then(() => {
-        setComments(comments.filter((postedComment) => postedComment._id !== comment._id));
+        setComments(
+          comments.filter((postedComment) => postedComment._id !== comment._id),
+        );
       })
       .catch((error) => {
         console.error(error);
@@ -54,8 +56,11 @@ const CommentCard = ({ comment, comments, setComments }) => {
         <Grid container spacing={2}>
           <Grid item md={2}>
             <Avatar />
-            <Link underline='hover' onClick={() => navigate(`/profile/${comment.author._id}`)}>
-              <Typography variant='body2' sx={{ mt: 1 }}>
+            <Link
+              underline='hover'
+              onClick={() => navigate(`/profile/${comment.author._id}`)}
+            >
+              <Typography variant='body2' sx={{ mt: 1 }} noWrap>
                 {comment.author.username}
               </Typography>
             </Link>

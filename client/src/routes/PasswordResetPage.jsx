@@ -6,6 +6,7 @@ import {
   FormControl,
   Button,
   TextField,
+  Grid,
   Card,
   CardContent,
 } from '@mui/material';
@@ -38,8 +39,16 @@ const PasswordResetPage = () => {
     };
 
     const submitRequest = async () => {
-      const url = `api/users/${currentUser._id}/requestpasswordreset`;
-      const requestOptions = {};
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': localStorage['refresh-token'],
+          'x-access-token': localStorage['access-token'],
+        },
+        body: JSON.stringify(formValues),
+      };
+      const url = '/api/users/help/requestpasswordreset';
       const response = await fetch(url, requestOptions);
       const data = await response.json();
       return data;
@@ -61,16 +70,21 @@ const PasswordResetPage = () => {
   return (
     <Box>
       <Container sx={{ mt: 5 }}>
-        <Typography variant='h1' gutterBottom>
-          Forgot your password?
-        </Typography>
-        <Box component='form' onSubmit={handleSubmit}>
-          <Card>
-            <CardContent>
-              <Typography variant='body2'>
-                Tell us the username and email address associated with your Biergarten account,
-                and we will send you an email with a link to reset your password.
-              </Typography>
+        <Typography variant='h1'>Forgot your password?</Typography>
+        <Grid container spacing={1} sx={{ mt: 2 }}>
+          <Grid md={6} item>
+            <Card>
+              <CardContent>
+                <Typography variant='body2'>
+                  Tell us the username and email address associated with your Biergarten
+                  account, and we will send you an email with a link to reset your password.
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          <Grid md={6} item>
+            <Box component='form' onSubmit={handleSubmit}>
               <FormControl fullWidth>
                 <TextField
                   margin='normal'
@@ -102,10 +116,13 @@ const PasswordResetPage = () => {
                 >
                   Username
                 </TextField>
+                <Button variant='contained' type='submit' sx={{ mt: 2 }}>
+                  Request password reset
+                </Button>
               </FormControl>
-            </CardContent>
-          </Card>
-        </Box>
+            </Box>
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   );

@@ -2,7 +2,17 @@ import { useContext, useState, useEffect } from 'react';
 
 import { AuthContext } from '../util/AuthContext';
 
-import { Container, Typography, Box } from '@mui/material';
+import {
+  Container,
+  Typography,
+  Box,
+  Link,
+  FormControl,
+  TextField,
+  Grid,
+  Button,
+  Alert,
+} from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
 import ViewAccountInfo from '../components/user_functions/ViewAccountInfo';
@@ -24,23 +34,20 @@ const AccountSettingsPage = () => {
         <Box>
           <Typography variant='h1'>My Account</Typography>
           <Typography variant='h2'>Personal Information</Typography>
-        </Box>
 
-        {/* <ViewAccountInfo /> */}
+          <ViewAccountInfo />
 
-        <Box sx={{ mt: 1 }}>
-          <Typography variant='h3'>Name</Typography>
-          <Typography variant='h4'>
-            {formValues.firstName} {formValues.lastName}
-          </Typography>
-        </Box>
-        <Box sx={{ mt: 1 }}>
-          <Typography variant='h3'>Username</Typography>
-          <Typography variant='h4'>{formValues.username}</Typography>
-        </Box>
-        <Box sx={{ mt: 1 }}>
-          <Typography variant='h3'>Email</Typography>
-          <Typography variant='h4'>{formValues.email}</Typography>
+          <Grid container>
+            <Grid item md={4} sx={{ textAlign: 'center' }}>
+              <Link onClick={() => navigate('/updateusername')}>Update username</Link>
+            </Grid>
+            <Grid item md={4} sx={{ textAlign: 'center' }}>
+              <Link>Update name</Link>
+            </Grid>
+            <Grid item md={4} sx={{ textAlign: 'center' }}>
+              <Link>Update email</Link>
+            </Grid>
+          </Grid>
         </Box>
       </Container>
     )

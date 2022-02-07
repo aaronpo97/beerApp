@@ -10,7 +10,7 @@ const LoginForm = ({ formValues, formErrors, handleSubmit, handleFormInputChange
       <Box
         sx={{
           my: 8,
-          mx: 4,
+          mx: 0,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',

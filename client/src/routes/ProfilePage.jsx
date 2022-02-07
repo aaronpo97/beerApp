@@ -21,10 +21,7 @@ const ProfileHeader = ({ user }) => {
             <CardMedia
               component='img'
               alt={user.username}
-              image={
-                user.displayImage?.url ||
-                'https://c.tenor.com/h99LQHUExJIAAAAd/19dollar-fortnite-card-among-us.gif'
-              }
+              image={user.displayImage?.url || ''}
               sx={{ maxWidth: 'auto', height: '100%' }}
             />
           </Grid>
@@ -95,7 +92,8 @@ const ProfilePage = () => {
       }
       const result = await response.json();
       if (!result.payload) return;
-      localStorage['access-token'] = result.payload.newAccessToken || localStorage['access-token'];
+      localStorage['access-token'] =
+        result.payload.newAccessToken || localStorage['access-token'];
 
       setUser(result.payload);
     };
@@ -111,16 +109,7 @@ const ProfilePage = () => {
             <ProfileHeader user={user} />
 
             <Grid container spacing={2}>
-              <Grid item md={4}>
-                {user && (
-                  <Card>
-                    <CardContent>
-                      <Typography variant='h3'>Posts</Typography>
-                    </CardContent>
-                  </Card>
-                )}
-              </Grid>
-              <Grid item md={8}>
+              <Grid item md={12}>
                 <ProfileBio user={user} />
               </Grid>
             </Grid>

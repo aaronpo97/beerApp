@@ -102,14 +102,14 @@ router
   });
 
 router
-  .route('/:id/changeUsername')
+  .route('/:id/updateusername')
   .put(checkTokens, verifyAccessToken, isAccountConfirmed, changeUsername)
   .all(() => {
     throw new ServerError('Not allowed.', 405);
   });
 
 router
-  .route('/:id/changeName')
+  .route('/:id/updateName')
   .put(checkTokens, verifyAccessToken, isAccountConfirmed, changeName)
   .all(() => {
     throw new ServerError('Not Allowed', 405);

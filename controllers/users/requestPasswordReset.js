@@ -5,18 +5,17 @@ import { generatePasswordResetToken } from '../../utilities/auth/generateTokens.
 import SuccessResponse from '../../utilities/response/SuccessResponse.js';
 
 const requestPasswordReset = async (req, res, next) => {
+  // client will not be recieving any confirmation that an email was sent (for security reasons)
   try {
     const { username, email } = req.body;
     const user = await User.findOne({ username, email });
     if (!user) {
       res.json(new SuccessResponse('Request sent.', 200));
-      // client will not be recieving any confirmation that an email was sent (for security reasons)
       return;
     }
     const passwordResetToken = await generatePasswordResetToken(user);
     await sendPasswordResetEmail(user.email, user, passwordResetToken);
     res.json(new SuccessResponse('Request sent.', 200));
-    // client will not be recieving any confirmation that an email was sent (for security reasons)
   } catch (error) {
     next(error);
   }
