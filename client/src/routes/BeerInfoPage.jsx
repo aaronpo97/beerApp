@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 
-import { Container, Box, Grid, LinearProgress } from '@mui/material';
+import { Container, Box, Grid, LinearProgress, Pagination } from '@mui/material';
 
 import BeerInfoHeader from '../components/beer_components/BeerInfoHeader';
 import ImageCarousel from '../components/utilities/ImageCarousel';
@@ -32,6 +32,9 @@ const InfoPage = () => {
         if (response.status === 403) {
           navigate('/confirmaccount');
         }
+        if (response.status === 500) {
+          navigate('/not-found');
+        }
 
         const data = await response.json();
 
@@ -45,16 +48,31 @@ const InfoPage = () => {
 
   const [comments, setComments] = useState([]);
 
-  useEffect(() => {
-    if (!currentBeer) return;
-    setComments(currentBeer.comments);
-  }, [currentBeer]);
+  const [commentsPageNum, setCommentsPageNum] = useState(1);
 
-  console.log(currentBeer);
+  const [pageCount, setPageCount] = useState(1);
+  const [sortingParam] = useState('timestamp');
+
+  useEffect(() => {
+    const getComments = async () => {
+      if (!currentBeer) return;
+      const url = `/api/beers/${currentBeer._id}/comments?page=${commentsPageNum}&size=4&sortingParam=${sortingParam}`;
+      const headers = {
+        'x-access-token': localStorage['access-token'],
+        'x-auth-token': localStorage['refresh-token'],
+      };
+      const response = await fetch(url, { headers });
+      const data = await response.json();
+      setComments(data.payload.paginatedComments);
+      setPageCount(data.payload.pageCount);
+    };
+    getComments();
+  }, [currentBeer, commentsPageNum, sortingParam]);
+
   return currentBeer ? (
     <>
       <ImageCarousel images={currentBeer.images} imageHeight='600px' />
-      <Container maxWidth='lg'>
+      <Container maxWidth='lg' sx={{ mb: 5 }}>
         <Box sx={{ mt: '3em' }}>
           <BeerInfoHeader currentBeer={currentBeer} />
           <Grid container spacing={2} component='main' sx={{ mt: 2 }}>
@@ -74,14 +92,24 @@ const InfoPage = () => {
               />
             </Grid>
             <Grid item md={7.5}>
-              {comments.map((comment) => (
-                <CommentCard
-                  key={comment._id}
-                  comment={comment}
-                  setComments={setComments}
-                  comments={comments}
+              <Box>
+                {comments.map((comment) => (
+                  <CommentCard
+                    key={comment._id}
+                    comment={comment}
+                    setComments={setComments}
+                    comments={comments}
+                  />
+                ))}
+              </Box>
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Pagination
+                  count={pageCount}
+                  sx={{ mt: 3 }}
+                  page={commentsPageNum}
+                  onChange={(event, value) => setCommentsPageNum(value)}
                 />
-              ))}
+              </Box>
             </Grid>
           </Grid>
         </Box>

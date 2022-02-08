@@ -42,10 +42,10 @@ const AccountSettingsPage = () => {
               <Link onClick={() => navigate('/updateusername')}>Update username</Link>
             </Grid>
             <Grid item md={4} sx={{ textAlign: 'center' }}>
-              <Link>Update name</Link>
+              <Link onClick={() => navigate('/updatename')}>Update name</Link>
             </Grid>
             <Grid item md={4} sx={{ textAlign: 'center' }}>
-              <Link>Update email</Link>
+              <Link onClick={() => navigate('/updateemail')}>Update email</Link>
             </Grid>
           </Grid>
         </Box>

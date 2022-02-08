@@ -1,6 +1,7 @@
 import ServerError from '../../utilities/errors/ServerError.js';
-import BeerPost from '../../database/models/BeerPost.js';
 import SuccessResponse from '../../utilities/response/SuccessResponse.js';
+
+import BeerPost from '../../database/models/BeerPost.js';
 
 const updateBeerPost = async (req, res, next) => {
   try {

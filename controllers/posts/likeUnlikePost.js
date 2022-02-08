@@ -9,12 +9,10 @@ const likeUnlikePost = async (req, res, next) => {
 
     const isPostLikedByUser = currentUser.profile.likes
       .map((objectID) => objectID.toString())
-      // eslint-disable-next-line no-underscore-dangle
       .includes(beer._id.toString());
 
     const isUserListed = beer.likedBy
       .map((objID) => objID.toString())
-      // eslint-disable-next-line no-underscore-dangle
       .includes(currentUser._id.toString());
     //
 

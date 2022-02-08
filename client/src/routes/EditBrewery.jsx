@@ -39,7 +39,8 @@ const EditBrewery = () => {
       const { name, description } = data.payload;
       setFormValues({ name, description });
 
-      localStorage['access-token'] = response.newAccessToken || localStorage['access-token'];
+      localStorage['access-token'] =
+        response.newAccessToken || localStorage['access-token'];
       if (response.status === 401) {
         localStorage.clear();
       }
@@ -74,9 +75,6 @@ const EditBrewery = () => {
         errors.description = 'Description must be greater than 20 characters.';
       }
 
-      // if (!formValues.address) {
-      //    errors.address = 'Address is required.';
-      // }
       console.log(errors);
       if (Object.keys(errors).length) {
         setFormErrors(errors);

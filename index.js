@@ -1,25 +1,24 @@
 import path from 'path';
-import process from 'process';
-import { fileURLToPath } from 'url';
-
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
+import { fileURLToPath } from 'url';
+import process from 'process';
 
 import passport from 'passport';
 import PassportLocal from 'passport-local';
 
-import ServerError from './utilities/errors/ServerError.js';
 import ErrorResponse from './utilities/response/ErrorResponse.js';
+import ServerError from './utilities/errors/ServerError.js';
 
 import connectDB from './database/connectDB.js';
 import User from './database/models/User.js';
 
 import beerRoutes from './routes/beerRoutes.js';
-import userRoutes from './routes/userRoutes.js';
 import breweryRoutes from './routes/breweryRoutes.js';
-import imageRoutes from './routes/imageRoutes.js';
 import commentRoutes from './routes/commentRoutes.js';
+import imageRoutes from './routes/imageRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -76,7 +75,9 @@ app.use('/api/images', imageRoutes);
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   const { status = 500, message = 'Oh no, something went wrong.', stack } = err;
-  res.status(status).json(new ErrorResponse(message, status, !inProductionMode ? stack : undefined));
+  res
+    .status(status)
+    .json(new ErrorResponse(message, status, !inProductionMode ? stack : undefined));
 });
 
 // Serving compiled react app from ../frontend/build

@@ -3,11 +3,8 @@ import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ImageCarousel from '../components/utilities/ImageCarousel';
 
 import BeerList from '../components/beer_components/BeerList';
-
-import images from '../util/images';
 
 import { AuthContext } from '../util/AuthContext';
 
@@ -44,7 +41,8 @@ const Beers = () => {
 
       if (!result.payload) return;
 
-      localStorage['access-token'] = result.payload.newAccessToken || localStorage['access-token'];
+      localStorage['access-token'] =
+        result.payload.newAccessToken || localStorage['access-token'];
 
       setBeers(result.payload || []);
     })();

@@ -2,11 +2,11 @@ import dotenv from 'dotenv';
 import ms from 'ms';
 import process from 'process';
 
-import connectDB from '../database/connectDB.js';
 import BeerPost from '../database/models/BeerPost.js';
-import User from '../database/models/User.js';
 import Brewery from '../database/models/Brewery.js';
+import connectDB from '../database/connectDB.js';
 import Image from '../database/models/Image.js';
+import User from '../database/models/User.js';
 
 import {
   generateBeerPosts,

@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import FormErrorAlert from '../utilities/FormErrorAlert';
 
-const CommentCreateForm = ({ currentBeer, comments, setComments }) => {
+const CommentCreateForm = ({ currentBeer, commentsList, setCommentsList }) => {
   const [commentBody, setCommentBody] = useState('');
   const [commentRating, setCommentRating] = useState(0);
 
@@ -46,14 +46,17 @@ const CommentCreateForm = ({ currentBeer, comments, setComments }) => {
         },
         body: JSON.stringify({ commentBody, commentRating }),
       };
-      const response = await fetch(`/api/beers/${currentBeer._id}/comments`, requestOptions);
+      const response = await fetch(
+        `/api/beers/${currentBeer._id}/comments`,
+        requestOptions,
+      );
       const data = await response.json();
       console.log(data.payload);
       if (response.status !== 201) {
         throw new Error('Comment did not submit.');
       }
       console.log('changed');
-      setComments([data.payload, ...comments]);
+      setCommentsList([data.payload, ...commentsList]);
     };
 
     validateData()
