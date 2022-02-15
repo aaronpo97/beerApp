@@ -15,12 +15,10 @@ import {
   Grid,
 } from '@mui/material';
 
-import FormErrorAlert from '../../components/utilities/FormErrorAlert';
-
 const EditName = () => {
-  const [currentUser, dispatch] = useContext(AuthContext);
+  const [currentUser] = useContext(AuthContext);
   const [editFormValues, setEditFormValues] = useState({});
-  const [formErrors, setFormErrors] = useState({});
+  const [, setFormErrors] = useState({});
 
   useEffect(() => {
     setEditFormValues({
@@ -82,18 +80,11 @@ const EditName = () => {
 
   return (
     <Container>
-      <Button
-        startIcon={<ArrowBackIcon />}
-        onClick={() => navigate('/account-settings')}
-        variant='contained'
-        sx={{ mt: 4 }}
-      >
-        Discard edits
-      </Button>
       <Box
         sx={{
           mb: 8,
           mx: 0,
+          my: 5,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -118,42 +109,49 @@ const EditName = () => {
         ) : (
           <Box sx={{ width: '100%' }} noValidate component='form' onSubmit={handleSubmit}>
             <FormControl fullWidth>
-              <Grid container spacing={2}>
-                <Grid item md={6}>
-                  <TextField
-                    margin='normal'
-                    required
-                    fullWidth
-                    id='first-name'
-                    name='firstName'
-                    autoComplete='firstName'
-                    autoFocus
-                    value={editFormValues.firstName || ''}
-                    onChange={handleFormInputChange}
-                    label='First name'
-                  />
-                </Grid>
+              <TextField
+                margin='normal'
+                required
+                fullWidth
+                id='first-name'
+                name='firstName'
+                autoComplete='firstName'
+                autoFocus
+                value={editFormValues.firstName || ''}
+                onChange={handleFormInputChange}
+                label='First name'
+              />
 
+              <TextField
+                margin='normal'
+                required
+                fullWidth
+                id='last-name'
+                name='lastName'
+                autoComplete='lastName'
+                autoFocus
+                value={editFormValues.lastName || ''}
+                onChange={handleFormInputChange}
+                label='Last name'
+              />
+
+              <Grid container sx={{ mt: 2 }} spacing={2}>
                 <Grid item md={6}>
-                  <TextField
-                    margin='normal'
-                    required
+                  <Button
+                    startIcon={<ArrowBackIcon />}
+                    onClick={() => navigate('/account-settings')}
+                    variant='contained'
                     fullWidth
-                    id='last-name'
-                    name='lastName'
-                    autoComplete='lastName'
-                    autoFocus
-                    value={editFormValues.lastName || ''}
-                    onChange={handleFormInputChange}
-                    label='Last name'
-                  />
+                  >
+                    Discard edits
+                  </Button>
+                </Grid>
+                <Grid item md={6}>
+                  <Button fullWidth variant='contained' type='submit'>
+                    Edit name
+                  </Button>
                 </Grid>
               </Grid>
-              {/* {formErrors.lastName && <FormErrorAlert error={formErrors.lastName} />} */}
-
-              <Button fullWidth sx={{ mt: 1 }} variant='contained' type='submit'>
-                Edit name
-              </Button>
             </FormControl>
           </Box>
         )}

@@ -96,7 +96,7 @@ router
 // confirmed users - change email
 router
   .route('/:id/updateemail')
-  .put(checkTokens, verifyAccessToken, isAccountNotConfirmed, changeEmail)
+  .put(checkTokens, verifyAccessToken, changeEmail)
   .all(() => {
     throw new ServerError('Not allowed.', 405);
   });

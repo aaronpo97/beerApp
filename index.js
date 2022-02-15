@@ -63,7 +63,6 @@ app.all('api/teapot', () => {
 });
 
 // Express router:
-
 app.use('/api/beers', beerRoutes);
 app.use('/api/beers/:id/comments', commentRoutes);
 app.use('/api/users', userRoutes);

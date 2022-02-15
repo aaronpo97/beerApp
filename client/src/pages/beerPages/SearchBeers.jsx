@@ -6,7 +6,9 @@ import { Box, Container } from '@mui/material';
 import BeerCardSideImage from '../../components/beer_components/BeerCardSideImage';
 
 const SearchBeers = () => {
+  // eslint-disable-next-line no-unused-vars
   const [results, setResults] = useState([]);
+
   const [searchParams] = useSearchParams();
   const parameters = Object.fromEntries([...searchParams]);
   const { type } = parameters;

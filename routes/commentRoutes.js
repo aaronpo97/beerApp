@@ -30,13 +30,7 @@ router
   .route('/:commentId')
   .get(checkTokens, verifyAccessToken, isAccountConfirmed, viewComment)
   .put(checkTokens, verifyAccessToken, isCommentOwner, isAccountConfirmed, editComment)
-  .delete(
-    checkTokens,
-    verifyAccessToken,
-    isCommentOwner,
-    isAccountConfirmed,
-    deleteComment,
-  )
+  .delete(checkTokens, verifyAccessToken, isCommentOwner, isAccountConfirmed, deleteComment)
   .all(() => {
     throw new ServerError('Not allowed', 405);
   });

@@ -23,7 +23,7 @@ const changeEmail = async (req, res, next) => {
       new SuccessResponse(
         `Changed email for ${userAccount.username} to ${email}.`,
         200,
-        null,
+        { email },
         req.newAccessToken ? req.newAccessToken : undefined,
       ),
     );

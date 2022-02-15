@@ -20,7 +20,7 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  const [currentUser, dispatch] = useContext(AuthContext);
+  const [, dispatch] = useContext(AuthContext);
   const [formValues, setFormValues] = useState(initialRegistrationData);
   const [formErrors, setFormErrors] = useState({});
 

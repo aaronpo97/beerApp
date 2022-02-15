@@ -11,7 +11,7 @@ const Login = () => {
   const [formValues, setFormValues] = useState({ username: '', password: '' });
   const [formErrors, setFormErrors] = useState({});
 
-  const [currentUser, dispatch] = useContext(AuthContext);
+  const [, dispatch] = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {

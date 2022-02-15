@@ -15,13 +15,13 @@ import {
   Grid,
 } from '@mui/material';
 
-import FormErrorAlert from '../components/utilities/FormErrorAlert';
+import FormErrorAlert from '../../components/utilities/FormErrorAlert';
 
 const EditEmail = () => {
   const [currentUser, dispatch] = useContext(AuthContext);
 
   useEffect(() => {
-    setEditFormValues({ username: currentUser.username });
+    setEditFormValues({ email: currentUser.email });
   }, [currentUser]);
 
   const navigate = useNavigate();
@@ -32,29 +32,29 @@ const EditEmail = () => {
   const [message, setMessage] = useState('');
 
   const validateData = async () => {
-    const checkUserInDB = async (username) => {
+    const checkUserInDB = async (email) => {
       try {
-        const response = await fetch(`/api/users/checkifuserexists?username=${username}`);
+        const response = await fetch(`/api/users/checkifuserexists?email=${email}`);
         const data = await response.json();
         return data.payload;
       } catch (error) {
-        return { message: 'username was blank.' };
+        return { message: 'email was blank.' };
       }
     };
 
-    const userCheck = await checkUserInDB(editFormValues.username);
+    const userCheck = await checkUserInDB(editFormValues.email);
 
     const errors = {};
-    if (!editFormValues.username) {
-      errors.username = 'Username is required.';
+    if (!editFormValues.email) {
+      errors.email = 'Email is required.';
     }
-    if (editFormValues.username.toLowerCase() === currentUser.username.toLowerCase()) {
+    if (editFormValues.email.toLowerCase() === currentUser.email.toLowerCase()) {
       setShowMessage(true);
-      setMessage('Username remained the same.');
+      setMessage('Email remained the same.');
       throw new Error('Form validation failed.');
     }
-    if (userCheck.usernameExists) {
-      errors.username = 'That username is already taken.';
+    if (userCheck.emailExists) {
+      errors.email = 'That email is already taken.';
     }
     if (Object.keys(errors).length) {
       setFormErrors(errors);
@@ -63,7 +63,7 @@ const EditEmail = () => {
   };
 
   const submitData = async () => {
-    const url = `/api/users/${currentUser._id}/updateusername`;
+    const url = `/api/users/${currentUser._id}/updateemail`;
     const requestOptions = {
       method: 'PUT',
       headers: {
@@ -71,16 +71,16 @@ const EditEmail = () => {
         'x-access-token': localStorage['access-token'],
         'x-auth-token': localStorage['refresh-token'],
       },
-      body: JSON.stringify({ username: editFormValues.username.toLowerCase() }),
+      body: JSON.stringify({ email: editFormValues.email.toLowerCase() }),
     };
     const response = await fetch(url, requestOptions);
     return await response.json();
   };
 
-  const handleUpdate = ({ username }) => {
-    dispatch({ type: 'UPDATE_USERNAME', payload: { username } });
+  const handleUpdate = (email) => {
+    dispatch({ type: 'UPDATE_EMAIL', payload: { email } });
     setShowMessage(true);
-    setMessage('Username updated.');
+    setMessage('Email updated.');
   };
 
   const handleSubmit = (event) => {
@@ -91,7 +91,7 @@ const EditEmail = () => {
       .catch((error) => console.error(error));
   };
   const handleFormInputChange = (event) => {
-    setEditFormValues({ username: event.target.value });
+    setEditFormValues({ email: event.target.value });
   };
 
   return (
@@ -107,7 +107,7 @@ const EditEmail = () => {
       >
         <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}></Avatar>
         <Typography component='h1' variant='h5'>
-          Edit Username
+          Edit Email
         </Typography>
 
         {showMessage ? (
@@ -128,15 +128,15 @@ const EditEmail = () => {
                 margin='normal'
                 required
                 fullWidth
-                id='username'
-                name='username'
-                autoComplete='username'
+                id='email'
+                name='email'
+                autoComplete='email'
                 autoFocus
-                value={editFormValues.username || ''}
+                value={editFormValues.email || ''}
                 onChange={handleFormInputChange}
-                label='Username'
+                label='Email'
               />
-              {formErrors.username && <FormErrorAlert error={formErrors.username} />}
+              {formErrors.email && <FormErrorAlert error={formErrors.email} />}
 
               <Grid container spacing={3}>
                 <Grid item md={6}>
@@ -152,7 +152,7 @@ const EditEmail = () => {
                 </Grid>
                 <Grid item md={6}>
                   <Button fullWidth sx={{ mt: 1 }} variant='contained' type='submit'>
-                    Edit username
+                    Edit Email
                   </Button>
                 </Grid>
               </Grid>

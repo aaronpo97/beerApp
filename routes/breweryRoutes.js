@@ -21,13 +21,7 @@ const router = express.Router();
 router
   .route('/')
   .get(checkTokens, verifyAccessToken, isAccountConfirmed, showAllBreweries)
-  .post(
-    checkTokens,
-    verifyAccessToken,
-    validateBrewery,
-    isAccountConfirmed,
-    createBrewery,
-  )
+  .post(checkTokens, verifyAccessToken, validateBrewery, isAccountConfirmed, createBrewery)
   .all(() => {
     throw new ServerError('Not allowed.', 405);
   });

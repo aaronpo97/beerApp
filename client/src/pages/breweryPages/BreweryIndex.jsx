@@ -4,17 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Box, Grid, Typography, Button } from '@mui/material';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 
-import ImageCarousel from '../../components/utilities/ImageCarousel';
 import BreweryList from '../../components/brewery_components/BreweryList';
 import AccountNotConfirmedDialog from '../../components/confirmAccount_components/AccountNotConfirmedDialog';
 
-import images from '../../util/images';
 import { AuthContext } from '../../util/AuthContext';
 
 const BreweryIndex = () => {
   const [breweries, setBreweries] = useState([]);
-  const [sortingParam, setSortingParam] = useState('default');
-  const [sortingDirection, setSortingDirection] = useState('default');
+  const [sortingParam] = useState('default');
+  const [sortingDirection] = useState('default');
 
   const navigate = useNavigate();
 
@@ -48,15 +46,10 @@ const BreweryIndex = () => {
       setBreweries(result.payload || []);
     };
     fetchData();
-  }, [sortingParam, sortingDirection, navigate]);
+  }, [sortingParam, sortingDirection, navigate, dispatch]);
   return (
     <Box>
-      <Container
-        sx={{
-          mt: '5em',
-        }}
-        maxWidth={'lg'}
-      >
+      <Container sx={{ mt: '5em' }} maxWidth={'lg'}>
         <Grid container>
           <Grid item md={9} sm={12}>
             <Typography variant='h1'>The Biergarten Index</Typography>
@@ -86,16 +79,7 @@ const BreweryIndex = () => {
           )}
         </Grid>
 
-        {currentUser.isAccountConfirmed && (
-          <BreweryList
-            breweries={breweries}
-            setBreweries={setBreweries}
-            sortingParam={sortingParam}
-            setSortingParam={setSortingParam}
-            sortingDirection={sortingDirection}
-            setSortingDirection={setSortingDirection}
-          />
-        )}
+        {currentUser.isAccountConfirmed && <BreweryList breweries={breweries} />}
 
         {!currentUser.isAccountConfirmed && <AccountNotConfirmedDialog />}
       </Container>

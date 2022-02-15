@@ -7,7 +7,7 @@ const uploadImages = async (req, res, next) => {
     if (!req.files) throw new ServerError('No files were given to the uploader.', 400);
 
     const images = [];
-    for (const file of req.files) {
+    req.files.forEach(async (file) => {
       const imageToUpload = new Image({
         filename: file.filename,
         url: file.path,
@@ -15,7 +15,7 @@ const uploadImages = async (req, res, next) => {
       });
       images.push(imageToUpload);
       await imageToUpload.save();
-    }
+    });
 
     const status = 201;
 

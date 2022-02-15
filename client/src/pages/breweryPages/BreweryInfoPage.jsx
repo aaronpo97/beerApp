@@ -31,7 +31,7 @@ const BreweryInfoPage = () => {
       }
     };
     getBreweryData();
-  }, [id]);
+  }, [id, navigate]);
 
   return !breweryData ? (
     <LinearProgress sx={{ mt: 2 }} />

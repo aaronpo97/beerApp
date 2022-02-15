@@ -10,6 +10,7 @@ const connectDB = async (MONGO_DB_URI) => {
       useUnifiedTopology: true,
     });
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.log(error);
   }
 };

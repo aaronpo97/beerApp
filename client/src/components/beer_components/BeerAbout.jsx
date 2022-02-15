@@ -1,11 +1,8 @@
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { AuthContext } from '../../util/AuthContext';
-import { Card, CardContent, Box, Typography, Link, Grid, Button } from '@mui/material';
+import { Card, CardContent, Box, Typography, Link, Grid } from '@mui/material';
 const BeerAbout = ({ currentBeer }) => {
   const navigate = useNavigate();
-  const [user] = useContext(AuthContext);
 
   return (
     <Card>
@@ -39,10 +36,7 @@ const BeerAbout = ({ currentBeer }) => {
         <Box sx={{ mt: 1.5 }}>
           <Typography variant='body2' sx={{ fontWeight: '500' }}>
             posted by:{' '}
-            <Link
-              underline='hover'
-              onClick={() => navigate(`/profile/${currentBeer.postedBy._id}`)}
-            >
+            <Link underline='hover' onClick={() => navigate(`/profile/${currentBeer.postedBy._id}`)}>
               {currentBeer.postedBy.username}
             </Link>
           </Typography>

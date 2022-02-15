@@ -26,7 +26,6 @@ const postComment = async (req, res, next) => {
     await beerPost.save();
     await currentUser.save();
 
-    // eslint-disable-next-line no-underscore-dangle
     const postedComment = await Comment.findById(comment._id)
       .populate('author', 'username')
       .populate('post', 'name');

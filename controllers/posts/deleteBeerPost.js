@@ -6,10 +6,13 @@ import SuccessResponse from '../../utilities/response/SuccessResponse.js';
 const deleteBeerPost = async (req, res, next) => {
   try {
     const { id } = req.params;
+
     const post = await BeerPost.findById(id);
-    if (!post)
+    if (!post) {
       throw new ServerError(`Cannot delete a post with the id: ${id} as it could not be found.`, 404);
+    }
     await deletePost(post);
+
     const status = 200;
     const message = `Deleted a post with the id ${id}.`;
     const payload = { post, deleted: true };

@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import BeerPost from '../../database/models/BeerPost.js';
 import Brewery from '../../database/models/Brewery.js';
 import ServerError from '../../utilities/errors/ServerError.js';
 import SuccessResponse from '../../utilities/response/SuccessResponse.js';
 import Comment from '../../database/models/Comment.js';
+import deletePost from '../../utilities/deletion/deletePost.js';
 
 const deleteBrewery = async (req, res, next) => {
   try {
@@ -14,18 +16,13 @@ const deleteBrewery = async (req, res, next) => {
     }
 
     if (brewery.beers.length) {
-      for (const beerPostId of brewery.beers) {
+      brewery.beers.forEach(async (beerPostId) => {
         const beerPost = await BeerPost.findById(beerPostId.toString());
-
-        for (const commentId of beerPost.comments) {
-          const comment = await Comment.findById(commentId.toString());
-          await comment.deleteOne();
-        }
-
-        await beerPost.delete();
-      }
+        await deletePost(beerPost);
+      });
     }
-    brewery.deleteOne();
+
+    await brewery.deleteOne();
 
     const status = 200;
     const payload = { brewery, deleted: true };

@@ -34,6 +34,7 @@ import EditBrewery from './pages/breweryPages/EditBrewery';
 /* Misc. Pages */
 import Home from './pages/miscPages/Home';
 import NotFound from './pages/miscPages/NotFound';
+import EditEmail from './pages/userAccountPages/EditEmail';
 
 const App = () => {
   const reducer = (currentUser, action) => {
@@ -77,7 +78,7 @@ const App = () => {
                 <Route path='/account-settings' element={<AccountSettingsPage />} />
                 <Route path='/updateusername' element={<EditUsername />} />
                 <Route path='/updatename' element={<EditName />} />
-                <Route path='/updateemail' element={<EditUsername />} />
+                <Route path='/updateemail' element={<EditEmail />} />
                 <Route path='/confirmaccount/:userId/:confirmationToken' element={<ConfirmAccount />} />
                 <Route path='/forgotpassword' element={<PasswordResetPage />} />
 

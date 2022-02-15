@@ -20,11 +20,11 @@ const likeUnlikePost = async (req, res, next) => {
       await currentUser.save();
       await beer.save();
 
-      res.json(
+      next(
         new SuccessResponse(
           `Successfully unliked post.`,
-          undefined,
-          undefined,
+          200,
+          null,
           req.didTokenRegenerate ? req.accessToken : undefined,
         ),
       );

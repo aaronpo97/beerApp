@@ -36,6 +36,7 @@
     "test": "node index.js",
     "start": "node index.js",
     "dev": "echo \"Starting up backend application.\"  && node seed && nodemon index.js",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build",
+    "lint": "eslint './**'"
   }
 }

@@ -1,11 +1,13 @@
 import Comment from '../../database/models/Comment.js';
 import SuccessResponse from '../../utilities/response/SuccessResponse.js';
+import deleteCommentUtil from '../../utilities/deletion/deleteComment.js';
 
 const deleteComment = async (req, res, next) => {
   try {
     const { commentId } = req.params;
     const commentToDelete = await Comment.findById(commentId);
-    await commentToDelete.delete();
+
+    await deleteCommentUtil(commentToDelete._id);
     next(
       new SuccessResponse(
         'Deleted comment.',
