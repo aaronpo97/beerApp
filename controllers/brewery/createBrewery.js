@@ -29,16 +29,14 @@ const createBrewery = async (req, res, next) => {
 
     const payload = newBrewery;
     const status = 201;
-    res
-      .status(201)
-      .json(
-        new SuccessResponse(
-          `Successfully created brewery: ${breweryData.name}`,
-          status,
-          payload,
-          req.didTokenRegenerate ? req.accessToken : undefined,
-        ),
-      );
+    next(
+      new SuccessResponse(
+        `Successfully created brewery: ${breweryData.name}`,
+        status,
+        payload,
+        req.didTokenRegenerate ? req.accessToken : undefined,
+      ),
+    );
   } catch (error) {
     if (error.name === 'ValidationError') {
       next(new ServerError(`Mongoose validation error. ${error.message}`, 401));

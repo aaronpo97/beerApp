@@ -6,7 +6,7 @@ const deleteComment = async (req, res, next) => {
     const { commentId } = req.params;
     const commentToDelete = await Comment.findById(commentId);
     await commentToDelete.delete();
-    res.json(
+    next(
       new SuccessResponse(
         'Deleted comment.',
         200,

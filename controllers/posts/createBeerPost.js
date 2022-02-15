@@ -39,16 +39,14 @@ const createBeerPost = async (req, res, next) => {
       .populate('images', 'url filename')
       .populate('brewery', 'name');
 
-    res
-      .status(status)
-      .json(
-        new SuccessResponse(
-          `Post ${createdPost.name} created.`,
-          status,
-          createdPost,
-          req.newAccessToken ? req.newAccessToken : undefined,
-        ),
-      );
+    next(
+      new SuccessResponse(
+        `Post ${createdPost.name} created.`,
+        status,
+        createdPost,
+        req.newAccessToken ? req.newAccessToken : undefined,
+      ),
+    );
   } catch (error) {
     switch (error.name) {
       case 'ValidationError':

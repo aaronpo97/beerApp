@@ -24,7 +24,7 @@ const loginUser = async (req, res, next) => {
       accessToken,
       associatedBrewery: user.profile.affiliation ? user.profile.affiliation : undefined,
     };
-    res.json(
+    next(
       new SuccessResponse(
         'User logged in',
         status,

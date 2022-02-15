@@ -16,11 +16,11 @@ const doesUserExist = async (req, res, next) => {
       emailExists: email ? !!doesEmailExist : undefined,
     };
 
-    const message = `Performed query on accounts with the given parameters: (${
-      email && `email: ${email}`
-    }${email && username && ' OR'} ${username && `username: ${username}`})`;
+    const message = `Performed query on accounts with the given parameters: (${email && `email: ${email}`}${
+      email && username && ' OR'
+    } ${username && `username: ${username}`})`;
 
-    res.json(new SuccessResponse(message, 200, payload, undefined));
+    next(new SuccessResponse(message, 200, payload, undefined));
   } catch (error) {
     next(error);
   }

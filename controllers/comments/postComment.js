@@ -31,16 +31,14 @@ const postComment = async (req, res, next) => {
       .populate('author', 'username')
       .populate('post', 'name');
 
-    res
-      .status(201)
-      .json(
-        new SuccessResponse(
-          `Posted a comment on ${beerPost.name}.`,
-          201,
-          postedComment,
-          req.newAccessToken ? req.newAccessToken : undefined,
-        ),
-      );
+    next(
+      new SuccessResponse(
+        `Posted a comment on ${beerPost.name}.`,
+        201,
+        postedComment,
+        req.newAccessToken ? req.newAccessToken : undefined,
+      ),
+    );
   } catch (error) {
     next(error);
   }

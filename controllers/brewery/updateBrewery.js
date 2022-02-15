@@ -8,17 +8,14 @@ const updateBrewery = async (req, res, next) => {
     const brewery = await Brewery.findById(id);
 
     if (!brewery)
-      throw new ServerError(
-        `Cannot update the brewery with the id of ${id} as it could not be found.`,
-        404,
-      );
+      throw new ServerError(`Cannot update the brewery with the id of ${id} as it could not be found.`, 404);
 
     await brewery.updateOne(req.body);
     await brewery.save();
     const updatedBrewery = await Brewery.findById(id);
 
     const status = 200;
-    res.json(
+    next(
       new SuccessResponse(
         `Updated brewery '${id}'`,
         status,

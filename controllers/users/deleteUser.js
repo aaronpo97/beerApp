@@ -39,16 +39,14 @@ const deleteUser = async (req, res, next) => {
 
     const status = 200;
 
-    res
-      .status(status)
-      .json(
-        new SuccessResponse(
-          'Successfully deleted user.',
-          status,
-          undefined,
-          req.didTokenRegenerate ? req.accessToken : undefined,
-        ),
-      );
+    next(
+      new SuccessResponse(
+        'Successfully deleted user.',
+        status,
+        undefined,
+        req.didTokenRegenerate ? req.accessToken : undefined,
+      ),
+    );
   } catch (error) {
     next(error);
   }

@@ -10,7 +10,7 @@ import checkIfUserExists from '../controllers/users/checkIfUserExists.js';
 import confirmUser from '../controllers/users/confirmUser.js';
 import deleteUser from '../controllers/users/deleteUser.js';
 import editUser from '../controllers/users/editUserInfo.js';
-import isAccountNotConfirmed from '../controllers/users/isAccountNotConfirmed.js';
+import isAccountNotConfirmed from '../middleware/isAccountNotConfirmed.js';
 import loginUser from '../controllers/users/loginUser.js';
 import registerUser from '../controllers/users/registerUser.js';
 import requestPasswordReset from '../controllers/users/requestPasswordReset.js';
@@ -80,13 +80,7 @@ router
   .route('/:id')
   .get(checkTokens, verifyAccessToken, isAccountConfirmed, canAccessUserInfo, viewUser)
   .put(checkTokens, verifyAccessToken, isAccountConfirmed, canAccessUserInfo, editUser)
-  .delete(
-    checkTokens,
-    verifyAccessToken,
-    isAccountConfirmed,
-    canAccessUserInfo,
-    deleteUser,
-  )
+  .delete(checkTokens, verifyAccessToken, isAccountConfirmed, canAccessUserInfo, deleteUser)
   .all(() => {
     throw new ServerError('Not allowed.', 405);
   });

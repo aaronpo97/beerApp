@@ -14,13 +14,8 @@ const editUser = async (req, res, next) => {
     const status = 200;
     const message = `Successfully edited user: ${updatedUser._id}`;
 
-    res.json(
-      new SuccessResponse(
-        message,
-        status,
-        undefined,
-        req.didTokenRegenerate ? req.accessToken : undefined,
-      ),
+    next(
+      new SuccessResponse(message, status, undefined, req.didTokenRegenerate ? req.accessToken : undefined),
     );
   } catch (error) {
     next(error);

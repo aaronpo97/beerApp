@@ -29,7 +29,7 @@ const deleteBrewery = async (req, res, next) => {
 
     const status = 200;
     const payload = { brewery, deleted: true };
-    res.json(
+    next(
       new SuccessResponse(
         `Successfully deleted brewery '${id}'.`,
         status,

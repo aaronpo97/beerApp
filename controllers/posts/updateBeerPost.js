@@ -15,7 +15,7 @@ const updateBeerPost = async (req, res, next) => {
 
     const status = 200;
 
-    res.status(200).send(
+    next(
       new SuccessResponse(
         // eslint-disable-next-line no-underscore-dangle
         `Updating beer post: ${post._id}`,

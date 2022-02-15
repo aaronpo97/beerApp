@@ -6,10 +6,10 @@ const viewProfile = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const user = await User.findById(
-      id,
-      'username dateOfBirth firstName lastName createdAt posts',
-    ).populate('posts', 'name brewery');
+    const user = await User.findById(id, 'username dateOfBirth firstName lastName createdAt posts').populate(
+      'posts',
+      'name brewery',
+    );
     const userProfileLikes = await User.findById(id, 'profile').populate({
       path: 'profile',
       populate: { path: 'likes', model: 'BeerPost' },
@@ -36,7 +36,7 @@ const viewProfile = async (req, res, next) => {
       bio: userProfileLikes.profile.bio,
     };
 
-    res.json(
+    next(
       new SuccessResponse(
         `Viewing ${user.username}'s profile.`,
         status,

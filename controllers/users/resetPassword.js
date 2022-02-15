@@ -24,7 +24,7 @@ const resetPassword = async (req, res, next) => {
     await decodedUser.setPassword(newPassword);
     await decodedUser.save();
 
-    res.json(new SuccessResponse(`Changed password for ${decodedUser.username}`, 200));
+    next(new SuccessResponse(`Changed password for ${decodedUser.username}`, 200));
   } catch (error) {
     next(error);
   }

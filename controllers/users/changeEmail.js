@@ -19,7 +19,7 @@ const changeEmail = async (req, res, next) => {
     if (!userAccount) throw new ServerError('Cannot find a user with that id. ');
     await userAccount.save();
 
-    res.json(
+    next(
       new SuccessResponse(
         `Changed email for ${userAccount.username} to ${email}.`,
         200,

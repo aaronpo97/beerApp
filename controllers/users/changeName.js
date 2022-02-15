@@ -13,7 +13,7 @@ const changeName = async (req, res, next) => {
 
     const updatedUser = await User.findById(currentUser._id);
 
-    res.json(
+    next(
       new SuccessResponse(
         `Updated the first/last name for ${updatedUser.username}`,
         200,

@@ -15,7 +15,7 @@ const requestPasswordReset = async (req, res, next) => {
     }
     const passwordResetToken = await generatePasswordResetToken(user);
     await sendPasswordResetEmail(user.email, user, passwordResetToken);
-    res.json(new SuccessResponse('Request sent.', 200));
+    next(new SuccessResponse('Request sent.', 200));
   } catch (error) {
     next(error);
   }

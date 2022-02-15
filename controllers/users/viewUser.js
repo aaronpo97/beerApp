@@ -14,7 +14,7 @@ const viewUser = async (req, res, next) => {
       populate: { path: 'affiliation', model: 'Brewery' },
     });
 
-    res.json(
+    next(
       new SuccessResponse(
         `Viewing the user with the id of: ${userToView._id}`,
         status,

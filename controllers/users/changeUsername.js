@@ -10,7 +10,7 @@ const changeUsername = async (req, res, next) => {
     await currentUser.save();
 
     const updatedUser = await User.findById(currentUser._id);
-    res.send(
+    next(
       new SuccessResponse(
         `Updated the username for ${currentUser._id}`,
         200,

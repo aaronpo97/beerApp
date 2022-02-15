@@ -11,9 +11,7 @@ const likeUnlikePost = async (req, res, next) => {
       .map((objectID) => objectID.toString())
       .includes(beer._id.toString());
 
-    const isUserListed = beer.likedBy
-      .map((objID) => objID.toString())
-      .includes(currentUser._id.toString());
+    const isUserListed = beer.likedBy.map((objID) => objID.toString()).includes(currentUser._id.toString());
     //
 
     if (isPostLikedByUser && isUserListed) {
@@ -36,17 +34,15 @@ const likeUnlikePost = async (req, res, next) => {
       await currentUser.save();
       await beer.save();
 
-      const status = 204;
-      res
-        .json(
-          new SuccessResponse(
-            `Succesfully liked post '${beer.name}'`,
-            undefined,
-            undefined,
-            req.didTokenRegenerate ? req.accessToken : undefined,
-          ),
-        )
-        .status(status);
+      const status = 200;
+      next(
+        new SuccessResponse(
+          `Succesfully liked post '${beer.name}'`,
+          status,
+          undefined,
+          req.didTokenRegenerate ? req.accessToken : undefined,
+        ),
+      );
     }
   } catch (error) {
     next(error);

@@ -8,24 +8,17 @@ const viewImage = async (req, res, next) => {
     const image = await Image.findById(id);
     if (!image) throw new ServerError(`Cannot find an image with the id of '${id}'.`, 404);
     const status = 200;
-    res
-      .json(
-        new SuccessResponse(
-          `Sending image: ${image.filename}`,
-          status,
-          image,
-          req.didTokenRegenerate ? req.accessToken : undefined,
-        ),
-      )
-      .status(status);
+    next(
+      new SuccessResponse(
+        `Sending image: ${image.filename}`,
+        status,
+        image,
+        req.didTokenRegenerate ? req.accessToken : undefined,
+      ),
+    );
   } catch (error) {
     if (error.name === 'CastError') {
-      next(
-        new ServerError(
-          `Cannot find an image with the id of '${req.params.id}' as it is invalid.`,
-          404,
-        ),
-      );
+      next(new ServerError(`Cannot find an image with the id of '${req.params.id}' as it is invalid.`, 404));
     } else {
       next(error);
     }

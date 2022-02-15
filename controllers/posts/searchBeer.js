@@ -27,7 +27,7 @@ const searchBeer = async (req, res, next) => {
     const message = `Searching by type: ${query.type}. Returned ${payload.length} result${
       payload.length !== 1 ? 's' : ''
     }.`;
-    res.json(new SuccessResponse(message, 200, payload));
+    next(new SuccessResponse(message, 200, payload));
   } catch (error) {
     next(error);
   }

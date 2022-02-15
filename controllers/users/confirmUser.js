@@ -32,16 +32,14 @@ const confirmUser = async (req, res, next) => {
     const status = 200;
     const payload = { decodedUser, confirmed: true };
 
-    res
-      .json(
-        new SuccessResponse(
-          'Account confirmed.',
-          status,
-          payload,
-          req.didTokenRegenerate ? req.accessToken : undefined,
-        ),
-      )
-      .status(200);
+    next(
+      new SuccessResponse(
+        'Account confirmed.',
+        status,
+        payload,
+        req.didTokenRegenerate ? req.accessToken : undefined,
+      ),
+    ).status(200);
   } catch (error) {
     if (error.name === 'CastError') {
       next(new ServerError('Invalid user id detected. Unable to authenticate user.', 400));

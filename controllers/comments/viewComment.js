@@ -13,7 +13,7 @@ const viewComment = async (req, res, next) => {
 
     const payload = { comment };
 
-    res.json(
+    next(
       new SuccessResponse(
         'Viewing comment',
         200,

@@ -16,7 +16,7 @@ const resendConfirmation = async (req, res, next) => {
     const status = 200;
 
     await sendConfirmationEmail(user.email, user, confirmationToken);
-    res.json(new SuccessResponse(message, status)).status(200);
+    next(new SuccessResponse(message, status));
   } catch (error) {
     next(error);
   }

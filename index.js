@@ -70,14 +70,21 @@ app.use('/api/users', userRoutes);
 app.use('/api/breweries', breweryRoutes);
 app.use('/api/images', imageRoutes);
 
+// Request handling:
+app.use((data, req, res, next) => {
+  if (data.success) {
+    res.status(data.status).json(data);
+  } else {
+    next(data);
+  }
+});
+
 // Error handling:
 
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   const { status = 500, message = 'Oh no, something went wrong.', stack } = err;
-  res
-    .status(status)
-    .json(new ErrorResponse(message, status, !inProductionMode ? stack : undefined));
+  res.status(status).json(new ErrorResponse(message, status, !inProductionMode ? stack : undefined));
 });
 
 // Serving compiled react app from ../frontend/build

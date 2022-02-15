@@ -42,7 +42,7 @@ const registerUser = async (req, res, next) => {
     if (!newUser) throw new ServerError('User registration failed.', 400);
 
     const status = 201;
-    res.status(status).json(
+    next(
       new SuccessResponse(`New user created.`, status, {
         newUser,
         refreshToken,

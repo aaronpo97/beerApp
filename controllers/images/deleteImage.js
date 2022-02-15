@@ -9,10 +9,7 @@ const deleteImage = async (req, res, next) => {
     const imageToDelete = await Image.findById(id);
 
     if (!imageToDelete)
-      throw new ServerError(
-        `Cannot delete an image with the id of ${id} as it does not exist.`,
-        404,
-      );
+      throw new ServerError(`Cannot delete an image with the id of ${id} as it does not exist.`, 404);
 
     await imageDeleter(imageToDelete);
 
@@ -22,16 +19,14 @@ const deleteImage = async (req, res, next) => {
       image: imageToDelete,
       deleted: true,
     };
-    res
-      .json(
-        new SuccessResponse(
-          `Image ${imageToDelete._id} successfully deleted.`,
-          status,
-          payload,
-          req.didTokenRegenerate ? req.accessToken : undefined,
-        ),
-      )
-      .status(status);
+    next(
+      new SuccessResponse(
+        `Image ${imageToDelete._id} successfully deleted.`,
+        status,
+        payload,
+        req.didTokenRegenerate ? req.accessToken : undefined,
+      ),
+    ).status(status);
   } catch (error) {
     next(error);
   }

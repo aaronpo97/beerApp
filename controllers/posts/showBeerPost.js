@@ -19,9 +19,8 @@ const showBeerPost = async (req, res, next) => {
     const payload = beerData;
 
     if (!payload) throw new ServerError('Could not find a post with that id.', 404);
-
     const status = 200;
-    res.json(
+    next(
       new SuccessResponse(
         `Sending data for beerpost '${id}'`,
         status,

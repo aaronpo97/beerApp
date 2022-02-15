@@ -9,7 +9,7 @@ const editComment = async (req, res, next) => {
     await Comment.updateOne({ _id: commentId }, { body });
     const updatedComment = await Comment.findById(commentId);
 
-    res.json(
+    next(
       new SuccessResponse(
         'Comment updated.',
         200,

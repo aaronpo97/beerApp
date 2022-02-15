@@ -20,16 +20,14 @@ const viewBrewery = async (req, res, next) => {
 
     const status = 200;
 
-    res
-      .json(
-        new SuccessResponse(
-          `Viewing brewery: '${brewery.name}'`,
-          status,
-          brewery,
-          req.didTokenRegenerate ? req.accessToken : undefined,
-        ),
-      )
-      .status(status);
+    next(
+      new SuccessResponse(
+        `Viewing brewery: '${brewery.name}'`,
+        status,
+        brewery,
+        req.didTokenRegenerate ? req.accessToken : undefined,
+      ),
+    );
   } catch (error) {
     const { id } = req.params;
     if (error.name === 'CastError') {

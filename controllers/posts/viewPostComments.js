@@ -10,12 +10,7 @@ const paginate = (array, pageNumber, pageSize) =>
 const viewPostComments = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const {
-      page = '1',
-      size = '5',
-      sortingDirection = 'descending',
-      sortingParam = 'timestamp',
-    } = req.query;
+    const { page = '1', size = '5', sortingDirection = 'descending', sortingParam = 'timestamp' } = req.query;
 
     const comments = await Comment.find({ post: id }).populate('author', 'username');
     const post = await BeerPost.findById(id);
@@ -25,7 +20,7 @@ const viewPostComments = async (req, res, next) => {
 
     const pageCount = Math.ceil(sortedComments.length / size);
 
-    res.json(
+    next(
       new SuccessResponse(
         `Sending page ${page} of ${pageCount} of comments for ${post.name}.`,
         200,
