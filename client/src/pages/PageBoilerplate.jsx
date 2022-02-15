@@ -14,7 +14,7 @@ import {
   MenuItem,
 } from '@mui/material';
 
-import { AuthContext } from '../../util/AuthContext';
+import { AuthContext } from '../util/AuthContext';
 
 const PageHeader = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);

@@ -8,11 +8,7 @@ import connectDB from '../database/connectDB.js';
 import Image from '../database/models/Image.js';
 import User from '../database/models/User.js';
 
-import {
-  generateBeerPosts,
-  generateFakeUsers,
-  createAdminUser,
-} from './fakeDataGenerators.js';
+import { generateBeerPosts, generateFakeUsers, createAdminUser } from './fakeDataGenerators.js';
 import Comment from '../database/models/Comment.js';
 
 dotenv.config();

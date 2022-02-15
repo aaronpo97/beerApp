@@ -70,10 +70,11 @@ app.use('/api/users', userRoutes);
 app.use('/api/breweries', breweryRoutes);
 app.use('/api/images', imageRoutes);
 
-// Request handling:
+// Response handling:
 app.use((data, req, res, next) => {
-  if (data.success) {
-    res.status(data.status).json(data);
+  const { status, success } = data;
+  if (success) {
+    res.status(status).json(data);
   } else {
     next(data);
   }

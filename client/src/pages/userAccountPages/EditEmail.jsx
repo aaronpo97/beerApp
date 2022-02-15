@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../util/AuthContext';
+import { AuthContext } from '../../util/AuthContext';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {
   Box,
@@ -17,7 +17,7 @@ import {
 
 import FormErrorAlert from '../components/utilities/FormErrorAlert';
 
-const UsernameForm = () => {
+const EditEmail = () => {
   const [currentUser, dispatch] = useContext(AuthContext);
 
   useEffect(() => {
@@ -113,11 +113,7 @@ const UsernameForm = () => {
         {showMessage ? (
           <Alert
             action={
-              <Button
-                color='inherit'
-                size='small'
-                onClick={() => navigate('/account-settings')}
-              >
+              <Button color='inherit' size='small' onClick={() => navigate('/account-settings')}>
                 Go back to Account Settings
               </Button>
             }
@@ -167,4 +163,4 @@ const UsernameForm = () => {
     </Container>
   );
 };
-export default UsernameForm;
+export default EditEmail;

@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Container, Box, Typography, Button, Grid } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-import EditBeerForm from '../components/beer_components/EditBeerForm';
+import EditBeerForm from '../../components/beer_components/EditBeerForm';
 
 const EditBeer = () => {
   const navigate = useNavigate();

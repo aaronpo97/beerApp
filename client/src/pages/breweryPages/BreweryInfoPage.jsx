@@ -3,9 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import { Container, Box, LinearProgress } from '@mui/material';
 
-import BreweryInfo from '../components/brewery_components/BreweryInfo';
+import BreweryInfo from '../../components/brewery_components/BreweryInfo';
 
-import ImageCarousel from '../components/utilities/ImageCarousel';
+import ImageCarousel from '../../components/utilities/ImageCarousel';
 const BreweryInfoPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();

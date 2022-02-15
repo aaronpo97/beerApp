@@ -1,31 +1,15 @@
 import { useContext, useState, useEffect } from 'react';
 
-import { AuthContext } from '../util/AuthContext';
+import { AuthContext } from '../../util/AuthContext';
 
-import {
-  Container,
-  Typography,
-  Box,
-  Link,
-  FormControl,
-  TextField,
-  Grid,
-  Button,
-  Alert,
-} from '@mui/material';
+import { Container, Typography, Box, Link, FormControl, TextField, Grid, Button, Alert } from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
-import ViewAccountInfo from '../components/user_functions/ViewAccountInfo';
+import ViewAccountInfo from '../../components/user_functions/ViewAccountInfo';
 
 const AccountSettingsPage = () => {
   const navigate = useNavigate();
   const [currentUser] = useContext(AuthContext);
-
-  const [formValues, setFormValues] = useState({});
-
-  useEffect(() => {
-    setFormValues(currentUser);
-  }, [currentUser]);
 
   if (!currentUser) navigate('/');
   return (

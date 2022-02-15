@@ -5,8 +5,8 @@ import { Container, Box, Typography, Button, Grid } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import EditBreweryForm from '../components/brewery_components/EditBreweryForm';
-import { AuthContext } from '../util/AuthContext';
+import EditBreweryForm from '../../components/brewery_components/EditBreweryForm';
+import { AuthContext } from '../../util/AuthContext';
 
 const EditBrewery = () => {
   const navigate = useNavigate();
@@ -39,8 +39,7 @@ const EditBrewery = () => {
       const { name, description } = data.payload;
       setFormValues({ name, description });
 
-      localStorage['access-token'] =
-        response.newAccessToken || localStorage['access-token'];
+      localStorage['access-token'] = response.newAccessToken || localStorage['access-token'];
       if (response.status === 401) {
         localStorage.clear();
       }

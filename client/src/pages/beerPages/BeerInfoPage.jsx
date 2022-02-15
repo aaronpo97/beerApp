@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 
 import { Container, Box, Grid, LinearProgress, Pagination } from '@mui/material';
 
-import BeerInfoHeader from '../components/beer_components/BeerInfoHeader';
-import ImageCarousel from '../components/utilities/ImageCarousel';
-import BeerAbout from '../components/beer_components/BeerAbout';
+import BeerInfoHeader from '../../components/beer_components/BeerInfoHeader';
+import ImageCarousel from '../../components/utilities/ImageCarousel';
+import BeerAbout from '../../components/beer_components/BeerAbout';
 
-import CommentCard from '../components/comment_components/CommentCard';
-import CommentCreateForm from '../components/comment_components/CommentCreateForm';
+import CommentCard from '../../components/comment_components/CommentCard';
+import CommentCreateForm from '../../components/comment_components/CommentCreateForm';
 
 const InfoPage = () => {
   const navigate = useNavigate();
@@ -52,9 +52,11 @@ const InfoPage = () => {
 
   const [pageCount, setPageCount] = useState(1);
   const [sortingParam] = useState('timestamp');
+  const [deletedComments, setDeletedComments] = useState([]);
+  const [newComments, setNewComments] = useState([]);
 
   useEffect(() => {
-    const getComments = async () => {
+    (async () => {
       if (!currentBeer) return;
       const url = `/api/beers/${currentBeer._id}/comments?page=${commentsPageNum}&size=4&sortingParam=${sortingParam}`;
       const headers = {
@@ -65,9 +67,8 @@ const InfoPage = () => {
       const data = await response.json();
       setComments(data.payload.paginatedComments);
       setPageCount(data.payload.pageCount);
-    };
-    getComments();
-  }, [currentBeer, commentsPageNum, sortingParam]);
+    })();
+  }, [currentBeer, commentsPageNum, sortingParam, deletedComments, newComments]);
 
   return currentBeer ? (
     <>
@@ -89,6 +90,9 @@ const InfoPage = () => {
                 currentBeer={currentBeer}
                 comments={comments}
                 setComments={setComments}
+                setCommentsPageNum={setCommentsPageNum}
+                newComments={newComments}
+                setNewComments={setNewComments}
               />
             </Grid>
             <Grid item md={7.5}>
@@ -99,6 +103,8 @@ const InfoPage = () => {
                     comment={comment}
                     setComments={setComments}
                     comments={comments}
+                    setDeletedComments={setDeletedComments}
+                    deletedComments={deletedComments}
                   />
                 ))}
               </Box>

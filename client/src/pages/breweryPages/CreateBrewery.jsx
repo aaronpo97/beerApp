@@ -3,7 +3,7 @@ import { Container, Box, Typography, Button, Grid } from '@mui/material';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
-import CreateBreweryForm from '../components/brewery_components/CreateBreweryForm';
+import CreateBreweryForm from '../../components/brewery_components/CreateBreweryForm';
 
 const CreateBrewery = () => {
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import { Typography, AlertTitle, Alert, Container } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { AuthContext } from '../util/AuthContext';
+import { AuthContext } from '../../util/AuthContext';
 
 const ConfirmAccount = () => {
   const { userId, confirmationToken } = useParams();

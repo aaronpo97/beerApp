@@ -111,8 +111,7 @@ export const generateBeerPosts = async (adminUser) => {
 
 export const generateFakeUsers = async () => {
   for (const user of userData) {
-    const { email, username, dateOfBirth, firstName, lastName, profile, password, image } =
-      user;
+    const { email, username, dateOfBirth, firstName, lastName, profile, password, image } = user;
     const userToRegister = new User({
       email,
       username,

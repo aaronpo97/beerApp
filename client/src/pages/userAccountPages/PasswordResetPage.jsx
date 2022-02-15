@@ -10,7 +10,7 @@ import {
   Card,
   CardContent,
 } from '@mui/material';
-import { AuthContext } from '../util/AuthContext';
+import { AuthContext } from '../../util/AuthContext';
 
 const PasswordResetPage = () => {
   const currentUser = useContext(AuthContext);
@@ -76,8 +76,8 @@ const PasswordResetPage = () => {
             <Card>
               <CardContent>
                 <Typography variant='body2'>
-                  Tell us the username and email address associated with your Biergarten
-                  account, and we will send you an email with a link to reset your password.
+                  Tell us the username and email address associated with your Biergarten account, and we will
+                  send you an email with a link to reset your password.
                 </Typography>
               </CardContent>
             </Card>

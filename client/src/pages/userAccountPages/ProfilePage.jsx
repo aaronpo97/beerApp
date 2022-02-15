@@ -9,8 +9,8 @@ import Typography from '@mui/material/Typography';
 
 import ms from 'ms';
 import { useContext } from 'react';
-import { AuthContext } from '../util/AuthContext';
-import AccountNotConfirmedDialog from '../components/confirmAccount_components/AccountNotConfirmedDialog';
+import { AuthContext } from '../../util/AuthContext';
+import AccountNotConfirmedDialog from '../../components/confirmAccount_components/AccountNotConfirmedDialog';
 
 const ProfileHeader = ({ user }) => {
   return (
@@ -27,9 +27,7 @@ const ProfileHeader = ({ user }) => {
           </Grid>
 
           <Grid item md={10}>
-            <CardContent
-              sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
-            >
+            <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               <Box>
                 <Typography variant='h1' component='div'>
                   {user.firstName} {user.lastName}
@@ -92,8 +90,7 @@ const ProfilePage = () => {
       }
       const result = await response.json();
       if (!result.payload) return;
-      localStorage['access-token'] =
-        result.payload.newAccessToken || localStorage['access-token'];
+      localStorage['access-token'] = result.payload.newAccessToken || localStorage['access-token'];
 
       setUser(result.payload);
     };

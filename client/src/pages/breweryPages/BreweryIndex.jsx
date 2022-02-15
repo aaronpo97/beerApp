@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Box, Grid, Typography, Button } from '@mui/material';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 
-import ImageCarousel from '../components/utilities/ImageCarousel';
-import BreweryList from '../components/brewery_components/BreweryList';
-import AccountNotConfirmedDialog from '../components/confirmAccount_components/AccountNotConfirmedDialog';
+import ImageCarousel from '../../components/utilities/ImageCarousel';
+import BreweryList from '../../components/brewery_components/BreweryList';
+import AccountNotConfirmedDialog from '../../components/confirmAccount_components/AccountNotConfirmedDialog';
 
-import images from '../util/images';
-import { AuthContext } from '../util/AuthContext';
+import images from '../../util/images';
+import { AuthContext } from '../../util/AuthContext';
 
 const BreweryIndex = () => {
   const [breweries, setBreweries] = useState([]);
@@ -44,8 +44,7 @@ const BreweryIndex = () => {
       }
       const result = await response.json();
       if (!result.payload) return;
-      localStorage['access-token'] =
-        result.payload.newAccessToken || localStorage['access-token'];
+      localStorage['access-token'] = result.payload.newAccessToken || localStorage['access-token'];
       setBreweries(result.payload || []);
     };
     fetchData();

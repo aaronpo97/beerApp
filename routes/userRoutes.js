@@ -10,7 +10,6 @@ import checkIfUserExists from '../controllers/users/checkIfUserExists.js';
 import confirmUser from '../controllers/users/confirmUser.js';
 import deleteUser from '../controllers/users/deleteUser.js';
 import editUser from '../controllers/users/editUserInfo.js';
-import isAccountNotConfirmed from '../middleware/isAccountNotConfirmed.js';
 import loginUser from '../controllers/users/loginUser.js';
 import registerUser from '../controllers/users/registerUser.js';
 import requestPasswordReset from '../controllers/users/requestPasswordReset.js';
@@ -24,6 +23,7 @@ import viewUser from '../controllers/users/viewUser.js';
 import canAccessUserInfo from '../middleware/auth/canAccessUserInfo.js';
 import checkTokens from '../middleware/auth/checkTokens.js';
 import isAccountConfirmed from '../middleware/auth/isAccountConfirmed.js';
+import isAccountNotConfirmed from '../middleware/isAccountNotConfirmed.js';
 import verifyAccessToken from '../middleware/auth/verifyAccessToken.js';
 
 /* ----- Utilities ----- */

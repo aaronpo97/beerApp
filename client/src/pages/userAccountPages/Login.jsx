@@ -1,11 +1,11 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { AuthContext } from '../util/AuthContext';
+import { AuthContext } from '../../util/AuthContext';
 import { Grid } from '@mui/material';
 
-import LoginForm from '../components/user_functions/LoginForm';
-import SideImage from '../components/utilities/SideImage';
+import LoginForm from '../../components/user_functions/LoginForm';
+import SideImage from '../../components/utilities/SideImage';
 
 const Login = () => {
   const [formValues, setFormValues] = useState({ username: '', password: '' });
@@ -35,10 +35,7 @@ const Login = () => {
 
       const attemptedLogin = await loginUser();
 
-      if (
-        attemptedLogin.message === 'Bad Request' ||
-        attemptedLogin.message === 'Unauthorized'
-      ) {
+      if (attemptedLogin.message === 'Bad Request' || attemptedLogin.message === 'Unauthorized') {
         const errors = {};
 
         if (!formValues.username) {

@@ -1,17 +1,8 @@
 import { useState } from 'react';
-import {
-  Box,
-  FormControl,
-  TextField,
-  Button,
-  Rating,
-  Typography,
-  Card,
-  CardContent,
-} from '@mui/material';
+import { Box, FormControl, TextField, Button, Rating, Typography, Card, CardContent } from '@mui/material';
 import FormErrorAlert from '../utilities/FormErrorAlert';
 
-const CommentCreateForm = ({ currentBeer, commentsList, setCommentsList }) => {
+const CommentCreateForm = ({ currentBeer, setCommentsPageNum, newComments, setNewComments }) => {
   const [commentBody, setCommentBody] = useState('');
   const [commentRating, setCommentRating] = useState(0);
 
@@ -46,17 +37,14 @@ const CommentCreateForm = ({ currentBeer, commentsList, setCommentsList }) => {
         },
         body: JSON.stringify({ commentBody, commentRating }),
       };
-      const response = await fetch(
-        `/api/beers/${currentBeer._id}/comments`,
-        requestOptions,
-      );
-      const data = await response.json();
-      console.log(data.payload);
+      const response = await fetch(`/api/beers/${currentBeer._id}/comments`, requestOptions);
+
       if (response.status !== 201) {
         throw new Error('Comment did not submit.');
       }
-      console.log('changed');
-      setCommentsList([data.payload, ...commentsList]);
+      const data = await response.json();
+      setCommentsPageNum(1);
+      setNewComments([...newComments, data.payload]);
     };
 
     validateData()
@@ -89,10 +77,7 @@ const CommentCreateForm = ({ currentBeer, commentsList, setCommentsList }) => {
         />
         {formErrors.commentBody && <FormErrorAlert error={formErrors.commentBody} />}{' '}
         <Box sx={{ mt: 2 }}>
-          <Rating
-            onChange={(e) => setCommentRating(parseInt(e.target.value))}
-            value={commentRating}
-          />
+          <Rating onChange={(e) => setCommentRating(parseInt(e.target.value))} value={commentRating} />
         </Box>
         {formErrors.commentRating && <FormErrorAlert error={formErrors.commentRating} />}
         <Button sx={{ mt: 1 }} variant='contained' type='submit'>

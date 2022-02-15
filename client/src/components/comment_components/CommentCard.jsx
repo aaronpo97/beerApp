@@ -12,17 +12,15 @@ import {
   Tooltip,
   IconButton,
   Rating,
-  Box,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ms from 'ms';
 
-const CommentCard = ({ comment, comments, setComments }) => {
+const CommentCard = ({ comment, comments, setComments, deletedComments, setDeletedComments }) => {
   const [currentUser] = useContext(AuthContext);
 
   const navigate = useNavigate();
 
-  const handleCommentEdit = () => {};
   const handleCommentDelete = (comment) => {
     const sendDeleteRequest = async () => {
       const requestOptions = {
@@ -32,22 +30,17 @@ const CommentCard = ({ comment, comments, setComments }) => {
           'x-auth-token': localStorage['refresh-token'],
         },
       };
-
       const url = `/api/beers/${comment.post._id}/comments/${comment._id}`;
       const response = await fetch(url, requestOptions);
       if (response.status !== 200) throw new Error('Could not delete that comment.');
+
+      setDeletedComments([...deletedComments, comment]);
       return await response.json();
     };
 
     sendDeleteRequest()
-      .then(() => {
-        setComments(
-          comments.filter((postedComment) => postedComment._id !== comment._id),
-        );
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+      .then(() => setComments(comments.filter((postedComment) => postedComment._id !== comment._id)))
+      .catch((error) => console.error(error));
   };
 
   return (
@@ -56,10 +49,7 @@ const CommentCard = ({ comment, comments, setComments }) => {
         <Grid container spacing={2}>
           <Grid item md={2}>
             <Avatar />
-            <Link
-              underline='hover'
-              onClick={() => navigate(`/profile/${comment.author._id}`)}
-            >
+            <Link underline='hover' onClick={() => navigate(`/profile/${comment.author._id}`)}>
               <Typography variant='body2' sx={{ mt: 1 }} noWrap>
                 {comment.author.username}
               </Typography>

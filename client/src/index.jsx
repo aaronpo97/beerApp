@@ -1,4 +1,5 @@
 import { StrictMode, useReducer } from 'react';
+import { AuthContext } from './util/AuthContext';
 
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -6,29 +7,33 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import theme from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
-import PageHeader from './components/utilities/PageHeader';
+import Boilerplate from './pages/PageBoilerplate';
 
-import BeerInfoPage from './routes/BeerInfoPage';
-import BeerIndex from './routes/BeerIndex';
-import Home from './routes/Home';
-import Login from './routes/Login';
-import Register from './routes/Register';
-import CreateBeer from './routes/CreateBeer';
-import BreweryIndex from './routes/BreweryIndex';
-import BreweryInfoPage from './routes/BreweryInfoPage';
-import ConfirmAccount from './routes/ConfirmAccount';
-import ProfilePage from './routes/ProfilePage';
-import CreateBrewery from './routes/CreateBrewery';
-import EditBrewery from './routes/EditBrewery';
-import EditUsername from './routes/EditUsername';
-// import SearchBeers from './routes/SearchBeers';
-import EditBeer from './routes/EditBeerPage';
-import NotFound from './routes/NotFound';
-import PasswordResetPage from './routes/PasswordResetPage';
+/* Beer Pages */
+import BeerIndex from './pages/beerPages/BeerIndex';
+import BeerInfoPage from './pages/beerPages/BeerInfoPage';
+import CreateBeer from './pages/beerPages/CreateBeer';
+import EditBeer from './pages/beerPages/EditBeerPage';
 
-import AccountSettingsPage from './routes/AccountSettingsPage';
+/* User and Account Pages */
+import AccountSettingsPage from './pages/userAccountPages/AccountSettingsPage';
+import ConfirmAccount from './pages/userAccountPages/ConfirmAccount';
+import EditName from './pages/userAccountPages/EditName';
+import EditUsername from './pages/userAccountPages/EditUsername';
+import Login from './pages/userAccountPages/Login';
+import PasswordResetPage from './pages/userAccountPages/PasswordResetPage';
+import ProfilePage from './pages/userAccountPages/ProfilePage';
+import Register from './pages/userAccountPages/Register';
 
-import { AuthContext } from './util/AuthContext';
+/* Brewery Pages */
+import BreweryIndex from './pages/breweryPages/BreweryIndex';
+import BreweryInfoPage from './pages/breweryPages/BreweryInfoPage';
+import CreateBrewery from './pages/breweryPages/CreateBrewery';
+import EditBrewery from './pages/breweryPages/EditBrewery';
+
+/* Misc. Pages */
+import Home from './pages/miscPages/Home';
+import NotFound from './pages/miscPages/NotFound';
 
 const App = () => {
   const reducer = (currentUser, action) => {
@@ -55,7 +60,7 @@ const App = () => {
 
           <AuthContext.Provider value={useReducer(reducer, {})}>
             <Routes>
-              <Route path='/' element={<PageHeader />}>
+              <Route path='/' element={<Boilerplate />}>
                 <Route path='' element={<Home />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
@@ -63,7 +68,7 @@ const App = () => {
                 <Route path='/beers/create' element={<CreateBeer />} />
                 <Route path='/beers/:id' element={<BeerInfoPage />} />
                 <Route path='/beers/:id/edit' element={<EditBeer />} />
-                {/* <Route path='/beers/search' element={<SearchBeers />} /> */}
+                <Route path='/beers/search' element={<></>} />
                 <Route path='/breweries' element={<BreweryIndex />} />
                 <Route path='/breweries/create' element={<CreateBrewery />} />
                 <Route path='/breweries/:id' element={<BreweryInfoPage />} />
@@ -71,10 +76,9 @@ const App = () => {
                 <Route path='/profile/:id' element={<ProfilePage />} />
                 <Route path='/account-settings' element={<AccountSettingsPage />} />
                 <Route path='/updateusername' element={<EditUsername />} />
-                <Route
-                  path='/confirmaccount/:userId/:confirmationToken'
-                  element={<ConfirmAccount />}
-                />
+                <Route path='/updatename' element={<EditName />} />
+                <Route path='/updateemail' element={<EditUsername />} />
+                <Route path='/confirmaccount/:userId/:confirmationToken' element={<ConfirmAccount />} />
                 <Route path='/forgotpassword' element={<PasswordResetPage />} />
 
                 <Route path='*' element={<NotFound />} />
