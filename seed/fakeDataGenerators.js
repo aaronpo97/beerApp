@@ -33,7 +33,7 @@ export const createAdminUser = async () => {
 };
 
 export const generateBeerPosts = async (adminUser) => {
-  for (const brewery of breweryData) {
+  breweryData.forEach(async (brewery) => {
     const breweryPost = new Brewery({ postedBy: adminUser, ...brewery.info });
     await breweryPost.save();
 
@@ -60,7 +60,7 @@ export const generateBeerPosts = async (adminUser) => {
     breweryPost.images = [breweryImageOne, breweryImageTwo, breweryImageThree];
     await breweryPost.save();
 
-    for (const beer of brewery.beers) {
+    brewery.beers.forEach(async (beer) => {
       const { name, type, description, abv, ibu } = beer;
 
       const imageOne = new Image({
@@ -105,12 +105,12 @@ export const generateBeerPosts = async (adminUser) => {
       console.group();
       console.log(`${adminUser.username} just posted ${post.name} by ${breweryPost.name}`);
       console.groupEnd();
-    }
-  }
+    });
+  });
 };
 
 export const generateFakeUsers = async () => {
-  for (const user of userData) {
+  userData.forEach(async (user) => {
     const { email, username, dateOfBirth, firstName, lastName, profile, password, image } = user;
     const userToRegister = new User({
       email,
@@ -136,8 +136,8 @@ export const generateFakeUsers = async () => {
 
     console.group();
 
+    const allBeerPosts = await BeerPost.find();
     for (let n = 0; n < 17; n += 1) {
-      const allBeerPosts = await BeerPost.find();
       const randomBeerPost = allBeerPosts[Math.floor(Math.random() * allBeerPosts.length)];
 
       const isPostLikedByUser = userToRegister.profile.likes
@@ -183,5 +183,5 @@ export const generateFakeUsers = async () => {
     console.groupEnd();
 
     await userToRegister.save();
-  }
+  });
 };
