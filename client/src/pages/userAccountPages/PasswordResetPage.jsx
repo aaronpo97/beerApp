@@ -1,20 +1,7 @@
-import { useEffect, useContext, useState } from 'react';
-import {
-  Box,
-  Container,
-  Typography,
-  FormControl,
-  Button,
-  TextField,
-  Grid,
-  Card,
-  CardContent,
-} from '@mui/material';
-import { AuthContext } from '../../util/AuthContext';
+import { useState } from 'react';
+import { Box, Typography, Button, TextField, Avatar } from '@mui/material';
 
 const PasswordResetPage = () => {
-  const currentUser = useContext(AuthContext);
-
   const [formValues, setFormValues] = useState({});
   const [formErrors, setFormErrors] = useState({});
 
@@ -60,70 +47,59 @@ const PasswordResetPage = () => {
       .catch((error) => console.error(error));
   };
 
-  useEffect(() => {
-    console.log(currentUser);
-  }, [currentUser]);
-
   const handleFormInputChange = (event) => {
     setFormValues({ ...formValues, [event.target.name]: event.target.value });
   };
-  return (
-    <Box>
-      <Container sx={{ mt: 5 }}>
-        <Typography variant='h1'>Forgot your password?</Typography>
-        <Grid container spacing={1} sx={{ mt: 2 }}>
-          <Grid md={6} item>
-            <Card>
-              <CardContent>
-                <Typography variant='body2'>
-                  Tell us the username and email address associated with your Biergarten account, and we will
-                  send you an email with a link to reset your password.
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
 
-          <Grid md={6} item>
-            <Box component='form' onSubmit={handleSubmit}>
-              <FormControl fullWidth>
-                <TextField
-                  margin='normal'
-                  required
-                  id='username'
-                  label='Username'
-                  name='username'
-                  value={formValues.username}
-                  sx={{ mb: 0 }}
-                  autoComplete='username'
-                  autoFocus
-                  onChange={handleFormInputChange}
-                  error={formErrors.username}
-                >
-                  Email
-                </TextField>
-                <TextField
-                  margin='normal'
-                  required
-                  id='email'
-                  label='email'
-                  name='email'
-                  value={formValues.email}
-                  sx={{ mb: 0 }}
-                  autoComplete='email'
-                  autoFocus
-                  onChange={handleFormInputChange}
-                  error={formErrors.email}
-                >
-                  Username
-                </TextField>
-                <Button variant='contained' type='submit' sx={{ mt: 2 }}>
-                  Request password reset
-                </Button>
-              </FormControl>
-            </Box>
-          </Grid>
-        </Grid>
-      </Container>
+  return (
+    <Box sx={{ my: 8, mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}></Avatar>
+      <Typography variant='h3' component='h1'>
+        Forgot your password?
+      </Typography>
+      <Box component='div' sx={{ mt: 2, mb: 1 }}>
+        <Typography variant='body2'>
+          Tell us the username and email address associated with your Biergarten account, and we will send you
+          an email with a link to reset your password.
+        </Typography>
+      </Box>
+      <Box sx={{ width: '75%' }} component='form' onSubmit={handleSubmit}>
+        <TextField
+          margin='normal'
+          fullWidth
+          required
+          id='username'
+          label='Username'
+          name='username'
+          value={formValues.username}
+          sx={{ mb: 0 }}
+          autoComplete='username'
+          autoFocus
+          onChange={handleFormInputChange}
+          error={formErrors.username}
+        >
+          Email
+        </TextField>
+        <TextField
+          margin='normal'
+          fullWidth
+          required
+          id='email'
+          label='email'
+          name='email'
+          value={formValues.email}
+          sx={{ mb: 0 }}
+          autoComplete='email'
+          autoFocus
+          onChange={handleFormInputChange}
+          error={formErrors.email}
+        >
+          Username
+        </TextField>
+        <Button variant='contained' type='submit' fullWidth sx={{ mt: 2 }}>
+          Request password reset
+        </Button>
+      </Box>
     </Box>
   );
 };
