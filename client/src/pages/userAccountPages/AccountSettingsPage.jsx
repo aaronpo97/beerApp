@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { AuthContext } from '../../util/AuthContext';
 
-import { Container, Typography, Box, Link, Grid } from '@mui/material';
+import { Container, Typography, Box } from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
 import ViewAccountInfo from '../../components/user_functions/ViewAccountInfo';
@@ -20,18 +20,6 @@ const AccountSettingsPage = () => {
           <Typography variant='h2'>Personal Information</Typography>
 
           <ViewAccountInfo />
-
-          <Grid container>
-            <Grid item md={4} sx={{ textAlign: 'center' }}>
-              <Link onClick={() => navigate('/updateusername')}>Update username</Link>
-            </Grid>
-            <Grid item md={4} sx={{ textAlign: 'center' }}>
-              <Link onClick={() => navigate('/updatename')}>Update name</Link>
-            </Grid>
-            <Grid item md={4} sx={{ textAlign: 'center' }}>
-              <Link onClick={() => navigate('/updateemail')}>Update email</Link>
-            </Grid>
-          </Grid>
         </Box>
       </Container>
     )

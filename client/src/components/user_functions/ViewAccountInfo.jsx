@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../util/AuthContext';
-import { FormControl, Grid, TextField, Box } from '@mui/material';
+import { FormControl, Grid, TextField, Box, Link, Typography } from '@mui/material';
 
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -8,7 +9,7 @@ import DatePicker from '@mui/lab/DatePicker';
 
 const ViewAccountInfo = () => {
   const [currentUser] = useContext(AuthContext);
-
+  const navigate = useNavigate();
   const [formValues, setFormValues] = useState({});
 
   useEffect(() => {
@@ -32,6 +33,11 @@ const ViewAccountInfo = () => {
             autoFocus
             readOnly
           />
+          <Link onClick={() => navigate('/user/updatename')}>
+            <Typography variant='caption' sx={{}}>
+              Update name
+            </Typography>
+          </Link>
         </Grid>
         <Grid item md={6}>
           <TextField
@@ -50,35 +56,46 @@ const ViewAccountInfo = () => {
           />
         </Grid>
       </Grid>
-      <TextField
-        InputProps={{ readOnly: true }}
-        margin='normal'
-        required
-        fullWidth
-        id='email'
-        label='Email'
-        name='email'
-        value={formValues.email ?? ''}
-        type='email'
-        autoComplete='email'
-        autoFocus
-        readOnly
-      />
 
-      <TextField
-        InputProps={{ readOnly: true }}
-        margin='normal'
-        required
-        fullWidth
-        id='username'
-        label='Username'
-        name='username'
-        value={formValues.username ?? ''}
-        type='username'
-        autoComplete='username'
-        autoFocus
-        readOnly
-      />
+      <Box>
+        <TextField
+          InputProps={{ readOnly: true }}
+          margin='normal'
+          required
+          fullWidth
+          id='email'
+          label='Email'
+          name='email'
+          value={formValues.email ?? ''}
+          type='email'
+          autoComplete='email'
+          autoFocus
+          readOnly
+        />
+
+        <Typography variant='caption' sx={{}}>
+          <Link onClick={() => navigate('/user/updateemail')}>Update email</Link>
+        </Typography>
+      </Box>
+      <Box>
+        <TextField
+          InputProps={{ readOnly: true }}
+          margin='normal'
+          required
+          fullWidth
+          id='username'
+          label='Username'
+          name='username'
+          value={formValues.username ?? ''}
+          type='username'
+          autoComplete='username'
+          autoFocus
+          readOnly
+        />
+        <Typography variant='caption' sx={{}}>
+          <Link onClick={() => navigate('/user/updateusername')}>Update username</Link>
+        </Typography>
+      </Box>
       <>
         <Box sx={{ mt: 3 }} />
         <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -104,6 +121,10 @@ const ViewAccountInfo = () => {
         </LocalizationProvider>
       </>
       <Box sx={{ mt: 3 }} />
+
+      <Typography variant='caption' sx={{}}>
+        <Link onClick={() => navigate('/user/updatepassword')}>Update password</Link>
+      </Typography>
     </FormControl>
   );
 };

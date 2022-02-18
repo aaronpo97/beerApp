@@ -4,24 +4,151 @@ import { Grid, Avatar, Button, TextField, Box, Typography, Alert } from '@mui/ma
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
+import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router';
+import ms from 'ms';
 
-const RegistrationForm = ({
-  formValues,
-  formErrors,
-  handleFormInputChange,
-  handleDatePickerChange,
-  handleSubmit,
-}) => {
-  const { firstName, lastName, password, username, email, dateOfBirth, confirmPassword } =
-    formValues;
+import { AuthContext } from '../../util/AuthContext';
+
+const RegistrationForm = () => {
+  const initialRegistrationData = {
+    username: '',
+    dateOfBirth: null,
+    password: '',
+    confirmPassword: '',
+    email: '',
+    firstName: '',
+    lastName: '',
+  };
+
+  const blocklistedWords = ['1^Ce9T]Re-J|']; //test phrase
+
+  const navigate = useNavigate();
+
+  const [, dispatch] = useContext(AuthContext);
+  const [formValues, setFormValues] = useState(initialRegistrationData);
+  const [formErrors, setFormErrors] = useState({});
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const validateData = async () => {
+      const { firstName, lastName, password, username, email, dateOfBirth, confirmPassword } = formValues;
+      const errors = {};
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
+      const checkUserInDB = async (usernameQuery, emailQuery) => {
+        try {
+          const response = await fetch(
+            `/api/users/checkifuserexists?username=${usernameQuery}&email=${emailQuery}`,
+          );
+          const data = await response.json();
+          return data.payload;
+        } catch (error) {
+          return { message: 'username and/or email was blank.' };
+        }
+      };
+
+      const checkDateOfBirth = () => {
+        if (!dateOfBirth) return false;
+        const minimumDOB = Date.now() - ms('19 years');
+
+        return dateOfBirth <= minimumDOB;
+      };
+      const userQueryResponse = await checkUserInDB(username, email);
+
+      if (!username) {
+        errors.username = 'Username is required.';
+      } else if (blocklistedWords.includes(username)) {
+        errors.username = 'That username is not allowed.';
+      } else if (userQueryResponse.usernameExists) {
+        errors.username = 'That username is taken.';
+      }
+
+      if (!dateOfBirth) {
+        errors.dateOfBirth = 'Date of birth is required.';
+      } else if (!checkDateOfBirth()) {
+        errors.dateOfBirth = `You are not old enough to use this application.`;
+      }
+
+      if (!password) {
+        errors.password = 'Password is required.';
+      }
+      if (!confirmPassword) {
+        errors.confirmPassword = 'Please confirm your password.';
+      } else if (password !== confirmPassword) {
+        errors.confirmPassword = 'Password and confirm password do not match.';
+      }
+
+      if (!email) {
+        errors.email = 'Email is required.';
+      } else if (!emailRegex.test(email)) {
+        errors.email = 'That email is invalid.';
+      } else if (userQueryResponse.emailExists) {
+        errors.email = 'That email is already associated with an account.';
+      }
+
+      if (!firstName) {
+        errors.firstName = 'First name is required.';
+      }
+      if (!lastName) {
+        errors.lastName = 'Last name is required.';
+      }
+
+      if (Object.keys(errors).length) {
+        setFormErrors(errors);
+        throw new Error('Form validation failed.');
+      }
+    };
+
+    const registerUser = async () => {
+      const url = '/api/users/register';
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formValues, username: formValues.username.toLowerCase() }),
+      };
+
+      const response = await fetch(url, requestOptions);
+      if (response.status !== 201) throw new Error('Account not registered!');
+      const data = await response.json();
+
+      dispatch({ type: 'UPDATE_CURRENT_USER', payload: data.payload.newUser });
+
+      return data;
+    };
+
+    const handleLoginAndRedirect = (data) => {
+      //login user with new credentials
+      localStorage['access-token'] = data.payload.accessToken;
+      localStorage['refresh-token'] = data.payload.refreshToken;
+
+      //take user to profile page, where they are prompted to check email for confirmation link
+      navigate(`/profile/${data.payload.newUser._id}`);
+    };
+
+    //function calls
+    validateData()
+      .then(() => registerUser())
+      .then((data) => handleLoginAndRedirect(data))
+      .catch((err) => console.log(err));
+  };
+
+  const handleFormInputChange = (event) => {
+    setFormValues({ ...formValues, [event.target.name]: event.target.value });
+  };
+
+  const handleDatePickerChange = (value) => {
+    setFormValues({ ...formValues, dateOfBirth: value });
+  };
+
+  const { firstName, lastName, password, username, email, dateOfBirth, confirmPassword } = formValues;
 
   return (
     <Box sx={{ width: '100%' }} square>
-      <Box
-        sx={{ my: 8, mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-      >
+      <Box sx={{ my: 8, mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}></Avatar>
-        <Typography component='h1' variant='h5'>
+        <Typography component='h1' variant='h3'>
           Create an Account
         </Typography>
 

@@ -24,6 +24,8 @@ import Login from './pages/userAccountPages/Login';
 import PasswordResetPage from './pages/userAccountPages/PasswordResetPage';
 import ProfilePage from './pages/userAccountPages/ProfilePage';
 import Register from './pages/userAccountPages/Register';
+import EditEmail from './pages/userAccountPages/EditEmail';
+import ChangePasswordPage from './pages/userAccountPages/ChangePasswordPage';
 
 /* Brewery Pages */
 import BreweryIndex from './pages/breweryPages/BreweryIndex';
@@ -34,7 +36,6 @@ import EditBrewery from './pages/breweryPages/EditBrewery';
 /* Misc. Pages */
 import Home from './pages/miscPages/Home';
 import NotFound from './pages/miscPages/NotFound';
-import EditEmail from './pages/userAccountPages/EditEmail';
 
 const App = () => {
   const reducer = (currentUser, action) => {
@@ -63,24 +64,25 @@ const App = () => {
             <Routes>
               <Route path='/' element={<Boilerplate />}>
                 <Route path='' element={<Home />} />
-                <Route path='/login' element={<Login />} />
-                <Route path='/register' element={<Register />} />
+                <Route path='/account-settings' element={<AccountSettingsPage />} />
                 <Route path='/beers' element={<BeerIndex />} />
-                <Route path='/beers/create' element={<CreateBeer />} />
                 <Route path='/beers/:id' element={<BeerInfoPage />} />
                 <Route path='/beers/:id/edit' element={<EditBeer />} />
+                <Route path='/beers/create' element={<CreateBeer />} />
                 <Route path='/beers/search' element={<></>} />
                 <Route path='/breweries' element={<BreweryIndex />} />
-                <Route path='/breweries/create' element={<CreateBrewery />} />
                 <Route path='/breweries/:id' element={<BreweryInfoPage />} />
                 <Route path='/breweries/:id/edit' element={<EditBrewery />} />
-                <Route path='/profile/:id' element={<ProfilePage />} />
-                <Route path='/account-settings' element={<AccountSettingsPage />} />
-                <Route path='/updateusername' element={<EditUsername />} />
-                <Route path='/updatename' element={<EditName />} />
-                <Route path='/updateemail' element={<EditEmail />} />
+                <Route path='/breweries/create' element={<CreateBrewery />} />
                 <Route path='/confirmaccount/:userId/:confirmationToken' element={<ConfirmAccount />} />
                 <Route path='/forgotpassword' element={<PasswordResetPage />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/profile/:id' element={<ProfilePage />} />
+                <Route path='/register' element={<Register />} />
+                <Route path='/user/updateemail' element={<EditEmail />} />
+                <Route path='/user/updatename' element={<EditName />} />
+                <Route path='/user/updatepassword' element={<ChangePasswordPage />} />
+                <Route path='/user/updateusername' element={<EditUsername />} />
 
                 <Route path='*' element={<NotFound />} />
               </Route>

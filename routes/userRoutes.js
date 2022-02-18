@@ -28,6 +28,7 @@ import verifyAccessToken from '../middleware/auth/verifyAccessToken.js';
 
 /* ----- Utilities ----- */
 import ServerError from '../utilities/errors/ServerError.js';
+import changePassword from '../controllers/users/changePassword.js';
 
 dotenv.config();
 
@@ -81,6 +82,13 @@ router
   .get(checkTokens, verifyAccessToken, isAccountConfirmed, canAccessUserInfo, viewUser)
   .put(checkTokens, verifyAccessToken, isAccountConfirmed, canAccessUserInfo, editUser)
   .delete(checkTokens, verifyAccessToken, isAccountConfirmed, canAccessUserInfo, deleteUser)
+  .all(() => {
+    throw new ServerError('Not allowed.', 405);
+  });
+
+router
+  .route('/:id/changepassword')
+  .put(checkTokens, verifyAccessToken, canAccessUserInfo, changePassword)
   .all(() => {
     throw new ServerError('Not allowed.', 405);
   });
