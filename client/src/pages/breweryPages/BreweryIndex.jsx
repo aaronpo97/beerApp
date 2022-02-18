@@ -5,7 +5,6 @@ import { Container, Box, Grid, Typography, Button } from '@mui/material';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 
 import BreweryList from '../../components/brewery_components/BreweryList';
-import AccountNotConfirmedDialog from '../../components/confirmAccount_components/AccountNotConfirmedDialog';
 
 import { AuthContext } from '../../util/AuthContext';
 
@@ -79,9 +78,7 @@ const BreweryIndex = () => {
           )}
         </Grid>
 
-        {currentUser.isAccountConfirmed && <BreweryList breweries={breweries} />}
-
-        {!currentUser.isAccountConfirmed && <AccountNotConfirmedDialog />}
+        <BreweryList breweries={breweries} />
       </Container>
     </Box>
   );

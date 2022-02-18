@@ -1,7 +1,17 @@
 import { useParams, useNavigate } from 'react-router';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 
-import { Container, Box, Grid, LinearProgress, Pagination } from '@mui/material';
+import { AuthContext } from '../../util/AuthContext';
+import {
+  Container,
+  Box,
+  Grid,
+  LinearProgress,
+  Pagination,
+  Card,
+  CardContent,
+  Typography,
+} from '@mui/material';
 
 import BeerInfoHeader from '../../components/beer_components/BeerInfoHeader';
 import ImageCarousel from '../../components/utilities/ImageCarousel';
@@ -12,6 +22,7 @@ import CommentCreateForm from '../../components/comment_components/CommentCreate
 
 const InfoPage = () => {
   const navigate = useNavigate();
+  const [currentUser] = useContext(AuthContext);
   const { id: beerID } = useParams();
   const [currentBeer, setCurrentBeer] = useState(null);
 
@@ -86,14 +97,21 @@ const InfoPage = () => {
         <Box sx={{ mt: 3 }}>
           <Grid container spacing={3}>
             <Grid item md={4.5}>
-              <CommentCreateForm
-                currentBeer={currentBeer}
-                comments={comments}
-                setComments={setComments}
-                setCommentsPageNum={setCommentsPageNum}
-                newComments={newComments}
-                setNewComments={setNewComments}
-              />
+              <Card sx={{ mb: 2 }}>
+                <CardContent>
+                  <Typography variant='h3'>Comments</Typography>
+                </CardContent>
+              </Card>
+              {currentUser._id && (
+                <CommentCreateForm
+                  currentBeer={currentBeer}
+                  comments={comments}
+                  setComments={setComments}
+                  setCommentsPageNum={setCommentsPageNum}
+                  newComments={newComments}
+                  setNewComments={setNewComments}
+                />
+              )}
             </Grid>
             <Grid item md={7.5}>
               <Box>

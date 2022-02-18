@@ -27,7 +27,7 @@ router
   });
 router
   .route('/:id')
-  .get(checkTokens, verifyAccessToken, isAccountConfirmed, viewImage)
+  .get(viewImage)
   .delete(verifyAccessToken, deleteImage)
   .all(() => {
     throw new ServerError('Not allowed.', 405);

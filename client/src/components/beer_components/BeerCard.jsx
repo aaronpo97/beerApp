@@ -1,12 +1,16 @@
+import { useContext } from 'react';
+
 import { Card, CardContent, CardMedia, Typography, Link, Grid, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import { Stack } from '@mui/material';
 
 import LikeButton from '../utilities/LikeButton';
+import { AuthContext } from '../../util/AuthContext';
 
 const BeerCard = ({ beer, showLike = true }) => {
   const navigate = useNavigate();
+  const [currentUser] = useContext(AuthContext);
 
   return (
     <Stack spacing={1}>
@@ -47,7 +51,7 @@ const BeerCard = ({ beer, showLike = true }) => {
               </Typography>
             </Grid>
             <Grid item xs={4} md={4}>
-              {showLike && (
+              {showLike && currentUser._id && (
                 <Box sx={{ mt: '1em' }}>
                   <LikeButton beer={beer} />
                 </Box>

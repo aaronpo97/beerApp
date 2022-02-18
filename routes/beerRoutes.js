@@ -23,28 +23,22 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(checkTokens, verifyAccessToken, isAccountConfirmed, getAllPosts)
-  .post(
-    checkTokens,
-    verifyAccessToken,
-    isAccountConfirmed,
-    validateBeerPost,
-    createBeerPost,
-  )
+  .get(getAllPosts)
+  .post(checkTokens, verifyAccessToken, isAccountConfirmed, validateBeerPost, createBeerPost)
   .all(() => {
     throw new ServerError('Not allowed.', 405);
   });
 
 router
   .route('/search')
-  .get(checkTokens, verifyAccessToken, isAccountConfirmed, searchBeerPosts)
+  .get(searchBeerPosts)
   .all(() => {
     throw new ServerError('Not allowed.', 405);
   });
 
 router
   .route('/:id')
-  .get(checkTokens, verifyAccessToken, isAccountConfirmed, showBeerPost)
+  .get(showBeerPost)
   .put(checkTokens, verifyAccessToken, isPostOwner, isAccountConfirmed, updateBeerPost)
   .delete(checkTokens, verifyAccessToken, isPostOwner, isAccountConfirmed, deleteBeerPost)
   .all(() => {

@@ -126,7 +126,7 @@ router
 /* View profile */
 router
   .route('/profile/:id')
-  .get(checkTokens, verifyAccessToken, isAccountConfirmed, viewProfile)
+  .get(viewProfile)
   .all(() => {
     throw new ServerError('Not allowed.', 405);
   });

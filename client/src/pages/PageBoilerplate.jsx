@@ -35,6 +35,8 @@ const PageHeader = () => {
   const pagesNotLoggedIn = [
     { name: 'login', link: '/login' },
     { name: 'register', link: '/register' },
+    { name: 'beers', link: '/beers' },
+    { name: 'breweries', link: '/breweries' },
   ];
   const settings = [
     { name: 'Profile', action: () => navigate(`/profile/${currentUser?._id}`) },

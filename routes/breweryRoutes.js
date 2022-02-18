@@ -20,14 +20,14 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(checkTokens, verifyAccessToken, isAccountConfirmed, showAllBreweries)
+  .get(showAllBreweries)
   .post(checkTokens, verifyAccessToken, validateBrewery, isAccountConfirmed, createBrewery)
   .all(() => {
     throw new ServerError('Not allowed.', 405);
   });
 router
   .route('/:id')
-  .get(checkTokens, verifyAccessToken, isAccountConfirmed, viewBrewery)
+  .get(viewBrewery)
   .put(checkTokens, verifyAccessToken, isAccountConfirmed, updateBrewery)
   .delete(checkTokens, verifyAccessToken, isAccountConfirmed, deleteBrewery)
   .all(() => {
