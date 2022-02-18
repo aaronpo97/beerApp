@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { AuthContext } from '../../util/AuthContext';
 import FormErrorAlert from '../utilities/FormErrorAlert';
+
 const LoginForm = () => {
   const [formValues, setFormValues] = useState({ username: '', password: '' });
   const [formErrors, setFormErrors] = useState({});
@@ -101,7 +102,7 @@ const LoginForm = () => {
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}></Avatar>
-        <Typography component='h1' variant='h5'>
+        <Typography component='h1' variant='h3'>
           Sign in
         </Typography>
 

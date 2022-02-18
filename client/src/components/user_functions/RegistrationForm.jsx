@@ -148,7 +148,7 @@ const RegistrationForm = () => {
     <Box sx={{ width: '100%' }} square>
       <Box sx={{ my: 8, mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}></Avatar>
-        <Typography component='h1' variant='h5'>
+        <Typography component='h1' variant='h3'>
           Create an Account
         </Typography>
 
