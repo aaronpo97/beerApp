@@ -8,9 +8,6 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 
 import ms from 'ms';
-import { useContext } from 'react';
-import { AuthContext } from '../../util/AuthContext';
-import AccountNotConfirmedDialog from '../../components/confirmAccount_components/AccountNotConfirmedDialog';
 
 const ProfileHeader = ({ user }) => {
   return (
@@ -97,23 +94,17 @@ const ProfilePage = () => {
     fetchData();
   }, [id, navigate]);
 
-  const [currentUser] = useContext(AuthContext);
   return (
     <Box sx={{ mt: 5 }}>
       <Container maxWidth='lg'>
-        {currentUser?.isAccountConfirmed ? (
-          <Box>
-            <ProfileHeader user={user} />
-
-            <Grid container spacing={2}>
-              <Grid item md={12}>
-                <ProfileBio user={user} />
-              </Grid>
+        <Box>
+          <ProfileHeader user={user} />
+          <Grid container spacing={2}>
+            <Grid item md={12}>
+              <ProfileBio user={user} />
             </Grid>
-          </Box>
-        ) : (
-          <AccountNotConfirmedDialog />
-        )}
+          </Grid>
+        </Box>
       </Container>
     </Box>
   );

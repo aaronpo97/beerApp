@@ -20,7 +20,7 @@ const router = express.Router({ mergeParams: true });
 
 router
   .route('/')
-  .get(checkTokens, verifyAccessToken, isAccountConfirmed, viewPostComments)
+  .get(viewPostComments)
   .post(checkTokens, verifyAccessToken, isAccountConfirmed, postComment)
   .all(() => {
     throw new ServerError('Not allowed', 405);
@@ -28,7 +28,7 @@ router
 
 router
   .route('/:commentId')
-  .get(checkTokens, verifyAccessToken, isAccountConfirmed, viewComment)
+  .get(viewComment)
   .put(checkTokens, verifyAccessToken, isCommentOwner, isAccountConfirmed, editComment)
   .delete(checkTokens, verifyAccessToken, isCommentOwner, isAccountConfirmed, deleteComment)
   .all(() => {

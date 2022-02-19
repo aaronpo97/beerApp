@@ -6,7 +6,6 @@ import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 
 import { AuthContext } from '../../util/AuthContext';
-import AccountNotConfirmedDialog from '../../components/confirmAccount_components/AccountNotConfirmedDialog';
 import BeerList from '../../components/beer_components/BeerList';
 
 const Beers = () => {
@@ -17,7 +16,7 @@ const Beers = () => {
   if (!currentUser._id) navigate('/login');
   return (
     <Box>
-      <Container sx={{ mt: '5em ' }} maxWidth={'lg'}>
+      <Container sx={{ mt: '3em' }} maxWidth={'lg'}>
         <Grid container>
           <Grid item md={10} sm={12}>
             <Typography variant='h1'>The Biergarten Index</Typography>
@@ -25,7 +24,7 @@ const Beers = () => {
               Beers
             </Typography>
           </Grid>
-          {currentUser?.isAccountConfirmed && (
+          {!currentUser && (
             <Grid md={2} sm={12} item>
               <Button
                 startIcon={<AddCircleOutlinedIcon />}
@@ -39,7 +38,7 @@ const Beers = () => {
           )}
         </Grid>
 
-        {currentUser.isAccountConfirmed ? <BeerList /> : <AccountNotConfirmedDialog />}
+        <BeerList />
       </Container>
     </Box>
   );

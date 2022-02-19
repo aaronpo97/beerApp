@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, FormControl, TextField, Button, Rating, Typography, Card, CardContent } from '@mui/material';
+import { Box, FormControl, TextField, Button, Rating } from '@mui/material';
 import FormErrorAlert from '../utilities/FormErrorAlert';
 
 const CommentCreateForm = ({ currentBeer, setCommentsPageNum, newComments, setNewComments }) => {
@@ -58,11 +58,6 @@ const CommentCreateForm = ({ currentBeer, setCommentsPageNum, newComments, setNe
   };
   return (
     <Box sx={{ mb: 2 }} component='form' onSubmit={handleSubmit} noValidate>
-      <Card sx={{ mb: 2 }}>
-        <CardContent>
-          <Typography variant='h3'>Comments</Typography>
-        </CardContent>
-      </Card>
       <FormControl sx={{ width: '100%' }}>
         <TextField
           id='outlined-basic'

@@ -11,18 +11,17 @@ import { AuthContext } from '../../util/AuthContext';
 const BreweryInfo = ({ breweryData }) => {
   const [currentUser] = useContext(AuthContext);
 
-  console.log('hi');
   const navigate = useNavigate();
 
   return !breweryData ? (
     <LinearProgress />
   ) : (
     <Box>
-      <Box sx={{ mt: '2em' }}>
+      <Box sx={{ mt: 3 }}>
         <Grid container spacing={2}>
           <Grid item md={9.5}>
             <Typography variant='h1'>{breweryData.name}</Typography>
-            <Typography gutterBottom variant='h2'>
+            <Typography gutterBottom variant='h2' sx={{ fontStyle: 'normal' }} component='address'>
               {breweryData.location.place_name}
             </Typography>
           </Grid>
@@ -40,7 +39,7 @@ const BreweryInfo = ({ breweryData }) => {
         </Grid>
       </Box>
       <Box sx={{ mt: '2em' }}>
-        <Typography gutterBottom variant='h3'>
+        <Typography gutterBottom variant='h3' component='p'>
           Submitted by:{' '}
           <Link underline='hover' onClick={() => navigate(`/profile/${breweryData.postedBy._id}`)}>
             {breweryData.postedBy.username}
