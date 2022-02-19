@@ -16,7 +16,7 @@ const Beers = () => {
   if (!currentUser._id) navigate('/login');
   return (
     <Box>
-      <Container sx={{ mt: '5em ' }} maxWidth={'lg'}>
+      <Container sx={{ mt: '3em' }} maxWidth={'lg'}>
         <Grid container>
           <Grid item md={10} sm={12}>
             <Typography variant='h1'>The Biergarten Index</Typography>

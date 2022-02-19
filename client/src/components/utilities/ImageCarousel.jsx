@@ -1,24 +1,10 @@
-import Carousel from 'react-material-ui-carousel';
-import Box from '@mui/material/Box';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-
+import Paper from '@mui/material/Paper';
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 const ImageCarousel = ({ images, imageHeight = '400px' }) => {
   return (
-    <Box component='div' className='Carousel'>
-      <Carousel
-        navButtonsProps={{
-          // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
-          style: {
-            backgroundColor: 'rgba(0,0,0,0)',
-            borderRadius: 0,
-          },
-        }}
-        PrevIcon={<ArrowBackIosNewIcon />}
-        NextIcon={<ArrowForwardIosIcon />}
-        indicators={false}
-        navButtonsAlwaysVisible
-      >
+    <Paper>
+      <Carousel autoPlay infiniteLoop showIndicators={false} showThumbs={false}>
         {images.map((image) => {
           return (
             <img
@@ -30,7 +16,7 @@ const ImageCarousel = ({ images, imageHeight = '400px' }) => {
           );
         })}
       </Carousel>
-    </Box>
+    </Paper>
   );
 };
 

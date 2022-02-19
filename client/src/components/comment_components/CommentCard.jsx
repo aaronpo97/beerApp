@@ -44,7 +44,7 @@ const CommentCard = ({ comment, comments, setComments, deletedComments, setDelet
   };
 
   return (
-    <Card sx={{ mb: 2 }}>
+    <Card sx={{ mb: 2, height: { sm: '17em', lg: '10em' } }}>
       <CardContent>
         <Grid container spacing={2}>
           <Grid item md={2}>
@@ -60,7 +60,17 @@ const CommentCard = ({ comment, comments, setComments, deletedComments, setDelet
           </Grid>
           <Grid item md={9}>
             <Rating readOnly value={comment.rating} />
-            <Typography>{comment.body}</Typography>
+            <Typography
+              sx={{
+                display: '-webkit-box',
+                overflow: 'hidden',
+                WebkitBoxOrient: 'vertical',
+                WebkitLineClamp: 5,
+              }}
+              variant='body1'
+            >
+              {comment.body}
+            </Typography>
           </Grid>
           <Grid item md={1}>
             {currentUser?._id === comment.author._id && (
