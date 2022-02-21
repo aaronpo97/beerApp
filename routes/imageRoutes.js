@@ -21,7 +21,11 @@ const router = express.Router();
 
 router
   .route('/')
-  .post(checkTokens, verifyAccessToken, isAccountConfirmed, upload.array('files'), uploadImages)
+  .post(
+    // checkTokens, verifyAccessToken, isAccountConfirmed,
+    upload.array('files'),
+    uploadImages,
+  )
   .all(() => {
     throw new ServerError('Not allowed.', 405);
   });

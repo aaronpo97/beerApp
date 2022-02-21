@@ -24,7 +24,7 @@ const Beers = () => {
               Beers
             </Typography>
           </Grid>
-          {!currentUser && (
+          {currentUser._id && (
             <Grid md={2} sm={12} item>
               <Button
                 startIcon={<AddCircleOutlinedIcon />}

@@ -4,7 +4,7 @@ import SuccessResponse from '../../utilities/response/SuccessResponse.js';
 
 const uploadImages = async (req, res, next) => {
   try {
-    if (!req.files) throw new ServerError('No files were given to the uploader.', 400);
+    if (!req.files.length) throw new ServerError('No files were given to the uploader.', 400);
 
     const images = [];
     req.files.forEach(async (file) => {
