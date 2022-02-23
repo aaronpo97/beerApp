@@ -15,15 +15,14 @@ const CreateBeer = () => {
       {isNewBeerLoading ? (
         <Container
           sx={{
-            height: '100vh',
             display: 'flex',
             alignItems: 'center',
-            mt: `${100 / 4}vh`,
+            mt: `${100 / 3}vh`,
             flexDirection: 'column',
           }}
         >
           <Typography variant='h3' component='h1' sx={{ mb: 2 }}>
-            Uploading images and creating new post.
+            Uploading images and creating new post...
           </Typography>
 
           <LinearProgress sx={{ width: '100%' }} />
