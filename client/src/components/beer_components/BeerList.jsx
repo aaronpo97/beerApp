@@ -15,7 +15,7 @@ const BeerList = () => {
   const [sortingDirection, setSortingDirection] = useState('default');
   const [sortingOption, setSortingOption] = useState(0);
   const [, dispatch] = useContext(AuthContext);
-  const navigate = useNavigate();
+
   const [beers, setBeers] = useState([]);
 
   useEffect(() => {
@@ -33,7 +33,6 @@ const BeerList = () => {
       if (response.status === 401) {
         dispatch({ type: 'UPDATE_CURRENT_USER', payload: {} });
         localStorage.clear();
-        navigate('/login');
       }
 
       const result = await response.json();
@@ -44,7 +43,7 @@ const BeerList = () => {
 
       setBeers(result.payload || []);
     })();
-  }, [sortingParam, sortingDirection, navigate, dispatch]);
+  }, [sortingParam, sortingDirection, dispatch]);
 
   useEffect(() => {
     switch (sortingOption) {

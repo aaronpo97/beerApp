@@ -13,7 +13,6 @@ const Beers = () => {
 
   const [currentUser] = useContext(AuthContext);
 
-  if (!currentUser._id) navigate('/login');
   return (
     <Box>
       <Container sx={{ mt: '3em' }} maxWidth={'lg'}>

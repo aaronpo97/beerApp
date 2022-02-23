@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { FormControl, TextField, Grid, Select, MenuItem, Button, Input, InputLabel } from '@mui/material';
+import { FormControl, TextField, Grid, Select, MenuItem, Button } from '@mui/material';
 import FormErrorAlert from '../utilities/FormErrorAlert';
+import FileDropzone from '../utilities/FileDropzone';
 
-const CreateBeerForm = () => {
+const CreateBeerForm = ({ setIsNewBeerLoading }) => {
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState({
     name: '',
@@ -51,6 +52,7 @@ const CreateBeerForm = () => {
   };
   const uploadImages = async () => {
     if (!images.length) return;
+
     const formData = new FormData();
 
     Array.from(images).forEach((image) => {
@@ -66,6 +68,7 @@ const CreateBeerForm = () => {
       body: formData,
     };
 
+    setIsNewBeerLoading(true);
     const response = await fetch('/api/images/', requestOptions);
 
     const data = await response.json();
@@ -222,13 +225,7 @@ const CreateBeerForm = () => {
       </Select>
       {formErrors.brewery && <FormErrorAlert error={formErrors.brewery} />}
 
-      <input
-        type='file'
-        onChange={(event) => {
-          setImages(event.target.files);
-        }}
-        multiple
-      />
+      <FileDropzone images={images} setImages={setImages} setIsNewBeerLoading={setIsNewBeerLoading} />
       <Button type='submit' fullWidth sx={{ mt: 3, mb: 2 }} variant='contained'>
         Post a beer!
       </Button>
