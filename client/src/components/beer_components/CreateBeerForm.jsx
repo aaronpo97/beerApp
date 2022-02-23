@@ -51,10 +51,9 @@ const CreateBeerForm = ({ setIsNewBeerLoading }) => {
     }
   };
   const uploadImages = async () => {
+    setIsNewBeerLoading(true);
     if (!images.length) return;
-
     const formData = new FormData();
-
     Array.from(images).forEach((image) => {
       formData.append('files', image);
     });
@@ -68,7 +67,6 @@ const CreateBeerForm = ({ setIsNewBeerLoading }) => {
       body: formData,
     };
 
-    setIsNewBeerLoading(true);
     const response = await fetch('/api/images/', requestOptions);
 
     const data = await response.json();
@@ -82,7 +80,10 @@ const CreateBeerForm = ({ setIsNewBeerLoading }) => {
         'x-auth-token': localStorage['refresh-token'],
         'Content-type': 'application/json',
       },
-      body: JSON.stringify({ ...formValues, images: imageData.payload.map((image) => image._id) }),
+      body: JSON.stringify({
+        ...formValues,
+        images: imageData ? imageData.payload.map((image) => image._id) : [],
+      }),
     };
     const response = await fetch('/api/beers/', requestOptions);
     const data = await response.json();

@@ -14,7 +14,8 @@ const createBrewery = async (req, res, next) => {
     }
 
     const geoData = await geocode(address);
-    const { place_name, geometry } = geoData;
+
+    const { place_name = '', geometry = {} } = geoData;
 
     const breweryData = {
       name,
