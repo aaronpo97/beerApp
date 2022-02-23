@@ -109,7 +109,7 @@ const CreateBeerForm = ({ setIsNewBeerLoading }) => {
           'x-auth-token': localStorage['refresh-token'],
         },
       };
-      const url = `http://localhost:5000/api/breweries`;
+      const url = `/api/breweries`;
       const response = await fetch(url, requestOptions);
       const data = await response.json();
       setBreweryList(data.payload || []);
