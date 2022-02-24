@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { Container, Box, Typography, Button, Grid } from '@mui/material';
+import { Container, Box, Typography, Tooltip, IconButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import EditBeerForm from '../../components/beer_components/EditBeerForm';
@@ -11,24 +11,21 @@ const EditBeer = () => {
   return (
     <Box>
       <Container sx={{ marginTop: 4 }}>
-        <Grid container sx={{ mt: 5 }}>
-          <Grid item md={10} sm={12}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box>
             <Typography variant='h1'>The Biergarten Index</Typography>
             <Typography variant='h2' gutterBottom sx={{ mb: '1em' }}>
               Edit
             </Typography>
-          </Grid>
-          <Grid md={2} sm={12} item>
-            <Button
-              startIcon={<ArrowBackIcon />}
-              onClick={() => navigate(`/beers/${id}`)}
-              variant='contained'
-              sx={{ width: '100%' }}
-            >
-              Discard edits
-            </Button>
-          </Grid>
-        </Grid>
+          </Box>
+          <Box>
+            <Tooltip title='Discard edits' onClick={() => navigate(`/beers/${id}`)}>
+              <IconButton>
+                <ArrowBackIcon />
+              </IconButton>
+            </Tooltip>
+          </Box>
+        </Box>
         <EditBeerForm id={id} />
       </Container>
     </Box>

@@ -23,9 +23,9 @@ const FileDropzone = ({ images, setImages }) => {
   };
   return (
     <>
-      <Box
+      <Paper
         sx={{
-          border: `solid 1px rgba(0, 0, 0, 0.3)`,
+          backgroundColor: 'white',
           height: '100px',
           mt: 2,
           cursor: 'pointer',
@@ -38,7 +38,7 @@ const FileDropzone = ({ images, setImages }) => {
       >
         <input {...getInputProps()} />
         <Typography variant='body2'>Drag and drop, or click me to add images to upload!</Typography>
-      </Box>
+      </Paper>
 
       <Grid container sx={{ mt: 2 }} spacing={1}>
         {images.map((file) => (

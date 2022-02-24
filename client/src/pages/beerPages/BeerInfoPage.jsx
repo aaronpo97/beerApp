@@ -1,4 +1,4 @@
-import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
 
 import { AuthContext } from '../../util/AuthContext';
@@ -25,8 +25,6 @@ const InfoPage = () => {
   const [currentUser] = useContext(AuthContext);
   const { id: beerID } = useParams();
   const [currentBeer, setCurrentBeer] = useState(null);
-
-  const [searchParams] = useSearchParams();
 
   //fetch beer data
   useEffect(() => {

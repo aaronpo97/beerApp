@@ -1,38 +1,36 @@
 import { useNavigate } from 'react-router-dom';
-import { Grid, Link, Typography, Button } from '@mui/material';
+import { Link, Typography, Box, Tooltip, IconButton } from '@mui/material';
 import { useContext } from 'react';
 import { AuthContext } from '../../util/AuthContext';
+import EditIcon from '@mui/icons-material/Edit';
 
 const BeerInfoHeader = ({ currentBeer }) => {
   const navigate = useNavigate();
   const [currentUser] = useContext(AuthContext);
 
   return (
-    <Grid container>
-      <Grid md={10} item>
+    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Box>
         <Typography variant='h1'>{currentBeer.name}</Typography>
         <Typography variant='h2' sx={{ mb: 1 }}>
-          <Link
-            underline='hover'
-            onClick={() => navigate(`/breweries/${currentBeer.brewery._id}`)}
-          >
+          <Link underline='hover' onClick={() => navigate(`/breweries/${currentBeer.brewery._id}`)}>
             {currentBeer.brewery.name}
           </Link>
         </Typography>
-      </Grid>
-      <Grid md={2} item>
+      </Box>
+      <Box>
         {currentUser?._id === currentBeer.postedBy._id && (
-          <Button
-            variant={'contained'}
+          <Tooltip
+            title={`Edit '${currentBeer.name}'`}
             onClick={() => navigate(`/beers/${currentBeer._id}/edit`)}
-            sx={{ mt: 1 }}
-            fullWidth
           >
-            Edit
-          </Button>
+            <IconButton>
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
         )}
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   );
 };
 

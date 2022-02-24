@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Box, Button, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Typography, Tooltip, IconButton } from '@mui/material';
 
-import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
+import AddIcon from '@mui/icons-material/Add';
 
 import { AuthContext } from '../../util/AuthContext';
 import BeerList from '../../components/beer_components/BeerList';
@@ -15,27 +15,24 @@ const Beers = () => {
 
   return (
     <Box>
-      <Container sx={{ mt: '3em' }} maxWidth={'lg'}>
-        <Grid container>
-          <Grid item md={10} sm={12}>
+      <Container sx={{ mt: 8 }} maxWidth={'lg'}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box>
             <Typography variant='h1'>The Biergarten Index</Typography>
             <Typography variant='h2' gutterBottom sx={{ mb: '1em' }}>
               Beers
             </Typography>
-          </Grid>
+          </Box>
           {currentUser._id && (
-            <Grid md={2} sm={12} item>
-              <Button
-                startIcon={<AddCircleOutlinedIcon />}
-                onClick={() => navigate('/beers/create')}
-                variant='contained'
-                sx={{ width: '100%' }}
-              >
-                Post a new beer
-              </Button>
-            </Grid>
+            <Box>
+              <Tooltip title='Post a new beer' onClick={() => navigate('/beers/create')}>
+                <IconButton>
+                  <AddIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
           )}
-        </Grid>
+        </Box>
 
         <BeerList />
       </Container>

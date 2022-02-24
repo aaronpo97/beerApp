@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { FormControl, TextField, Grid, Select, MenuItem, Button } from '@mui/material';
+import { FormControl, TextField, Grid, MenuItem, Button, Box } from '@mui/material';
 import FormErrorAlert from '../utilities/FormErrorAlert';
 import FileDropzone from '../utilities/FileDropzone';
-
+import InputAdornment from '@mui/material/InputAdornment';
 const CreateBeerForm = ({ setIsNewBeerLoading }) => {
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState({
@@ -130,107 +130,121 @@ const CreateBeerForm = ({ setIsNewBeerLoading }) => {
   }, [images]);
 
   return (
-    <FormControl fullWidth component='form' onSubmit={onFormSubmit} variant='outlined' noValidate>
-      <TextField
-        required
-        value={formValues.name}
-        id='name'
-        label='Beer name'
-        name='name'
-        autoComplete='Beer name'
-        autoFocus
-        sx={{ mb: 0 }}
-        error={formErrors.name}
-        onChange={handleFormInputChange}
-        margin='normal'
-        fullWidth
-      />
-      {formErrors.name && <FormErrorAlert error={formErrors.name} />}
-      <TextField
-        required
-        value={formValues.type}
-        id='type'
-        label='Beer type'
-        name='type'
-        autoComplete='Beer type'
-        autoFocus
-        sx={{ mb: 0 }}
-        error={formErrors.type}
-        onChange={handleFormInputChange}
-        margin='normal'
-        fullWidth
-      />
-      {formErrors.type && <FormErrorAlert error={formErrors.type} />}
-      <Grid container spacing={3}>
-        <Grid item md={6}>
-          <TextField
-            variant='outlined'
-            value={formValues.abv}
-            id='outlined-adornment-abv'
-            label='ABV (alcohol by volume)'
-            name='abv'
-            error={formErrors.abv}
-            onChange={handleFormInputChange}
-            margin='normal'
-            fullWidth
-            sx={{ mb: 0 }}
-          />
+    <Box component='form' onSubmit={onFormSubmit}>
+      <FormControl fullWidth variant='outlined' noValidate>
+        <TextField
+          required
+          value={formValues.name}
+          id='name'
+          label='Beer name'
+          name='name'
+          autoComplete='Beer name'
+          autoFocus
+          sx={{ mb: 0 }}
+          error={formErrors.name}
+          onChange={handleFormInputChange}
+          margin='normal'
+          fullWidth
+        />
+        {formErrors.name && <FormErrorAlert error={formErrors.name} />}
+        <Grid container spacing={3}>
+          <Grid item md={8}>
+            <TextField
+              required
+              value={formValues.type}
+              id='type'
+              label='Beer type'
+              name='type'
+              autoComplete='Beer type'
+              autoFocus
+              sx={{ mb: 0 }}
+              error={formErrors.type}
+              onChange={handleFormInputChange}
+              margin='normal'
+              fullWidth
+            />
+          </Grid>
+          {formErrors.type && <FormErrorAlert error={formErrors.type} />}
+          <Grid item md={2}>
+            <TextField
+              variant='outlined'
+              value={formValues.abv}
+              id='outlined-adornment-abv'
+              label='ABV'
+              name='abv'
+              error={formErrors.abv}
+              onChange={handleFormInputChange}
+              margin='normal'
+              required
+              fullWidth
+              InputProps={{
+                endAdornment: <InputAdornment position='end'>%</InputAdornment>,
+              }}
+              sx={{ mb: 0 }}
+            />
+          </Grid>
+          <Grid item md={2}>
+            <TextField
+              variant='outlined'
+              value={formValues.ibu}
+              id='outlined-adornment-abv'
+              required
+              label='IBU'
+              name='ibu'
+              error={formErrors.ibu}
+              onChange={handleFormInputChange}
+              margin='normal'
+              fullWidth
+              InputProps={{
+                endAdornment: <InputAdornment position='end'>IBU</InputAdornment>,
+              }}
+              sx={{ mb: 0 }}
+            />
+          </Grid>
         </Grid>
-        <Grid item md={6}>
-          <TextField
-            variant='outlined'
-            value={formValues.ibu}
-            id='outlined-adornment-abv'
-            label='IBU (international bitterness units)'
-            name='ibu'
-            error={formErrors.ibu}
-            onChange={handleFormInputChange}
-            margin='normal'
-            fullWidth
-            sx={{ mb: 0 }}
-          />
-        </Grid>
-      </Grid>
-      <TextField
-        required
-        variant='outlined'
-        value={formValues.description}
-        id='outlined-adornment-abv'
-        label='Description'
-        name='description'
-        error={formErrors.description}
-        onChange={handleFormInputChange}
-        sx={{ mb: 0 }}
-        margin='normal'
-        multiline
-        rows={10}
-        fullWidth
-      />
-      {formErrors.description && <FormErrorAlert error={formErrors.description} />}
-      <Select
-        sx={{ mt: 2 }}
-        labelId='brewery-select'
-        label='brewery'
-        value={formValues.brewery}
-        fullWidth
-        name='brewery'
-        onChange={handleFormInputChange}
-      >
-        {breweryList.map((brewery) => {
-          return (
-            <MenuItem key={brewery.name} value={brewery._id}>
-              {brewery.name}
-            </MenuItem>
-          );
-        })}
-      </Select>
-      {formErrors.brewery && <FormErrorAlert error={formErrors.brewery} />}
+        <TextField
+          required
+          variant='outlined'
+          value={formValues.description}
+          id='outlined-adornment-abv'
+          label='Description'
+          name='description'
+          error={formErrors.description}
+          onChange={handleFormInputChange}
+          sx={{ mb: 0 }}
+          margin='normal'
+          multiline
+          rows={10}
+          fullWidth
+        />
+        {formErrors.description && <FormErrorAlert error={formErrors.description} />}
+        <TextField
+          select
+          sx={{ mt: 2 }}
+          label='Brewery'
+          value={formValues.brewery}
+          fullWidth
+          name='brewery'
+          onChange={handleFormInputChange}
+          required
+        >
+          {breweryList.map((brewery) => {
+            return (
+              <MenuItem key={brewery.name} value={brewery._id}>
+                {brewery.name}
+              </MenuItem>
+            );
+          })}
+        </TextField>
 
-      <FileDropzone images={images} setImages={setImages} setIsNewBeerLoading={setIsNewBeerLoading} />
-      <Button type='submit' fullWidth sx={{ mt: 3, mb: 2 }} variant='contained'>
-        Post a beer!
-      </Button>
-    </FormControl>
+        {formErrors.brewery && <FormErrorAlert error={formErrors.brewery} />}
+
+        <FileDropzone images={images} setImages={setImages} setIsNewBeerLoading={setIsNewBeerLoading} />
+        <Button type='submit' fullWidth sx={{ mt: 3, mb: 2 }} variant='contained'>
+          Post a beer!
+        </Button>
+      </FormControl>
+    </Box>
   );
 };
 
