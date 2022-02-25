@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 
-import { LinearProgress, Typography, Box, Link, Grid, Button } from '@mui/material';
+import { LinearProgress, Typography, Box, Link, Grid, Button, Tooltip, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
+import EditIcon from '@mui/icons-material/Edit';
 import BeerCard from '../beer_components/BeerCard';
 
 import { Masonry } from '@mui/lab';
@@ -17,26 +17,27 @@ const BreweryInfo = ({ breweryData }) => {
     <LinearProgress />
   ) : (
     <Box>
-      <Box sx={{ mt: 3 }}>
-        <Grid container spacing={2}>
-          <Grid item md={9.5}>
+      <Box sx={{ mt: 5 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box>
             <Typography variant='h1'>{breweryData.name}</Typography>
             <Typography gutterBottom variant='h2' sx={{ fontStyle: 'normal' }} component='address'>
               {breweryData.location.place_name}
             </Typography>
-          </Grid>
-          <Grid item md={2.5}>
+          </Box>
+          <Box>
             {currentUser._id === breweryData.postedBy._id && (
-              <Button
+              <Tooltip
                 onClick={() => navigate(`/breweries/${breweryData._id}/edit`)}
-                variant={'contained'}
-                fullWidth
+                title={`Edit '${breweryData.name}'`}
               >
-                Edit
-              </Button>
+                <IconButton>
+                  <EditIcon />
+                </IconButton>
+              </Tooltip>
             )}
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Box>
       <Box sx={{ mt: '2em' }}>
         <Typography gutterBottom variant='h3' component='p'>

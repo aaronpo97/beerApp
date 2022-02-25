@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Container, Box, Grid, Typography, Button } from '@mui/material';
-import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
+import { Container, Box, Typography, Button, IconButton, Tooltip } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
 import BreweryList from '../../components/brewery_components/BreweryList';
 
@@ -48,9 +48,9 @@ const BreweryIndex = () => {
   }, [sortingParam, sortingDirection, navigate, dispatch]);
   return (
     <Box>
-      <Container sx={{ mt: '5em' }} maxWidth={'lg'}>
-        <Grid container>
-          <Grid item md={9} sm={12}>
+      <Container sx={{ mt: 8 }} maxWidth={'lg'}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box>
             <Typography variant='h1'>The Biergarten Index</Typography>
             <Typography
               variant='h2'
@@ -61,22 +61,17 @@ const BreweryIndex = () => {
             >
               Breweries
             </Typography>
-          </Grid>
+          </Box>
           {currentUser.isAccountConfirmed && (
-            <Grid md={3} sm={12} item>
-              <Button
-                startIcon={<AddCircleOutlinedIcon />}
-                onClick={() => navigate('/breweries/create')}
-                variant='contained'
-                sx={{
-                  width: '100%',
-                }}
-              >
-                Post a new brewery
-              </Button>
-            </Grid>
+            <Box>
+              <Tooltip title='Post a new brewery' onClick={() => navigate('/breweries/create')}>
+                <IconButton>
+                  <AddIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
           )}
-        </Grid>
+        </Box>
 
         <BreweryList breweries={breweries} />
       </Container>

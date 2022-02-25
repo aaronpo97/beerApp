@@ -10,7 +10,7 @@ const EditBeer = () => {
 
   return (
     <Box>
-      <Container sx={{ marginTop: 4 }}>
+      <Container sx={{ mt: 8, mb: 8 }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Box>
             <Typography variant='h1'>The Biergarten Index</Typography>

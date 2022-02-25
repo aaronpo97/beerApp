@@ -42,22 +42,22 @@ const BeerCard = ({ beer, showLike = true }) => {
             {beer.abv}% ABV{beer.ibu ? `, ${beer.ibu} IBU` : null}
           </Typography>
 
-          <Grid container>
-            <Grid item xs={8} md={8}>
+          <Box sx={{ display: { xs: 'flex' }, justifyContent: { xs: 'space-between' } }}>
+            <Box>
               <Typography sx={{ mt: '1em' }} variant='h4'>
                 <Link underline='hover' onClick={() => navigate(`/beers/search?type=${beer.type}`)}>
                   {beer.type}
                 </Link>
               </Typography>
-            </Grid>
-            <Grid item xs={4} md={4}>
+            </Box>
+            <Box>
               {showLike && currentUser._id && (
                 <Box sx={{ mt: '1em' }}>
                   <LikeButton beer={beer} />
                 </Box>
               )}
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </CardContent>
       </Card>
     </Stack>
