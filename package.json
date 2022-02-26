@@ -1,9 +1,8 @@
 {
   "name": "biergarten-app",
   "author": "Aaron Po",
-  "type": "module",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "build/src/index.js",
   "private": true,
   "dependencies": {
     "@mapbox/mapbox-sdk": "^0.13.2",
@@ -33,9 +32,10 @@
     "eslint-plugin-import": "^2.25.4"
   },
   "scripts": {
-    "test": "node index.js",
-    "start": "node index.js",
+    "test": "node build/index.js",
+    "start": "node build/index.js",
     "dev": "echo \"Starting up backend application.\"  && node seed && nodemon index.js",
+    "postinstall": "tsc",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build",
     "lint": "eslint './**'"
   }

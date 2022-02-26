@@ -1,6 +1,4 @@
 import nodemailer from 'nodemailer';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 import ejs from 'ejs';
 import process from 'process';
 
@@ -15,9 +13,6 @@ const {
   OAUTH_REFRESH_TOKEN: refreshToken,
   BASE_URL,
 } = process.env;
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 const sendPasswordResetEmail = async (email, userObj, passwordResetToken) => {
   try {

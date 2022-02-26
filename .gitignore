@@ -1,8 +1,9 @@
 .DS_Store
 .prettierrc
 node_modules
-seed/beerAndBreweryData.json
-seed/userData.json
+beerAndBreweryData.json
+userData.json
+build
 .eslintrc.cjs
 .env
 .eslintignore

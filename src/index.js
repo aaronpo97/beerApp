@@ -2,7 +2,7 @@ import path from 'path';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import { fileURLToPath } from 'url';
+
 import process from 'process';
 
 import passport from 'passport';
@@ -19,9 +19,6 @@ import breweryRoutes from './routes/breweryRoutes.js';
 import commentRoutes from './routes/commentRoutes.js';
 import imageRoutes from './routes/imageRoutes.js';
 import userRoutes from './routes/userRoutes.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const inProductionMode = process.env.NODE_ENV === 'production';
 
