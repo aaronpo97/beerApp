@@ -1,8 +1,9 @@
+import { Request, Response, NextFunction } from 'express';
 import BeerPost from '../../database/models/BeerPost.js';
 import sort from '../../utilities/data/sorter.js';
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
+import { SuccessResponse } from '../../utilities/response/SuccessResponse';
 
-const getAllPosts = async (req, res, next) => {
+const getAllPosts = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { query } = req;
     const allPosts = await BeerPost.find()
@@ -15,7 +16,7 @@ const getAllPosts = async (req, res, next) => {
     const message = `Sending beer index.${
       req.query.sort && req.query.param ? ` Sorting by ${req.query.param} in ${req.query.sort} order.` : ''
     }`;
-
+    // @ts-ignore - todo work on appending the request object to include this
     next(new SuccessResponse(message, status, payload, req.didTokenRegenerate ? req.accessToken : undefined));
   } catch (error) {
     next(error);

@@ -2,15 +2,14 @@ import path from 'path';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-
 import process from 'process';
-
 import passport from 'passport';
 import PassportLocal from 'passport-local';
 
-import ErrorResponse from './utilities/response/ErrorResponse.js';
 import ServerError from './utilities/errors/ServerError.js';
 
+import { SuccessResponse, SuccessResponseInterface } from './utilities/response/SuccessResponse.js';
+import { ErrorResponse, ErrorResponseInterface } from './utilities/response/ErrorResponse.js';
 import connectDB from './database/connectDB.js';
 import User from './database/models/User.js';
 
@@ -47,8 +46,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // Passport.js
 app.use(passport.initialize());
+// @ts-ignore
 passport.use(new PassportLocal.Strategy(User.authenticate()));
+// @ts-ignore
 passport.serializeUser(User.serializeUser());
+// @ts-ignore
 passport.deserializeUser(User.deserializeUser());
 
 if (inProductionMode) {
@@ -67,22 +69,31 @@ app.use('/api/breweries', breweryRoutes);
 app.use('/api/images', imageRoutes);
 
 // Response handling:
-app.use((data, req, res, next) => {
-  const { status, success } = data;
-  if (success) {
-    res.status(status).json(data);
-  } else {
-    next(data);
-  }
-});
+app.use(
+  (
+    data: SuccessResponseInterface,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction,
+  ) => {
+    const { status, success } = data;
+    if (success) {
+      res.status(status).json(data);
+    } else {
+      next(data);
+    }
+  },
+);
 
 // Error handling:
 
 // eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
-  const { status = 500, message = 'Oh no, something went wrong.', stack } = err;
-  res.status(status).json(new ErrorResponse(message, status, !inProductionMode ? stack : undefined));
-});
+app.use(
+  (err: ErrorResponseInterface, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const { status = 500, message = 'Oh no, something went wrong.', stack } = err;
+    res.status(status).json(new ErrorResponse(message, status, !inProductionMode ? stack : undefined));
+  },
+);
 
 // Serving compiled react app from ../frontend/build
 if (inProductionMode) {

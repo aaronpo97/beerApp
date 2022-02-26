@@ -1,9 +1,9 @@
 class ServerError extends Error {
-  constructor(message, status, name = 'ServerError') {
+  status: number;
+  constructor(message: string, status: number) {
     super();
     this.message = message;
     this.status = status;
-    this.name = name;
   }
 }
 

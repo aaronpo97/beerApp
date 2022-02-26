@@ -1,8 +1,9 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
 import passportLocalMongoose from 'passport-local-mongoose';
 import ms from 'ms';
+import { PassportLocalSchema } from 'mongoose';
 
-const userSchema = mongoose.Schema({
+const userSchema = new Schema({
   isAccountConfirmed: { type: Boolean, required: true, default: false },
   email: { type: String, required: true, unique: true },
   username: { type: String, required: true, unique: true },
@@ -10,12 +11,12 @@ const userSchema = mongoose.Schema({
   lastName: { type: String, required: true },
   dateOfBirth: { type: Date, required: true, max: Date.now() - ms('19 years') },
   createdAt: { type: Date, default: Date.now(), required: true },
-  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'BeerPost' }],
-  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
+  posts: [{ type: Schema.Types.ObjectId, ref: 'BeerPost' }],
+  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   profile: {
-    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'BeerPost' }],
-    affiliation: { type: mongoose.Schema.Types.ObjectId, ref: 'Brewery' },
-    displayImage: { type: mongoose.Schema.Types.ObjectId, ref: 'Image' },
+    likes: [{ type: Schema.Types.ObjectId, ref: 'BeerPost' }],
+    affiliation: { type: Schema.Types.ObjectId, ref: 'Brewery' },
+    displayImage: { type: Schema.Types.ObjectId, ref: 'Image' },
     currentCity: { type: String },
     bio: { type: String },
     gender: { type: String },
@@ -24,6 +25,6 @@ const userSchema = mongoose.Schema({
 
 userSchema.plugin(passportLocalMongoose);
 
-const User = mongoose.model('User', userSchema);
+const User = model('User', userSchema);
 
 export default User;
