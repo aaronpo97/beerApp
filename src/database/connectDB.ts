@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const connectDB = async (MONGO_DB_URI) => {
+const connectDB = async (MONGO_DB_URI: string) => {
   try {
     await mongoose.connect(MONGO_DB_URI, {
       useNewUrlParser: true,

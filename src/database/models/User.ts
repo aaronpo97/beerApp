@@ -1,7 +1,6 @@
 import { Schema, model } from 'mongoose';
 import passportLocalMongoose from 'passport-local-mongoose';
 import ms from 'ms';
-import { PassportLocalSchema } from 'mongoose';
 
 const userSchema = new Schema({
   isAccountConfirmed: { type: Boolean, required: true, default: false },

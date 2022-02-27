@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const brewerySchema = mongoose.Schema({
+const brewerySchema = new mongoose.Schema({
   name: { type: String, required: true },
   beers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'BeerPost' }],
   associatedProfiles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Profile' }],

@@ -1,16 +1,16 @@
 import path from 'path';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import process from 'process';
 import passport from 'passport';
 import PassportLocal from 'passport-local';
 
 import ServerError from './utilities/errors/ServerError.js';
 
-import { SuccessResponse, SuccessResponseInterface } from './utilities/response/SuccessResponse.js';
+import { SuccessResponseInterface } from './utilities/response/SuccessResponse.js';
 import { ErrorResponse, ErrorResponseInterface } from './utilities/response/ErrorResponse.js';
-import connectDB from './database/connectDB.js';
+import connectDB from './database/connectDB';
 import User from './database/models/User.js';
 
 import beerRoutes from './routes/beerRoutes.js';
@@ -19,14 +19,14 @@ import commentRoutes from './routes/commentRoutes.js';
 import imageRoutes from './routes/imageRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 
-const inProductionMode = process.env.NODE_ENV === 'production';
+const { PORT = '4000', MONGO_DB_URI = '', BASE_URL = '', NODE_ENV = 'development' } = process.env;
+const inProductionMode: boolean = NODE_ENV === 'production';
 
 if (!inProductionMode) {
   dotenv.config();
 }
 
 // eslint-disable-next-line no-undef
-const { PORT, MONGO_DB_URI, BASE_URL } = process.env;
 
 const app = express();
 
@@ -69,21 +69,14 @@ app.use('/api/breweries', breweryRoutes);
 app.use('/api/images', imageRoutes);
 
 // Response handling:
-app.use(
-  (
-    data: SuccessResponseInterface,
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction,
-  ) => {
-    const { status, success } = data;
-    if (success) {
-      res.status(status).json(data);
-    } else {
-      next(data);
-    }
-  },
-);
+app.use((data: SuccessResponseInterface, req: Request, res: Response, next: NextFunction) => {
+  const { status, success } = data;
+  if (success) {
+    res.status(status).json(data);
+  } else {
+    next(data);
+  }
+});
 
 // Error handling:
 
