@@ -9,7 +9,7 @@ import PassportLocal from 'passport-local';
 import ServerError from './utilities/errors/ServerError.js';
 
 import { SuccessResponseInterface } from './utilities/response/SuccessResponse.js';
-import { ErrorResponse, ErrorResponseInterface } from './utilities/response/ErrorResponse.js';
+import { ErrorResponse, ErrorResponseInterface } from './utilities/response/ErrorResponse';
 import connectDB from './database/connectDB';
 import User from './database/models/User.js';
 
@@ -46,6 +46,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Passport.js
 app.use(passport.initialize());
+
+// Ignoring typescript rules here until I figure out how this library works with
+
 // @ts-ignore
 passport.use(new PassportLocal.Strategy(User.authenticate()));
 // @ts-ignore
@@ -83,6 +86,7 @@ app.use((data: SuccessResponseInterface, req: Request, res: Response, next: Next
 // eslint-disable-next-line no-unused-vars
 app.use(
   (err: ErrorResponseInterface, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    console.log(err);
     const { status = 500, message = 'Oh no, something went wrong.', stack } = err;
     res.status(status).json(new ErrorResponse(message, status, !inProductionMode ? stack : undefined));
   },

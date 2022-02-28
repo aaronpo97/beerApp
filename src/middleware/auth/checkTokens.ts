@@ -1,8 +1,26 @@
-import jwt from 'jsonwebtoken';
-import ServerError from '../../utilities/errors/ServerError.js';
-import { generateAccessToken } from '../../utilities/auth/generateTokens.js';
+import ServerError from '../../utilities/errors/ServerError';
+import { generateAccessToken } from '../../utilities/auth/generateTokens';
 
-const checkTokens = async (req, res, next) => {
+import { Request, Response, NextFunction } from 'express';
+
+import jwt, { JwtPayload, Jwt } from 'jsonwebtoken';
+
+declare global {
+  namespace Express {
+    interface Request {
+      accessToken?: string;
+      refreshToken?: string;
+      didTokenRegenerate?: boolean;
+      headers: {
+        'x-auth-token': string;
+        'x-access-token': string;
+      };
+      decoded: Jwt & JwtPayload & void;
+    }
+  }
+}
+
+const checkTokens = async (req: Request, res: Response, next: NextFunction) => {
   const { ACCESS_TOKEN_SECRET } = process.env;
 
   try {
