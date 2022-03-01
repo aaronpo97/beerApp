@@ -1,10 +1,11 @@
-import ServerError from '../../utilities/errors/ServerError.js';
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
-import sort from '../../utilities/data/sorter.js';
+import ServerError from '../../utilities/errors/ServerError';
+import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+import sort from '../../utilities/data/sorter';
 
-import BeerPost from '../../database/models/BeerPost.js';
+import BeerPost from '../../database/models/BeerPost';
+import { Request, Response, NextFunction } from 'express';
 
-const showBeerPost = async (req, res, next) => {
+const showBeerPost = async (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params;
 
   try {

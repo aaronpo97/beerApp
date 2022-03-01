@@ -15,7 +15,7 @@ declare global {
         'x-auth-token': string;
         'x-access-token': string;
       };
-      decoded: Jwt & JwtPayload & void;
+      decoded: string | JwtPayload;
     }
   }
 }
@@ -30,11 +30,12 @@ const checkTokens = async (req: Request, res: Response, next: NextFunction) => {
     if (!accessToken) throw new ServerError('No access token was provided.', 400);
     if (!refreshToken) throw new ServerError('No refresh token was provided.', 400);
 
-    const decoded = jwt.verify(accessToken, ACCESS_TOKEN_SECRET);
+    const decoded = jwt.verify(accessToken as string, ACCESS_TOKEN_SECRET);
 
-    req.accessToken = accessToken;
+    req.accessToken = accessToken as string;
     req.decoded = decoded;
     req.didTokenRegenerate = false;
+
     next();
   } catch (err) {
     if (err.name === 'TokenExpiredError') {

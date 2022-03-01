@@ -1,23 +1,23 @@
 import express from 'express';
 
 // ----- Controllers ----- //
-import createBeerPost from '../controllers/posts/createBeerPost.js';
-import deleteBeerPost from '../controllers/posts/deleteBeerPost.js';
-import getAllPosts from '../controllers/posts/getAllPosts.js';
-import likeUnlikePost from '../controllers/posts/likeUnlikePost.js';
-import searchBeerPosts from '../controllers/posts/searchBeer.js';
-import showBeerPost from '../controllers/posts/showBeerPost.js';
-import updateBeerPost from '../controllers/posts/updateBeerPost.js';
+import createBeerPost from '../controllers/posts/createBeerPost';
+import deleteBeerPost from '../controllers/posts/deleteBeerPost';
+import getAllPosts from '../controllers/posts/getAllPosts';
+import likeUnlikePost from '../controllers/posts/likeUnlikePost';
+import searchBeerPosts from '../controllers/posts/searchBeer';
+import showBeerPost from '../controllers/posts/showBeerPost';
+import updateBeerPost from '../controllers/posts/updateBeerPost';
 
 // ----- Middleware ----- //
-import checkTokens from '../middleware/auth/checkTokens.js';
-import isAccountConfirmed from '../middleware/auth/isAccountConfirmed.js';
-import isPostOwner from '../middleware/auth/isPostOwner.js';
-import validateBeerPost from '../middleware/validation/validateBeerPost.js';
-import verifyAccessToken from '../middleware/auth/verifyAccessToken.js';
+import checkTokens from '../middleware/auth/checkTokens';
+import isAccountConfirmed from '../middleware/auth/isAccountConfirmed';
+import isPostOwner from '../middleware/auth/isPostOwner';
+import validateBeerPost from '../middleware/validation/validateBeerPost';
+import verifyAccessToken from '../middleware/auth/verifyAccessToken';
 
 // ----- Utilities ------ //
-import ServerError from '../utilities/errors/ServerError.js';
+import ServerError from '../utilities/errors/ServerError';
 
 const router = express.Router();
 

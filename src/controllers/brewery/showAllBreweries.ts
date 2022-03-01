@@ -1,7 +1,7 @@
 import Brewery from '../../database/models/Brewery.js';
 import sort from '../../utilities/data/sorter.js';
 
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
+import { SuccessResponse } from '../../utilities/response/SuccessResponse.js';
 
 const showAllBreweries = async (req, res, next) => {
   try {

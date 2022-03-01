@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
-import ServerError from '../../utilities/errors/ServerError.js';
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
-import geocode from '../../utilities/mapbox/geocode.js';
+import ServerError from '../../utilities/errors/ServerError';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
+import geocode from '../../utilities/mapbox/geocode';
 
-import Brewery from '../../database/models/Brewery.js';
+import Brewery from '../../database/models/Brewery';
 
 const createBrewery = async (req, res, next) => {
   try {

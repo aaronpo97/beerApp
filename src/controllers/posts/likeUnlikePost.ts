@@ -1,21 +1,23 @@
-import BeerPost from '../../database/models/BeerPost.js';
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
+import { Request, Response, NextFunction } from 'express';
+import { ObjectId } from 'mongoose';
+import BeerPost from '../../database/models/BeerPost';
+import { SuccessResponse } from '../../utilities/response/SuccessResponse';
 
-const likeUnlikePost = async (req, res, next) => {
+const likeUnlikePost = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
     const beer = await BeerPost.findById(id);
     const { currentUser } = req;
 
     const isPostLikedByUser = currentUser.profile.likes
-      .map((objectID) => objectID.toString())
-      .includes(beer._id.toString());
+      .map((objectId: ObjectId) => objectId.toString())
+      .includes((beer._id as ObjectId).toString());
 
     const isUserListed = beer.likedBy.map((objID) => objID.toString()).includes(currentUser._id.toString());
     //
 
     if (isPostLikedByUser && isUserListed) {
-      beer.likedBy = beer.likedBy.pull(currentUser);
+      beer.likedBy = (beer.likedBy as any).pull(currentUser);
       currentUser.profile.likes = currentUser.profile.likes.pull(beer);
       await currentUser.save();
       await beer.save();

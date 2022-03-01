@@ -12,7 +12,7 @@ declare global {
     interface Request {
       accessToken?: string;
       refreshToken?: string;
-      didTokenRegenerate?: string;
+      didTokenRegenerate?: boolean;
     }
   }
 }

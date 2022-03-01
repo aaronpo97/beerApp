@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import BeerPost from '../../database/models/BeerPost.js';
-import sort from '../../utilities/data/sorter.js';
+import BeerPost from '../../database/models/BeerPost';
+import sort from '../../utilities/data/sorter';
 import { SuccessResponse } from '../../utilities/response/SuccessResponse';
 
 const getAllPosts = async (req: Request, res: Response, next: NextFunction) => {
@@ -12,7 +12,7 @@ const getAllPosts = async (req: Request, res: Response, next: NextFunction) => {
       .populate('postedBy', 'username');
 
     const status = 200;
-    const payload = sort(allPosts, query.sort, query.param);
+    const payload = sort(allPosts, query.sort as 'ascending' | 'descending', query.param as string);
     const message = `Sending beer index.${
       req.query.sort && req.query.param ? ` Sorting by ${req.query.param} in ${req.query.sort} order.` : ''
     }`;

@@ -6,18 +6,18 @@ import process from 'process';
 import passport from 'passport';
 import PassportLocal from 'passport-local';
 
-import ServerError from './utilities/errors/ServerError.js';
+import ServerError from './utilities/errors/ServerError';
 
-import { SuccessResponseInterface } from './utilities/response/SuccessResponse.js';
+import { SuccessResponseInterface } from './utilities/response/SuccessResponse';
 import { ErrorResponse, ErrorResponseInterface } from './utilities/response/ErrorResponse';
 import connectDB from './database/connectDB';
-import User from './database/models/User.js';
+import User from './database/models/User';
 
-import beerRoutes from './routes/beerRoutes.js';
-import breweryRoutes from './routes/breweryRoutes.js';
-import commentRoutes from './routes/commentRoutes.js';
-import imageRoutes from './routes/imageRoutes.js';
-import userRoutes from './routes/userRoutes.js';
+import beerRoutes from './routes/beerRoutes';
+import breweryRoutes from './routes/breweryRoutes';
+import commentRoutes from './routes/commentRoutes';
+import imageRoutes from './routes/imageRoutes';
+import userRoutes from './routes/userRoutes';
 
 const { PORT = '4000', MONGO_DB_URI = '', BASE_URL = '', NODE_ENV = 'development' } = process.env;
 const inProductionMode: boolean = NODE_ENV === 'production';
@@ -44,7 +44,7 @@ if (!inProductionMode) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Passport.js
+// Passport
 app.use(passport.initialize());
 
 // Ignoring typescript rules here until I figure out how this library works with

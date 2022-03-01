@@ -18,9 +18,9 @@ interface TokenInterface {
   audience: string;
 }
 
-export const generateAccessToken = async (req) => {
+export const generateAccessToken = async (req: Request) => {
   const refreshToken = req.headers['x-auth-token'] || req.refreshToken;
-  const decoded = jwt.verify(refreshToken, REFRESH_TOKEN_SECRET);
+  const decoded = jwt.verify(refreshToken as string, REFRESH_TOKEN_SECRET);
 
   const user = await User.findById((decoded as TokenInterface).audience);
   if (!user) throw new ServerError('Invalid JWT.', 401);

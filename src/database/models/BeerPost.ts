@@ -1,8 +1,20 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema, model, Types } from 'mongoose';
 
-const { Schema } = mongoose;
+export interface BeerInterface {
+  name: string;
+  type: string;
+  description: string;
+  images: Types.ObjectId[];
+  abv: number;
+  ibu: number;
+  brewery: Types.ObjectId;
+  postedBy: Types.ObjectId;
+  createdTimestamp: Date;
+  likedBy: Types.ObjectId[];
+  comments: Types.ObjectId[];
+}
 
-const BeerSchema = new Schema({
+const BeerSchema = new Schema<BeerInterface>({
   name: { type: String, required: true },
   type: { type: String, required: true },
   description: { type: String, required: true },
@@ -16,5 +28,4 @@ const BeerSchema = new Schema({
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
 });
 
-const BeerPost = mongoose.model('BeerPost', BeerSchema);
-export default BeerPost;
+export default model('BeerPost', BeerSchema);

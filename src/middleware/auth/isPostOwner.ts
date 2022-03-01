@@ -1,8 +1,20 @@
-import BeerPost from '../../database/models/BeerPost.js';
-import ServerError from '../../utilities/errors/ServerError.js';
-import User from '../../database/models/User.js';
+import { Document } from 'mongoose';
+import { Request, Response, NextFunction } from 'express';
 
-const isPostOwner = async (req, res, next) => {
+import BeerPost from '../../database/models/BeerPost';
+import User from '../../database/models/User';
+
+import ServerError from '../../utilities/errors/ServerError';
+
+declare global {
+  namespace Express {
+    interface Request {
+      post: Document<typeof BeerPost>;
+    }
+  }
+}
+
+const isPostOwner = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
     const post = await BeerPost.findById(id);

@@ -1,6 +1,20 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema, model, Types } from 'mongoose';
 
-const brewerySchema = new mongoose.Schema({
+interface Brewery {
+  name: string;
+  beers: Types.ObjectId[];
+  associatedProfiles: Types.ObjectId[];
+  images: Types.ObjectId[];
+  postedBy: Types.ObjectId;
+  description: string;
+  location: {
+    place_name: string;
+    geometry: {
+      coordinates: number[];
+    };
+  };
+}
+const brewerySchema = new Schema<Brewery>({
   name: { type: String, required: true },
   beers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'BeerPost' }],
   associatedProfiles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Profile' }],
@@ -21,6 +35,4 @@ const brewerySchema = new mongoose.Schema({
   },
 });
 
-const Brewery = mongoose.model('Brewery', brewerySchema);
-
-export default Brewery;
+export default model('Brewery', brewerySchema);

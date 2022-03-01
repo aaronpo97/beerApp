@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
-import BeerPost from '../../database/models/BeerPost.js';
-import Brewery from '../../database/models/Brewery.js';
-import ServerError from '../../utilities/errors/ServerError.js';
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
-import Comment from '../../database/models/Comment.js';
-import deletePost from '../../utilities/deletion/deletePost.js';
+import BeerPost from '../../database/models/BeerPost';
+import Brewery from '../../database/models/Brewery';
+import ServerError from '../../utilities/errors/ServerError';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
+import Comment from '../../database/models/Comment';
+import deletePost from '../../utilities/deletion/deletePost';
 
 const deleteBrewery = async (req, res, next) => {
   try {

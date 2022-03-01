@@ -1,4 +1,4 @@
-import { Response, ResponseInterface } from './Response.js';
+import { Response, ResponseInterface } from './Response';
 
 export interface ErrorResponseInterface extends ResponseInterface {
   stack?: string;
