@@ -3,32 +3,32 @@ import express from 'express';
 import passport from 'passport';
 
 /* ----- Controllers ----- */
-import changeEmail from '../controllers/users/changeEmail.js';
-import changeName from '../controllers/users/changeName.js';
-import changeUsername from '../controllers/users/changeUsername.js';
-import checkIfUserExists from '../controllers/users/checkIfUserExists.js';
-import confirmUser from '../controllers/users/confirmUser.js';
-import deleteUser from '../controllers/users/deleteUser.js';
-import editUser from '../controllers/users/editUserInfo.js';
-import loginUser from '../controllers/users/loginUser.js';
-import registerUser from '../controllers/users/registerUser.js';
-import requestPasswordReset from '../controllers/users/requestPasswordReset.js';
-import resendConfirmation from '../controllers/users/resendConfirmation.js';
-import resetPassword from '../controllers/users/resetPassword.js';
-import sendVerifiedUserResponse from '../controllers/users/sendVerifiedUserResponse.js';
-import viewProfile from '../controllers/users/viewProfile.js';
-import viewUser from '../controllers/users/viewUser.js';
+import changeEmail from '../controllers/users/changeEmail';
+import changeName from '../controllers/users/changeName';
+import changeUsername from '../controllers/users/changeUsername';
+import checkIfUserExists from '../controllers/users/checkIfUserExists';
+import confirmUser from '../controllers/users/confirmUser';
+import deleteUser from '../controllers/users/deleteUser';
+import editUser from '../controllers/users/editUserInfo';
+import loginUser from '../controllers/users/loginUser';
+import registerUser from '../controllers/users/registerUser';
+import requestPasswordReset from '../controllers/users/requestPasswordReset';
+import resendConfirmation from '../controllers/users/resendConfirmation';
+import resetPassword from '../controllers/users/resetPassword';
+import sendVerifiedUserResponse from '../controllers/users/sendVerifiedUserResponse';
+import viewProfile from '../controllers/users/viewProfile';
+import viewUser from '../controllers/users/viewUser';
 
 /* ----- Middleware ----- */
-import canAccessUserInfo from '../middleware/auth/canAccessUserInfo.js';
-import checkTokens from '../middleware/auth/checkTokens.js';
-import isAccountConfirmed from '../middleware/auth/isAccountConfirmed.js';
-import isAccountNotConfirmed from '../middleware/isAccountNotConfirmed.js';
-import verifyAccessToken from '../middleware/auth/verifyAccessToken.js';
+import canAccessUserInfo from '../middleware/auth/canAccessUserInfo';
+import checkTokens from '../middleware/auth/checkTokens';
+import isAccountConfirmed from '../middleware/auth/isAccountConfirmed';
+import isAccountNotConfirmed from '../middleware/isAccountNotConfirmed';
+import verifyAccessToken from '../middleware/auth/verifyAccessToken';
 
 /* ----- Utilities ----- */
-import ServerError from '../utilities/errors/ServerError.js';
-import changePassword from '../controllers/users/changePassword.js';
+import ServerError from '../utilities/errors/ServerError';
+import changePassword from '../controllers/users/changePassword';
 
 dotenv.config();
 

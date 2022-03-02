@@ -1,9 +1,4 @@
-import { Response, ResponseInterface } from './Response';
-
-export interface ErrorResponseInterface extends ResponseInterface {
-  stack?: string;
-  success: false;
-}
+import { Response } from './Response';
 
 export class ErrorResponse extends Response {
   success: boolean;

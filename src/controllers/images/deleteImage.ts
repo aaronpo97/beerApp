@@ -1,9 +1,11 @@
-import Image from '../../database/models/Image.js';
-import ServerError from '../../utilities/errors/ServerError.js';
-import imageDeleter from '../../utilities/deletion/deleteImage.js';
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
+import { Request, Response, NextFunction } from 'express';
 
-const deleteImage = async (req, res, next) => {
+import Image from '../../database/models/Image';
+import ServerError from '../../utilities/errors/ServerError';
+import imageDeleter from '../../utilities/deletion/deleteImage';
+import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+
+const deleteImage = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
     const imageToDelete = await Image.findById(id);
@@ -26,7 +28,7 @@ const deleteImage = async (req, res, next) => {
         payload,
         req.didTokenRegenerate ? req.accessToken : undefined,
       ),
-    ).status(status);
+    );
   } catch (error) {
     next(error);
   }

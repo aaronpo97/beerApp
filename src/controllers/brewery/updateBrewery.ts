@@ -1,8 +1,10 @@
-import Brewery from '../../database/models/Brewery.js';
-import ServerError from '../../utilities/errors/ServerError.js';
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
+import { Request, Response, NextFunction } from 'express';
 
-const updateBrewery = async (req, res, next) => {
+import Brewery from '../../database/models/Brewery';
+import ServerError from '../../utilities/errors/ServerError';
+import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+
+const updateBrewery = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
     const brewery = await Brewery.findById(id);

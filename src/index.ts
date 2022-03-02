@@ -8,8 +8,8 @@ import PassportLocal from 'passport-local';
 
 import ServerError from './utilities/errors/ServerError';
 
-import { SuccessResponseInterface } from './utilities/response/SuccessResponse';
-import { ErrorResponse, ErrorResponseInterface } from './utilities/response/ErrorResponse';
+import { SuccessResponse } from './utilities/response/SuccessResponse';
+import { ErrorResponse } from './utilities/response/ErrorResponse';
 import connectDB from './database/connectDB';
 import User from './database/models/User';
 
@@ -47,13 +47,11 @@ app.use(express.urlencoded({ extended: true }));
 // Passport
 app.use(passport.initialize());
 
-// Ignoring typescript rules here until I figure out how this library works with
-
-// @ts-ignore
+// @ts-expect-error
 passport.use(new PassportLocal.Strategy(User.authenticate()));
-// @ts-ignore
+// @ts-expect-error
 passport.serializeUser(User.serializeUser());
-// @ts-ignore
+// @ts-expect-error
 passport.deserializeUser(User.deserializeUser());
 
 if (inProductionMode) {
@@ -72,7 +70,7 @@ app.use('/api/breweries', breweryRoutes);
 app.use('/api/images', imageRoutes);
 
 // Response handling:
-app.use((data: SuccessResponseInterface, req: Request, res: Response, next: NextFunction) => {
+app.use((data: SuccessResponse, req: Request, res: Response, next: NextFunction) => {
   const { status, success } = data;
   if (success) {
     res.status(status).json(data);
@@ -84,13 +82,11 @@ app.use((data: SuccessResponseInterface, req: Request, res: Response, next: Next
 // Error handling:
 
 // eslint-disable-next-line no-unused-vars
-app.use(
-  (err: ErrorResponseInterface, req: express.Request, res: express.Response, next: express.NextFunction) => {
-    console.log(err);
-    const { status = 500, message = 'Oh no, something went wrong.', stack } = err;
-    res.status(status).json(new ErrorResponse(message, status, !inProductionMode ? stack : undefined));
-  },
-);
+app.use((err: ServerError, req: Request, res: Response, next: NextFunction) => {
+  console.log(err);
+  const { status = 500, message = 'Oh no, something went wrong.', stack } = err;
+  res.status(status).json(new ErrorResponse(message, status, !inProductionMode ? stack : undefined));
+});
 
 // Serving compiled react app from ../frontend/build
 if (inProductionMode) {

@@ -4,6 +4,7 @@ import process from 'process';
 import { Request } from 'express';
 import User from '../../database/models/User';
 import ServerError from '../errors/ServerError';
+import { Document } from 'mongoose';
 
 dotenv.config();
 

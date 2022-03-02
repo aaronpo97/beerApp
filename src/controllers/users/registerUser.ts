@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
-import User from '../../database/models/User.js';
-import ServerError from '../../utilities/errors/ServerError.js';
-import sendConfirmationEmail from '../../utilities/nodemailer/sendConfirmationEmail.js';
+import User from '../../database/models/User';
+import ServerError from '../../utilities/errors/ServerError';
+import sendConfirmationEmail from '../../utilities/nodemailer/sendConfirmationEmail';
 
 import { Request, Response, NextFunction } from 'express';
 
@@ -9,7 +9,7 @@ import {
   generateAccessToken,
   generateConfirmationToken,
   generateRefreshToken,
-} from '../../utilities/auth/generateTokens.js';
+} from '../../utilities/auth/generateTokens';
 
 import { SuccessResponse } from '../../utilities/response/SuccessResponse';
 

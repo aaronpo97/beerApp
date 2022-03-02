@@ -1,8 +1,9 @@
-import ServerError from '../../utilities/errors/ServerError.js';
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
-import User from '../../database/models/User.js';
+import ServerError from '../../utilities/errors/ServerError';
+import { Request, Response, NextFunction } from 'express';
+import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+import User from '../../database/models/User';
 
-const doesUserExist = async (req, res, next) => {
+const doesUserExist = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { username = '', email = '' } = req.query;
 

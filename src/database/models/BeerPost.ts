@@ -1,6 +1,6 @@
-import mongoose, { Schema, model, Types } from 'mongoose';
+import mongoose, { Schema, model, Types, Document } from 'mongoose';
 
-export interface BeerInterface {
+export interface BeerInterface extends Document {
   name: string;
   type: string;
   description: string;
@@ -28,4 +28,4 @@ const BeerSchema = new Schema<BeerInterface>({
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
 });
 
-export default model('BeerPost', BeerSchema);
+export default model<BeerInterface>('BeerPost', BeerSchema);

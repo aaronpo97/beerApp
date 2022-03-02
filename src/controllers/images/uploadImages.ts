@@ -1,13 +1,15 @@
-import Image from '../../database/models/Image.js';
-import ServerError from '../../utilities/errors/ServerError.js';
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
+import Image from '../../database/models/Image';
+import ServerError from '../../utilities/errors/ServerError';
+import { SuccessResponse } from '../../utilities/response/SuccessResponse';
 
-const uploadImages = async (req, res, next) => {
+import { Request, Response, NextFunction } from 'express';
+
+const uploadImages = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.files.length) throw new ServerError('No files were given to the uploader.', 400);
 
     const images = [];
-    req.files.forEach(async (file) => {
+    (req.files as Express.Multer.File[]).forEach(async (file) => {
       const imageToUpload = new Image({
         filename: file.filename,
         url: file.path,

@@ -1,8 +1,10 @@
-import Image from '../../database/models/Image.js';
-import ServerError from '../../utilities/errors/ServerError.js';
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
+import { Request, Response, NextFunction } from 'express';
 
-const viewImage = async (req, res, next) => {
+import Image from '../../database/models/Image';
+import ServerError from '../../utilities/errors/ServerError';
+import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+
+const viewImage = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
     const image = await Image.findById(id);

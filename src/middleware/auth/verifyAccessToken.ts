@@ -1,10 +1,10 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import ServerError from '../../utilities/errors/ServerError';
-import User from '../../database/models/User';
 import { NextFunction, Request, Response } from 'express';
-import { Document } from 'mongoose';
 import process from 'process';
+import User, { UserInterface } from '../../database/models/User';
+import { Document } from 'mongoose';
 
 dotenv.config();
 const { ACCESS_TOKEN_SECRET } = process.env;
@@ -12,14 +12,7 @@ const { ACCESS_TOKEN_SECRET } = process.env;
 declare global {
   namespace Express {
     interface Request {
-      accessToken?: string;
-      refreshToken?: string;
-      didTokenRegenerate?: boolean;
-      headers: {
-        'x-auth-token': string;
-        'x-access-token': string;
-      };
-      currentUser: any;
+      currentUser: UserInterface & Document<any, any, UserInterface>;
     }
   }
 }

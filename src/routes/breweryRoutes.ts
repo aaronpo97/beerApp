@@ -1,20 +1,20 @@
 import express from 'express';
 
 // ----- Controllers ----- //
-import createBrewery from '../controllers/brewery/createBrewery.js';
-import deleteBrewery from '../controllers/brewery/deleteBrewery.js';
-import showAllBreweries from '../controllers/brewery/showAllBreweries.js';
-import updateBrewery from '../controllers/brewery/updateBrewery.js';
-import viewBrewery from '../controllers/brewery/viewBrewery.js';
+import createBrewery from '../controllers/brewery/createBrewery';
+import deleteBrewery from '../controllers/brewery/deleteBrewery';
+import showAllBreweries from '../controllers/brewery/showAllBreweries';
+import updateBrewery from '../controllers/brewery/updateBrewery';
+import viewBrewery from '../controllers/brewery/viewBrewery';
 
 // ----- Middleware ----- //
-import checkTokens from '../middleware/auth/checkTokens.js';
-import isAccountConfirmed from '../middleware/auth/isAccountConfirmed.js';
-import validateBrewery from '../middleware/validation/validateBrewery.js';
-import verifyAccessToken from '../middleware/auth/verifyAccessToken.js';
+import checkTokens from '../middleware/auth/checkTokens';
+import isAccountConfirmed from '../middleware/auth/isAccountConfirmed';
+import validateBrewery from '../middleware/validation/validateBrewery';
+import verifyAccessToken from '../middleware/auth/verifyAccessToken';
 
 // ----- Utilities ------ //
-import ServerError from '../utilities/errors/ServerError.js';
+import ServerError from '../utilities/errors/ServerError';
 
 const router = express.Router();
 

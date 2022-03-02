@@ -1,15 +1,19 @@
-import mongoose from 'mongoose';
+import { Schema, ObjectId, model } from 'mongoose';
 
-const { Schema } = mongoose;
+interface Comment {
+  body: string;
+  timestamp: Date;
+  author: ObjectId;
+  post: ObjectId;
+  rating: 1 | 2 | 3 | 4 | 5;
+}
 
-const CommentSchema = new Schema({
-  body: { type: mongoose.Schema.Types.String, required: true },
-  timestamp: { type: mongoose.Schema.Types.Date, required: true },
-  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  post: { type: mongoose.Schema.Types.ObjectId, ref: 'BeerPost', required: true },
-  rating: { type: mongoose.Schema.Types.Number, max: 5, min: 1, required: true },
+const CommentSchema = new Schema<Comment>({
+  body: { type: Schema.Types.String, required: true },
+  timestamp: { type: Schema.Types.Date, required: true },
+  author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  post: { type: Schema.Types.ObjectId, ref: 'BeerPost', required: true },
+  rating: { type: Schema.Types.Number, max: 5, min: 1, required: true },
 });
 
-const Comment = mongoose.model('Comment', CommentSchema);
-
-export default Comment;
+export default model('Comment', CommentSchema);

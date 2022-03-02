@@ -1,6 +1,6 @@
-import User from '../../database/models/User.js';
-import ServerError from '../../utilities/errors/ServerError.js';
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
+import User from '../../database/models/User';
+import ServerError from '../../utilities/errors/ServerError';
+import { SuccessResponse } from '../../utilities/response/SuccessResponse';
 
 const emailRegex =
   // eslint-disable-next-line no-useless-escape
@@ -16,7 +16,7 @@ const changeEmail = async (req, res, next) => {
     if (!isValidEmail(email)) throw new ServerError('That email is invalid.', 400);
 
     const userAccount = await User.findByIdAndUpdate(id, { email });
-    if (!userAccount) throw new ServerError('Cannot find a user with that id. ');
+    if (!userAccount) throw new ServerError('Cannot find a user with that id.', 404);
     await userAccount.save();
 
     next(

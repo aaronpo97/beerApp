@@ -1,6 +1,6 @@
-import Brewery from '../../database/models/Brewery.js';
-import User from '../../database/models/User.js';
-import deleteComment from './deleteComment.js';
+import Brewery from '../../database/models/Brewery';
+import User from '../../database/models/User';
+import deleteComment from './deleteComment';
 
 const deletePost = async (post) => {
   try {

@@ -1,20 +1,20 @@
 import express from 'express';
 
 // ----- Controllers ----- //
-import deleteComment from '../controllers/comments/deleteComment.js';
-import editComment from '../controllers/comments/editComment.js';
-import postComment from '../controllers/comments/postComment.js';
-import viewComment from '../controllers/comments/viewComment.js';
-import viewPostComments from '../controllers/posts/viewPostComments.js';
+import deleteComment from '../controllers/comments/deleteComment';
+import editComment from '../controllers/comments/editComment';
+import postComment from '../controllers/comments/postComment';
+import viewComment from '../controllers/comments/viewComment';
+import viewPostComments from '../controllers/posts/viewPostComments';
 
 // ----- Middleware ----- //
-import checkTokens from '../middleware/auth/checkTokens.js';
-import verifyAccessToken from '../middleware/auth/verifyAccessToken.js';
-import isCommentOwner from '../middleware/auth/isCommentOwner.js';
-import isAccountConfirmed from '../middleware/auth/isAccountConfirmed.js';
+import checkTokens from '../middleware/auth/checkTokens';
+import verifyAccessToken from '../middleware/auth/verifyAccessToken';
+import isCommentOwner from '../middleware/auth/isCommentOwner';
+import isAccountConfirmed from '../middleware/auth/isAccountConfirmed';
 
 // ----- Utilities ------ //
-import ServerError from '../utilities/errors/ServerError.js';
+import ServerError from '../utilities/errors/ServerError';
 
 const router = express.Router({ mergeParams: true });
 

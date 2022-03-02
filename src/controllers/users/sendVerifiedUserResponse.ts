@@ -1,12 +1,14 @@
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
+import { Request, Response, NextFunction } from 'express';
+import { SuccessResponse } from '../../utilities/response/SuccessResponse';
 
-const sendVerifiedUserResponse = async (req, res, next) => {
+const sendVerifiedUserResponse = async (req: Request, res: Response, next: NextFunction) => {
   const { currentUser } = req;
 
-  const payload = await currentUser.populate({
+  const payload = currentUser.populate({
     path: 'profile',
     populate: { path: 'displayImage', model: 'Image' },
   });
+
   next(
     new SuccessResponse(
       `Successfully verified ${req.currentUser.username}.`,

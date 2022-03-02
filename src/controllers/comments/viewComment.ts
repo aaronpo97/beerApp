@@ -1,8 +1,10 @@
-import Comment from '../../database/models/Comment.js';
-import ServerError from '../../utilities/errors/ServerError.js';
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
+import Comment from '../../database/models/Comment';
+import ServerError from '../../utilities/errors/ServerError';
+import { SuccessResponse } from '../../utilities/response/SuccessResponse';
 
-const viewComment = async (req, res, next) => {
+import { Request, Response, NextFunction } from 'express';
+
+const viewComment = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { commentId } = req.params;
 

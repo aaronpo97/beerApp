@@ -1,11 +1,13 @@
 /* eslint-disable camelcase */
 import ServerError from '../../utilities/errors/ServerError';
-import SuccessResponse from '../../utilities/response/SuccessResponse';
+import { Request, Response, NextFunction } from 'express';
+
+import { SuccessResponse } from '../../utilities/response/SuccessResponse';
 import geocode from '../../utilities/mapbox/geocode';
 
 import Brewery from '../../database/models/Brewery';
 
-const createBrewery = async (req, res, next) => {
+const createBrewery = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { name, description, address, images = [] } = req.body;
 

@@ -1,14 +1,8 @@
-import { ResponseInterface, Response } from './Response';
-
-export interface SuccessResponseInterface extends ResponseInterface {
-  success: true;
-  newAccessToken?: string;
-  payload: any;
-}
+import { Response } from './Response';
 
 export class SuccessResponse extends Response {
   success: true;
-  payload: { any };
+  payload: any;
   newAccessToken?: string;
 
   constructor(message: string, status: number, payload: any, newAccessToken: string | undefined) {

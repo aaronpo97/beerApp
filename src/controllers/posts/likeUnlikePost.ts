@@ -18,6 +18,7 @@ const likeUnlikePost = async (req: Request, res: Response, next: NextFunction) =
 
     if (isPostLikedByUser && isUserListed) {
       beer.likedBy = (beer.likedBy as any).pull(currentUser);
+      //@ts-ignore
       currentUser.profile.likes = currentUser.profile.likes.pull(beer);
       await currentUser.save();
       await beer.save();
@@ -32,6 +33,7 @@ const likeUnlikePost = async (req: Request, res: Response, next: NextFunction) =
       );
     } else {
       beer.likedBy.push(currentUser);
+      //@ts-ignore
       currentUser.profile.likes.push(beer);
       await currentUser.save();
       await beer.save();

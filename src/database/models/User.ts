@@ -1,8 +1,27 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, ObjectId } from 'mongoose';
 import passportLocalMongoose from 'passport-local-mongoose';
 import ms from 'ms';
 
-const userSchema = new Schema({
+export interface UserInterface {
+  isAccountConfirmed: boolean;
+  email: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  dateOfBirth: Date;
+  createdAt: Date;
+  posts: ObjectId[];
+  comments: ObjectId;
+  profile: {
+    likes: ObjectId[];
+    affiliation: ObjectId;
+    displayImage: ObjectId;
+    currentCity: string;
+    bio: string;
+    gender: string;
+  };
+}
+const userSchema = new Schema<UserInterface>({
   isAccountConfirmed: { type: Boolean, required: true, default: false },
   email: { type: String, required: true, unique: true },
   username: { type: String, required: true, unique: true },
@@ -22,8 +41,6 @@ const userSchema = new Schema({
   },
 });
 
-userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(passportLocalMongoose as any);
 
-const User = model('User', userSchema);
-
-export default User;
+export default model<UserInterface>('User', userSchema);

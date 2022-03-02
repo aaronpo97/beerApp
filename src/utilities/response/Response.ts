@@ -1,8 +1,3 @@
-export interface ResponseInterface {
-  message: string;
-  status: number;
-}
-
 export class Response {
   message: string;
   status: number;

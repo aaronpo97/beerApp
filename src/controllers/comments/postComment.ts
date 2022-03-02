@@ -1,9 +1,11 @@
-import BeerPost from '../../database/models/BeerPost.js';
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
+import BeerPost from '../../database/models/BeerPost';
+import { SuccessResponse } from '../../utilities/response/SuccessResponse';
 
-import Comment from '../../database/models/Comment.js';
+import Comment from '../../database/models/Comment';
 
-const postComment = async (req, res, next) => {
+import { Request, Response, NextFunction } from 'express';
+
+const postComment = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { commentBody, commentRating } = req.body;
 
@@ -20,6 +22,8 @@ const postComment = async (req, res, next) => {
     });
     if (!beerPost) throw new Error('Beer post not found.');
     beerPost.comments.push(comment);
+
+    // @ts-expect-error
     currentUser.comments.push(comment);
 
     await comment.save();

@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 import User from '../../database/models/User';
 import { generateAccessToken, generateRefreshToken } from '../../utilities/auth/generateTokens';
 import { SuccessResponse } from '../../utilities/response/SuccessResponse';
-import ServerError from '../../utilities/errors/ServerError';
 
 dotenv.config();
 

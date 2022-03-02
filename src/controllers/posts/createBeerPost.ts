@@ -12,7 +12,6 @@ declare global {
     interface Request {
       newAccessToken?: string;
       didTokenRegenerate?: boolean;
-      currentUser: any;
     }
   }
 }
@@ -43,6 +42,7 @@ const createBeerPost = async (req: Request, res: Response, next: NextFunction) =
     brewery.beers.push(post);
     await brewery.save();
 
+    // @ts-ignore
     req.currentUser.posts.push(post);
     await req.currentUser.save();
 
