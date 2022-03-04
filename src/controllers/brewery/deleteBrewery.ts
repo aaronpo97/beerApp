@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import BeerPost from '../../database/models/BeerPost';
 import Brewery from '../../database/models/Brewery';
 import ServerError from '../../utilities/errors/ServerError';
-import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 import deletePost from '../../utilities/deletion/deletePost';
 
 const deleteBrewery = async (req: Request, res: Response, next: NextFunction) => {

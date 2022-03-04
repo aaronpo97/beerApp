@@ -2,10 +2,10 @@ import BeerPost from '../../database/models/BeerPost';
 import Comment from '../../database/models/Comment';
 
 import sorter from '../../utilities/data/sorter';
-import { SuccessResponse } from '../../utilities/response/SuccessResponse';
 
 import { Request, Response, NextFunction } from 'express';
 import { ObjectId } from 'mongoose';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 
 interface PostCommentsInterface {
   _id: ObjectId;

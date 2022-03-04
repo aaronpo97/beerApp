@@ -1,7 +1,7 @@
 import Comment from '../../database/models/Comment';
-import { SuccessResponse } from '../../utilities/response/SuccessResponse';
 import deleteCommentUtil from '../../utilities/deletion/deleteComment';
 import { NextFunction, Request, Response } from 'express';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 
 const deleteComment = async (req: Request, res: Response, next: NextFunction) => {
   try {

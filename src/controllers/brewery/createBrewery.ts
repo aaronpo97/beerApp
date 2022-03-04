@@ -2,7 +2,7 @@
 import ServerError from '../../utilities/errors/ServerError';
 import { Request, Response, NextFunction } from 'express';
 
-import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 import geocode from '../../utilities/mapbox/geocode';
 
 import Brewery from '../../database/models/Brewery';

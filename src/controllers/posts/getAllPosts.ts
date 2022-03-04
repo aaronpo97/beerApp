@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import BeerPost from '../../database/models/BeerPost';
 import sort from '../../utilities/data/sorter';
-import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 
 const getAllPosts = async (req: Request, res: Response, next: NextFunction) => {
   try {

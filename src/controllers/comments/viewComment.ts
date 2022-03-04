@@ -1,6 +1,6 @@
 import Comment from '../../database/models/Comment';
 import ServerError from '../../utilities/errors/ServerError';
-import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 
 import { Request, Response, NextFunction } from 'express';
 

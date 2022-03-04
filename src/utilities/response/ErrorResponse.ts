@@ -1,6 +1,6 @@
 import { Response } from './Response';
 
-export class ErrorResponse extends Response {
+export default class ErrorResponse extends Response {
   success: boolean;
   stack?: string;
 

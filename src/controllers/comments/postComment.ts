@@ -1,5 +1,5 @@
 import BeerPost from '../../database/models/BeerPost';
-import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 
 import Comment from '../../database/models/Comment';
 

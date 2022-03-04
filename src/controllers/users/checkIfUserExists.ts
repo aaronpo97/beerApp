@@ -1,6 +1,6 @@
 import ServerError from '../../utilities/errors/ServerError';
 import { Request, Response, NextFunction } from 'express';
-import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 import User from '../../database/models/User';
 
 const doesUserExist = async (req: Request, res: Response, next: NextFunction) => {

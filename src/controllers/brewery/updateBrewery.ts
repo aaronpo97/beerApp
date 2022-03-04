@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 
 import Brewery from '../../database/models/Brewery';
 import ServerError from '../../utilities/errors/ServerError';
-import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 
 const updateBrewery = async (req: Request, res: Response, next: NextFunction) => {
   try {

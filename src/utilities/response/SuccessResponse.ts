@@ -1,6 +1,6 @@
 import { Response } from './Response';
 
-export class SuccessResponse extends Response {
+export default class SuccessResponse extends Response {
   success: true;
   payload: any;
   newAccessToken?: string;

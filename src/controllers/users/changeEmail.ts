@@ -1,6 +1,6 @@
 import User from '../../database/models/User';
 import ServerError from '../../utilities/errors/ServerError';
-import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 
 const emailRegex =
   // eslint-disable-next-line no-useless-escape

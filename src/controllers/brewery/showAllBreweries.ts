@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import Brewery from '../../database/models/Brewery';
 import sort from '../../utilities/data/sorter';
 
-import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 
 const showAllBreweries = async (req: Request, res: Response, next: NextFunction) => {
   try {

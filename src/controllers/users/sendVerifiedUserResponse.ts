@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
-import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 
 const sendVerifiedUserResponse = async (req: Request, res: Response, next: NextFunction) => {
   const { currentUser } = req;
 
-  const payload = currentUser.populate({
+  const payload = await currentUser.populate({
     path: 'profile',
     populate: { path: 'displayImage', model: 'Image' },
   });

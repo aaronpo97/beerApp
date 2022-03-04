@@ -11,7 +11,7 @@ import {
   generateRefreshToken,
 } from '../../utilities/auth/generateTokens';
 
-import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 
 dotenv.config();
 

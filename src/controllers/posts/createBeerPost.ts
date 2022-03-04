@@ -4,7 +4,7 @@ import { Types } from 'mongoose';
 import BeerPost from '../../database/models/BeerPost';
 import Brewery from '../../database/models/Brewery';
 
-import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 import ServerError from '../../utilities/errors/ServerError';
 
 declare global {

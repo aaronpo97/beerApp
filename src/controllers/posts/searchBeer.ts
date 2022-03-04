@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import BeerPost from '../../database/models/BeerPost';
-import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 
 const search = async (query: string) => {
   const searchCriteria = new RegExp(query, 'ig');

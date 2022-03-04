@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import ServerError from '../../utilities/errors/ServerError';
 import Brewery from '../../database/models/Brewery';
 
-import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 
 const viewBrewery = async (req: Request, res: Response, next: NextFunction) => {
   try {

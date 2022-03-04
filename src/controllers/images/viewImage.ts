@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 
 import Image from '../../database/models/Image';
 import ServerError from '../../utilities/errors/ServerError';
-import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 
 const viewImage = async (req: Request, res: Response, next: NextFunction) => {
   try {

@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import Image from '../../database/models/Image';
 import ServerError from '../../utilities/errors/ServerError';
 import imageDeleter from '../../utilities/deletion/deleteImage';
-import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 
 const deleteImage = async (req: Request, res: Response, next: NextFunction) => {
   try {

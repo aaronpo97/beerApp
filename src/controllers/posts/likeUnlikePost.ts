@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { ObjectId } from 'mongoose';
 import BeerPost from '../../database/models/BeerPost';
-import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 
 const likeUnlikePost = async (req: Request, res: Response, next: NextFunction) => {
   try {

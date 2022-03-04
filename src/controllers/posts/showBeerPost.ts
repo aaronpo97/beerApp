@@ -1,5 +1,5 @@
 import ServerError from '../../utilities/errors/ServerError';
-import { SuccessResponse } from '../../utilities/response/SuccessResponse';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 import sort from '../../utilities/data/sorter';
 
 import BeerPost from '../../database/models/BeerPost';
