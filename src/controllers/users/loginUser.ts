@@ -16,7 +16,7 @@ declare global {
   }
 }
 
-const loginUser = async (req: Request, res: Response, next: NextFunction) => {
+const loginUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { username } = req.body;
     const user = await User.findOne({ username });

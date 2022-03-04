@@ -5,7 +5,7 @@ import { generatePasswordResetToken } from '../../utilities/auth/generateTokens'
 import SuccessResponse from '../../utilities/response/SuccessResponse';
 import { Request, Response, NextFunction } from 'express';
 
-const requestPasswordReset = async (req: Request, res: Response, next: NextFunction) => {
+const requestPasswordReset = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   // client will not be recieving any confirmation that an email was sent (for security reasons)
   try {
     const { username, email } = req.body;

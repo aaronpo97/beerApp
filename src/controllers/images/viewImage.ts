@@ -4,7 +4,7 @@ import Image from '../../database/models/Image';
 import ServerError from '../../utilities/errors/ServerError';
 import SuccessResponse from '../../utilities/response/SuccessResponse';
 
-const viewImage = async (req: Request, res: Response, next: NextFunction) => {
+const viewImage = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { id } = req.params;
     const image = await Image.findById(id);

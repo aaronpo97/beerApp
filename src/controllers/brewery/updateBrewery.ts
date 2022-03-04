@@ -4,7 +4,7 @@ import Brewery from '../../database/models/Brewery';
 import ServerError from '../../utilities/errors/ServerError';
 import SuccessResponse from '../../utilities/response/SuccessResponse';
 
-const updateBrewery = async (req: Request, res: Response, next: NextFunction) => {
+const updateBrewery = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { id } = req.params;
     const brewery = await Brewery.findById(id);

@@ -4,7 +4,7 @@ import SuccessResponse from '../../utilities/response/SuccessResponse';
 
 import { Request, Response, NextFunction } from 'express';
 
-const uploadImages = async (req: Request, res: Response, next: NextFunction) => {
+const uploadImages = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     if (!req.files.length) throw new ServerError('No files were given to the uploader.', 400);
 

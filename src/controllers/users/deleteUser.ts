@@ -1,13 +1,15 @@
-import ServerError from '../../utilities/errors/ServerError.js';
-import BeerPost from '../../database/models/BeerPost.js';
-import Image from '../../database/models/Image.js';
-import deletePost from '../../utilities/deletion/deletePost.js';
-import deleteImage from '../../utilities/deletion/deleteImage.js';
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
-import Comment from '../../database/models/Comment.js';
-import deleteComment from '../../utilities/deletion/deleteComment.js';
+import { Request, Response, NextFunction } from 'express';
 
-const deleteUser = async (req, res, next) => {
+import ServerError from '../../utilities/errors/ServerError';
+import BeerPost from '../../database/models/BeerPost';
+import Image from '../../database/models/Image';
+import deletePost from '../../utilities/deletion/deletePost';
+import deleteImage from '../../utilities/deletion/deleteImage';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
+import Comment from '../../database/models/Comment';
+import deleteComment from '../../utilities/deletion/deleteComment';
+
+const deleteUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     if (!req.currentUser) throw new ServerError('Cannot delete user.', 412);
 

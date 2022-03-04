@@ -1,6 +1,7 @@
 import User from '../../database/models/User';
 import ServerError from '../../utilities/errors/ServerError';
 import SuccessResponse from '../../utilities/response/SuccessResponse';
+import { Request, Response, NextFunction } from 'express';
 
 const emailRegex =
   // eslint-disable-next-line no-useless-escape
@@ -8,7 +9,7 @@ const emailRegex =
 
 const isValidEmail = (email) => emailRegex.test(email);
 
-const changeEmail = async (req, res, next) => {
+const changeEmail = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { id } = req.params;
     const { email } = req.body;

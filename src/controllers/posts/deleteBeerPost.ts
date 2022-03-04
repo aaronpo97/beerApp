@@ -4,7 +4,7 @@ import ServerError from '../../utilities/errors/ServerError';
 import deletePost from '../../utilities/deletion/deletePost';
 import SuccessResponse from '../../utilities/response/SuccessResponse';
 
-const deleteBeerPost = async (req: Request, res: Response, next: NextFunction) => {
+const deleteBeerPost = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { id } = req.params;
 

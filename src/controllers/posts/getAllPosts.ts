@@ -3,7 +3,7 @@ import BeerPost from '../../database/models/BeerPost';
 import sort from '../../utilities/data/sorter';
 import SuccessResponse from '../../utilities/response/SuccessResponse';
 
-const getAllPosts = async (req: Request, res: Response, next: NextFunction) => {
+const getAllPosts = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { query } = req;
     const allPosts = await BeerPost.find()

@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import Comment from '../../database/models/Comment.js';
 import SuccessResponse from '../../utilities/response/SuccessResponse.js';
 
-const editComment = async (req: Request, res: Response, next: NextFunction) => {
+const editComment = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { commentId } = req.params;
     const { body } = req.body;

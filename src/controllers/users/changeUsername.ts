@@ -1,7 +1,8 @@
-import User from '../../database/models/User.js';
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
+import { Request, Response, NextFunction } from 'express';
+import User from '../../database/models/User';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 
-const changeUsername = async (req, res, next) => {
+const changeUsername = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { currentUser } = req;
     const { username } = req.body;

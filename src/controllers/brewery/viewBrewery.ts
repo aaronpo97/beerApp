@@ -5,7 +5,7 @@ import Brewery from '../../database/models/Brewery';
 
 import SuccessResponse from '../../utilities/response/SuccessResponse';
 
-const viewBrewery = async (req: Request, res: Response, next: NextFunction) => {
+const viewBrewery = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { id } = req.params;
     const brewery = await Brewery.findById(id)

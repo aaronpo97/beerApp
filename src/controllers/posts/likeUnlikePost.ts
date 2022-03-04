@@ -3,7 +3,7 @@ import { ObjectId } from 'mongoose';
 import BeerPost from '../../database/models/BeerPost';
 import SuccessResponse from '../../utilities/response/SuccessResponse';
 
-const likeUnlikePost = async (req: Request, res: Response, next: NextFunction) => {
+const likeUnlikePost = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { id } = req.params;
     const beer = await BeerPost.findById(id);

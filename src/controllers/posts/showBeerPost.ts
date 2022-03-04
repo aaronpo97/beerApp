@@ -5,7 +5,7 @@ import sort from '../../utilities/data/sorter';
 import BeerPost from '../../database/models/BeerPost';
 import { Request, Response, NextFunction } from 'express';
 
-const showBeerPost = async (req: Request, res: Response, next: NextFunction) => {
+const showBeerPost = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const { id } = req.params;
 
   try {

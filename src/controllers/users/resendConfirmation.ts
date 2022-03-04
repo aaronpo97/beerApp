@@ -1,12 +1,13 @@
 import dotenv from 'dotenv';
 
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
-import sendConfirmationEmail from '../../utilities/nodemailer/sendConfirmationEmail.js';
-import { generateConfirmationToken } from '../../utilities/auth/generateTokens.js';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
+import sendConfirmationEmail from '../../utilities/nodemailer/sendConfirmationEmail';
+import { generateConfirmationToken } from '../../utilities/auth/generateTokens';
+import { Request, Response, NextFunction } from 'express';
 
 dotenv.config();
 
-const resendConfirmation = async (req, res, next) => {
+const resendConfirmation = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   // generating a new confirmation token for if the initial one expires
   try {
     const user = req.currentUser;
@@ -16,7 +17,7 @@ const resendConfirmation = async (req, res, next) => {
     const status = 200;
 
     await sendConfirmationEmail(user.email, user, confirmationToken);
-    next(new SuccessResponse(message, status));
+    next(new SuccessResponse(message, status, undefined, undefined));
   } catch (error) {
     next(error);
   }

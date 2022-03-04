@@ -4,7 +4,7 @@ import sort from '../../utilities/data/sorter';
 
 import SuccessResponse from '../../utilities/response/SuccessResponse';
 
-const showAllBreweries = async (req: Request, res: Response, next: NextFunction) => {
+const showAllBreweries = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const allBreweries = await Brewery.find()
       .populate('beers')

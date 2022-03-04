@@ -33,7 +33,7 @@ interface CreateProfileInfo {
   gender: 'Male' | 'Female' | 'Other' | null;
 }
 
-const registerUser = async (req: Request, res: Response, next: NextFunction) => {
+const registerUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const userToRegister: RegistrationInfo = req.body;
 

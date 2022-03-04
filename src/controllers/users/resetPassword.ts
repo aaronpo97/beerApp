@@ -8,7 +8,7 @@ import User from '../../database/models/User';
 import { Request, Response, NextFunction } from 'express';
 const { PASSWORD_RESET_SECRET } = process.env;
 
-const resetPassword = async (req: Request, res: Response, next: NextFunction) => {
+const resetPassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { newPassword } = req.body;
     if (!newPassword) {

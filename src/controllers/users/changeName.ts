@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import User from '../../database/models/User';
 import SuccessResponse from '../../utilities/response/SuccessResponse';
 
-const changeName = async (req: Request, res: Response, next: NextFunction) => {
+const changeName = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { currentUser } = req;
     const { firstName, lastName } = req.body;

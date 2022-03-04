@@ -23,7 +23,7 @@ interface PostCommentsInterface {
 const paginateComments = (array: PostCommentsInterface[], pageNum: number, pageSize: number) =>
   array.slice((pageNum - 1) * pageSize, pageNum * pageSize);
 
-const viewPostComments = async (req: Request, res: Response, next: NextFunction) => {
+const viewPostComments = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { id } = req.params;
     const { page = '1', size = '5', sortingDirection = 'descending', sortingParam = 'timestamp' } = req.query;

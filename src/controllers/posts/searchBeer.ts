@@ -15,7 +15,7 @@ const search = async (query: string) => {
   return searchResults;
 };
 
-const searchBeer = async (req: Request, res: Response, next: NextFunction) => {
+const searchBeer = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { query } = req;
 

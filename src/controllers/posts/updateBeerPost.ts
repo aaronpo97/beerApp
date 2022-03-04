@@ -21,7 +21,7 @@ interface BeerUpdatesInterface {
   abv?: number;
   ibu?: number;
 }
-const updateBeerPost = async (req: Request, res: Response, next: NextFunction) => {
+const updateBeerPost = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { post, body } = req;
     const beerUpdates: BeerUpdatesInterface = body;

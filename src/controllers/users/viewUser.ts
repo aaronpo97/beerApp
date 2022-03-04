@@ -1,8 +1,10 @@
-import ServerError from '../../utilities/errors/ServerError.js';
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
+import ServerError from '../../utilities/errors/ServerError';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
+import { Request, Response, NextFunction } from 'express';
 
-const viewUser = async (req, res, next) => {
+const viewUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    // @ts-expect-error
     const userToView = req.queriedUser;
     if (!userToView) {
       throw new ServerError('Cannot find a user with that id.', 401);

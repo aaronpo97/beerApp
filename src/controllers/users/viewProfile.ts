@@ -1,8 +1,10 @@
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
-import User from '../../database/models/User.js';
-import ServerError from '../../utilities/errors/ServerError.js';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
+import User from '../../database/models/User';
+import ServerError from '../../utilities/errors/ServerError';
 
-const viewProfile = async (req, res, next) => {
+import { Request, Response, NextFunction } from 'express';
+
+const viewProfile = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { id } = req.params;
 

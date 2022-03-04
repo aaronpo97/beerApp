@@ -26,7 +26,7 @@ interface CreateBeerInterface {
   type: string;
 }
 
-const createBeerPost = async (req: Request, res: Response, next: NextFunction) => {
+const createBeerPost = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { abv, description, ibu, images, name, type, brewery: breweryId }: CreateBeerInterface = req.body;
 

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import SuccessResponse from '../../utilities/response/SuccessResponse';
 
-const sendVerifiedUserResponse = async (req: Request, res: Response, next: NextFunction) => {
+const sendVerifiedUserResponse = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const { currentUser } = req;
 
   const payload = await currentUser.populate({

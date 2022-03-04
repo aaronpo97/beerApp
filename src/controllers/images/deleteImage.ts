@@ -5,7 +5,7 @@ import ServerError from '../../utilities/errors/ServerError';
 import imageDeleter from '../../utilities/deletion/deleteImage';
 import SuccessResponse from '../../utilities/response/SuccessResponse';
 
-const deleteImage = async (req: Request, res: Response, next: NextFunction) => {
+const deleteImage = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { id } = req.params;
     const imageToDelete = await Image.findById(id);

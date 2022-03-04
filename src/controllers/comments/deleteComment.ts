@@ -3,7 +3,7 @@ import deleteCommentUtil from '../../utilities/deletion/deleteComment';
 import { NextFunction, Request, Response } from 'express';
 import SuccessResponse from '../../utilities/response/SuccessResponse';
 
-const deleteComment = async (req: Request, res: Response, next: NextFunction) => {
+const deleteComment = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { commentId } = req.params;
     const commentToDelete = await Comment.findById(commentId);

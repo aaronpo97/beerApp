@@ -1,15 +1,15 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import { Request, Response, NextFunction } from 'express';
+import User from '../../database/models/User';
+import ServerError from '../../utilities/errors/ServerError';
 
-import User from '../../database/models/User.js';
-import ServerError from '../../utilities/errors/ServerError.js';
-
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 
 dotenv.config();
 const { CONFIRMATION_TOKEN_SECRET } = process.env;
 
-const confirmUser = async (req, res, next) => {
+const confirmUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { userID, token } = req.params;
 
@@ -20,9 +20,9 @@ const confirmUser = async (req, res, next) => {
     if (userToConfirm.isAccountConfirmed === true) {
       throw new ServerError('Account is already confirmed', 400);
     }
-
+    // @ts-expect-error
     const decodedUser = await User.findById(decoded.id);
-    // eslint-disable-next-line no-underscore-dangle
+
     if (decodedUser._id.toString() !== userToConfirm._id.toString()) {
       throw new ServerError('Invalid link', 400);
     }
@@ -39,7 +39,7 @@ const confirmUser = async (req, res, next) => {
         payload,
         req.didTokenRegenerate ? req.accessToken : undefined,
       ),
-    ).status(200);
+    );
   } catch (error) {
     if (error.name === 'CastError') {
       next(new ServerError('Invalid user id detected. Unable to authenticate user.', 400));

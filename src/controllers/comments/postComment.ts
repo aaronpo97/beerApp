@@ -5,7 +5,7 @@ import Comment from '../../database/models/Comment';
 
 import { Request, Response, NextFunction } from 'express';
 
-const postComment = async (req: Request, res: Response, next: NextFunction) => {
+const postComment = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { commentBody, commentRating } = req.body;
 
