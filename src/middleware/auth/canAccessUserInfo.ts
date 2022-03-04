@@ -1,7 +1,7 @@
-import ServerError from '../../utilities/errors/ServerError.js';
-import User from '../../database/models/User.js';
-
-const canAccessUserInfo = async (req, res, next) => {
+import ServerError from '../../utilities/errors/ServerError';
+import User from '../../database/models/User';
+import { Request, Response, NextFunction } from 'express';
+const canAccessUserInfo = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
     req.queriedUser = await User.findById({ _id: id });

@@ -3,6 +3,8 @@ import ejs from 'ejs';
 import process from 'process';
 
 import dotenv from 'dotenv';
+import User, { UserInterface } from '../../database/models/User';
+import { Document } from 'mongoose';
 
 dotenv.config();
 const {
@@ -14,9 +16,14 @@ const {
   BASE_URL,
 } = process.env;
 
-const sendPasswordResetEmail = async (email, userObj, passwordResetToken) => {
+const sendPasswordResetEmail = async (
+  email: string,
+  userObj: UserInterface & Document<any, any, UserInterface>,
+  passwordResetToken: string,
+) => {
   try {
     const transporter = nodemailer.createTransport({
+      // @ts-expect-error
       service: 'gmail',
       auth: { user, pass, clientId, clientSecret, refreshToken, type: 'OAuth2' },
     });

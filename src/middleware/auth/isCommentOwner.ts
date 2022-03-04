@@ -1,5 +1,5 @@
-import Comment from '../../database/models/Comment.js';
-import ServerError from '../../utilities/errors/ServerError.js';
+import Comment from '../../database/models/Comment';
+import ServerError from '../../utilities/errors/ServerError';
 
 const isCommentOwner = async (req, res, next) => {
   try {

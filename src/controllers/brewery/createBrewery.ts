@@ -9,7 +9,12 @@ import Brewery from '../../database/models/Brewery';
 
 const createBrewery = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const { name, description, address, images = [] } = req.body;
+    const {
+      name,
+      description,
+      address,
+      images = [],
+    }: { name: string; description: string; address: string; images: any[] } = req.body;
 
     if (!(name && description && address)) {
       throw new ServerError('Name, description and address must be provided.', 401);

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import Comment from '../../database/models/Comment.js';
-import SuccessResponse from '../../utilities/response/SuccessResponse.js';
+import Comment from '../../database/models/Comment';
+import SuccessResponse from '../../utilities/response/SuccessResponse';
 
 const editComment = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {

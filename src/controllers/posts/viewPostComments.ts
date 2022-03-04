@@ -37,7 +37,7 @@ const viewPostComments = async (req: Request, res: Response, next: NextFunction)
       sortingParam as string,
     );
     const paginatedComments = paginateComments(
-      sortedComments,
+      sortedComments as any[],
       parseInt(page as string),
       parseInt(size as string),
     );

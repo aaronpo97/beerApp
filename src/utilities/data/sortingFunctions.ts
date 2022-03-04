@@ -1,5 +1,7 @@
 /* eslint-disable no-else-return */
-export const ascendingSort = (arr, param) =>
+type arrT = any[];
+type paramT = string;
+export const ascendingSort = (arr: arrT, param: paramT): arrT =>
   arr.sort((a, b) => {
     if (a[param] < b[param]) {
       return -1;
@@ -10,7 +12,7 @@ export const ascendingSort = (arr, param) =>
     }
   });
 
-export const descendingSort = (arr, param) =>
+export const descendingSort = (arr: arrT, param: paramT): arrT =>
   arr.sort((a, b) => {
     if (a[param] < b[param]) {
       return 1;

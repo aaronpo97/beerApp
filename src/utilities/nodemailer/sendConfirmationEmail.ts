@@ -17,6 +17,7 @@ const {
 const sendEmail = async (email, userObj, confirmationToken) => {
   try {
     const transporter = nodemailer.createTransport({
+      //@ts-expect-error
       service: 'gmail',
       auth: { user, pass, clientId, clientSecret, refreshToken, type: 'OAuth2' },
     });

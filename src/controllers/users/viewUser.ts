@@ -4,7 +4,6 @@ import { Request, Response, NextFunction } from 'express';
 
 const viewUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // @ts-expect-error
     const userToView = req.queriedUser;
     if (!userToView) {
       throw new ServerError('Cannot find a user with that id.', 401);

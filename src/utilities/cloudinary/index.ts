@@ -14,6 +14,7 @@ const {
 
 cloudinary.config({ cloud_name, api_key, api_secret });
 
+// @ts-expect-error
 const storage = new CloudinaryStorage({ cloudinary, params: { folder: 'BeerApp' } });
 
 const config = { cloudinary, storage };

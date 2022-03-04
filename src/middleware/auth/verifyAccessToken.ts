@@ -13,6 +13,7 @@ declare global {
   namespace Express {
     interface Request {
       currentUser: UserInterface & Document<any, any, UserInterface>;
+      queriedUser: UserInterface & Document<any, any, UserInterface>;
     }
   }
 }

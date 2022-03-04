@@ -7,9 +7,9 @@ import passport from 'passport';
 import PassportLocal from 'passport-local';
 
 import ServerError from './utilities/errors/ServerError';
-
 import SuccessResponse from './utilities/response/SuccessResponse';
 import ErrorResponse from './utilities/response/ErrorResponse';
+
 import connectDB from './database/connectDB';
 import User from './database/models/User';
 
