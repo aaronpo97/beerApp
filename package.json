@@ -40,12 +40,12 @@
     "@typescript-eslint/parser": "^5.13.0",
     "eslint": "^8.10.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^8.4.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.25.4",
     "ts-node": "^10.6.0"
   },
   "scripts": {
-    "test": "node build/index.js",
     "start": "node build/index.js",
     "dev": "nodemon src/index.ts",
     "postinstall": "tsc",

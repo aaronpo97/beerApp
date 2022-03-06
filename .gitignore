@@ -4,6 +4,6 @@ node_modules
 beerAndBreweryData.json
 userData.json
 build
-.eslintrc.cjs
+.eslintrc.json
 .env
 .eslintignore

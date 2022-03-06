@@ -9,7 +9,6 @@ const canAccessUserInfo = async (req: Request, res: Response, next: NextFunction
       throw new ServerError('Unable to locate a user with that id.', 404);
     }
 
-    // eslint-disable-next-line no-underscore-dangle
     if (req.currentUser._id.toString() !== req.queriedUser._id.toString()) {
       throw new ServerError('You are not permitted to do that.', 403);
     }
