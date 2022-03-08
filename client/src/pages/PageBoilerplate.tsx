@@ -15,18 +15,14 @@ import {
 } from '@mui/material';
 
 import { AuthContext } from '../util/AuthContext';
+import checkCredentials from '../api/checkCredentials';
 
-const PageHeader = () => {
+const PageBoilerplate = (): JSX.Element => {
+  const [currentUser, dispatch] = useContext(AuthContext);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-  const [currentUser, dispatch] = useContext(AuthContext);
+  const handleOpenUserMenu = (event): void => setAnchorElUser(event.currentTarget);
+  const handleCloseUserMenu = (): void => setAnchorElUser(null);
 
   const pagesLoggedIn = [
     { name: 'beers', link: '/beers' },
@@ -39,11 +35,17 @@ const PageHeader = () => {
     { name: 'breweries', link: '/breweries' },
   ];
   const settings = [
-    { name: 'Profile', action: () => navigate(`/profile/${currentUser?._id}`) },
-    { name: 'Account Settings', action: () => navigate(`/account-settings`) },
+    {
+      name: 'Profile',
+      action: (): void => navigate(`/profile/${currentUser?._id}`),
+    },
+    {
+      name: 'Account Settings',
+      action: (): void => navigate(`/account-settings`),
+    },
     {
       name: 'Logout',
-      action: () => {
+      action: (): void => {
         localStorage.clear();
         dispatch({ type: 'UPDATE_CURRENT_USER', payload: {} });
         navigate('/login');
@@ -54,25 +56,8 @@ const PageHeader = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const checkCredentials = async () => {
-      if (!(localStorage['access-token'] && localStorage['refresh-token'])) return;
-      const requestOptions = {
-        method: 'GET',
-        headers: {
-          'x-access-token': localStorage['access-token'],
-          'x-auth-token': localStorage['refresh-token'],
-        },
-      };
-      const response = await fetch('/api/users/verifytoken', requestOptions);
-      const data = await response.json();
-      if (response.status !== 200) {
-        dispatch({ type: 'UPDATE_CURRENT_USER', payload: {} });
-      }
-
-      dispatch({ type: 'UPDATE_CURRENT_USER', payload: data.payload });
-    };
-    checkCredentials();
-  }, [dispatch, navigate]);
+    checkCredentials(dispatch);
+  }, [dispatch]);
 
   return (
     <>
@@ -166,4 +151,4 @@ const PageHeader = () => {
   );
 };
 
-export default PageHeader;
+export default PageBoilerplate;

@@ -2,12 +2,35 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { FormControl, TextField, Grid, MenuItem, Button, Box } from '@mui/material';
-import FormErrorAlert from '../utilities/FormErrorAlert';
-import FileDropzone from '../utilities/FileDropzone';
+import FormErrorAlert from '../../utilities/FormErrorAlert';
+import FileDropzone from '../../utilities/FileDropzone';
 import InputAdornment from '@mui/material/InputAdornment';
-const CreateBeerForm = ({ setIsNewBeerLoading }) => {
+const CreateBeerForm = ({
+  setIsNewBeerLoading,
+}: {
+  setIsNewBeerLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const navigate = useNavigate();
-  const [formValues, setFormValues] = useState({
+
+  type FormValuesI = {
+    name: string;
+    type: string;
+    description: string;
+    abv: string;
+    ibu: string;
+    brewery: string;
+  };
+
+  type FormErrorsI = {
+    name?: string;
+    type?: string;
+    abv?: string;
+    ibu?: string;
+    description?: string;
+    brewery?: string;
+  };
+
+  const [formValues, setFormValues] = useState<FormValuesI>({
     name: '',
     type: '',
     description: '',
@@ -15,7 +38,7 @@ const CreateBeerForm = ({ setIsNewBeerLoading }) => {
     ibu: '',
     brewery: '',
   });
-  const [formErrors, setFormErrors] = useState({});
+  const [formErrors, setFormErrors] = useState<FormErrorsI>({});
 
   const [images, setImages] = useState([]);
 
@@ -23,7 +46,7 @@ const CreateBeerForm = ({ setIsNewBeerLoading }) => {
   const [breweryList, setBreweryList] = useState([]);
 
   const validateData = async () => {
-    const errors = {};
+    const errors: FormErrorsI = {};
     if (!formValues.name) {
       errors.name = 'Beer name is required.';
     }
@@ -113,6 +136,8 @@ const CreateBeerForm = ({ setIsNewBeerLoading }) => {
       const response = await fetch(url, requestOptions);
       const data = await response.json();
       setBreweryList(data.payload || []);
+
+      // @ts-expect-error
       localStorage['access-token'] = response.newAccessToken || localStorage['access-token'];
       if (response.status === 401) {
         localStorage.clear();
@@ -131,6 +156,7 @@ const CreateBeerForm = ({ setIsNewBeerLoading }) => {
 
   return (
     <Box component='form' onSubmit={onFormSubmit}>
+      {/* @ts-expect-error */}
       <FormControl fullWidth variant='outlined' noValidate>
         <TextField
           required
@@ -141,7 +167,7 @@ const CreateBeerForm = ({ setIsNewBeerLoading }) => {
           autoComplete='Beer name'
           autoFocus
           sx={{ mb: 0 }}
-          error={formErrors.name}
+          error={!!formErrors.name}
           onChange={handleFormInputChange}
           margin='normal'
           fullWidth
@@ -158,7 +184,7 @@ const CreateBeerForm = ({ setIsNewBeerLoading }) => {
               autoComplete='Beer type'
               autoFocus
               sx={{ mb: 0 }}
-              error={formErrors.type}
+              error={!!formErrors.type}
               onChange={handleFormInputChange}
               margin='normal'
               fullWidth
@@ -172,7 +198,7 @@ const CreateBeerForm = ({ setIsNewBeerLoading }) => {
               id='outlined-adornment-abv'
               label='ABV'
               name='abv'
-              error={formErrors.abv}
+              error={!!formErrors.abv}
               onChange={handleFormInputChange}
               margin='normal'
               required
@@ -191,7 +217,7 @@ const CreateBeerForm = ({ setIsNewBeerLoading }) => {
               required
               label='IBU'
               name='ibu'
-              error={formErrors.ibu}
+              error={!!formErrors.ibu}
               onChange={handleFormInputChange}
               margin='normal'
               fullWidth
@@ -209,7 +235,7 @@ const CreateBeerForm = ({ setIsNewBeerLoading }) => {
           id='outlined-adornment-abv'
           label='Description'
           name='description'
-          error={formErrors.description}
+          error={!!formErrors.description}
           onChange={handleFormInputChange}
           sx={{ mb: 0 }}
           margin='normal'
@@ -239,7 +265,7 @@ const CreateBeerForm = ({ setIsNewBeerLoading }) => {
 
         {formErrors.brewery && <FormErrorAlert error={formErrors.brewery} />}
 
-        <FileDropzone images={images} setImages={setImages} setIsNewBeerLoading={setIsNewBeerLoading} />
+        <FileDropzone images={images} setImages={setImages} />
         <Button type='submit' fullWidth sx={{ mt: 3, mb: 2 }} variant='contained'>
           Post a beer!
         </Button>

@@ -8,11 +8,10 @@ import AddIcon from '@mui/icons-material/Add';
 import { AuthContext } from '../../util/AuthContext';
 import BeerList from '../../components/beer_components/BeerList';
 
-const Beers = () => {
+const Beers = (): JSX.Element => {
   const navigate = useNavigate();
 
   const [currentUser] = useContext(AuthContext);
-
   return (
     <Box>
       <Container sx={{ mt: 8 }} maxWidth={'lg'}>

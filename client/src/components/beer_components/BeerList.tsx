@@ -4,7 +4,7 @@ import { Masonry } from '@mui/lab';
 
 import BeerCard from './BeerCard';
 import { AuthContext } from '../../util/AuthContext';
-
+import getBeerData from '../../api/getBeerData';
 const BeerList = () => {
   const [, dispatch] = useContext(AuthContext);
 
@@ -12,28 +12,8 @@ const BeerList = () => {
 
   useEffect(() => {
     (async () => {
-      const requestOptions = {
-        method: 'GET',
-        headers: {
-          'x-access-token': localStorage['access-token'],
-          'x-auth-token': localStorage['refresh-token'],
-        },
-      };
-      const url = `/api/beers`;
-      const response = await fetch(url, requestOptions);
-
-      if (response.status === 401) {
-        dispatch({ type: 'UPDATE_CURRENT_USER', payload: {} });
-        localStorage.clear();
-      }
-
-      const result = await response.json();
-
-      if (!result.payload) return;
-
-      localStorage['access-token'] = result.payload.newAccessToken || localStorage['access-token'];
-
-      setBeers(result.payload || []);
+      const beerData = await getBeerData(dispatch);
+      setBeers(beerData);
     })();
   }, [dispatch]);
 

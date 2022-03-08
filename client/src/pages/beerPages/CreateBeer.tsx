@@ -4,12 +4,12 @@ import { Container, Box, Typography, LinearProgress, Tooltip, IconButton } from 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 
-import CreateBeerForm from '../../components/beer_components/CreateBeerForm';
+import CreateBeerForm from '../../components/beer_components/CreateBeerForm/CreateBeerForm';
 
 const CreateBeer = () => {
   const navigate = useNavigate();
 
-  const [isNewBeerLoading, setIsNewBeerLoading] = useState(false);
+  const [isNewBeerLoading, setIsNewBeerLoading] = useState<boolean>(false);
   return (
     <Box>
       <Container
